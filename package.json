@@ -2,6 +2,7 @@
   "name": "frontend-monorepo-boilerplate",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "npm@latest",
   "workspaces": [
     "apps/*",
     "packages/*"
