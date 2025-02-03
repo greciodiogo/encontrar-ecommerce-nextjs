@@ -2,7 +2,6 @@
   "name": "frontend-monorepo-boilerplate",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "npm@latest",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -68,8 +67,7 @@
     "turbo": "1.13.0",
     "typescript": "5.4.3"
   },
-  
-  "packageManager": "npm@10",
+  "packageManager": "npm@10.2.0",
   "engines": {
     "node": ">=20.11.1",
     "npm": ">=10.2.4"
