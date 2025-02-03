@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 // 1. Specify protected and public routes
-const protectedRoutes = ['/dashboard', '/users'];
+const protectedRoutes = ['/dashboard', '/users', '/'];
 const publicRoutes = ['/auth', '/'];
 
 const middleware = (req: NextRequest) => {
@@ -16,18 +16,18 @@ const middleware = (req: NextRequest) => {
   const session = cookieStore.get('accessToken');
 
   // 4. Redirect to /login if the user is not authenticated
-  if (isProtectedRoute && !session?.value) {
-    return NextResponse.redirect(new URL('/auth', req.nextUrl));
-  }
+  // if (isProtectedRoute && !session?.value) {
+  //   return NextResponse.redirect(new URL('/auth', req.nextUrl));
+  // }
 
-  if (req.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
-  }
+  // if (req.nextUrl.pathname === '/') {
+  //   return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+  // }
 
   // 5. Redirect to /dashboard if the user is authenticated
-  if (isPublicRoute && session?.value && !req.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
-  }
+  // if (isPublicRoute && session?.value && !req.nextUrl.pathname.startsWith('/dashboard')) {
+  //   return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+  // }
 
   return NextResponse.next();
 };
