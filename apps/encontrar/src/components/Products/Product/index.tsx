@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductProps } from '../../../types';
+import { ProductProps } from 'types/product';
 
 const Product: React.FC<ProductProps> = ({ product, handlepreviewProduct }) => {
   const { picture, name } = product;
