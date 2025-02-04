@@ -8,19 +8,32 @@ export type ProductDetailProps = {
 
 export type ProductDTO = {
   name?: string;
+  image?: string;
+  about?: string;
   availability?: string;
   category?: string;
   price?: number;
   brand?: string;
-  id?: string;
+  id: number;
   banner?: string;
   picture?: string;
 };
 
+export type ProductTypeProps = {
+  product: ProductDTO;
+  handlepreviewProduct: (id: number) => void;
+};
+
 export type CartProps = {
-  cart: ProductProps[];
+  cart: Array<ProductProps>;
   qtd: number;
   totalItems: number;
   total: number;
   subtotal: number;
+};
+
+export type RootState = {
+  products: {
+    currentItem: ProductDTO;
+  };
 };

@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import React from 'react';
 
 import {
@@ -11,6 +11,8 @@ import {
   Reviews,
   WhyUs,
 } from 'components';
+import { bestSelledProduct, products } from 'fixture/ecommerceData';
+import { ProductDTO } from 'types/product';
 
 type Data = {
   title: string;
@@ -19,16 +21,17 @@ type Data = {
 
 type PropsType = {
   banner?: Array<Data>;
+  products: Array<ProductDTO>;
 };
 
-const Homepage: NextPage<PropsType> = () => {
+const Homepage: NextPage<PropsType> = (props) => {
   return (
     <div>
       <Categories />
       <Framer />
       <Products />
       <WhyUs />
-      <BestSelledProducts />
+      <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} />
       <CheapestProducts />
       <BrandNew />
       <Reviews />
@@ -37,3 +40,12 @@ const Homepage: NextPage<PropsType> = () => {
 };
 
 export default Homepage;
+
+export const getStaticProps: GetStaticProps = () => {
+  return {
+    props: {
+      products: products,
+      bestSelledProduct: bestSelledProduct,
+    },
+  };
+};

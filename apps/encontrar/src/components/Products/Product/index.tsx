@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProductProps } from 'types/product';
 
 const Product: React.FC<ProductProps> = ({ product, handlepreviewProduct }) => {
@@ -7,7 +8,7 @@ const Product: React.FC<ProductProps> = ({ product, handlepreviewProduct }) => {
   return (
     <div className="product">
       <div className="product_picture">
-        <img src={`${url}/${picture}`} alt={picture} />
+        <img src={`${url}/${picture ?? 'placeholder.jpg'}`} alt={name} />
       </div>
       <div className="product_content">
         <p className="product_content_name">{name}</p>
