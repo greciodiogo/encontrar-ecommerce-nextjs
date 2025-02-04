@@ -8,7 +8,7 @@ import { createEmotionCache } from 'utils-mui';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
-import { Footer, Header } from 'components';
+import { Banner, Footer, Header } from 'components';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -26,6 +26,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     ((page) => (
       <>
         <CacheProvider value={clientSideEmotionCache}>
+          <Banner />
           <Header />
           {page}
           <Footer />

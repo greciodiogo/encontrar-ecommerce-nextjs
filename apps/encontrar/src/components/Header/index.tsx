@@ -9,7 +9,7 @@ export const Header = () => {
   };
 
   const redirectHome = () => {
-    router.push('/home');
+    router.push('/');
   };
 
   return (
