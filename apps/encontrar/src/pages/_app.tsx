@@ -2,13 +2,13 @@ import { CacheProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactElement, ReactNode } from 'react';
-import { Version } from 'ui-mui';
 import { createEmotionCache } from 'utils-mui';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
+import { Footer, Header } from 'components';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -25,22 +25,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     Component.getLayout ??
     ((page) => (
       <>
-        <div className="wrapper">
-          <CacheProvider value={clientSideEmotionCache}>
-            <Version version="2.11.4" />
-            <div className="content-wrapper">
-              <section className="content">
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-12">
-                      {page}
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </CacheProvider>
-        </div>
+        <CacheProvider value={clientSideEmotionCache}>
+          <Header />
+          {page}
+          <Footer />
+        </CacheProvider>
       </>
     ));
 
@@ -53,7 +42,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {getLayout(
+        <>
+          {/* <Header /> */}
           <Component {...pageProps} />
+          {/* <Footer /> */}
+        </>,
       )}
     </>
   );
