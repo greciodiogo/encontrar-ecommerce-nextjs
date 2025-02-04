@@ -125,7 +125,7 @@ jobs:
           production-deploy: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STAGE_FRONTENDCORE }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STAGE_ENCONTRAR }}
 
   deploy-website-prod:
     name: Deploy Website - Production 🚀
@@ -149,4 +149,4 @@ jobs:
           production-deploy: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_PROD_FRONTENDCORE }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_PROD_ENCONTRAR }}
