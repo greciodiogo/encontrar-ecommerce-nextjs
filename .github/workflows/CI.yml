@@ -1,0 +1,152 @@
+name: CI
+
+on: push
+
+env:
+  # Use Turborepo remote caching
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+  FILE_PATH_VERSION_INFO: ./packages/utils-version/src/VersionInfo.ts
+
+  FILE_PATH_ENCONTRAR_BUILD: ./apps/encontrar/build
+
+  CACHE_PATHS_BUILD: |
+    ./apps/encontrar/build
+  CACHE_KEY_BUILD: build-${{ github.sha }}-${{ github.ref_type }}
+
+jobs:
+  build:
+    name: Build 🏗️
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
+        uses: ./.github/workflows/actions/setup_node-cache_dep-install_dep
+
+      - name: Version Info 💉
+        run: |
+          COMMIT=$GITHUB_SHA
+          BRANCH=${GITHUB_REF#refs/heads/}
+          TAG=''
+          if [[ ${{ github.ref_type }} == 'tag' ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+          fi
+          echo "write tag, branch & commit id to $FILE_PATH_VERSION_INFO"
+          echo "export const VersionInfo = { tag: '$TAG', branch: '$BRANCH', commit: '$COMMIT' };" > $FILE_PATH_VERSION_INFO
+          cat $FILE_PATH_VERSION_INFO
+
+      - name: Build 🏗️
+        run: |
+          npm run build
+
+      - name: Cache build ⚡
+        id: cache_build
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CACHE_PATHS_BUILD }}
+          key: ${{ env.CACHE_KEY_BUILD }}
+
+  lint:
+    name: Lint ✅
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
+        uses: ./.github/workflows/actions/setup_node-cache_dep-install_dep
+
+      - name: Lint ✅
+        run: npm run lint
+
+  tsc:
+    name: TypeScript Compiler 🔎
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
+        uses: ./.github/workflows/actions/setup_node-cache_dep-install_dep
+
+      - name: TypeScript Compiler 🔎
+        run: npm run tsc
+
+  test:
+    name: Test 🧪
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
+        uses: ./.github/workflows/actions/setup_node-cache_dep-install_dep
+
+      - name: Test 🧪
+        run: npm run test
+
+  ###################################################################
+  # Deployments
+  ###################################################################
+
+  ##############
+  # Website
+  ##############
+
+  deploy-website-stage:
+    name: Deploy Website - Stage 🚀
+    needs: [build, lint, tsc, test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    environment:
+      name: Website - Stage
+      url: https://turbo-website-stage.netlify.app
+
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.CACHE_PATHS_BUILD }}
+          key: ${{ env.CACHE_KEY_BUILD }}
+
+      - uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ${{ env.FILE_PATH_ENCONTRAR_BUILD }}
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STAGE_FRONTENDCORE }}
+
+  deploy-website-prod:
+    name: Deploy Website - Production 🚀
+    needs: [build, lint, tsc, test]
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+
+    environment:
+      name: Website - Prod
+      url: https://turbo-Website-prod.netlify.app/
+
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.CACHE_PATHS_BUILD }}
+          key: ${{ env.CACHE_KEY_BUILD }}
+
+      - uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ${{ env.FILE_PATH_ENCONTRAR_BUILD }}
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_PROD_FRONTENDCORE }}
