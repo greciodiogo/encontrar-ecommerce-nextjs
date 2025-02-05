@@ -1,7 +1,13 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 export const EmptyCart = () => {
+  const router = useRouter();
   const url = 'assets_ecommerce/svg';
+
+  const handleStartBuying = () => {
+    void router.push('/');
+  };
   return (
     <div className="emptyCart">
       <div className="emptyCart__container">
@@ -13,7 +19,7 @@ export const EmptyCart = () => {
             </i>
           </h2>
           <span>Clique no botão abaixo e continue explorando</span>
-          <button>
+          <button onClick={handleStartBuying}>
             Explorar Produtos
             <i>
               <img src={`${url}/ArrowRight.png`} alt="ArrowRight" />
