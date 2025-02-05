@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ChangeQuantity } from 'shared/ChangeQuantity';
 import { SubmitButton } from 'shared/SubmitButton';
 import { ProductDetailProps } from 'types/product';
@@ -10,7 +11,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
   return (
     <div className="wrapper">
       <div className="star_container">
-        {[1, 2, 3, 4].map((_, index) => (
+        {[1, 2, 3, 4].map((__, index) => (
           <i key={index}>
             <img src={`${url}/svg/star.png`} alt="star" />
           </i>

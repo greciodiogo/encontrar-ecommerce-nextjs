@@ -27,7 +27,7 @@ export const CheapestProducts = () => {
                     </div>
                     <a>{name}</a>
                     <div className="star_container">
-                      {[1, 2, 3, 4].map((_, index) => (
+                      {[1, 2, 3, 4].map((__, index) => (
                         <i key={index}>
                           <img src={`${url}/svg/star.png`} alt="star" />
                         </i>
