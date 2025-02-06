@@ -1,23 +1,28 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { RootState } from 'types/product';
 
 export const Header = () => {
+  const productos = useSelector((state: RootState) => state.products.cart);
+
   const router = useRouter();
 
   const handleCartClick = () => {
-    router.push('/cart');
+    void router.push('/cart');
   };
 
   const redirectHome = () => {
-    router.push('/');
+    void router.push('/');
   };
 
   return (
     <div className="header">
       <div className="header_container">
-        <a className="logo_container" onClick={redirectHome}>
+        <button className="logo_container" onClick={redirectHome}>
           <img src="/assets_ecommerce/logo.png" alt="" />
-        </a>
+        </button>
         <div className="search_container">
           <input type="text" placeholder="Procure por ótimos equipamentos e comidas" />
           <i>
@@ -39,9 +44,10 @@ export const Header = () => {
             </i>
             <span>Sign in</span>
           </a>
-          <a className="nav-item header-cart" onClick={handleCartClick}>
+          <a className="nav-item header-cart" href="#" role="button" tabIndex={0} onClick={handleCartClick}>
             <i>
               <img src="/assets_ecommerce/svg/cart.png" alt="" />
+              <span>{productos.length !== 0 && productos.length}</span>
             </i>
             <span>Carrinho</span>
           </a>

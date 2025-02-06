@@ -8,6 +8,7 @@ export * from './Framer';
 export * from './Footer';
 export * from './Header';
 export * from './PreviewProduct';
+export * from './ProductsPage';
 export * from './Products';
 export * from './Reviews';
 export * from './ShowProduct';
