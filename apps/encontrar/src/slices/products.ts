@@ -1,39 +1,64 @@
 import { AddToCart, AdjustQty, GetAllProducts, LoadCurrentItem, RemoveFromCart } from 'constants/products';
 import { products } from 'fixture/ecommerceData';
+import { ProductDTO } from 'types/product';
 
-const INITIALSTATE = {
+// Definição do estado inicial
+type ProductState = {
+  products: Array<ProductDTO>;
+  cart: Array<ProductDTO>;
+  currentItem: ProductDTO | null;
+};
+
+// Definição do tipo de ação
+type Action<T> = {
+  type: string;
+  payload?: T;
+};
+
+const INITIALSTATE: ProductState = {
   products: products,
-
   cart: [],
-
   currentItem: {},
 };
 
-function ProductsReducer(state: any = INITIALSTATE, action: any) {
+type GetAllProductsAction = {
+  type: typeof GetAllProducts;
+} & Action<{ products: Array<ProductDTO> }>;
+
+export type AddToCartAction = {
+  type: typeof AddToCart;
+  payload: {
+    id: number;
+    qty: number;
+  };
+};
+
+type ProductAction = GetAllProductsAction | AddToCartAction;
+
+function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductAction): ProductState {
   switch (action.type) {
     case GetAllProducts: {
       return {
         ...state,
 
-        products: action.payload.products,
+        products: action.payload?.products ?? [],
       };
     }
 
     case AddToCart: {
       // Cat the items data from the products array
 
-      const item = state.products.find((prod: { id: number }) => prod.id === action.payload.id);
+      const item = state.products.find((prod) => prod.id === action.payload.id);
 
       // check if the item is already in the cart
 
-      const inCart = state.cart.find((item: { id: number }) => item.id === action.payload.id);
+      const inCart = state.cart.find((item) => item.id === action.payload.id);
 
       return {
         ...state,
-
         cart: inCart
-          ? state.cart.map((item: { id: number; qty: number }) =>
-              item.id === action.payload.id ? { ...item, qty: item.qty + 1 } : item,
+          ? state.cart.map((cartItem) =>
+              cartItem.id === action.payload.id ? { ...cartItem, qty: cartItem.qty + 1 } : cartItem,
             )
           : [...state.cart, { ...item, qty: 1 }],
       };
@@ -69,4 +94,5 @@ function ProductsReducer(state: any = INITIALSTATE, action: any) {
   }
 }
 
+// eslint-disable-next-line import/no-default-export
 export default ProductsReducer;

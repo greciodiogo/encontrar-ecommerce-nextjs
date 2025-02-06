@@ -6,7 +6,7 @@ export const Product = ({ product, handlepreviewProduct }: ProductTypeProps) => 
   const { id, image, name, price } = product;
   const url = 'assets_ecommerce';
   return (
-    <button className="category-item bestselled" onClick={() => handlepreviewProduct(id)}>
+    <button className="category-item bs bestselled" onClick={() => handlepreviewProduct(id)}>
       <div className="category_picture bestselled">
         <img src={`${url}/categories/${image ?? 'macbook.png'}`} alt={name} />
       </div>
