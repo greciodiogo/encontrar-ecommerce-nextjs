@@ -1,0 +1,168 @@
+.auth {
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.auth.active {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.auth .container {
+  width: 400px;
+  opacity: 1;
+  position: relative;
+  border-radius: 6px;
+  background-color: white;
+  transition: all 250ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth .container .top {
+  height: 45px;
+  width: 100%;
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.auth .container .top .btnClose {
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.auth .container .main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  padding: 15px 20px;
+  position: relative;
+}
+
+.auth .container .main .subtitle {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.auth .container .field {
+  display: flex;
+  border-radius: 4px;
+  border: 1px solid #909090;
+  background-color: transparent;
+  width: 100%;
+  gap: 10px;
+  padding: 8px 16px;
+}
+
+.auth .container .main .divisor {
+  position: relative;
+  font-size: 11px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.auth .container .main .divisor::before,
+.auth .container .main .divisor:after {
+  position: absolute;
+  content: '';
+  width: 47%;
+  left: 0;
+  top: 50%;
+  height: 0.5px;
+  background: #ccc;
+  opacity: 0.6;
+}
+
+.auth .container .main .divisor::after {
+  left: auto;
+  right: 0;
+}
+
+.auth .container .group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: flex-start;
+  gap: 5px;
+}
+
+.auth .container .labelForCheck {
+  font-size: 12px;
+}
+
+.auth .container a {
+  font-size: 12px;
+  align-self: flex-start;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.auth .container .authForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth .container .authForm input {
+  height: 44px;
+}
+
+.auth .container .btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #000000;
+  border: 1px solid var(--primary);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.auth .container .btn.outlinedBtn {
+  border: 1px solid #909090;
+  opacity: 0.8;
+  color: black;
+  background-color: white;
+}
+
+.auth .container .btn.colourid {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.auth .container .btn.filled {
+  border-radius: 0;
+  color: white;
+  border: 2px solid #22226e;
+  background-color: #22226e;
+}
+
+.auth .container .btn:hover {
+  opacity: 0.8;
+}

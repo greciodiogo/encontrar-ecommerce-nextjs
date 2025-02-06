@@ -14,7 +14,7 @@ export type ProductDTO = {
   category?: string;
   price?: number;
   brand?: string;
-  id: number;
+  id?: number;
   banner?: string;
   picture?: string;
 };
@@ -32,8 +32,16 @@ export type CartProps = {
   subtotal: number;
 };
 
+// export type RootState = {
+//   products: {
+//     currentItem: ProductDTO | null;
+//   };
+// };
+
+export type ProductsState = {
+  cart: Array<ProductDTO>;
+};
+
 export type RootState = {
-  products: {
-    currentItem: ProductDTO;
-  };
+  products: ProductsState;
 };
