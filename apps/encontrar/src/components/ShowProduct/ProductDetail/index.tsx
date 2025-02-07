@@ -1,13 +1,21 @@
 import React from 'react';
 
+import { adjustQty } from 'actions/products';
 import { ChangeQuantity } from 'shared/ChangeQuantity';
 import { SubmitButton } from 'shared/SubmitButton';
 import { ProductDetailProps } from 'types/product';
 
+import { useAppDispatch } from '../../../hooks';
+
 export const ProductDetail = (props: ProductDetailProps) => {
   const url = 'assets_ecommerce';
-  const { name, availability, category, price, brand, id } = props.product;
+  const { name, availability, category, price, brand, id = 0, qty } = props.product;
+  const dispatch = useAppDispatch();
 
+  const handleAdjustQtyCart = (id: number, value: number) => {
+    if (value < 1) return; // Evita valores negativos ou zero
+    dispatch(adjustQty(id, value));
+  };
   return (
     <div className="wrapper">
       <div className="star_container">
@@ -39,7 +47,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">
-          <ChangeQuantity />
+          <ChangeQuantity id={id} qty={qty ?? 0} onAdjustQty={handleAdjustQtyCart} />
           <SubmitButton title="Adicionar ao Carrinho" svg="cart-2" />
           <SubmitButton title="Comprar agora" outlined={true} />
         </div>
