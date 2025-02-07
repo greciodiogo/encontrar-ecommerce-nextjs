@@ -1325,15 +1325,16 @@ button {
   cursor: pointer;
 }
 
-.set_qtd i {
+.set_qtd button {
   height: 16px;
   width: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
-.set_qtd i img {
+.set_qtd button img {
   height: 100%;
   width: 100%;
 }
@@ -1684,6 +1685,8 @@ button {
 .filterComponent {
   max-width: 396px;
   width: 100%;
+  position: sticky;
+  top: 100px;
 }
 
 /* filterComponent section ends here */
@@ -1707,6 +1710,13 @@ button {
 .filterComponent {
 }
 
+.filterComponent > h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #191c1f;
+  margin-bottom: 20px;
+}
+
 .filterComponent .wrapper {
   display: flex;
   flex-direction: column;
@@ -1719,11 +1729,25 @@ button {
 .popularTags {
 }
 
+.popularTags > h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #191c1f;
+  margin-bottom: 20px;
+}
+
 .popularTags .wrapper {
   width: 100%;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 10px;
+}
+
+.popularTags .wrapper p:hover {
+  opacity: 0.8;
+  color: #d2593b;
 }
 
 .popularTags .wrapper p {
@@ -1732,6 +1756,11 @@ button {
   border-radius: 2px;
   font-size: 14px;
   color: #475156;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
 }
 
 .popularTags .wrapper p.active {
@@ -1740,3 +1769,28 @@ button {
 }
 
 /* popularTags section ends here */
+
+/* filterPrice section starts here */
+
+.filterPrice {
+}
+
+.filterPrice > h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #191c1f;
+  margin-bottom: 20px;
+}
+
+.filterPrice .wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filterPrice .wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* filterPrice section ends here */

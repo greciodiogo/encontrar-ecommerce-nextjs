@@ -258,23 +258,7 @@ export const populartTags = [
     slug: 'cook',
   },
   {
-    title: 'Embutidos e Queijo',
-    slug: 'cook',
-  },
-  {
     title: 'Smart TV',
-    slug: 'cook',
-  },
-  {
-    title: 'Tablet',
-    slug: 'cook',
-  },
-  {
-    title: 'Gelados e Sobremesas',
-    slug: 'cook',
-  },
-  {
-    title: 'Samsung',
     slug: 'cook',
   },
 ];

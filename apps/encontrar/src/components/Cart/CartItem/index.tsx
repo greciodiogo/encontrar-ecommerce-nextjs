@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { removeFromCart } from 'actions/products';
+import { adjustQty, removeFromCart } from 'actions/products';
 import { ChangeQuantity } from 'shared/ChangeQuantity';
 import { ProductProps } from 'types/product';
 
@@ -8,12 +8,19 @@ import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: ProductProps) => {
   const url = 'assets_ecommerce';
-  const { name, banner, id, availability, category, brand } = props.cart;
+  const { name, banner, id = 0, availability, category, brand, qty } = props.cart;
+
   const dispatch = useAppDispatch();
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeFromCart(id));
     // setTotal((t) => t - subtotal);
   };
+
+  const handleAdjustQtyCart = (id: number, value: number) => {
+    if (value < 1) return; // Evita valores negativos ou zero
+    dispatch(adjustQty(id, value));
+  };
+
   return (
     <div className="cart-item">
       <div className="cart-item-picture">
@@ -37,7 +44,7 @@ export const CartItem = (props: ProductProps) => {
         </div>
         <div className="cart-item-btn">
           <div className="change_quantity">
-            <ChangeQuantity />
+            <ChangeQuantity id={id} qty={qty ?? 0} onAdjustQty={handleAdjustQtyCart} />
           </div>
           <button className="remove_item" onClick={() => handleRemoveFromCart(id)}>
             Remover do carrinho

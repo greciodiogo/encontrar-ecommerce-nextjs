@@ -22,7 +22,7 @@
   width: 400px;
   opacity: 1;
   position: relative;
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: white;
   transition: all 250ms ease-in-out;
   display: flex;
@@ -30,13 +30,28 @@
 }
 
 .auth .container .top {
-  height: 45px;
+  height: 60px;
   width: 100%;
-  padding: 0 10px;
   border-bottom: 1px solid #ccc;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: flex-end;
+  position: relative;
+}
+
+.auth .container .top button {
+  font-size: 20px;
+  font-weight: 400;
+  height: 100%;
+  color: #77878f;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.auth .container .top button.active {
+  color: #111;
+  border-bottom: 3px solid #bd7b2d;
 }
 
 .auth .container .top .btnClose {
@@ -44,6 +59,26 @@
   background-color: transparent;
   font-size: 12px;
   opacity: 0.5;
+  position: absolute;
+  top: -15px;
+  right: 0px;
+}
+
+.auth .container .main .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth .container .main .row > button:hover {
+  opacity: 0.85;
+}
+
+.auth .container .main .row > button {
+  color: #bd7b2d;
+  font-weight: 500px;
+  cursor: pointer;
 }
 
 .auth .container .main {
@@ -52,13 +87,30 @@
   flex-direction: column;
   width: 100%;
   gap: 10px;
-  padding: 15px 20px;
+  padding: 2rem;
   position: relative;
 }
 
 .auth .container .main .subtitle {
   font-size: 18px;
   opacity: 0.9;
+}
+
+.auth .main .authInfo {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth .main .authInfo h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #191c1f;
+}
+
+.auth .main .authInfo p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #5f6c72;
 }
 
 .auth .container .field {
@@ -73,7 +125,8 @@
 
 .auth .container .main .divisor {
   position: relative;
-  font-size: 11px;
+  font-size: 14px;
+  color: #77878f;
   width: 100%;
   display: flex;
   align-items: center;
@@ -116,6 +169,11 @@
   margin-bottom: 10px;
 }
 
+.auth form label {
+  color: #191c1f;
+  font-size: 14px;
+}
+
 .auth .container .authForm {
   width: 100%;
   display: flex;
@@ -139,7 +197,7 @@
   display: flex;
   height: 48px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   gap: 10px;
 }
 
@@ -148,6 +206,7 @@
   opacity: 0.8;
   color: black;
   background-color: white;
+  border-radius: 2px;
 }
 
 .auth .container .btn.colourid {
@@ -165,4 +224,23 @@
 
 .auth .container .btn:hover {
   opacity: 0.8;
+}
+
+.auth .btn .btn__center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+}
+
+.auth i img {
+  height: 100%;
+  width: 100%;
 }

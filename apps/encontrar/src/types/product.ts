@@ -15,6 +15,7 @@ export type ProductDTO = {
   price?: number;
   brand?: string;
   id?: number;
+  qty?: number;
   banner?: string;
   picture?: string;
 };

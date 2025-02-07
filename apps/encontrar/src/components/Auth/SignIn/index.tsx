@@ -1,21 +1,21 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-// import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 
 import styles from 'styles/home/auth.module.css';
 
 type AuthProps = {
   showAuthPainel?: boolean;
-  closeModal?: () => void;
-  closeauth?: () => void;
+  closeAuth?: () => void;
   isSignIn?: boolean;
 };
 
-const INITIALSTATE = { nome: '', apelido: '', email: '', password: '', confirmPassword: '' };
+const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
-const Auth: React.FC<AuthProps> = ({ isSignIn, showAuthPainel, closeauth, closeModal }) => {
+export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
+  const url = 'assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
-  const [signIn, setsignIn] = useState<boolean>(false);
+  const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const router = useRouter();
 
   const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,39 +24,42 @@ const Auth: React.FC<AuthProps> = ({ isSignIn, showAuthPainel, closeauth, closeM
       localStorage.setItem('profile', JSON.stringify(formData));
     }
     setFormData(INITIALSTATE);
-    router.push('/checkoutPage');
+    void router.push('/checkoutPage');
   };
 
   const handleSignInClick = () => {
-    setsignIn((state) => !state);
-  };
-
-  const handleGuestBtnClick = () => {
-    router.push('/checkoutPage');
+    setIsSignIn((state) => !state);
   };
 
   return (
-    <div className={`${styles.auth} ${styles.active}`}>
+    <div className={`${styles.auth} ${showAuthPainel ? styles.active : ''}`}>
       <div className={styles.container}>
         <div className={styles.top}>
-          <button className={styles.btnClose} onClick={closeModal}>
-            {/* <FaTimes /> */}
+          <button className={isSignIn ? styles.active : ''} onClick={handleSignInClick}>
+            Sign In
+          </button>
+          <button className={!isSignIn ? styles.active : ''} onClick={handleSignInClick}>
+            Sign Up
+          </button>
+          <button className={styles.btnClose} onClick={closeAuth}>
+            <FaTimes />
           </button>
         </div>
         <div className={styles.main}>
-          <h3 className={styles.subtitle}>{signIn ? 'Já tens conta?' : 'Não tens conta?'}</h3>
-          <button className={styles.btn} onClick={handleSignInClick}>
-            {/* <FaUser color="white" /> */}
-            {signIn ? 'Login' : 'Cria uma conta'}
-          </button>
-          {!signIn && (
-            <button className={`${styles.btn} ${styles.outlinedBtn}`} onClick={handleGuestBtnClick}>
-              {/* <FaShoppingCart color="gray" /> */}
-              Continuar como convidado
-            </button>
-          )}
-          <span className={styles.divisor}>ou</span>
           <form className={styles.authForm} onSubmit={handleSumit} autoComplete="off" noValidate>
+            {!isSignIn && (
+              <>
+                <label htmlFor="email">Nome</label>
+                <input
+                  className={styles.field}
+                  type="text"
+                  placeholder="Nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={(event) => setFormData({ ...formData, nome: event.target.value })}
+                />
+              </>
+            )}
             <label htmlFor="email">Email Address</label>
             <input
               className={styles.field}
@@ -64,16 +67,52 @@ const Auth: React.FC<AuthProps> = ({ isSignIn, showAuthPainel, closeauth, closeM
               placeholder="Email"
               name="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(event) => setFormData({ ...formData, email: event.target.value })}
             />
-            <button className={styles.btn}>{signIn ? 'Criar Conta' : 'Login'}</button>
+            <div className={styles.row}>
+              <label htmlFor="password">Password</label>
+              {isSignIn && <button>Forget Password</button>}
+            </div>
+            <input
+              className={styles.field}
+              type="password"
+              placeholder="8+ characters"
+              name="password"
+              value={formData.password}
+              onChange={(event) => setFormData({ ...formData, password: event.target.value })}
+            />
+            {!isSignIn && (
+              <>
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  className={styles.field}
+                  type="password"
+                  placeholder="confirm password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={(event) => setFormData({ ...formData, confirmPassword: event.target.value })}
+                />
+              </>
+            )}
+            <button className={styles.btn}>{isSignIn ? 'Login' : 'Criar Conta'}</button>
             <span className={styles.divisor}>ou</span>
-            <button className={`${styles.btn} ${styles.outlinedBtn}`}>Pague com Multicaixa Express ou FasmaPay</button>
+            <button className={`${styles.btn} ${styles.outlinedBtn}`}>
+              <i>
+                <img src={`${url}/svg/Google.png`} alt="star" />
+              </i>
+              Login with Google
+              <span></span>
+            </button>
+            <button className={`${styles.btn} ${styles.outlinedBtn}`}>
+              <i>
+                <img src={`${url}/svg/Apple.png`} alt="star" />
+              </i>
+              Login with Apple
+              <span></span>
+            </button>
           </form>
         </div>
       </div>
     </div>
   );
 };
-
-export default Auth;
