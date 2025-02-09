@@ -1,4 +1,3 @@
-import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -19,7 +18,7 @@ const Cart = () => {
     return (
       <>
         <EmptyCart />
-        {/* <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" /> */}
+        <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" />
       </>
     );
 

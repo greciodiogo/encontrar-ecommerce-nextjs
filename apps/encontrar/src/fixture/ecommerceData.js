@@ -262,3 +262,29 @@ export const populartTags = [
     slug: 'cook',
   },
 ];
+
+export const priceRanges = [
+  'Todos os Preços',
+  'Abaixo de 2000kz',
+  '2000Kz a 10,000Kz',
+  '10,000Kz a 30,000Kz',
+  '30,000Kz a 60,000Kz',
+  '60,000Kz a 90,000Kz',
+  '1,200,000Kz a 2,400,000Kz',
+];
+
+export const brands = [
+  'Apple',
+  'Microsoft',
+  'Dell',
+  'Symphony',
+  'Sony',
+  'LG',
+  'One Plus',
+  'Google',
+  'Samsung',
+  'HP',
+  'Xiaomi',
+  'Panasonic',
+  'Intel',
+];

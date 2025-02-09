@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { loadCurrentItem } from 'actions/products';
+import { addToCart, loadCurrentItem } from 'actions/products';
 import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../hooks';
@@ -27,6 +27,11 @@ export const BestSelledProducts = ({
     void router.push('/preview-product');
   };
 
+  const handleAddToCart = (id: number) => {
+    dispatch(addToCart(id));
+    //
+  };
+
   const handleSeeMoreBtnClick = () => {
     // router.push('/products-').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/products');
@@ -46,7 +51,11 @@ export const BestSelledProducts = ({
         </div>
         <div className="wrapper">
           <div className="wrapper_list bestselled">
-            <BestSelledProduct product={bestSelledProduct.data} handlepreviewProduct={handlepreviewProduct} />
+            <BestSelledProduct
+              product={bestSelledProduct.data}
+              handleAddToCart={handleAddToCart}
+              handlepreviewProduct={handlepreviewProduct}
+            />
             <ul className="subcategories bestselled">
               {products.map((item, itemIndex) => (
                 <Product product={item} key={itemIndex} handlepreviewProduct={handlepreviewProduct} />

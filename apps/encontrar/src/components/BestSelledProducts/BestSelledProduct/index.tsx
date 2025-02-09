@@ -2,11 +2,11 @@ import React from 'react';
 
 import { ProductTypeProps } from 'types/product';
 
-export const BestSelledProduct = ({ product, handlepreviewProduct }: ProductTypeProps) => {
+export const BestSelledProduct = ({ product, handleAddToCart, handlepreviewProduct }: ProductTypeProps) => {
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
   return (
-    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id)}>
+    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id ?? 0)}>
       <a className="addCartBtn">
         <i>
           <img src={`${url}/svg/Heart.png`} alt="Heart" />
@@ -28,7 +28,7 @@ export const BestSelledProduct = ({ product, handlepreviewProduct }: ProductType
         <span>{about}</span>
       </div>
 
-      <a className="btn">
+      <a className="btn" href="#" role="button" tabIndex={0} onClick={() => handleAddToCart?.(product.id ?? 0)}>
         <i>
           <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
         </i>
