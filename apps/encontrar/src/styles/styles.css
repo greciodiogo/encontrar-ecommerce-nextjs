@@ -901,6 +901,7 @@ button {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 30px;
+  flex-wrap: wrap;
 }
 
 .footer .wrapper_right .row-1 .title {
@@ -967,6 +968,7 @@ button {
   display: flex;
   justify-content: flex-start;
   gap: 75px;
+  flex-wrap: wrap;
 }
 
 .footer .wrapper_right .row-3 p {
@@ -999,6 +1001,40 @@ button {
   color: #2e2e2b;
   opacity: 0.75;
   font-size: 16px;
+}
+
+@media (max-width: 850px) {
+  .footer .wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .footer .wrapper_right .row-3 {
+    gap: 25px;
+  }
+
+  .footer .wrapper_right .row-2 {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .footer {
+    padding: 2rem;
+  }
+  .footer .wrapper_right .row-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .footer .wrapper .wrapper_right {
+    gap: 20px;
+  }
+
+  .footer .wrapper .wrapper_left {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
 }
 
 /* footer section ends here */
