@@ -21,6 +21,19 @@ export const categories = [
   },
 ];
 
+export const new_categories = [
+  { name: 'Iphones', image: `stick.png` },
+  { name: 'Ar Condicionado (AC)', image: `ac.png` },
+  { name: 'Samsung', image: `printer.png` },
+  { name: 'Máquinas de Lavar', image: `smart_tv.png` },
+  { name: 'Geladeira', image: `machine.png` },
+  { name: 'Vinagre', image: `vegetals.png` },
+  { name: 'Ovos', image: `legums.png` },
+  { name: 'Frutas', image: `fruits.png` },
+  { name: 'Enxoval', image: `graps.png` },
+  { name: 'Outros Produtos', image: `strawberry.png` },
+];
+
 export const cartList = {
   data: [
     {

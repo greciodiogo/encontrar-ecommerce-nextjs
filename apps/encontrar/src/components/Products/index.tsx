@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { categories } from 'fixture/ecommerceData';
+import { new_categories } from 'fixture/ecommerceData';
 
 export const Products = () => {
   const url = 'assets_ecommerce/categories';
@@ -16,20 +16,13 @@ export const Products = () => {
             </i>
           </button>
         </div>
-        <div className="wrapper">
-          {categories.map((category, index) => (
-            <div className="wrapper_list" key={index}>
-              <h3 className="title">{category.title}</h3>
-              <ul className="subcategories">
-                {category.data.map(({ name, image }, itemIndex) => (
-                  <div className="category-item" key={itemIndex}>
-                    <div className="category_picture">
-                      <img src={`${url}/${image}`} alt={name} />
-                    </div>
-                    <a>{name}</a>
-                  </div>
-                ))}
-              </ul>
+        <div className="wrap_item">
+          {new_categories.map((category, index) => (
+            <div className="category-item" key={index}>
+              <div className="category_picture">
+                <img src={`${url}/${category.image}`} alt={category.name} />
+              </div>
+              <a>{category.name}</a>
             </div>
           ))}
         </div>
