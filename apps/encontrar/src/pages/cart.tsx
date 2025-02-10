@@ -1,15 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { BestSelledProducts, CartItem, CartResume, CartTitle, CheapestProducts, EmptyCart } from 'components';
-import { cartList } from 'fixture/ecommerceData';
+import { CartItem, CartResume, CartTitle, CheapestProducts, EmptyCart } from 'components';
 
 import { useAppSelector } from '../hooks';
 
 // import { cartList } from '../ecommerceData.js';
 const Cart = () => {
   const productCart = useAppSelector((state: any) => state.products.cart);
-  const cart = cartList;
   const [total, setTotal] = useState(0);
   const router = useRouter();
   const TOTAL_ITEMS_CART = productCart.length;
@@ -18,7 +16,7 @@ const Cart = () => {
     return (
       <>
         <EmptyCart />
-        <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" />
+        {/* <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" /> */}
       </>
     );
 

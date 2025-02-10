@@ -77,6 +77,7 @@ button {
 
 .header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -94,6 +95,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
+  padding: 2rem 1.8rem 2rem 2rem;
 }
 
 .header .logo_container {
@@ -190,6 +193,60 @@ button {
   text-decoration: underline;
 }
 
+.header .options .signIn i {
+  height: 19px;
+  width: 19px;
+}
+
+.header .options .signIn i img {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .header .options .nav-item > p,
+  .header .options .nav-item span {
+    display: none;
+  }
+}
+
+@media (max-width: 750px) {
+  .header .logo_container {
+    width: 135px;
+    height: 45px;
+    margin-right: 20px;
+  }
+  .header .logo_container img {
+    width: 100%;
+    height: 100%;
+  }
+  .header_container .search_container {
+    display: none;
+    /* width: 100% !important; */
+  }
+}
+
+@media (min-width: 750px) {
+  .header .menu-item {
+    display: none !important;
+    /* width: 100% !important; */
+  }
+
+  .searchInput__mobile .search_container {
+    display: none;
+  }
+}
+@media (max-width: 750px) {
+  .searchInput__mobile {
+    padding: 0rem 2rem 2rem;
+    width: 100%;
+  }
+
+  .header .search_container {
+    width: 100%;
+  }
+}
+
 /* banner ends here */
 
 /* categories starts here */
@@ -245,6 +302,12 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 750px) {
+  .categories {
+    display: none;
+  }
 }
 
 /* categories ends here */
@@ -635,7 +698,6 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem;
 }
 
 .brandNew .wrapper {
@@ -727,6 +789,26 @@ button {
 .brandNew .wrapper .box:last-of-type .content > button {
   color: #000000;
   background-color: transparent;
+}
+
+@media (max-width: 970px) {
+  .brandNew .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 650px) {
+  .brandNew .wrapper .box {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 450px) {
+  .brandNew .wrapper .box .content > button {
+    width: 100%;
+  }
 }
 
 /* brandNew ends here */
