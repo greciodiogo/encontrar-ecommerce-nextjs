@@ -1,16 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
 import React from 'react';
 
-import {
-  BestSelledProducts,
-  BrandNew,
-  Categories,
-  CheapestProducts,
-  Framer,
-  Products,
-  Reviews,
-  WhyUs,
-} from 'components';
+import { BestSelledProducts, Categories, CheapestProducts, Framer, Products, Reviews, WhyUs } from 'components';
 import { bestSelledProduct, products } from 'fixture/ecommerceData';
 import { ProductDTO } from 'types/product';
 
@@ -33,8 +24,6 @@ const Homepage: NextPage<PropsType> = (props) => {
       <WhyUs />
       <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} />
       <CheapestProducts />
-      <BrandNew />
-
       <Reviews />
     </div>
   );
