@@ -62,7 +62,20 @@ export const Header = () => {
               </i>
               <span>Carrinho</span>
             </a>
+            <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={handleCartClick}>
+              <i>
+                <img src="/assets_ecommerce/svg/hamburguer.png" alt="" />
+              </i>
+            </a>
           </nav>
+        </div>
+        <div className="searchInput__mobile">
+          <div className="search_container">
+            <input type="text" placeholder="Procure por ótimos equipamentos e comidas" />
+            <i>
+              <img src="/assets_ecommerce/svg/gnav-search.png" alt="" />
+            </i>
+          </div>
         </div>
       </div>
       <Auth showAuthPainel={showAuthPainel} closeAuth={onCloseSignInForm} />

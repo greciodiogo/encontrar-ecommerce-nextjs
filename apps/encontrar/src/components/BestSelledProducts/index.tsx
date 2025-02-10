@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { loadCurrentItem } from 'actions/products';
+import { addToCart, loadCurrentItem } from 'actions/products';
 import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../hooks';
@@ -13,18 +13,19 @@ export const BestSelledProducts = ({
   bannerText = 'Melhores Negócios em Eletrônicos.',
   products,
   bestSelledProduct,
-}: {
-  bannerText?: string;
-  products: Array<ProductDTO>;
-  bestSelledProduct: { data: ProductDTO };
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  console.log(products);
   const handlepreviewProduct = (id: number) => {
     dispatch(loadCurrentItem(products[id - 1]));
     // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/preview-product');
+  };
+
+  const handleAddToCart = (id: number) => {
+    dispatch(addToCart(id));
+    //
   };
 
   const handleSeeMoreBtnClick = () => {
@@ -46,7 +47,11 @@ export const BestSelledProducts = ({
         </div>
         <div className="wrapper">
           <div className="wrapper_list bestselled">
-            <BestSelledProduct product={bestSelledProduct.data} handlepreviewProduct={handlepreviewProduct} />
+            <BestSelledProduct
+              product={bestSelledProduct.data}
+              handleAddToCart={handleAddToCart}
+              handlepreviewProduct={handlepreviewProduct}
+            />
             <ul className="subcategories bestselled">
               {products.map((item, itemIndex) => (
                 <Product product={item} key={itemIndex} handlepreviewProduct={handlepreviewProduct} />

@@ -1,7 +1,13 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 export const Framer = () => {
+  const router = useRouter();
   const url = 'assets_ecommerce';
+
+  const redirectToProducts = () => {
+    void router.push('/products');
+  };
 
   return (
     <div className="framer">
@@ -24,7 +30,7 @@ export const Framer = () => {
               samsungs e marcas como
             </h4>
             <div className="btn_container">
-              <button className="">
+              <button className="" onClick={redirectToProducts}>
                 Explorar Produtos
                 <i>
                   <img src={`${url}/svg/ArrowRight-3.png`} alt="star" />

@@ -22,6 +22,7 @@ export type ProductDTO = {
 
 export type ProductTypeProps = {
   product: ProductDTO;
+  handleAddToCart?: (id: number) => void;
   handlepreviewProduct: (id: number) => void;
 };
 

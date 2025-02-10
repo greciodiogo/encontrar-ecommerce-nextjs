@@ -34,8 +34,7 @@ const Homepage: NextPage<PropsType> = (props) => {
       <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} />
       <CheapestProducts />
       <BrandNew />
-      <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} />
-      <CheapestProducts />
+
       <Reviews />
     </div>
   );
