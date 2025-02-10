@@ -48,9 +48,29 @@ button {
   height: var(--header-height);
 }
 
-.banner .banner_text {
+.banner_text {
   color: var(--header-text-color);
   font-size: var(--header-font-size);
+}
+
+.slider-container {
+  padding-top: 10px;
+  background-color: var(--default-color);
+  height: var(--header-height);
+}
+
+.slider-container {
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.slide-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 /* banner starts here */
@@ -423,7 +443,6 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem;
 }
 
 .products_container_top {
@@ -730,7 +749,6 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .reviews .content {
@@ -754,6 +772,12 @@ button {
   text-align: center;
   font-size: 32px;
   color: #070707;
+}
+
+@media (max-width: 750px) {
+  .reviews .content h4 {
+    font-size: 22px;
+  }
 }
 
 /* reviews ends here */
