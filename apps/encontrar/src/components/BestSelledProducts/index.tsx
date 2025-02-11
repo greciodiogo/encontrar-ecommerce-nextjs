@@ -16,7 +16,6 @@ export const BestSelledProducts = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  console.log(products);
   const handlepreviewProduct = (id: number) => {
     dispatch(loadCurrentItem(products[id - 1]));
     // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
