@@ -45,9 +45,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {getLayout(
-        <>
+        <Provider store={store}>
           <Component {...pageProps} />
-        </>,
+        </Provider>,
       )}
     </>
   );

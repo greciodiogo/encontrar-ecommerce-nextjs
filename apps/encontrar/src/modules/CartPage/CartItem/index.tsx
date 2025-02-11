@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { adjustQty, removeFromCart } from 'actions/products';
-import { ChangeQuantity } from 'shared/ChangeQuantity';
+import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { ProductProps } from 'types/product';
 
 import { useAppDispatch } from '../../../hooks';

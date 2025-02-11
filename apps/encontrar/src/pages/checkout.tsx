@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { CheckoutPage } from 'modules/CheckoutPage';
+
 const Checkout = () => {
-  return (
-    <div className="checkout">
-      <div className="checkout_container"></div>
-    </div>
-  );
+  return <CheckoutPage />;
 };
+
+// Checkout.getLayout = (page: ReactElement) => <>{page}</>;
 
 export default Checkout;

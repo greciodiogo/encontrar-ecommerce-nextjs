@@ -7,8 +7,8 @@ import React from 'react';
 
 import { addToCart } from 'actions/products';
 import { adjustQty } from 'actions/products';
-import { ChangeQuantity } from 'shared/ChangeQuantity';
-import { SubmitButton } from 'shared/SubmitButton';
+import { ChangeQuantity } from 'shared/components/ChangeQuantity';
+import { SubmitButton } from 'shared/components/SubmitButton';
 import { ProductDetailProps } from 'types/product';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -23,7 +23,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
   const dispatch = useAppDispatch();
 
   const handleCheckoutBtnClick = () => {
-    void router.push('/cart');
+    void router.push('/checkout');
   };
 
   const handleAddToCart = (id: number) => {

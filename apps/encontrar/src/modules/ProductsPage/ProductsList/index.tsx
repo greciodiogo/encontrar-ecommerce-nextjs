@@ -2,11 +2,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
+import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
 import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../../hooks';
-
-import { BestSelledProduct } from './../../BestSelledProducts/BestSelledProduct';
 
 export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
   const dispatch = useAppDispatch();
