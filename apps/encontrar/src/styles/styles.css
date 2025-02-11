@@ -610,8 +610,8 @@ button {
 
 @media (max-width: 750px) {
   .products .wrap_item .category-item .category_picture {
-    width: 125px;
-    height: 119px;
+    /* width: 125px; */
+    /* height: 119px; */
   }
   .products .wrap_item {
     display: grid;
@@ -622,8 +622,8 @@ button {
 
 @media (max-width: 520px) {
   .products .wrap_item .category-item .category_picture {
-    width: 125px;
-    height: 119px;
+    /* width: 125px; */
+    /* height: 119px; */
   }
 
   .products .wrap_item {
