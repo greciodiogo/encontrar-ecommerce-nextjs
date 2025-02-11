@@ -18,8 +18,8 @@ export const Banner = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 3000,
-    autoplaySpeed: 3000,
+    speed: 5000,
+    autoplaySpeed: 5000,
     cssEase: 'linear',
     responsive: [
       {
