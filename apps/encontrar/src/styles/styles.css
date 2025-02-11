@@ -1775,10 +1775,31 @@ button {
   }
 }
 
+@media (max-width: 750px) {
+  .productDetail .row .change_quantity {
+    display: grid;
+    grid-template-columns: none;
+  }
+  .productDetail .wrapper-2 {
+    display: grid;
+    grid-template-columns: none;
+  }
+  .productDetail .row-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 450px) {
   .productDetail .row .change_quantity {
     display: grid;
     grid-template-columns: none;
+  }
+
+  .productDetail .info {
+    margin-top: 20px;
   }
 }
 
