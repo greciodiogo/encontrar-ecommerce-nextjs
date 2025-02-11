@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SubmitButton } from 'shared/SubmitButton';
+import { SubmitButton } from 'shared/components/SubmitButton';
 
 export const CartResume = () => {
   return (

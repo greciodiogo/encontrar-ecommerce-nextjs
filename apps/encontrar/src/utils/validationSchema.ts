@@ -8,16 +8,17 @@ export const validationSchema = {
 
   step_user: yup.object().shape({
     name: yup.string().required('O nome é obrigatório'),
+    pais: yup.string().required('O País é obrigatório'),
+    cidade: yup.string().required('A cidade é obrigatória'),
+    municipio: yup.string().required('O Municipio é obrigatório'),
     telefone: yup
       .string()
-      .matches(/^\d{9,15}$/, 'O telefone deve conter entre 9 e 15 dígitos')
+      .matches(/^\d{9,10}$/, 'O telefone deve conter 9 dígitos')
       .required('O telefone é obrigatório'),
     email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
-    username: yup.string().required('O nome de usuário é obrigatório'),
-    password: yup.string().required('A senha é obrigatória').min(6, 'A senha deve ter no mínimo 6 caracteres'),
-    password_confirmation: yup
+    email_confirmation: yup
       .string()
-      .oneOf([yup.ref('password')], 'As senhas devem coincidir')
-      .required('A confirmação de senha é obrigatória'),
+      .oneOf([yup.ref('email')], 'O email deve coincidir')
+      .required('O campo Email é obrigatório'),
   }),
 };
