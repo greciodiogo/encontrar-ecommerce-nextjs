@@ -991,6 +991,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: #f2f2f2;
 }
 
 .bestselled .category-item .star_container i {

@@ -33,7 +33,7 @@ export const CheapestProducts = () => {
                         </i>
                       ))}
                     </div>
-                    <p>44,554KZS</p>
+                    <p>44,554Kz</p>
                   </div>
                 ))}
               </ul>

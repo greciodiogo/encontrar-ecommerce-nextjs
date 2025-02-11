@@ -67,7 +67,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">
-          <ChangeQuantity id={id} qty={qty ?? 0} onAdjustQty={handleAdjustQtyCart} />
+          <ChangeQuantity id={id} qty={qty ?? 1} onAdjustQty={handleAdjustQtyCart} />
           <SubmitButton onClick={() => handleAddToCart(product.id)} title="Adicionar ao Carrinho" svg="cart-2" />
           <SubmitButton onClick={handleCheckoutBtnClick} title="Comprar agora" outlined={true} />
         </div>
