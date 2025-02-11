@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { CartItem, CartResume, CartTitle, CheapestProducts, EmptyCart } from 'components';
 
 import { useAppSelector } from '../hooks';
+import { PaymentStep } from 'modules/CheckoutPage/PaymentStep';
 
 // import { cartList } from '../ecommerceData.js';
 const Cart = () => {
@@ -31,7 +32,10 @@ const Cart = () => {
                 <CartItem cart={cartItem} cart={cartItem} key={index} setTotal={setTotal} />
               ))}
             </div>
-            <CartResume />
+            <div>
+              <PaymentStep />
+              <CartResume />
+            </div>
           </div>
         </div>
       </div>

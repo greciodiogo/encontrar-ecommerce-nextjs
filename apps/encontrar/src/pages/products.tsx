@@ -28,7 +28,7 @@ const ProductsPage: NextPage<PropsType> = (props) => {
           <FilterComponent />
           <ProductsList products={props.products} />
         </div>
-        <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} />
+        {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       </div>
     </div>
   );
