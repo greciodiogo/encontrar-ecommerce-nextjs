@@ -8,7 +8,7 @@ export const Product = ({ product, handlepreviewProduct }: ProductTypeProps) => 
   return (
     <button className="category-item bs bestselled" onClick={() => handlepreviewProduct(id ?? 0)}>
       <div className="category_picture bestselled">
-        <img src={`${url}/categories/${image ?? 'macbook.png'}`} alt={name} />
+        <img src={`${url}/products/${image ?? 'macbook.png'}`} alt={name} />
       </div>
       <a className="product_name product-description">{name}</a>
       <div className="star_container">

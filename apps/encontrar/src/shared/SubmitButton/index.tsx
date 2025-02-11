@@ -9,7 +9,7 @@ export const SubmitButton = ({
   title: string;
   svg?: string;
   outlined?: boolean;
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }) => {
   const url = 'assets_ecommerce';
   return (

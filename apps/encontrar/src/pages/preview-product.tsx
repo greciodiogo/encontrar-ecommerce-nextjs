@@ -27,7 +27,7 @@ const ProductDetail: NextPage<ProductDetailProps> = () => {
           <div className="productDetail">
             <div className="productDetail__container">
               <div className="row">
-                <ShowProductBanner product={{ name: product.name, banner: product.banner }} />
+                <ShowProductBanner product={{ name: product.name, image: product.image }} />
                 <Details product={product} />
               </div>
               <CheckoutInfo />

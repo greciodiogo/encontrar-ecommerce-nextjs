@@ -8,17 +8,17 @@ export const CartResume = () => {
       <div className="price">
         <ul>
           <li>Subtotal</li>
-          <li>2999KZS</li>
+          <li>2999Kz</li>
         </ul>
         <ul>
           <li>Entrega:</li>
-          <li>2999KZS</li>
+          <li>2999Kz</li>
         </ul>
       </div>
       <div className="price">
         <ul>
           <li>Total (2 items)</li>
-          <li>2999KZS</li>
+          <li>2999Kz</li>
         </ul>
       </div>
       <div className="price">

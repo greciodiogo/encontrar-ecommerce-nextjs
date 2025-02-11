@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: ProductProps) => {
   const url = 'assets_ecommerce';
-  const { name, banner, id = 0, availability, category, brand, qty } = props.cart;
+  const { name, image, id = 0, availability, category, brand, qty } = props.cart;
 
   const dispatch = useAppDispatch();
   const handleRemoveFromCart = (id: number) => {
@@ -24,7 +24,7 @@ export const CartItem = (props: ProductProps) => {
   return (
     <div className="cart-item">
       <div className="cart-item-picture">
-        <img src={`${url}/products/${banner ?? 'macbook.png'}`} alt={name} />
+        <img src={`${url}/products/${image ?? 'macbook.png'}`} alt={name} />
       </div>
       <div className="cart-item-content">
         <h3>{name}</h3>
@@ -44,7 +44,7 @@ export const CartItem = (props: ProductProps) => {
         </div>
         <div className="cart-item-btn">
           <div className="change_quantity">
-            <ChangeQuantity id={id} qty={qty ?? 0} onAdjustQty={handleAdjustQtyCart} />
+            <ChangeQuantity id={id} qty={qty ?? 1} onAdjustQty={handleAdjustQtyCart} />
           </div>
           <button className="remove_item" onClick={() => handleRemoveFromCart(id)}>
             Remover do carrinho
