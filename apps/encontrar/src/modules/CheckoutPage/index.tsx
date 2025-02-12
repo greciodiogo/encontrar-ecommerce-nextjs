@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -9,7 +10,8 @@ import { validationSchema } from 'utils/validationSchema';
 import { AddressForm } from './AddressForm';
 import { PaymentStep } from './PaymentStep';
 
-const steps = ['Endereço', 'Pagamento', 'Resumo da Compra'];
+// const steps = ['Endereço', 'Pagamento', 'Resumo da Compra'];
+const steps = ['Endereço', 'Pagamento'];
 
 export const CheckoutPage = () => {
   const {
@@ -19,6 +21,7 @@ export const CheckoutPage = () => {
     resolver: yupResolver(validationSchema.step_user),
     mode: 'all', // Validação ocorre ao sair do campo
   });
+  const router = useRouter();
 
   //   ########## stepper #############
   const [activeStep, setActiveStep] = React.useState(0);
@@ -29,23 +32,24 @@ export const CheckoutPage = () => {
   };
 
   const handleNextStep = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+    if (activeStep === steps.length - 1) {
+      void router.push('/sucessful-order'); // Redireciona ao finalizar
+    } else {
+      setActiveStep((prev) => prev + 1);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
+  const handleSubmit = () => {
+    // void router.push('/sucessful-order');
+  };
+  //
   //   ########## stepper #############
 
   return (
     <div className="checkoutPage">
       <div className="checkoutPage_container">
         <div className="">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="modal-body">
               <Stepper activeStep={activeStep}>
                 {steps.map((label) => (
@@ -57,8 +61,12 @@ export const CheckoutPage = () => {
 
               <div className="form__container">
                 <div className="content">
-                  <h4>Adicione seu endereço</h4>
-                  <p>Abaixo, coloque o seu endereço para que possamos enviar suas merrcadorias</p>
+                  <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
+                  <p>
+                    {activeStep === 0
+                      ? 'Abaixo, coloque o seu endereço para que possamos enviar suas merrcadorias'
+                      : 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                  </p>
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
                   {activeStep === 0 && <AddressForm errors={errors} control={control} />}
