@@ -1,5 +1,6 @@
 export type ProductProps = {
   cart: ProductDTO;
+  setTotal?: any;
 };
 
 export type ProductDetailProps = {

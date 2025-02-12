@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { adjustQty, removeFromCart } from 'actions/products';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
@@ -7,10 +7,17 @@ import { ProductProps } from 'types/product';
 import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: ProductProps) => {
-  const url = 'assets_ecommerce';
-  const { name, image, id = 0, availability, category, brand, qty } = props.cart;
-
   const dispatch = useAppDispatch();
+  const url = 'assets_ecommerce';
+  const [subtotal, setSubtotal] = useState(0);
+  const { name, image, id = 0, availability, category, brand, qty, price } = props.cart;
+  const setTotal = props.setTotal;
+
+  const getsubtotal = () => {
+    setSubtotal(price * qty);
+    setTotal((total: number) => total + subtotal);
+  };
+
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeFromCart(id));
     // setTotal((t) => t - subtotal);
@@ -21,6 +28,9 @@ export const CartItem = (props: ProductProps) => {
     dispatch(adjustQty(id, value));
   };
 
+  useEffect(() => {
+    getsubtotal();
+  }, [subtotal]);
   return (
     <div className="cart-item">
       <div className="cart-item-picture">
