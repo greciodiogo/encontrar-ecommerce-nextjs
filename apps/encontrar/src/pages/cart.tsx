@@ -12,7 +12,6 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const router = useRouter();
   const TOTAL_ITEMS_CART: number = productCart.length;
-  console.log(productCart);
   if (!TOTAL_ITEMS_CART)
     return (
       <>
