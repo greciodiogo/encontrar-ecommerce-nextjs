@@ -936,6 +936,8 @@ button {
 .wrapper_list.bestselled {
   display: flex;
   flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .bestselled_product {
@@ -976,8 +978,6 @@ button {
   display: grid !important;
   /* grid-template-columns: none !important; */
   grid-template-rows: repeat(2, 1fr);
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 .bestselled .content {
@@ -1624,8 +1624,8 @@ button {
 
 @media (max-width: 450px) {
   .cart .row .wrapper .cart-item .cart-item-picture {
-    width: unset;
-    height: unset;
+    width: fit-content;
+    height: fit-content;
   }
 
   .cart .row .wrapper .cart-item .cart-item-content .wrap {
@@ -1648,6 +1648,14 @@ button {
   }
 
   .cart .row .wrapper .change_quantity {
+    width: 100%;
+  }
+
+  .cart .row .wrapper .cart-item {
+    width: inherit;
+  }
+
+  .cart .row .wrapper .cart-item .cart-item-picture {
     width: 100%;
   }
 }
@@ -2213,6 +2221,9 @@ button {
   font-size: 14px;
   color: #475156;
 }
+.line_radio input {
+  display: none;
+}
 
 .filterPrice .radio-desc {
   font-size: 14px;
@@ -2486,3 +2497,83 @@ button {
     gap: 10px;
   }
 }
+
+/* ******************* app section starts here *********************** */
+
+.app {
+  max-width: 1100px;
+  width: 100%;
+  /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+  padding: 1rem;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+}
+
+/* ******************* app section ends here ************************* */
+
+/* ******************* controlPanel section ends here ************************* */
+
+.controlPanel {
+}
+
+.controlPanel h1 {
+  max-width: 381px;
+  width: 100%;
+}
+
+.controlPanel .wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 767px;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 4rem;
+}
+
+.controlPanel .wrapper .panelItem:hover {
+  background: var(--default-color);
+}
+
+.controlPanel .wrapper .panelItem {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.controlPanel .wrapper .panelItem h5 {
+  font-weight: 500;
+  color: #5b5b5b;
+}
+
+.controlPanel .wrapper .panelItem p {
+  color: #5b5b5b;
+  font-size: 13px;
+}
+
+@media (max-width: 750px) {
+  .controlPanel .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .controlPanel h1 {
+    font-size: 22px;
+  }
+
+  .controlPanel .wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ******************* controlPanel section ends here ************************* */

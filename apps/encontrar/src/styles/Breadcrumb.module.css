@@ -1,0 +1,38 @@
+.breadcrumbNav {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.breadcrumbList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #007bff; /* Azul padrão para links */
+  font-weight: normal;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 8px;
+  color: #666; /* Cor do separador */
+}
+
+.active {
+  font-weight: bold;
+  color: #333; /* Cor do texto ativo */
+}

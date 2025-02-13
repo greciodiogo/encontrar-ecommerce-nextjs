@@ -11,7 +11,9 @@ export const Header = () => {
 
   const router = useRouter();
 
-  const handleCartClick = () => {
+  const handleCartClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     void router.push('/cart');
   };
 
@@ -55,7 +57,13 @@ export const Header = () => {
               </i>
               <span>Sign in</span>
             </button>
-            <a className="nav-item header-cart" href="#" role="button" tabIndex={0} onClick={handleCartClick}>
+            <a
+              className="nav-item header-cart"
+              href="#"
+              role="button"
+              tabIndex={0}
+              onClick={(event) => handleCartClick(event)}
+            >
               <i>
                 <img src="/assets_ecommerce/svg/cart.png" alt="" />
                 <span>{productos.length !== 0 && productos.length}</span>

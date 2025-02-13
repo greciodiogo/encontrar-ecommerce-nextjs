@@ -2,17 +2,16 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { CartItem, CartResume, CartTitle, CheapestProducts, EmptyCart } from 'components';
+import { PaymentStep } from 'modules/CheckoutPage/PaymentStep';
 
 import { useAppSelector } from '../hooks';
-import { PaymentStep } from 'modules/CheckoutPage/PaymentStep';
 
 // import { cartList } from '../ecommerceData.js';
 const Cart = () => {
   const productCart = useAppSelector((state: any) => state.products.cart);
   const [total, setTotal] = useState(0);
   const router = useRouter();
-  const TOTAL_ITEMS_CART = productCart.length;
-
+  const TOTAL_ITEMS_CART: number = productCart.length;
   if (!TOTAL_ITEMS_CART)
     return (
       <>
@@ -28,13 +27,13 @@ const Cart = () => {
           <CartTitle qtdItems={TOTAL_ITEMS_CART} />
           <div className="row">
             <div className="wrapper">
-              {productCart.map((cartItem, index) => (
-                <CartItem cart={cartItem} cart={cartItem} key={index} setTotal={setTotal} />
+              {productCart.map((cartItem, index: number) => (
+                <CartItem cart={cartItem} key={index} setTotal={setTotal} />
               ))}
             </div>
             <div>
               <PaymentStep />
-              <CartResume />
+              <CartResume totalProduct={TOTAL_ITEMS_CART} total={total} />
             </div>
           </div>
         </div>
