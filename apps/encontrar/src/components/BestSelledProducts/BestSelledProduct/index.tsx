@@ -5,6 +5,13 @@ import { ProductTypeProps } from 'types/product';
 export const BestSelledProduct = ({ product, handleAddToCart, handlepreviewProduct }: ProductTypeProps) => {
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
+
+  const handleAddToCartClick = (event: React.MouseEvent<HTMLAnchorElement>, id = 0) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleAddToCart?.(id);
+  };
+
   return (
     <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id ?? 0)}>
       <a className="addCartBtn">
@@ -28,7 +35,7 @@ export const BestSelledProduct = ({ product, handleAddToCart, handlepreviewProdu
         <span>{about}</span>
       </div>
 
-      <a className="btn" href="#" role="button" tabIndex={0} onClick={() => handleAddToCart?.(product.id ?? 0)}>
+      <a className="btn" href="#" role="button" tabIndex={0} onClick={(event) => handleAddToCartClick(event, id ?? 0)}>
         <i>
           <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
         </i>
