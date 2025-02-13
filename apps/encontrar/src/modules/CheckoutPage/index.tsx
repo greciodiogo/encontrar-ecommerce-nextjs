@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 // import { ToastContainer } from 'shared/components/Toast/ToastContainer';
@@ -25,17 +25,14 @@ export const CheckoutPage = () => {
 
   //   ########## stepper #############
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
+  const formRef = useRef<HTMLDivElement>(null); // Referência para o formulário
 
   const handleNextStep = () => {
     if (activeStep === steps.length - 1) {
       void router.push('/sucessful-order'); // Redireciona ao finalizar
     } else {
       setActiveStep((prev) => prev + 1);
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Rola para o formulário
     }
   };
 
@@ -47,7 +44,7 @@ export const CheckoutPage = () => {
 
   return (
     <div className="checkoutPage">
-      <div className="checkoutPage_container">
+      <div className="checkoutPage__container">
         <div className="">
           <form onSubmit={handleSubmit}>
             <div className="modal-body">
