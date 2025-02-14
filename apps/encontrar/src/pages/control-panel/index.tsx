@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ControlPanelPage } from 'modules/ControlPanelPage';
 import { Container } from 'components/Container';
+import { ControlPanelPage } from 'modules/ControlPanelPage';
 
 const Controlpanel = () => {
   return (

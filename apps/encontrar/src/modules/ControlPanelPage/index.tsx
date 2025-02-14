@@ -10,8 +10,8 @@ const panelItems = [
   },
   {
     icon: 'Storefront.png',
-    routerLink: 'shopping-history',
-    title: 'Histórico de Compras',
+    routerLink: 'order-history',
+    title: 'Histórico de Pedidos',
     description: 'Consulte o seu histórico de encomentas',
   },
   {
@@ -28,7 +28,7 @@ const panelItems = [
   },
   {
     icon: 'CreditCard-dark.png',
-    routerLink: 'creditCard',
+    routerLink: 'credit-card',
     title: 'Cartões',
     description: 'Edite seu nome, endereço, email e password',
   },
@@ -63,7 +63,7 @@ export const ControlPanelPage = () => {
   );
 };
 
-const PanelItem = ({
+export const PanelItem = ({
   icon,
   title,
   description,
