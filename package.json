@@ -44,7 +44,6 @@
     "react-toastify": "^11.0.3",
     "slick-carousel": "^1.8.1",
     "swr": "^2.3.0",
-    "use-delayed-render": "^0.0.7",
     "yup": "^1.6.1",
     "zod": "3.22.4"
   },

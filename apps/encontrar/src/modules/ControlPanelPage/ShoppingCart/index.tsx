@@ -1,13 +1,20 @@
 import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
+import { EmptyPanelItem } from 'components/EmptyPanelItem';
 
 export const ShoppingCartPage = () => {
+  const title = 'Seu Carrinho de Compras encontra-se vazio';
   return (
-    <Panel>
-      <Panel.Icon>ShoppingCart</Panel.Icon>
-      <Panel.Title>Carrinho de Compras</Panel.Title>
-      <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
-    </Panel>
+    <>
+      <Panel>
+        <Panel.Icon>ShoppingCart</Panel.Icon>
+        <Panel.Title>Carrinho de Compras</Panel.Title>
+        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+      </Panel>
+      <div className="shoppingCart">
+        <EmptyPanelItem title={title} />
+      </div>
+    </>
   );
 };

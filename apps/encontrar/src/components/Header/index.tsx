@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Auth } from 'components/Auth/SignIn';
+// import { MobileMenu } from 'components/MobileMenu/MobileMenu';
 import { RootState } from 'types/product';
 
 export const Header = () => {
@@ -74,6 +75,7 @@ export const Header = () => {
               <i>
                 <img src="/assets_ecommerce/svg/hamburguer.png" alt="" />
               </i>
+              {/* <MobileMenu /> */}
             </a>
           </nav>
         </div>
