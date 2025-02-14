@@ -15,12 +15,20 @@
 .breadcrumbItem {
   display: flex;
   align-items: center;
+  color: #5f6c72;
+  font-size: 14px;
+  font-weight: 500;
+  padding-top: 3px;
+}
+
+.breadcrumbItem i {
+  margin-right: 10px;
 }
 
 .link {
-  text-decoration: none;
-  color: #007bff; /* Azul padrão para links */
-  font-weight: normal;
+  color: #5f6c72;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .link:hover {
@@ -29,10 +37,13 @@
 
 .separator {
   margin: 0 8px;
+  padding-top: 3px;
   color: #666; /* Cor do separador */
 }
 
 .active {
-  font-weight: bold;
-  color: #333; /* Cor do texto ativo */
+  color: #bd7b2d;
+  font-size: 14px;
+  text-transform: capitalize;
+  font-weight: 500;
 }

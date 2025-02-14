@@ -16,10 +16,17 @@ export const Breadcrumb = () => {
     <nav aria-label="breadcrumb" className={styles.breadcrumbNav}>
       <ol className={styles.breadcrumbList}>
         <li className={styles.breadcrumbItem}>
+          <i>
+            <img src="/assets_ecommerce/svg/House.png" alt="" />
+          </i>
           <Link href="/" className={styles.link}>
             Home
           </Link>
-          <span className={styles.separator}>/</span>
+          <span className={styles.separator}>
+            <i>
+              <img src="/assets_ecommerce/svg/CaretRight.png" alt="" />
+            </i>
+          </span>
         </li>
         {breadcrumbs.map((crumb, index) => (
           <li key={index} className={styles.breadcrumbItem}>
@@ -30,7 +37,13 @@ export const Breadcrumb = () => {
             ) : (
               <span className={styles.active}>{crumb.label}</span>
             )}
-            {index < breadcrumbs.length - 1 && <span className={styles.separator}>/</span>}
+            {index < breadcrumbs.length - 1 && (
+              <span className={styles.separator}>
+                <i>
+                  <img src="/assets_ecommerce/svg/CaretRight.png" alt="" />
+                </i>
+              </span>
+            )}
           </li>
         ))}
       </ol>

@@ -2590,7 +2590,7 @@ button {
   background: transparent;
   border-bottom: 1px solid #888;
   border-radius: 0;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
 }
 
@@ -2598,3 +2598,107 @@ button {
   font-size: 24px;
   color: #04040b;
 }
+/* accountConfig section starts here */
+
+.accountConfig {
+}
+
+.accountConfig .group {
+  margin-top: 10px;
+}
+
+.accountConfig .group h4 {
+  font-size: 14px;
+  font-weight: normal;
+  color: #191c1f;
+}
+
+.accountConfig .group p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191c1f;
+}
+
+.accountConfig button {
+  margin-top: 10px;
+  height: 40px;
+  border-radius: 24px;
+  background: #dedede;
+  font-weight: 500px;
+  font-size: 16px;
+  padding: 8 12px;
+  width: 100%;
+}
+
+.accountConfig button i {
+  margin-left: 10px;
+}
+
+@media (min-width: 450px) {
+  .accountConfig button {
+    margin-top: 30px;
+    max-width: 250px;
+  }
+}
+
+/* accountConfig section ends here */
+/* accountConfig section starts here */
+
+.emptyPanelItem {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emptyPanelItem h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #191c1f;
+  width: 100%;
+  max-width: 390px;
+}
+
+.emptyPanelItem > span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b4a48;
+}
+
+.emptyPanelItem > button {
+  margin-top: 10px;
+  height: 40px;
+  border-radius: 24px;
+  background: #000000;
+  color: #fff;
+  font-weight: 500px;
+  font-size: 16px;
+  padding: 8 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyPanelItem button i {
+  margin-left: 10px;
+  width: 12px;
+  margin-top: 2px;
+}
+
+.emptyPanelItem button > i img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 450px) {
+  .emptyPanelItem button {
+    margin-top: 30px;
+    max-width: 250px;
+  }
+
+  .emptyPanelItem h2 {
+  }
+}
+
+/* accountConfig section ends here */
