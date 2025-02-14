@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
 
-export const PreviewAddress = () => {
+export const CreditCardPage = () => {
   return (
     <Panel>
-      <Panel.Icon>Icons - Location</Panel.Icon>
-      <Panel.Title>Endereço</Panel.Title>
+      <Panel.Icon>CreditCard-dark</Panel.Icon>
+      <Panel.Title>Cartões</Panel.Title>
       <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
     </Panel>
   );
