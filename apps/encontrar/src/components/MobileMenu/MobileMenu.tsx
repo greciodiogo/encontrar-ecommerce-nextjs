@@ -1,19 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from 'classnames';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import useDelayedRender from 'use-delayed-render';
 
 import styles from 'styles/mobile-menu.module.css';
 
 export const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(isMenuOpen, {
-    enterDelay: 20,
-    exitDelay: 300,
-  });
 
   function toggleMenu() {
     if (isMenuOpen) {
@@ -42,26 +34,24 @@ export const MobileMenu = () => {
         <MenuIcon data-hide={isMenuOpen} />
         <CrossIcon data-hide={!isMenuOpen} />
       </button>
-      {isMenuMounted && (
-        <ul className={cn(styles.menu, 'flex flex-col absolute bg-[#0e1015]', isMenuRendered && styles.menuRendered)}>
-          <li
-            className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
-            style={{ transitionDelay: '150ms' }}
-          >
-            <Link href="/" className="flex w-auto pb-4">
-              Home
-            </Link>
-          </li>
-          <li
-            className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
-            style={{ transitionDelay: '175ms' }}
-          >
-            <Link href="/products" className="flex w-auto pb-4">
-              About
-            </Link>
-          </li>
-        </ul>
-      )}
+      <ul className={cn(styles.menu, 'flex flex-col absolute bg-[#0e1015]', styles.menuRendered)}>
+        <li
+          className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
+          style={{ transitionDelay: '150ms' }}
+        >
+          <Link href="/" className="flex w-auto pb-4">
+            Home
+          </Link>
+        </li>
+        <li
+          className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
+          style={{ transitionDelay: '175ms' }}
+        >
+          <Link href="/products" className="flex w-auto pb-4">
+            About
+          </Link>
+        </li>
+      </ul>
     </>
   );
 };
