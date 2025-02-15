@@ -31,6 +31,7 @@ const Homepage: NextPage<PropsType> = (props) => {
 
 export default Homepage;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {

@@ -1,10 +1,18 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Breadcrumb } from './Breadcrumb';
 
-export const Container = (props) => {
+type ContainerProps = {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  date?: string;
+};
+export const Container: React.FC<ContainerProps> = (props) => {
   const { children, ...customMeta } = props;
   const router = useRouter();
 

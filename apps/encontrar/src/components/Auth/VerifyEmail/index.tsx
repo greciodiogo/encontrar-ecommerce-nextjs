@@ -13,7 +13,7 @@ type AuthProps = {
 
 const INITIALSTATE = { code: '' };
 
-export const VerifyEmail: React.FC<AuthProps> = ({ showAuthPainel, closeauth, closeModal }) => {
+export const VerifyEmail: React.FC<AuthProps> = () => {
   const url = 'assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
   const router = useRouter();

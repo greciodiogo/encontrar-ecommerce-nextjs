@@ -1,24 +1,44 @@
 import React from 'react';
+import { Control, FieldErrors } from 'react-hook-form';
 
 import { ControlledTextField } from 'hooks/useFormHandler';
 
-export const AddressForm = ({ control, errors }: { control: any; errors: any }) => (
+// Define os campos do formulário
+type AddressFormData = {
+  name: string;
+  email: string;
+  email_confirmation: string;
+  pais: string;
+  cidade: string;
+  telefone: string;
+  municipio: string;
+};
+
+// Define os tipos das props do componente
+type AddressFormProps = {
+  control: Control<AddressFormData>;
+  errors: FieldErrors<AddressFormData>;
+};
+
+export const AddressForm: React.FC<AddressFormProps> = ({ control, errors }) => (
   <div className="row mt-4">
-    {[
-      { label: 'Nome Completo', name: 'name' },
-      { label: 'Email', name: 'email' },
-      { label: 'Confirmar Email', name: 'email_confirmation' },
-      { label: 'País', name: 'pais' },
-      { label: 'Cidade', name: 'cidade' },
-      { label: 'Número de Telemóvel', name: 'telefone' },
-    ].map((field) => (
+    {(
+      [
+        { label: 'Nome Completo', name: 'name' },
+        { label: 'Email', name: 'email' },
+        { label: 'Confirmar Email', name: 'email_confirmation' },
+        { label: 'País', name: 'pais' },
+        { label: 'Cidade', name: 'cidade' },
+        { label: 'Número de Telemóvel', name: 'telefone' },
+      ] as const
+    ).map((field) => (
       <ControlledTextField
         key={field.name}
         control={control}
         errors={errors}
         className="checkout_input col-md-4"
         label={field.label}
-        name={field.name}
+        name={field.name} // Agora reconhecido como keyof AddressFormData
       />
     ))}
     <ControlledTextField

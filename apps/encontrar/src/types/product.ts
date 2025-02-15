@@ -1,6 +1,11 @@
 export type ProductProps = {
   cart: ProductDTO;
-  setTotal?: any;
+  setTotal?: React.Dispatch<React.SetStateAction<number>>;
+};
+export type CartItemProps = {
+  cart: ProductDTO;
+  setSubtotal: React.Dispatch<React.SetStateAction<number>>;
+  setTotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type ProductDetailProps = {
@@ -41,10 +46,12 @@ export type CartProps = {
 //   };
 // };
 
-export type ProductsState = {
+export type ProductState = {
+  products: Array<ProductDTO>;
   cart: Array<ProductDTO>;
+  currentItem: ProductDTO | null;
 };
 
 export type RootState = {
-  products: ProductsState;
+  products: ProductState;
 };

@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { addToCart } from 'actions/products';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { SubmitButton } from 'shared/components/SubmitButton';
-import { ProductDetailProps } from 'types/product';
+import { ProductDetailProps, RootState } from 'types/product';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
@@ -17,8 +13,8 @@ export const ProductDetail = (props: ProductDetailProps) => {
   const [quantity, setQuantity] = useState(1);
   const { name, availability, category, price, brand, id = 0, qty } = props.product;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const product = useAppSelector((state: any) => state.products.currentItem);
+  const product = useAppSelector((state: RootState) => state.products.currentItem);
+
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -69,7 +65,9 @@ export const ProductDetail = (props: ProductDetailProps) => {
       <div className="cart-item-btn">
         <div className="change_quantity">
           <ChangeQuantity id={id} qty={qty ?? quantity} onAdjustQty={handleAdjustQtyCart} />
-          <SubmitButton onClick={() => handleAddToCart(product.id)} title="Adicionar ao Carrinho" svg="cart-2" />
+          {product?.id !== undefined && (
+            <SubmitButton onClick={() => handleAddToCart(product.id ?? 0)} title="Adicionar ao Carrinho" svg="cart-2" />
+          )}
           <SubmitButton onClick={handleCheckoutBtnClick} title="Comprar agora" outlined={true} />
         </div>
       </div>
