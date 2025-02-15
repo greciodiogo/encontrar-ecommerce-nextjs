@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
 import React from 'react';
 
-import { BestSelledProducts, FilterComponent, ProductsList } from 'components';
+import { FilterComponent, ProductsList } from 'components';
 import { bestSelledProduct, products } from 'fixture/ecommerceData';
 import { ProductDTO } from 'types/product';
 
@@ -28,7 +28,6 @@ const ProductsPage: NextPage<PropsType> = (props) => {
           <FilterComponent />
           <ProductsList products={props.products} />
         </div>
-        {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       </div>
     </div>
   );
@@ -36,6 +35,7 @@ const ProductsPage: NextPage<PropsType> = (props) => {
 
 export default ProductsPage;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {

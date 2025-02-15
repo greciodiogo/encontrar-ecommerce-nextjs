@@ -13,6 +13,10 @@ export const BestSelledProducts = ({
   bannerText = 'Melhores Negócios em Eletrônicos.',
   products,
   bestSelledProduct,
+}: {
+  bannerText?: string;
+  products: Array<ProductDTO>;
+  bestSelledProduct: { data: ProductDTO };
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -52,7 +56,7 @@ export const BestSelledProducts = ({
               handlepreviewProduct={handlepreviewProduct}
             />
             <ul className="subcategories bestselled">
-              {products.map((item, itemIndex) => (
+              {products.map((item, itemIndex: number) => (
                 <Product product={item} key={itemIndex} handlepreviewProduct={handlepreviewProduct} />
               ))}
             </ul>

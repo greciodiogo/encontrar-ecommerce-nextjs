@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const PaymentStep = () => {
-  const [selectedPrice, setSelectedPrice] = useState('Todos os Preços');
+export const PaymentStep = ({
+  selectedPrice,
+  setSelectedPrice,
+}: {
+  selectedPrice: string;
+  setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   return (
     <div className="checkout_payment">
       <div className="wrapper">

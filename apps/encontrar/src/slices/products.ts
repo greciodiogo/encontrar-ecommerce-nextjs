@@ -1,13 +1,6 @@
 import { AddToCart, AdjustQty, GetAllProducts, LoadCurrentItem, RemoveFromCart } from 'constants/products';
 import { products } from 'fixture/ecommerceData';
-import { ProductDTO } from 'types/product';
-
-// Definição do estado inicial
-type ProductState = {
-  products: Array<ProductDTO>;
-  cart: Array<ProductDTO>;
-  currentItem: ProductDTO | null;
-};
+import { ProductDTO, ProductState } from 'types/product';
 
 // Definição do tipo de ação
 type Action<T> = {
@@ -33,7 +26,27 @@ export type AddToCartAction = {
   };
 };
 
-type ProductAction = GetAllProductsAction | AddToCartAction;
+export type RemoveFromCart = {
+  type: typeof RemoveFromCart;
+  payload: {
+    id: number;
+  };
+};
+
+export type AdjustQty = {
+  type: typeof AdjustQty;
+  payload: {
+    id: number;
+    qty: number;
+  };
+};
+
+export type LoadCurrentItem = {
+  type: typeof LoadCurrentItem;
+  payload: ProductDTO;
+};
+
+type ProductAction = GetAllProductsAction | AddToCartAction | RemoveFromCart | AdjustQty | LoadCurrentItem;
 
 function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductAction): ProductState {
   switch (action.type) {
@@ -58,7 +71,7 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ...state,
         cart: inCart
           ? state.cart.map((cartItem) =>
-              cartItem.id === action.payload.id ? { ...cartItem, qty: cartItem.qty + 1 } : cartItem,
+              cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + 1 } : cartItem,
             )
           : [...state.cart, { ...item, qty: 1 }],
       };
@@ -67,8 +80,7 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
     case RemoveFromCart: {
       return {
         ...state,
-
-        cart: state.cart.filter((item: { id: number }) => item.id !== action.payload.id),
+        cart: state.cart.filter((item) => item.id !== undefined && item.id !== action.payload.id),
       };
     }
 
@@ -76,8 +88,8 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       return {
         ...state,
 
-        cart: state.cart.map((item: { id: number }) =>
-          item.id === action.payload.id ? { ...item, qty: action.payload.qty } : item,
+        cart: state.cart.map((item) =>
+          item.id !== undefined && item.id === action.payload.id ? { ...item, qty: action.payload.qty } : item,
         ),
       };
     }

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // import { ToastContainer } from 'shared/components/Toast/ToastContainer';
@@ -14,6 +14,8 @@ import { PaymentStep } from './PaymentStep';
 const steps = ['Endereço', 'Pagamento'];
 
 export const CheckoutPage = () => {
+  const [selectedPrice, setSelectedPrice] = useState('CASH');
+
   const {
     control,
     formState: { errors },
@@ -67,7 +69,9 @@ export const CheckoutPage = () => {
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
                   {activeStep === 0 && <AddressForm errors={errors} control={control} />}
-                  {activeStep === 1 && <PaymentStep />}
+                  {activeStep === 1 && (
+                    <PaymentStep selectedPrice={selectedPrice} setSelectedPrice={setSelectedPrice} />
+                  )}
                   {activeStep === 2 && <></>}
                 </Box>
                 <div className="col-md-12">

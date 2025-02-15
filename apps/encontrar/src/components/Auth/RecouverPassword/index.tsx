@@ -13,7 +13,7 @@ type AuthProps = {
 
 const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
-export const RecouverPassword: React.FC<AuthProps> = ({ showAuthPainel, closeauth, closeModal }) => {
+export const RecouverPassword: React.FC<AuthProps> = () => {
   const url = 'assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
   const router = useRouter();
