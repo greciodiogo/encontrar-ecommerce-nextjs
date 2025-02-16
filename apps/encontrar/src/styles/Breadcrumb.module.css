@@ -22,7 +22,7 @@
 }
 
 .breadcrumbItem i {
-  margin-right: 10px;
+  margin-right: 6px;
 }
 
 .link {
@@ -36,7 +36,7 @@
 }
 
 .separator {
-  margin: 0 8px;
+  margin: 0 6px;
   padding-top: 3px;
   color: #666; /* Cor do separador */
 }
