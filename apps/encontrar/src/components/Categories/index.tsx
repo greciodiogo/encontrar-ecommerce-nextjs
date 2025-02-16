@@ -2,52 +2,30 @@ import React from 'react';
 
 export const Categories = () => {
   const categories = [
-    {
-      title: 'Eletrônicos e Elétricos',
-      data: [
-        'Iphones',
-        'Samsung',
-        'Geladeira',
-        'Máquinas de Lavar',
-        'Impressoras',
-        'Air Frier',
-        'Ar Condicionado (AC)',
-        'Tv',
-        'Outros Produtos',
-      ],
-    },
-    {
-      title: 'Alimentação',
-      data: [
-        'Vinagre',
-        'Papel Higiênico',
-        'Guardanapos',
-        'Enxoval',
-        'Ovos',
-        'Azeite Campones',
-        'Frutas',
-        'Vegetais',
-        'Produtos para Cozinha',
-        'Outros Produtos',
-      ],
-    },
+    { slug: 'drink', name: 'Bebidas' },
+    { slug: 'drink', name: 'Items para Casa' },
+    { slug: 'drink', name: 'Cuidados Pessoais' },
+    { slug: 'drink', name: 'Brinquedos Infantis' },
+    { slug: 'drink', name: 'Produtos Elétricos' },
+    { slug: 'drink', name: 'Alimentos' },
+    { slug: 'drink', name: 'Papelaria e Escritório' },
+    { slug: 'drink', name: 'Diversos' },
+    { slug: 'drink', name: 'Ver outros Produtos' },
   ];
+
   return (
     <div className="categories">
       <div className="categories_container">
         <div className="wrapper">
-          {categories.map((category, index) => (
-            <div className="wrapper_list" key={index}>
-              <h3 className="category-item title">{category.title}</h3>
-              <ul className="subcategories">
-                {category.data.map((item, itemIndex) => (
-                  <li className="category-item" key={itemIndex} style={{ display: 'inline', marginRight: '10px' }}>
-                    <a>{item}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="wrapper_list">
+            <ul className="subcategories">
+              {categories.map((item, itemIndex) => (
+                <li className="category-item" key={itemIndex} style={{ display: 'inline', marginRight: '10px' }}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

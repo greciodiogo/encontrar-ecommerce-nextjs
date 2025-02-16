@@ -2588,7 +2588,7 @@ button {
   gap: 10px;
   cursor: pointer;
   background: transparent;
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid #dddddd;
   border-radius: 0;
   padding-top: 2rem;
   padding-bottom: 3rem;
@@ -2754,3 +2754,81 @@ button {
 }
 
 /* addressPreview section ends here */
+
+/* orderList section starts here */
+.orderList {
+  padding: 2rem 0;
+}
+
+.orderList table {
+  max-width: 690px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orderList table thead tr {
+  width: 100%;
+  background: #dedede;
+}
+
+.orderList table thead {
+  border: 1px solid #e4e7e9;
+}
+
+.orderList table thead tr {
+  padding: 10px;
+}
+
+.orderList table thead tr th {
+  color: #475156;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px;
+}
+
+.orderList table tbody tr td {
+  font-size: 13px;
+  font-weight: 500;
+  vertical-align: middle;
+  padding: 10px;
+  color: #475156;
+}
+
+.orderList table tbody tr td.coloured {
+  color: #bd7b2d;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderList table tbody tr td.coloured-2 {
+  color: #e8aa1d;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.orderList table tbody tr td.coloured-2 i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+
+.orderList .pagintation__container {
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Mui-selected {
+  background: #bd7b2d !important;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* orderList section ends here */

@@ -1,0 +1,106 @@
+/* Estilos para o container do dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botão do usuário */
+.dropdown_button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Chevron (seta para baixo) */
+.chevron {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* Quando o dropdown está aberto, rota a seta */
+.dropdown:hover .chevron {
+  transform: rotate(180deg);
+}
+
+/* Menu do dropdown */
+.dropdown_menu {
+  display: none; /* Esconde o menu inicialmente */
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 0;
+  min-width: 220px;
+  z-index: 1000;
+}
+
+/* Exibe o dropdown ao passar o mouse */
+.dropdown:hover .dropdown_menu {
+  display: block;
+}
+
+/* Cabeçalho do dropdown */
+.dropdown_header {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  padding: 10px 30px;
+  margin: 0;
+}
+
+/* Divisor */
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #eee;
+  margin: 5px 0;
+}
+
+/* Lista de links no dropdown */
+.dropdown_menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown_menu ul li {
+  margin: 0;
+}
+
+.dropdown_menu ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 15px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #5b5b5b;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.dropdown_menu ul li a:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+.dropdown_menu a i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown_menu a i img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
