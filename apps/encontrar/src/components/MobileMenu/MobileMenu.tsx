@@ -25,12 +25,7 @@ export const MobileMenu = () => {
 
   return (
     <>
-      <button
-        className={cn(styles.burger, 'p-3 flex flex-col justify-between visible md:hidden')}
-        aria-label="Toggle menu"
-        type="button"
-        onClick={toggleMenu}
-      >
+      <button className={cn(styles.burger)} aria-label="Toggle menu" type="button" onClick={toggleMenu}>
         <MenuIcon data-hide={isMenuOpen} />
         <CrossIcon data-hide={!isMenuOpen} />
       </button>
