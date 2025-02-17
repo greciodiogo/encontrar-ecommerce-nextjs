@@ -8,9 +8,31 @@ type Action<T> = {
   payload?: T;
 };
 
+// Funções de persistência no localStorage
+const saveCartToLocalStorage = (cart: any) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+};
+
+export const loadCartFromLocalStorage = (): any => {
+  if (typeof window === 'undefined') {
+    return []; // Retorna um estado vazio no lado do servidor
+  }
+
+  const savedCart = localStorage.getItem('cart');
+  return savedCart ? JSON.parse(savedCart) : [];
+};
+
+// Inicializa o estado do carrinho com os dados do localStorage
+// export const initializeCart = (): any => {
+//   return loadCartFromLocalStorage();
+//   cart: typeof window !== 'undefined' ? loadCartFromLocalStorage() : [],
+// };
+
 const INITIALSTATE: ProductState = {
   products: products,
-  cart: [],
+  cart: typeof window !== 'undefined' ? loadCartFromLocalStorage() : [],
   currentItem: {},
 };
 
@@ -67,36 +89,47 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
 
       const inCart = state.cart.find((item) => item.id === action.payload.id);
 
+      const updatedCart = inCart
+        ? state.cart.map((cartItem) =>
+            cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + 1 } : cartItem,
+          )
+        : [...state.cart, { ...item, qty: 1 }];
+
+      saveCartToLocalStorage(updatedCart); // Salva no localStorage
+
       return {
         ...state,
-        cart: inCart
-          ? state.cart.map((cartItem) =>
-              cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + 1 } : cartItem,
-            )
-          : [...state.cart, { ...item, qty: 1 }],
+        cart: updatedCart,
       };
     }
 
     case RemoveFromCart: {
+      const updatedCart = state.cart.filter((item) => item.id !== undefined && item.id !== action.payload.id);
+
+      saveCartToLocalStorage(updatedCart); // Salva no localStorage
+
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== undefined && item.id !== action.payload.id),
+        cart: updatedCart,
       };
     }
 
     case AdjustQty: {
+      const updatedCart = state.cart.map((item) =>
+        item.id !== undefined && item.id === action.payload.id ? { ...item, qty: action.payload.qty } : item,
+      );
+
+      saveCartToLocalStorage(updatedCart); // Salva no localStorage
+
       return {
         ...state,
-
-        cart: state.cart.map((item) =>
-          item.id !== undefined && item.id === action.payload.id ? { ...item, qty: action.payload.qty } : item,
-        ),
+        cart: updatedCart,
       };
     }
+
     case LoadCurrentItem: {
       return {
         ...state,
-
         currentItem: action.payload,
       };
     }

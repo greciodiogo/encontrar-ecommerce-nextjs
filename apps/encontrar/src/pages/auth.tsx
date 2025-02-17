@@ -1,13 +1,16 @@
 import React from 'react';
 
-// import Auth from 'components/Auth/SignIn';
+import { Auth } from 'components/Auth/SignIn';
 // import RecouverPassword from 'components/Auth/RecouverPassword';
-import { VerifyEmail } from 'components/Auth/VerifyEmail';
+// import { VerifyEmail } from 'components/Auth/VerifyEmail';
+const handleCloseBtn = () => {
+  return false;
+};
 
 const AuthPage = () => {
   return (
     <div>
-      <VerifyEmail />
+      <Auth showAuthPainel={true} closeAuth={handleCloseBtn} />
     </div>
   );
 };

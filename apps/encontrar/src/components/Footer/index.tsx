@@ -1,8 +1,14 @@
 import React from 'react';
 
 import { footer } from 'fixture/ecommerceData';
+import { useAuth } from 'hooks/useAuth';
 
 export const Footer = () => {
+  const { isClient } = useAuth();
+
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
   return (
     <div className="footer">
       <div className="footer_container">

@@ -34,7 +34,7 @@ export const ControlledTextField = <T extends FieldValues>({
         {...field}
         label={label}
         error={!!errors[name]} // Verifica se há erro
-        helperText={errors[name]?.message as string} // Garante que a mensagem seja string
+        helpertext={errors[name]?.message as string} // Garante que a mensagem seja string
         className={className}
         type={type}
         fullWidth={fullWidth}

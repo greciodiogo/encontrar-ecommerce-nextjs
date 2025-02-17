@@ -19,7 +19,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
   const dispatch = useAppDispatch();
 
   const handleCheckoutBtnClick = () => {
-    void router.push('/checkout');
+    void router.push('/cart');
   };
 
   const handleAddToCart = (id: number) => {

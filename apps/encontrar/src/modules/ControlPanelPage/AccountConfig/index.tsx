@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
+import { useAuth } from 'hooks/useAuth';
 
 export const AccountConfigPage = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <Panel>
@@ -13,11 +16,11 @@ export const AccountConfigPage = () => {
       <div className="accountConfig">
         <div className="group">
           <h4>Nome</h4>
-          <p>João Garcia</p>
+          <p>{user?.name}</p>
         </div>
         <div className="group">
           <h4>Email</h4>
-          <p>jgarcia11@gmail.com</p>
+          <p>{user?.email}</p>
         </div>
         <div className="group">
           <h4>Password</h4>
