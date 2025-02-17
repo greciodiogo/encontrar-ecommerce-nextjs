@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { CheapestProducts } from 'components';
+import { Auth } from 'components/Auth/SignIn';
+import { useAuth } from 'hooks/useAuth';
 import { PaymentStep } from 'modules/CheckoutPage/PaymentStep';
 import { RootState } from 'types/product';
 
@@ -16,6 +19,19 @@ export const CartPage = () => {
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
   const [selectedPrice, setSelectedPrice] = useState('CASH');
+  const { isAuthenticated, isClient } = useAuth();
+
+  const router = useRouter();
+
+  const [showAuth, setShowAuth] = useState(false);
+
+  const handleGoToCheckout = () => {
+    if (!isAuthenticated) {
+      setShowAuth(true);
+    } else {
+      void router.push('/checkout');
+    }
+  };
   const TOTAL_ITEMS_CART: number = productCart.length;
   if (!TOTAL_ITEMS_CART)
     return (
@@ -24,6 +40,10 @@ export const CartPage = () => {
         {/* <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" /> */}
       </>
     );
+
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
 
   return (
     <>
@@ -43,11 +63,13 @@ export const CartPage = () => {
                 totalProduct={TOTAL_ITEMS_CART}
                 total={total}
                 subtotal={subtotal}
+                handleGoToCheckout={handleGoToCheckout}
               />
             </div>
           </div>
         </div>
       </div>
+      <Auth showAuthPainel={showAuth} />
       <CheapestProducts />
     </>
   );

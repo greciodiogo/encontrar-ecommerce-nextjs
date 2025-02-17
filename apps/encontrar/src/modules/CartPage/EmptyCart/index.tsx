@@ -1,13 +1,20 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { useAuth } from 'hooks/useAuth';
+
 export const EmptyCart = () => {
+  const { isClient } = useAuth();
   const router = useRouter();
   const url = 'assets_ecommerce/svg';
 
   const handleStartBuying = () => {
     void router.push('/');
   };
+
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
   return (
     <div className="emptyCart">
       <div className="emptyCart__container">
