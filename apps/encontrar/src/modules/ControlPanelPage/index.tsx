@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { useAuth } from 'hooks/useAuth';
+
 const panelItems = [
   {
     icon: 'Stack.png',
@@ -41,13 +43,16 @@ const panelItems = [
 ];
 export const ControlPanelPage = () => {
   const router = useRouter();
+  const { user } = useAuth();
+  const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest'; // Exibe "Guest" se o nome não estiver disponível
+
   const handleClick = (routerLink: string) => {
     void router.push(`/control-panel/${routerLink}`);
   };
 
   return (
     <div className="controlPanel">
-      <h1>Olá João, seja bem vindo ao Encontrar</h1>
+      <h1>Olá {USERNAME}, seja bem vindo ao Encontrar</h1>
       <div className="wrapper">
         {panelItems.map((item, index) => (
           <PanelItem
