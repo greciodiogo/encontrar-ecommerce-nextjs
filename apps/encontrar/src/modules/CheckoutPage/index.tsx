@@ -4,7 +4,10 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // import { ToastContainer } from 'shared/components/Toast/ToastContainer';
+import { setAddress, setPaymentMethod } from 'actions/products';
 import { validationSchema } from 'utils/validationSchema';
+
+import { useAppDispatch } from '../../hooks';
 
 import { AddressForm } from './AddressForm';
 import { PaymentStep } from './PaymentStep';
@@ -15,9 +18,14 @@ const steps = ['Endereço', 'Pagamento', 'Revisão'];
 
 export const CheckoutPage = () => {
   const [selectedPrice, setSelectedPrice] = useState('CASH');
+  const [activeStep, setActiveStep] = React.useState(0);
+  const formRef = useRef<HTMLDivElement>(null); // Referência para o formulário
+  const dispatch = useAppDispatch();
 
   const {
     control,
+    handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema.step_user),
@@ -25,16 +33,24 @@ export const CheckoutPage = () => {
   });
 
   //   ########## stepper #############
-  const [activeStep, setActiveStep] = React.useState(0);
-  const formRef = useRef<HTMLDivElement>(null); // Referência para o formulário
 
   const handleNextStep = () => {
-    setActiveStep((prev) => prev + 1);
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Rola para o formulário
+    if (activeStep === steps.length - 1) {
+    } else {
+      setActiveStep((prev) => prev + 1);
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    handleFormSubmit(); // Submete o formulário ao finalizar
   };
 
-  const handleSubmit = () => {
-    // void router.push('/sucessful-order');
+  const handleFormSubmit = () => {
+    const checkoutData = getValues(); // Obtém os dados do formulário
+    try {
+      dispatch(setAddress(checkoutData));
+      dispatch(setPaymentMethod(selectedPrice));
+    } catch (err) {
+      console.error('Erro ao processar o formulário:', err);
+    }
   };
   //
   //   ########## stepper #############
@@ -43,7 +59,7 @@ export const CheckoutPage = () => {
     <div className="checkoutPage">
       <div className="checkoutPage__container">
         <div className="">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
             <div className="modal-body">
               <Stepper activeStep={activeStep}>
                 {steps.map((label) => (

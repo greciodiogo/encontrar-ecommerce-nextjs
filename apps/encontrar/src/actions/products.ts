@@ -1,7 +1,16 @@
 import { Dispatch } from 'redux';
 
-import { AddToCart, AdjustQty, LoadCurrentItem, RemoveFromCart } from 'constants/products';
+import {
+  AddToCart,
+  AdjustQty,
+  LoadCurrentItem,
+  RemoveFromCart,
+  SetAddress,
+  SetPaymentMethod,
+} from 'constants/products';
+import { CheckoutDTO } from 'types/checkout';
 import { ProductDTO } from 'types/product';
+import { SetAddressAction, SetPaymentMethodAction } from 'types/store';
 
 type CartAction = {
   type: string;
@@ -37,5 +46,22 @@ export const loadCurrentItem = (item: ProductDTO) => (dispatch: Dispatch<CartAct
     dispatch({ type: LoadCurrentItem, payload: item });
   } catch (error) {
     console.error("Can't load current item", error);
+  }
+};
+
+export const setAddress = (checkoutData: CheckoutDTO) => (dispatch: Dispatch<SetAddressAction>) => {
+  try {
+    delete checkoutData.paymentMethod;
+    dispatch({ type: SetAddress, payload: checkoutData });
+  } catch (error) {
+    console.error("Can't Set Address", error);
+  }
+};
+
+export const setPaymentMethod = (method: string) => (dispatch: Dispatch<SetPaymentMethodAction>) => {
+  try {
+    dispatch({ type: SetPaymentMethod, payload: method });
+  } catch (error) {
+    console.error("Can't Set Payment Method", error);
   }
 };
