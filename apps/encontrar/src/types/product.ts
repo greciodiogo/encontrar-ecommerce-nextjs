@@ -54,7 +54,6 @@ export type ProductState = {
   currentItem: ProductDTO | null;
   address: RegisterAddressDTO | null; // Novo campo para endereço
   paymentMethod: RegisterPaymentMethodDTO | null; // Novo campo para método de pagamento
-  reviewData: ReviewDataProps | null; // Novo campo para revisão
 };
 
 export type RootState = {
