@@ -20,5 +20,6 @@ export const validationSchema = {
       .string()
       .oneOf([yup.ref('email')], 'O email deve coincidir')
       .required('O campo Email é obrigatório'),
+    // paymentMethod: yup.string().required('O nome é obrigatório'),
   }),
 };

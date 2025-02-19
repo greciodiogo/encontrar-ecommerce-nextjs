@@ -10,7 +10,7 @@ export const SuccessfulOrder = () => {
   };
 
   const handleSeeOrder = () => {
-    void router.push('/');
+    void router.push('/control-panel/order-history');
   };
   return (
     <div className="successfulOrder">
