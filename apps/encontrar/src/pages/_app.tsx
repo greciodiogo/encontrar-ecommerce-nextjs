@@ -11,6 +11,7 @@ import { createEmotionCache } from 'utils-mui';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
+import './../styles/menu-categories.css';
 import { Banner, Footer, Header } from 'components';
 import { store } from 'slices/store';
 

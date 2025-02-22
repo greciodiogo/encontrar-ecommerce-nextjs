@@ -1,82 +1,112 @@
-import cn from 'classnames';
-import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-import styles from 'styles/mobile-menu.module.css';
+import { CrossIcon } from 'components/icon/CrossIcon';
 
-export const MobileMenu = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const categories = [
+  {
+    label: 'Bebidas',
+    categoryKey: 'bebidas',
+    subcategories: ['Sumos', 'Cervejas', 'Vinhos'],
+  },
+  {
+    label: 'Cuidados Pessoais',
+    categoryKey: 'cuidados',
+    subcategories: ['Creme', 'Perfume', 'Gel'],
+  },
+  'Itens para Casa',
+  'Brinquedos Infantis',
+  'Produtos Elétricos',
+  'Alimentos',
+  'Papelaria e Escritório',
+  'Diversos',
+  'Ver outros Produtos',
+];
 
-  function toggleMenu() {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-      document.body.style.overflow = '';
-    } else {
-      setIsMenuOpen(true);
-      document.body.style.overflow = 'hidden';
-    }
-  }
+export const MobileMenu = ({
+  menuOpen,
+  setMenuOpen,
+}: {
+  menuOpen: boolean;
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [activeCategory, setActiveCategory] = useState('');
 
-  useEffect(() => {
-    return function cleanup() {
-      document.body.style.overflow = '';
-    };
-  }, []);
+  const toggleCategory = (category: string) => {
+    setActiveCategory(activeCategory === category ? '' : category);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setActiveCategory('');
+  };
 
   return (
-    <>
-      <button className={cn(styles.burger)} aria-label="Toggle menu" type="button" onClick={toggleMenu}>
-        <MenuIcon data-hide={isMenuOpen} />
-        <CrossIcon data-hide={!isMenuOpen} />
-      </button>
-      <ul className={cn(styles.menu, 'flex flex-col absolute bg-[#0e1015]', styles.menuRendered)}>
-        <li
-          className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
-          style={{ transitionDelay: '150ms' }}
-        >
-          <Link href="/" className="flex w-auto pb-4">
-            Home
-          </Link>
-        </li>
-        <li
-          className="border-b border-gray-700 text-gray-100 text-sm font-semibold"
-          style={{ transitionDelay: '175ms' }}
-        >
-          <Link href="/products" className="flex w-auto pb-4">
-            About
-          </Link>
-        </li>
-      </ul>
-    </>
+    <div className="menu-categories">
+      {menuOpen && (
+        <div className="menu-overlay">
+          <div
+            className="menu"
+            role="button"
+            tabIndex={0}
+            onKeyDown={closeMenu}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="menu-top">
+              <span></span>
+              <h5>Nossas Categorias de Produtos</h5>
+              <button onClick={closeMenu}>
+                <CrossIcon />
+              </button>
+            </div>
+            <ul className="menu-list">
+              {categories.map((category, index) =>
+                typeof category === 'string' ? (
+                  <li key={index}>{category}</li>
+                ) : (
+                  <CategoryItem
+                    key={index}
+                    {...category}
+                    activeCategory={activeCategory}
+                    toggleCategory={toggleCategory}
+                  />
+                ),
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
-function MenuIcon(props: JSX.IntrinsicElements['svg']) {
+const CategoryItem = ({
+  label,
+  categoryKey,
+  subcategories,
+  activeCategory,
+  toggleCategory,
+}: {
+  label: string;
+  categoryKey?: string;
+  subcategories?: Array<string>;
+  activeCategory: string | null;
+  toggleCategory: (key: string) => void;
+}) => {
+  const isOpen = activeCategory === categoryKey;
   return (
-    <svg className="h-5 w-5 absolute text-gray-100" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
-      <path d="M2.5 7.5H17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M2.5 12.5H17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <li>
+      {categoryKey ? (
+        <>
+          <button onClick={() => toggleCategory(categoryKey)} className="category-button">
+            {label}
+            {isOpen ? <FaChevronLeft size={16} /> : <FaChevronRight size={14} />}
+          </button>
+          {isOpen && <ul className="submenu">{subcategories?.map((item, index) => <li key={index}>{item}</li>)}</ul>}
+        </>
+      ) : (
+        label
+      )}
+    </li>
   );
-}
-
-function CrossIcon(props: JSX.IntrinsicElements['svg']) {
-  return (
-    <svg
-      className="h-5 w-5 absolute text-gray-100"
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-      shapeRendering="geometricPrecision"
-      {...props}
-    >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
-    </svg>
-  );
-}
+};
