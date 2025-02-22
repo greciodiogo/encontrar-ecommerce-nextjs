@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
@@ -6,6 +7,7 @@ import { Breadcrumb } from './Breadcrumb';
 
 type ContainerProps = {
   children: ReactNode;
+  useStyle?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -13,7 +15,7 @@ type ContainerProps = {
   date?: string;
 };
 export const Container: React.FC<ContainerProps> = (props) => {
-  const { children, ...customMeta } = props;
+  const { children, useStyle = true, ...customMeta } = props;
   const router = useRouter();
 
   const meta = {
@@ -24,7 +26,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
     ...customMeta,
   };
   return (
-    <div className="app">
+    <div className={cn(useStyle && 'app')}>
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -39,7 +41,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main>
-        <Breadcrumb />
+        {useStyle && <Breadcrumb />}
         {children}
       </main>
     </div>
