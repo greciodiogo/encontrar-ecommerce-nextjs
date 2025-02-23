@@ -37,7 +37,7 @@ export const BestSelledProduct = ({
           ))}
         </div>
         <p>{price}Kz</p>
-        <span>{about}</span>
+        {hasButtons && <span>{about}</span>}
       </div>
       {hasButtons && (
         <a
