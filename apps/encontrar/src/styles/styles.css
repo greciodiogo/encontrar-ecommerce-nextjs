@@ -1845,6 +1845,10 @@ a:visited {
   font-weight: 600;
 }
 
+.productDetail .item-picture {
+  border: 1px solid #e4e7e9;
+}
+
 .productDetail .item-picture img {
   width: 100%;
   height: 100%;
@@ -1952,16 +1956,15 @@ a:visited {
   }
 }
 
+.productDetail .item-picture {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 320px;
+}
 @media (min-width: 750px) {
-  .productDetail .item-picture {
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 380px;
-  }
-
   .productDetail .row {
     padding: 3rem 2rem;
     display: grid;

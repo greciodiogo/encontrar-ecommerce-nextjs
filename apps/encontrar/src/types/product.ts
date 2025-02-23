@@ -17,7 +17,7 @@ export type ProductDetailProps = {
 export type ProductDTO = {
   name?: string;
   image?: string;
-  images?: string;
+  images?: Array<string>;
   about?: string;
   availability?: string;
   category?: string;
