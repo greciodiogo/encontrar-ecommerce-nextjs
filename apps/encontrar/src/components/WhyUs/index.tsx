@@ -6,23 +6,23 @@ export const WhyUs = () => {
   const whyUsJson = [
     {
       icon: 'Icon - Shipping.png',
-      name: 'Envio Gratuíto',
-      description: 'Na maioria dos items',
+      name: 'Entrega Rápida',
+      description: 'Entregamos os produtos directamente na sua morada.',
     },
     {
-      icon: 'Icon - Shipping.png',
-      name: 'Envio Gratuíto',
-      description: 'Na maioria dos items',
+      icon: 'call_center-black.png',
+      name: 'Suporte',
+      description: 'Linha de contato sempre pronta para lhe ajudar',
     },
     {
-      icon: 'Icon - Shipping.png',
+      icon: 'Icons - Payment.png',
       name: 'Facilidade de Pagamentos',
-      description: 'Na maioria dos items',
+      description: 'Opções de pagamentos como Fasmapay, Express e Cash',
     },
     {
-      icon: 'Icon - Shipping.png',
-      name: 'Envio Gratuíto',
-      description: 'Na maioria dos items',
+      icon: 'KeyReturn.png',
+      name: 'Devolução',
+      description: 'Teste e devolução do produto a disposição do cliente',
     },
   ];
   return (
