@@ -21,7 +21,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
   const meta = {
     title: 'Encontrar – Encontre os melhores produtos aqui.',
     description: `Tenha Acesso aos Melhores Aparelhos da Banda, Encontre os melhores produtos aqui.`,
-    image: 'https://encontrar.vercel.app/static/logo.ico',
+    image: 'https://encontrar.vercel.app/logo.ico',
     type: 'website',
     ...customMeta,
   };
