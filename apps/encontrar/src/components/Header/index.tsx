@@ -1,10 +1,12 @@
+import MenuIcon from '@mui/icons-material/Menu';
+import TranslateIcon from '@mui/icons-material/Translate';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Auth } from 'components/Auth/SignIn';
 import { CrossIcon } from 'components/icon/CrossIcon';
-import { MenuIcon } from 'components/icon/MenuIcon';
+// import { MenuIcon } from 'components/icon/MenuIcon';
 import { MobileMenu } from 'components/MobileMenu/MobileMenu';
 import { useAuth } from 'hooks/useAuth';
 import { RootState } from 'types/product';
@@ -97,12 +99,13 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
           )}
           <nav className="options">
             <a className="nav-item location">
-              <i>
+              {/* <i>
                 <img src="/assets_ecommerce/svg/location.png" alt="" />
               </i>
               <p>
                 <span>Viana</span>, Aberto 24/7
-              </p>
+              </p> */}
+              <TranslateIcon />
             </a>
             {isAuthenticated ? (
               <div className={styles.dropdown}>

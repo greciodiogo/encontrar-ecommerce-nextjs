@@ -22,29 +22,45 @@ export const categories = [
 ];
 
 export const new_categories = [
-  { name: 'Items para Casa', image: `items_casa.png` },
-  { name: 'Brinquedos Infantis', image: `brinquedos.png` },
-  { name: 'Produtos Eletricos', image: `eletricos.png` },
-  { name: 'Alimentos', image: `alimentos.png` },
-  { name: 'Diversos', image: `diversos.png` },
-  { name: 'Bebidas', image: `bebidas.png` },
-  { name: 'Cuidados Pessoais', image: `cuidados_pessoais.png` },
-  { name: 'Papelaria e Escritório', image: `papelaria.png` },
-  { name: 'Saúde', image: `saude.png` },
+  { slug: 'home_items', image: `items_casa.png` },
+  { slug: 'toys', image: `brinquedos.png` },
+  { slug: 'electronics', image: `eletricos.png` },
+  { slug: 'food', image: `alimentos.png` },
+  { slug: 'various', image: `diversos.png` },
+  { slug: 'drink', image: `bebidas.png` },
+  { slug: 'personal_care', image: `cuidados_pessoais.png` },
+  { slug: 'stationery', image: `papelaria.png` },
+  { slug: 'health', image: `saude.png` },
 ];
 
 export const footer = [
   {
+    slug: 'orders_and_returns',
     title: 'Pedidos e Devoluções',
-    data: ['Status do Pedido', 'Retirada na Loja', 'Política e Informações de Devolução', 'Informações de Envio'],
+    data: [
+      { slug: 'order_status', title: 'Status do Pedido' },
+      { slug: 'store_pickup', title: 'Retirada na Loja' },
+      { slug: 'return_policy', title: 'Política e Informações de Devolução' },
+      { slug: 'shipping_info', title: 'Informações de Envio' },
+    ],
   },
   {
+    slug: 'shopping_tools',
     title: 'Ferramentas de Compras',
-    data: ['Status do Pedido', 'Retirada na Loja', 'Consulta de Número de Membro', 'Informações de Envio'],
+    data: [
+      { slug: 'order_status', title: 'Status do Pedido' },
+      { slug: 'store_pickup', title: 'Retirada na Loja' },
+      { slug: 'member_number_lookup', title: 'Consulta de Número de Membro' },
+      { slug: 'shipping_info', title: 'Informações de Envio' },
+    ],
   },
   {
+    slug: 'products',
     title: 'Produtos',
-    data: ['Eletrónicos', 'Alimentação'],
+    data: [
+      { slug: 'electronics', title: 'Eletrónicos' },
+      { slug: 'food', title: 'Alimentação' },
+    ],
   },
 ];
 

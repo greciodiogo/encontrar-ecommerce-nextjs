@@ -1,16 +1,18 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const Categories = () => {
+  const { t } = useTranslation('home'); // 'common' corresponde ao JSON
   const categories = [
-    { slug: 'drink', name: 'Bebidas' },
-    { slug: 'drink', name: 'Items para Casa' },
-    { slug: 'drink', name: 'Cuidados Pessoais' },
-    { slug: 'drink', name: 'Brinquedos Infantis' },
-    { slug: 'drink', name: 'Produtos Elétricos' },
-    { slug: 'drink', name: 'Alimentos' },
-    { slug: 'drink', name: 'Papelaria e Escritório' },
-    { slug: 'drink', name: 'Diversos' },
-    { slug: 'drink', name: 'Ver outros Produtos' },
+    { slug: 'drink', name: t('categories.drink') },
+    { slug: 'home_items', name: t('categories.home_items') },
+    { slug: 'personal_care', name: t('categories.personal_care') },
+    { slug: 'toys', name: t('categories.toys') },
+    { slug: 'electronics', name: t('categories.electronics') },
+    { slug: 'food', name: t('categories.food') },
+    { slug: 'stationery', name: t('categories.stationery') },
+    { slug: 'various', name: t('categories.various') },
+    { slug: 'view_more', name: t('categories.view_more') },
   ];
 
   return (

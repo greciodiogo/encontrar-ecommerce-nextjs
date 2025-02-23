@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const Framer = () => {
   const router = useRouter();
+  const { t } = useTranslation('home'); // 'common' corresponde ao JSON
   const url = 'assets_ecommerce';
 
   const redirectToProducts = () => {
@@ -22,32 +24,30 @@ export const Framer = () => {
                   </i>
                 ))}
               </div>
-              <p>Feedbacks dos Nossos Clientes</p>
+              <p>{t('framer.customer_feedbacks')}</p>
             </div>
-            <h2>Descubra os produtos mais incríveis da banda!</h2>
-            <h4>
-              Vendemos para si as melhores bebidas a disposição do mercado, desde vinhos até refrigerantes e água.
-            </h4>
+            <h2>{t('framer.discover_products')}</h2>
+            <h4>{t('framer.we_sell_best')}</h4>
             <div className="btn_container">
               <button className="" onClick={redirectToProducts}>
-                Explorar Produtos
+                {t('framer.explore_products')}
                 <i className="white">
-                  <img src={`${url}/svg/ArrowRight.png`} alt="star" />
+                  <img src={`${url}/svg/ArrowRight.png`} alt="arrow" />
                 </i>
                 <i className="black">
-                  <img src={`${url}/svg/ArrowRight-3.png`} alt="star" />
+                  <img src={`${url}/svg/ArrowRight-3.png`} alt="arrow" />
                 </i>
               </button>
               <button className="simple">
-                Entre em Contacto
+                {t('framer.contact_us')}
                 <i>
-                  <img src={`${url}/svg/call_center-black.png`} alt="star" />
+                  <img src={`${url}/svg/call_center-black.png`} alt="contact" />
                 </i>
               </button>
             </div>
           </div>
           <div className="picture">
-            <img src={`${url}/app-bg.png`} alt="star" />
+            <img src={`${url}/app-bg.png`} alt="background" />
           </div>
         </div>
       </div>

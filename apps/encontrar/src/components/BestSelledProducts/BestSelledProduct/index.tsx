@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { ProductTypeProps } from 'types/product';
@@ -8,6 +9,8 @@ export const BestSelledProduct = ({
   handlepreviewProduct,
   hasButtons = true,
 }: ProductTypeProps) => {
+  const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
+
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
 
@@ -50,7 +53,7 @@ export const BestSelledProduct = ({
           <i>
             <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
           </i>
-          Adicionar ao Carrinho
+          {t('products.add_to_cart')}
         </a>
       )}
     </button>

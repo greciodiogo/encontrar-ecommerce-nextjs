@@ -1,23 +1,20 @@
 'use client';
+import useTranslation from 'next-translate/useTranslation';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const information = [
-  'Encontre os melhores produtos aqui',
-  'Encontre os melhores produtos aqui',
-  'Encontre os melhores produtos aqui',
-  'Encontre os melhores produtos aqui',
-];
-
 export const Banner = () => {
+  const { t } = useTranslation('home'); // 'common' se refere ao nome do JSON
+  const information = [t('banner.text'), t('banner.text'), t('banner.text'), t('banner.text')];
+
   const settings = {
     dots: false,
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     speed: 5000,
     autoplaySpeed: 5000,
     cssEase: 'linear',
