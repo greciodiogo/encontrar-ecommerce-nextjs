@@ -25,6 +25,10 @@ export const CartPage = () => {
 
   const [showAuth, setShowAuth] = useState(false);
 
+  const onCloseSignInForm = () => {
+    setShowAuth(false);
+  };
+
   const handleGoToCheckout = () => {
     if (!isAuthenticated) {
       setShowAuth(true);
@@ -69,7 +73,7 @@ export const CartPage = () => {
           </div>
         </div>
       </div>
-      <Auth showAuthPainel={showAuth} />
+      <Auth showAuthPainel={showAuth} closeAuth={onCloseSignInForm} />
       <CheapestProducts />
     </>
   );

@@ -9,12 +9,12 @@ import styles from 'styles/home/auth.module.css';
 
 type AuthProps = {
   showAuthPainel?: boolean;
-  closeAuth?: () => void;
+  closeAuth: () => void;
   isSignIn?: boolean;
 };
 
 type CredentialResponse = {
-  credential: string; // Garantimos que o tipo seja string no uso
+  credential?: string; // Garantimos que o tipo seja string no uso
   // select_by?: string; // Algumas respostas podem incluir isso
   // clientId?: string; // ID do cliente, se for incluído na resposta
 } & GoogleCredentialResponse;
@@ -22,7 +22,6 @@ type CredentialResponse = {
 const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
 export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
-  const url = 'assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
   const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const router = useRouter();
@@ -43,6 +42,10 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     setIsSignIn((state) => !state);
   };
 
+  const handleClickKeepAsGuess = () => {
+    void router.push('/checkout');
+  };
+
   const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
     if (!credentialResponse.credential) {
       console.error('Credential is undefined!');
@@ -52,17 +55,15 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     const tokenId: string = credentialResponse.credential;
 
     // Envolvemos a chamada assíncrona em uma função
-    void (async () => {
-      try {
-        await loginGoogle(tokenId); // Função de login
-        closeAuth();
-        if (amIinCartRoute) {
-          void router.push('/checkout');
-        }
-      } catch (error) {
-        console.error('Login failed:', error);
+    try {
+      loginGoogle(tokenId); // Função de login
+      closeAuth();
+      if (amIinCartRoute) {
+        void router.push('/checkout');
       }
-    })();
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
@@ -130,20 +131,13 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
             )}
             <button className={styles.btn}>{isSignIn ? 'Login' : 'Criar Conta'}</button>
             <span className={styles.divisor}>ou</span>
-            <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error('Erro ao logar com Google')}>
-              <button className={`${styles.btn} ${styles.outlinedBtn}`}>
-                <i>
-                  <img src={`${url}/svg/Google.png`} alt="star" />
-                </i>
-                Login with Google
-                <span></span>
-              </button>
-            </GoogleLogin>
-            <button className={`${styles.btn} ${styles.outlinedBtn}`}>
-              <i>
-                <img src={`${url}/svg/Apple.png`} alt="star" />
-              </i>
-              Login with Apple
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => console.error('Erro ao logar com Google')}
+            ></GoogleLogin>
+            <button className={`${styles.btn} ${styles.outlinedBtn}`} onClick={handleClickKeepAsGuess}>
+              <i>{/* <img src={`${url}/svg/Apple.png`} alt="star" /> */}</i>
+              Continuar como convidado
               <span></span>
             </button>
           </form>
