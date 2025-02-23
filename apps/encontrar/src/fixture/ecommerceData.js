@@ -22,16 +22,15 @@ export const categories = [
 ];
 
 export const new_categories = [
-  { name: 'Iphones', image: `stick.png` },
-  { name: 'Ar Condicionado (AC)', image: `ac.png` },
-  { name: 'Samsung', image: `printer.png` },
-  { name: 'Máquinas de Lavar', image: `smart_tv.png` },
-  { name: 'Geladeira', image: `machine.png` },
-  { name: 'Vinagre', image: `vegetals.png` },
-  { name: 'Ovos', image: `legums.png` },
-  { name: 'Frutas', image: `fruits.png` },
-  { name: 'Enxoval', image: `graps.png` },
-  { name: 'Outros Produtos', image: `strawberry.png` },
+  { name: 'Items para Casa', image: `items_casa.png` },
+  { name: 'Brinquedos Infantis', image: `brinquedos.png` },
+  { name: 'Produtos Eletricos', image: `eletricos.png` },
+  { name: 'Alimentos', image: `alimentos.png` },
+  { name: 'Diversos', image: `diversos.png` },
+  { name: 'Bebidas', image: `bebidas.png` },
+  { name: 'Cuidados Pessoais', image: `cuidados_pessoais.png` },
+  { name: 'Papelaria e Escritório', image: `papelaria.png` },
+  { name: 'Saúde', image: `saude.png` },
 ];
 
 export const cartList = {
@@ -79,46 +78,6 @@ export const footer = [
     data: ['Eletrónicos', 'Alimentação'],
   },
 ];
-
-export const cheapestProducts = [
-  {
-    title: 'Dispositivos Eletrônicos e Elétricos',
-    bestselled_product: {
-      name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
-      image: `videogame.png`,
-      price: 44554,
-      about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
-    },
-    data: [
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-      { name: 'TV Smart LED 4K UHD com Chromecast embutido', image: `stick.png`, price: 4554 },
-    ],
-  },
-];
-
-export const bestSelledProduct = {
-  category: 'Dispositivos Eletrônicos e Elétricos',
-  data: {
-    id: 1,
-    name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
-    image: `videogame.png`,
-    price: 44554,
-    about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
-    picture: 'macbook.png',
-    banner: 'videogame.png',
-    availability: 'Em Stock',
-    sku: 'A264671',
-    brand: 'Apple',
-  },
-};
 
 export const products = [
   {
@@ -252,6 +211,35 @@ export const products = [
     rating: 4.2,
   },
 ];
+
+export const cheapestProducts = [
+  {
+    title: 'Dispositivos Eletrônicos e Elétricos',
+    bestselled_product: {
+      name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
+      image: `videogame.png`,
+      price: 44554,
+      about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
+    },
+    data: products,
+  },
+];
+
+export const bestSelledProduct = {
+  category: 'Dispositivos Eletrônicos e Elétricos',
+  data: {
+    id: 1,
+    name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
+    image: `videogame.png`,
+    price: 44554,
+    about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
+    picture: 'macbook.png',
+    banner: 'videogame.png',
+    availability: 'Em Stock',
+    sku: 'A264671',
+    brand: 'Apple',
+  },
+};
 
 export const populartTags = [
   {

@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
@@ -6,6 +7,7 @@ import { Breadcrumb } from './Breadcrumb';
 
 type ContainerProps = {
   children: ReactNode;
+  useStyle?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -13,33 +15,34 @@ type ContainerProps = {
   date?: string;
 };
 export const Container: React.FC<ContainerProps> = (props) => {
-  const { children, ...customMeta } = props;
+  const { children, useStyle = true, ...customMeta } = props;
   const router = useRouter();
 
   const meta = {
-    title: 'Encontrar – Ecommerce.',
+    title: 'Encontrar – Encontre os melhores produtos aqui.',
     description: `Tenha Acesso aos Melhores Aparelhos da Banda, Encontre os melhores produtos aqui.`,
-    image: 'https://encontrar.vercel.app/static/enco.ico',
+    image: 'https://encontrar.vercel.app/static/logo.ico',
     type: 'website',
     ...customMeta,
   };
   return (
-    <div className="app">
+    <div className={cn(useStyle && 'app')}>
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://greciodiogo8.vercel.app${router.asPath}`} />
-        <link rel="canonical" href={`https://greciodiogo8.vercel.app${router.asPath}`} />
+        <meta property="og:url" content={`https://econtrar.vercel.app${router.asPath}`} />
+        <link rel="canonical" href={`https://econtrar.vercel.app${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Grécio Santos" />
+        <meta property="og:site_name" content="Encontrar" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
+        <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots" />
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main>
-        <Breadcrumb />
+        {useStyle && <Breadcrumb />}
         {children}
       </main>
     </div>

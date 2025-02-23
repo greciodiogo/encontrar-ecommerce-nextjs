@@ -1,7 +1,6 @@
 import { CacheProvider } from '@emotion/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
@@ -11,6 +10,7 @@ import { createEmotionCache } from 'utils-mui';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
+import './../styles/menu-categories.css';
 import { Banner, Footer, Header } from 'components';
 import { store } from 'slices/store';
 
@@ -54,12 +54,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <>
-      <Head>
-        <title>Encontrar - 2025</title>
-        <meta name="description" content="Monorepo Encontrar - 2025" />
-        <meta name="version" content="2.11.4" />
-        <link rel="icon" href="/enco.ico" />
-      </Head>
       {getLayout(
         <Provider store={store}>
           <AuthProvider>

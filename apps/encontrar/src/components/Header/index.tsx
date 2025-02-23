@@ -1,13 +1,27 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Auth } from 'components/Auth/SignIn';
-// import { MobileMenu } from 'components/MobileMenu/MobileMenu';
+import { CrossIcon } from 'components/icon/CrossIcon';
+import { MenuIcon } from 'components/icon/MenuIcon';
+import { MobileMenu } from 'components/MobileMenu/MobileMenu';
 import { useAuth } from 'hooks/useAuth';
 import { RootState } from 'types/product';
 
 import styles from '../../styles/menu.module.css'; // Estilo separado em um arquivo CSS
+
+const menuItems = [
+  { label: 'Painel de Controle', path: '', icon: 'MStack' },
+  { label: 'Histórico de Encomendas', path: 'order-history', icon: 'MStorefront' },
+  { label: 'Rastrear Encomenda', path: 'wish-list', icon: 'MMapPinLine' },
+  { label: 'Carrinho de Compras', path: 'address', icon: 'MShoppingCartSimple' },
+  { label: 'Lista de Desejos', path: 'wish-list', icon: 'MHeart' },
+  { label: 'Cartões e Endereço', path: '', icon: 'MNotebook' },
+  { label: 'Histórico de Navegação', path: '', icon: 'MClockClockwise' },
+  { label: 'Configuração', path: '', icon: 'MGear' },
+  { label: 'Terminar Sessão', path: '', icon: 'MSignOut' },
+];
 
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
   const productos = useSelector((state: RootState) => state.products.cart);
@@ -16,6 +30,9 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const router = useRouter();
   const { isClient, isAuthenticated, user } = useAuth();
   const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest'; // Exibe "Guest" se o nome não estiver disponível
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
@@ -95,78 +112,9 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                   <p className={styles.dropdown_header}>Olá {USERNAME}, seja bem-vindo ao Encontrar</p>
                   <hr className={styles.divider} />
                   <ul>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MStack.png`} alt="ArrowRight" />
-                        </i>
-                        Painel de Controle
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('order-history')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MStorefront.png`} alt="ArrowRight" />
-                        </i>
-                        Histórico de Encomendas
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('wish-list')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MMapPinLine.png`} alt="ArrowRight" />
-                        </i>
-                        Rastrear Encomenda
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('address')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MShoppingCartSimple.png`} alt="ArrowRight" />
-                        </i>
-                        Carrinho de Compras
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('wish-list')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MHeart.png`} alt="ArrowRight" />
-                        </i>
-                        Lista de Desejos
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MNotebook.png`} alt="ArrowRight" />
-                        </i>
-                        Cartões e Endereço
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MClockClockwise.png`} alt="ArrowRight" />
-                        </i>
-                        Histórico de Navegação
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MGear.png`} alt="ArrowRight" />
-                        </i>
-                        Configuração
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" role="button" tabIndex={0} onClick={() => redirectTo('')}>
-                        <i>
-                          <img src={`/assets_ecommerce/svg/MSignOut.png`} alt="ArrowRight" />
-                        </i>
-                        Terminar Sessão
-                      </a>
-                    </li>
+                    {menuItems.map(({ label, path, icon }, index) => (
+                      <NavLinkItem key={index} label={label} path={path} icon={icon} onClick={redirectTo} />
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -191,11 +139,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
               </i>
               <span>Carrinho</span>
             </a>
-            <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={handleCartClick}>
-              <i>
-                <img src="/assets_ecommerce/svg/hamburguer.png" alt="" />
-              </i>
-              {/* <MobileMenu /> */}
+            <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={toggleMenu}>
+              {menuOpen ? <CrossIcon /> : <MenuIcon />}
             </a>
           </nav>
         </div>
@@ -209,8 +154,32 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
           </div>
         )}
+        <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
       <Auth showAuthPainel={showAuthPainel} closeAuth={onCloseSignInForm} />
     </>
+  );
+};
+
+const NavLinkItem = ({
+  label,
+  path,
+  icon,
+  onClick,
+}: {
+  label: string;
+  path: string;
+  icon: string;
+  onClick: (path: string) => void;
+}) => {
+  return (
+    <li>
+      <a href="#" role="button" tabIndex={0} onClick={() => onClick(path)}>
+        <i>
+          <img src={`/assets_ecommerce/svg/${icon}.png`} alt={label} />
+        </i>
+        {label}
+      </a>
+    </li>
   );
 };

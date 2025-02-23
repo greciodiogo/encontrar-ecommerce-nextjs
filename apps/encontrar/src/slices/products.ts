@@ -1,74 +1,47 @@
-import { AddToCart, AdjustQty, GetAllProducts, LoadCurrentItem, RemoveFromCart } from 'constants/products';
+import {
+  AddToCart,
+  AdjustQty,
+  GetAllProducts,
+  LoadCurrentItem,
+  RemoveFromCart,
+  SetAddress,
+  SetPaymentMethod,
+} from 'constants/products';
 import { products } from 'fixture/ecommerceData';
-import { ProductDTO, ProductState } from 'types/product';
-
-// Definição do tipo de ação
-type Action<T> = {
-  type: string;
-  payload?: T;
-};
+import { ProductState } from 'types/product';
+import { ProductAction } from 'types/store';
 
 // Funções de persistência no localStorage
-const saveCartToLocalStorage = (cart: any) => {
+const saveStateToLocalStorage = (state: ProductState) => {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('ecommerceState', JSON.stringify(state));
   }
 };
 
-export const loadCartFromLocalStorage = (): any => {
+const loadStateFromLocalStorage = (): ProductState => {
   if (typeof window === 'undefined') {
-    return []; // Retorna um estado vazio no lado do servidor
+    return {
+      products: products,
+      cart: [],
+      currentItem: {},
+      address: null,
+      paymentMethod: null,
+    }; // Estado padrão para o lado do servidor
   }
 
-  const savedCart = localStorage.getItem('cart');
-  return savedCart ? JSON.parse(savedCart) : [];
+  const savedState = localStorage.getItem('ecommerceState');
+  return savedState
+    ? JSON.parse(savedState)
+    : {
+        products: products,
+        cart: [],
+        currentItem: {},
+        address: null,
+        paymentMethod: null,
+      };
 };
 
-// Inicializa o estado do carrinho com os dados do localStorage
-// export const initializeCart = (): any => {
-//   return loadCartFromLocalStorage();
-//   cart: typeof window !== 'undefined' ? loadCartFromLocalStorage() : [],
-// };
-
-const INITIALSTATE: ProductState = {
-  products: products,
-  cart: typeof window !== 'undefined' ? loadCartFromLocalStorage() : [],
-  currentItem: {},
-};
-
-type GetAllProductsAction = {
-  type: typeof GetAllProducts;
-} & Action<{ products: Array<ProductDTO> }>;
-
-export type AddToCartAction = {
-  type: typeof AddToCart;
-  payload: {
-    id: number;
-    qty: number;
-  };
-};
-
-export type RemoveFromCart = {
-  type: typeof RemoveFromCart;
-  payload: {
-    id: number;
-  };
-};
-
-export type AdjustQty = {
-  type: typeof AdjustQty;
-  payload: {
-    id: number;
-    qty: number;
-  };
-};
-
-export type LoadCurrentItem = {
-  type: typeof LoadCurrentItem;
-  payload: ProductDTO;
-};
-
-type ProductAction = GetAllProductsAction | AddToCartAction | RemoveFromCart | AdjustQty | LoadCurrentItem;
+const INITIALSTATE: ProductState = loadStateFromLocalStorage();
 
 function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductAction): ProductState {
   switch (action.type) {
@@ -95,23 +68,18 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
           )
         : [...state.cart, { ...item, qty: 1 }];
 
-      saveCartToLocalStorage(updatedCart); // Salva no localStorage
-
-      return {
-        ...state,
-        cart: updatedCart,
-      };
+      const newState = { ...state, cart: updatedCart };
+      saveStateToLocalStorage(newState);
+      return newState;
     }
 
     case RemoveFromCart: {
       const updatedCart = state.cart.filter((item) => item.id !== undefined && item.id !== action.payload.id);
 
-      saveCartToLocalStorage(updatedCart); // Salva no localStorage
+      const newState = { ...state, cart: updatedCart };
+      saveStateToLocalStorage(newState); // Salva no localStorage
 
-      return {
-        ...state,
-        cart: updatedCart,
-      };
+      return newState;
     }
 
     case AdjustQty: {
@@ -119,12 +87,9 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         item.id !== undefined && item.id === action.payload.id ? { ...item, qty: action.payload.qty } : item,
       );
 
-      saveCartToLocalStorage(updatedCart); // Salva no localStorage
-
-      return {
-        ...state,
-        cart: updatedCart,
-      };
+      const newState = { ...state, cart: updatedCart };
+      saveStateToLocalStorage(newState);
+      return newState;
     }
 
     case LoadCurrentItem: {
@@ -132,6 +97,18 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ...state,
         currentItem: action.payload,
       };
+    }
+
+    case SetAddress: {
+      const newState = { ...state, address: action.payload };
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case SetPaymentMethod: {
+      const newState = { ...state, paymentMethod: action.payload };
+      saveStateToLocalStorage(newState);
+      return newState;
     }
 
     default:

@@ -1,3 +1,5 @@
+import { RegisterAddressDTO, RegisterPaymentMethodDTO } from './checkout';
+
 export type ProductProps = {
   cart: ProductDTO;
   setTotal?: React.Dispatch<React.SetStateAction<number>>;
@@ -28,6 +30,7 @@ export type ProductDTO = {
 
 export type ProductTypeProps = {
   product: ProductDTO;
+  hasButtons?: boolean;
   handleAddToCart?: (id: number) => void;
   handlepreviewProduct: (id: number) => void;
 };
@@ -40,16 +43,18 @@ export type CartProps = {
   subtotal: number;
 };
 
-// export type RootState = {
-//   products: {
-//     currentItem: ProductDTO | null;
-//   };
-// };
+export type ReviewDataProps = {
+  cart: Array<ProductDTO>;
+  address: string;
+  paymentMethod: string;
+};
 
 export type ProductState = {
   products: Array<ProductDTO>;
   cart: Array<ProductDTO>;
   currentItem: ProductDTO | null;
+  address: RegisterAddressDTO | null; // Novo campo para endereço
+  paymentMethod: RegisterPaymentMethodDTO | null; // Novo campo para método de pagamento
 };
 
 export type RootState = {

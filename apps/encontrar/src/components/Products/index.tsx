@@ -5,7 +5,7 @@ import { new_categories } from 'fixture/ecommerceData';
 export const Products = () => {
   const url = 'assets_ecommerce/categories';
   return (
-    <div className="products">
+    <div className="products simple">
       <div className="products_container">
         <div className="products_container_top">
           <h4>O que vendemos na Encontrar </h4>

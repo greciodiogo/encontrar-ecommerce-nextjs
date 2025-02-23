@@ -2,7 +2,12 @@ import React from 'react';
 
 import { ProductTypeProps } from 'types/product';
 
-export const BestSelledProduct = ({ product, handleAddToCart, handlepreviewProduct }: ProductTypeProps) => {
+export const BestSelledProduct = ({
+  product,
+  handleAddToCart,
+  handlepreviewProduct,
+  hasButtons = true,
+}: ProductTypeProps) => {
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
 
@@ -34,13 +39,20 @@ export const BestSelledProduct = ({ product, handleAddToCart, handlepreviewProdu
         <p>{price}Kz</p>
         <span>{about}</span>
       </div>
-
-      <a className="btn" href="#" role="button" tabIndex={0} onClick={(event) => handleAddToCartClick(event, id ?? 0)}>
-        <i>
-          <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
-        </i>
-        Adicionar ao Carrinho
-      </a>
+      {hasButtons && (
+        <a
+          className="btn"
+          href="#"
+          role="button"
+          tabIndex={0}
+          onClick={(event) => handleAddToCartClick(event, id ?? 0)}
+        >
+          <i>
+            <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
+          </i>
+          Adicionar ao Carrinho
+        </a>
+      )}
     </button>
   );
 };
