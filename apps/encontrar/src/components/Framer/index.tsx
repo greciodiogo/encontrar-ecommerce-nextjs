@@ -18,34 +18,33 @@ export const Framer = () => {
               <div className="star_container">
                 {[1, 2, 3, 4].map((__, index) => (
                   <i key={index}>
-                    <img src={`${url}/svg/star.png`} alt="star" />
+                    <img src={`${url}/svg/star-black.png`} alt="star" />
                   </i>
                 ))}
               </div>
               <p>Feedbacks dos Nossos Clientes</p>
             </div>
-            <h2>Descubra os eletrônicos mais incríveis e delícias à sua porta!</h2>
+            <h2>Descubra os produtos mais incríveis da banda!</h2>
             <h4>
-              Preparamos para si os melhores dispositivos eletrónicos a disposição do mercado, desde os iphones até
-              samsungs e marcas como
+              Vendemos para si as melhores bebidas a disposição do mercado, desde vinhos até refrigerantes e água.
             </h4>
             <div className="btn_container">
               <button className="" onClick={redirectToProducts}>
                 Explorar Produtos
                 <i>
-                  <img src={`${url}/svg/ArrowRight-3.png`} alt="star" />
+                  <img src={`${url}/svg/ArrowRight.png`} alt="star" />
                 </i>
               </button>
               <button className="simple">
                 Entre em Contacto
                 <i>
-                  <img src={`${url}/svg/call_center.png`} alt="star" />
+                  <img src={`${url}/svg/call_center-black.png`} alt="star" />
                 </i>
               </button>
             </div>
           </div>
           <div className="picture">
-            <img src={`${url}/banner.png`} alt="banner" />
+            <img src={`${url}/app-bg.png`} alt="star" />
           </div>
         </div>
       </div>

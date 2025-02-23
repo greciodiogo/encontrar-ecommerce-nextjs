@@ -14,13 +14,13 @@ export const Categories = () => {
   ];
 
   return (
-    <div className="categories">
+    <div className="mini categories">
       <div className="categories_container">
         <div className="wrapper">
           <div className="wrapper_list">
             <ul className="subcategories">
               {categories.map((item, itemIndex) => (
-                <li className="category-item" key={itemIndex} style={{ display: 'inline', marginRight: '10px' }}>
+                <li className="category-item" key={itemIndex} style={{ display: 'inline' }}>
                   <a>{item.name}</a>
                 </li>
               ))}
