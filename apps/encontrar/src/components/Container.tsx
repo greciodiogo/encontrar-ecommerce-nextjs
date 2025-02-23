@@ -38,6 +38,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
+        <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots" />
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main>
