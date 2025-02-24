@@ -94,44 +94,44 @@
   font-family: Arial, sans-serif;
 }
 
-.title {
+.order-review .title {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
-.subtitle {
+.order-review .subtitle {
   font-size: 14px;
   color: #666;
   text-align: center;
   margin-bottom: 15px;
 }
 
-.details,
-.pricing {
+.order-review .details,
+.order-review .pricing {
   border-top: 1px solid #ddd;
   padding-top: 15px;
   margin-top: 10px;
 }
 
-.row {
+.order-review .row {
   display: flex;
   justify-content: space-between;
   padding: 5px 0;
   font-size: 14px;
 }
 
-.label {
+.order-review .label {
   font-weight: bold;
 }
 
-.track-order {
+.order-review .track-order {
   font-weight: bold;
   color: #007bff;
   cursor: pointer;
 }
 
-.total {
+.order-review .total {
   border-top: 1px solid #ddd;
   font-size: 16px;
   font-weight: bold;
@@ -141,14 +141,14 @@
   margin-top: 10px;
 }
 
-.buttons {
+.order-review .buttons {
   margin-top: 20px;
   display: flex;
   gap: 10px;
 }
 
-.cancel-btn,
-.finish-btn {
+.order-review .cancel-btn,
+.order-review .finish-btn {
   flex: 1;
   padding: 10px;
   border: none;
@@ -157,13 +157,13 @@
   font-size: 14px;
 }
 
-.cancel-btn {
+.order-review .cancel-btn {
   background: white;
   border: 1px solid #ccc;
   color: #333;
 }
 
-.finish-btn {
+.order-review .finish-btn {
   background: black;
   color: white;
 }
