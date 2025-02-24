@@ -6,8 +6,9 @@ import {
   RemoveFromCart,
   SetAddress,
   SetPaymentMethod,
+  SetOrder,
 } from 'constants/products';
-import { ProductDTO } from 'types/product';
+import { OrderType, ProductDTO } from 'types/product';
 
 import { RegisterAddressDTO } from './checkout';
 
@@ -59,6 +60,11 @@ export type SetPaymentMethodAction = {
   payload: string; // Método de pagamento como string
 };
 
+export type SetOrderAction = {
+  type: typeof SetOrder;
+  payload: OrderType; // Endereço como string
+};
+
 export type ProductAction =
   | GetAllProductsAction
   | AddToCartAction
@@ -66,4 +72,5 @@ export type ProductAction =
   | AdjustQtyAction
   | LoadCurrentItemAction
   | SetAddressAction
-  | SetPaymentMethodAction;
+  | SetPaymentMethodAction
+  | SetOrderAction;

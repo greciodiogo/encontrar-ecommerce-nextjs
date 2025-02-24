@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { addToCart } from 'actions/products';
+import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { SubmitButton } from 'shared/components/SubmitButton';
 import { ProductDetailProps, RootState } from 'types/product';
@@ -12,6 +13,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
   const url = 'assets_ecommerce';
   const [quantity, setQuantity] = useState(1);
   const { name, availability, category, price, brand, id = 0, qty } = props.product;
+  const { isClient } = useAuth();
 
   const product = useAppSelector((state: RootState) => state.products.currentItem);
 
@@ -32,6 +34,8 @@ export const ProductDetail = (props: ProductDetailProps) => {
     // dispatch(adjustQty(id, value));
     setQuantity(value);
   };
+
+  if (!isClient) return null;
 
   return (
     <div className="wrapper">

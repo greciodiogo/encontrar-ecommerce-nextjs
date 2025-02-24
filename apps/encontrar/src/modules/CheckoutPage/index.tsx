@@ -1,25 +1,30 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
 
-// import { ToastContainer } from 'shared/components/Toast/ToastContainer';
-import { setAddress, setPaymentMethod } from 'actions/products';
+import { setAddress, setPaymentMethod, setOrder } from 'actions/products';
+import { CustomStepIcon } from 'components/icon/CheckIcon';
+import { useAuth } from 'hooks/useAuth';
+import { toastProps } from 'shared/components/Toast/ToastContainer';
 import { validationSchema } from 'utils/validationSchema';
 
 import { useAppDispatch } from '../../hooks';
 
 import { AddressForm } from './AddressForm';
 import { PaymentStep } from './PaymentStep';
-import { SuccessfulOrder } from './SuccessfulOrder';
+import { ReviewStep } from './Review';
 
-// const steps = ['Endereço', 'Pagamento', 'Resumo da Compra'];
+// Passos do checkout
 const steps = ['Endereço', 'Pagamento', 'Revisão'];
 
 export const CheckoutPage = () => {
-  const [selectedPrice, setSelectedPrice] = useState('CASH');
+  const router = useRouter();
+  const { selectedPrice } = useAuth();
   const [activeStep, setActiveStep] = React.useState(0);
-  const formRef = useRef<HTMLDivElement>(null); // Referência para o formulário
+  const formRef = useRef<HTMLDivElement>(null); // Referência correta para o formulário
   const dispatch = useAppDispatch();
 
   const {
@@ -29,22 +34,43 @@ export const CheckoutPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema.step_user),
-    mode: 'all', // Validação ocorre ao sair do campo
+    mode: 'all', // Validação ao sair do campo
   });
 
-  //   ########## stepper #############
+  const saveOrder = () => {
+    dispatch(
+      setOrder({
+        order_id: '1',
+        created_at: new Date(),
+        estado: 'ANDAMENTO',
+      }),
+    );
+    toast.success('Pedido Realizado com Sucesso!');
+    void router.push('/sucessful-order'); // Redireciona ao finalizar
+  };
 
   const handleNextStep = () => {
     if (activeStep === steps.length - 1) {
+      if (selectedPrice !== 'CASH') {
+        toast.warning('Método de pagamento indisponível');
+      } else {
+        saveOrder();
+      }
     } else {
       setActiveStep((prev) => prev + 1);
-      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Scroll para o topo do formulário após avançar
+      setTimeout(() => {
+        document.getElementById('checkout-container')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 100);
     }
-    handleFormSubmit(); // Submete o formulário ao finalizar
   };
 
   const handleFormSubmit = () => {
-    const checkoutData = getValues(); // Obtém os dados do formulário
+    const checkoutData = getValues();
     try {
       dispatch(setAddress(checkoutData));
       dispatch(setPaymentMethod(selectedPrice));
@@ -52,19 +78,19 @@ export const CheckoutPage = () => {
       console.error('Erro ao processar o formulário:', err);
     }
   };
-  //
-  //   ########## stepper #############
 
   return (
-    <div className="checkoutPage">
+    <div className="checkoutPage" id="checkout-container">
+      {' '}
+      {/* ID adicionado para rolagem correta */}
       <div className="checkoutPage__container">
-        <div className="">
+        <div ref={formRef}>
           <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
             <div className="modal-body">
-              <Stepper activeStep={activeStep}>
+              <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map((label) => (
                   <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+                    <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -73,26 +99,26 @@ export const CheckoutPage = () => {
                 <div className="content">
                   <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
                   <p>
-                    {activeStep === 0
-                      ? 'Abaixo, coloque o seu endereço para que possamos enviar suas merrcadorias'
-                      : 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                    {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                    {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                    {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
                   </p>
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
                   {activeStep === 0 && <AddressForm errors={errors} control={control} />}
-                  {activeStep === 1 && (
-                    <PaymentStep selectedPrice={selectedPrice} setSelectedPrice={setSelectedPrice} />
-                  )}
-                  {activeStep === 2 && <SuccessfulOrder />}
+                  {activeStep === 1 && <PaymentStep />}
+                  {activeStep === 2 && <ReviewStep />}
                 </Box>
-                <div className="col-md-12">
-                  <div className="btn-group" role="group" aria-label="Basic example">
-                    <button onClick={handleNextStep} type="button" className="btn btn-primary">
-                      <i className="fa fa-arrow-left"></i> {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
-                    </button>
-                    {/* <ToastContainer /> */}
+                {activeStep != steps.length - 1 && (
+                  <div className="col-md-12">
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                      <button onClick={handleNextStep} type="button" className="btn btn-primary">
+                        <i className="fa fa-arrow-left"></i> {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
+                      </button>
+                      <ToastContainer {...toastProps} />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </form>

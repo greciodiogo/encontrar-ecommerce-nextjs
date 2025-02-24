@@ -22,7 +22,7 @@ export const Products = () => {
               <div className="category_picture">
                 <img src={`${url}/${category.image}`} alt={category.name} />
               </div>
-              <a>{category.name}</a>
+              <a className="category_label">{category.name}</a>
             </div>
           ))}
         </div>

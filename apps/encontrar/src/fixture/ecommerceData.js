@@ -21,6 +21,17 @@ export const categories = [
   },
 ];
 
+// export const new_categories = [
+//   { slug: 'home_items', image: `items_casa.png` },
+//   { slug: 'toys', image: `brinquedos.png` },
+//   { slug: 'electronics', image: `eletricos.png` },
+//   { slug: 'food', image: `alimentos.png` },
+//   { slug: 'various', image: `diversos.png` },
+//   { slug: 'drink', image: `bebidas.png` },
+//   { slug: 'personal_care', image: `cuidados_pessoais.png` },
+//   { slug: 'stationery', image: `papelaria.png` },
+//   { slug: 'health', image: `saude.png` },
+// ];
 export const new_categories = [
   { name: 'Items para Casa', image: `items_casa.png` },
   { name: 'Brinquedos Infantis', image: `brinquedos.png` },
@@ -33,37 +44,36 @@ export const new_categories = [
   { name: 'Saúde', image: `saude.png` },
 ];
 
-export const cartList = {
-  data: [
-    {
-      id: 1,
-      picture: 'macbook.png',
-      banner: 'stick.png',
-      name: 'MacBook Pro Apple de 2020 com Chip Apple M1 (13 polegadas, 8GB RAM, 256GB SSD) - Cinza Espacial',
-      availability: 'Em Stock',
-      category: 'Dispositivos Electrónicos',
-      brand: 'Apple',
-      id: 'A264671',
-      price: 444,
-    },
-    {
-      id: 2,
-      picture: 'macbook.png',
-      banner: 'stick.png',
-      name: 'MacBook Pro Apple de 2020 com Chip Apple M1 (13 polegadas, 8GB RAM, 256GB SSD) - Cinza Espacial',
-      availability: 'Em Stock',
-      category: 'Dispositivos Electrónicos',
-      brand: 'Apple',
-      id: 'A264671',
-      price: 444,
-    },
-  ],
-  qtd: 1,
-  totalItems: 2,
-  total: 3000,
-  subtotal: 3000,
-};
-
+// export const footer = [
+//   {
+//     slug: 'orders_and_returns',
+//     title: 'Pedidos e Devoluções',
+//     data: [
+//       { slug: 'order_status', title: 'Status do Pedido' },
+//       { slug: 'store_pickup', title: 'Retirada na Loja' },
+//       { slug: 'return_policy', title: 'Política e Informações de Devolução' },
+//       { slug: 'shipping_info', title: 'Informações de Envio' },
+//     ],
+//   },
+//   {
+//     slug: 'shopping_tools',
+//     title: 'Ferramentas de Compras',
+//     data: [
+//       { slug: 'order_status', title: 'Status do Pedido' },
+//       { slug: 'store_pickup', title: 'Retirada na Loja' },
+//       { slug: 'member_number_lookup', title: 'Consulta de Número de Membro' },
+//       { slug: 'shipping_info', title: 'Informações de Envio' },
+//     ],
+//   },
+//   {
+//     slug: 'products',
+//     title: 'Produtos',
+//     data: [
+//       { slug: 'electronics', title: 'Eletrónicos' },
+//       { slug: 'food', title: 'Alimentação' },
+//     ],
+//   },
+// ];
 export const footer = [
   {
     title: 'Pedidos e Devoluções',
@@ -83,11 +93,12 @@ export const products = [
   {
     id: 1,
     image: 'whiskey.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Whiskey Jack Daniels 750ml',
     about: 'Whiskey premium envelhecido em barris de carvalho, ideal para apreciadores de destilados.',
     availability: 'Em Stock',
     category: 'Bebidas',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Jack Daniels',
     productId: 'B001',
     price: 44.99,
@@ -96,11 +107,12 @@ export const products = [
   {
     id: 2,
     image: 'wine_green.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Vinho Verde Quinta das Amoras 750ml',
     about: 'Vinho verde leve e refrescante, perfeito para acompanhar pratos leves e frutos do mar.',
     availability: 'Em Stock',
     category: 'Bebidas',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Quinta das Amoras',
     productId: 'B002',
     price: 12.99,
@@ -109,11 +121,12 @@ export const products = [
   {
     id: 3,
     image: 'wine_red.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Vinho Tinto Cabernet Sauvignon 750ml',
     about: 'Vinho tinto encorpado com notas frutadas e taninos suaves, ideal para carnes vermelhas.',
     availability: 'Em Stock',
     category: 'Bebidas',
+    images: ['whiskey.png', 'wine_green.png', 'whiskey.png', 'wine_green.png'],
     brand: 'Casa Valduga',
     productId: 'B003',
     price: 19.99,
@@ -122,11 +135,12 @@ export const products = [
   {
     id: 4,
     image: 'wine_premium.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Vinho Reserva Especial 750ml',
     about: 'Vinho premium com envelhecimento prolongado, proporcionando um sabor sofisticado e equilibrado.',
     availability: 'Em Stock',
     category: 'Bebidas',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Vinha Real',
     productId: 'B004',
     price: 29.99,
@@ -140,6 +154,7 @@ export const products = [
     about: 'TV Smart com resolução 4K UHD, compatível com apps de streaming e assistente de voz integrado.',
     availability: 'Em Stock',
     category: 'Eletrônicos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Samsung',
     productId: 'E001',
     price: 2599.99,
@@ -153,6 +168,7 @@ export const products = [
     about: 'Deliciosos biscoitos crocantes cobertos com chocolate ao leite, ideais para acompanhar o café.',
     availability: 'Em Stock',
     category: 'Alimentos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Nestlé',
     productId: 'A001',
     price: 5.49,
@@ -166,6 +182,7 @@ export const products = [
     about: 'guardanapo, feito com tomates selecionados para um sabor autêntico e natural.',
     availability: 'Em Stock',
     category: 'Alimentos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'bam boo',
     productId: 'A002',
     price: 4.99,
@@ -179,6 +196,7 @@ export const products = [
     about: 'Controle sem fio DualShock 4, com resposta precisa e touchpad integrado para PS4.',
     availability: 'Em Stock',
     category: 'Eletrônicos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Sony',
     productId: 'E002',
     price: 299.99,
@@ -187,11 +205,12 @@ export const products = [
   {
     id: 9,
     image: 'canned_tomato.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Tomate Pelado em Lata 400g',
     about: 'Tomates italianos pelados, perfeitos para molhos e receitas caseiras.',
     availability: 'Em Stock',
     category: 'Alimentos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Compal',
     productId: 'A003',
     price: 3.99,
@@ -200,11 +219,12 @@ export const products = [
   {
     id: 10,
     image: 'milk_chocolate.png',
-    banner: 'hot.png',
+    banner: 'wine_green.png',
     name: 'Leite com Chocolate 200ml',
     about: 'Bebida láctea com chocolate, sabor irresistível para qualquer momento do dia.',
     availability: 'Em Stock',
     category: 'Alimentos',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Nestlé',
     productId: 'A004',
     price: 2.49,
@@ -237,6 +257,7 @@ export const bestSelledProduct = {
     banner: 'videogame.png',
     availability: 'Em Stock',
     sku: 'A264671',
+    images: ['whiskey.png', 'wine_green.png'],
     brand: 'Apple',
   },
 };

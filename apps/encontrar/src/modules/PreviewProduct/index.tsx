@@ -1,4 +1,5 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 import { CheapestProducts, ProductDetail as Details, ShowProductBanner } from 'components';
 import { RootState } from 'types/product';
@@ -12,33 +13,39 @@ import { ShippingInfo } from './ShippingInfo';
 import { TechnicalInfo } from './TechnicalInfo';
 
 export const ProductDetailPage = () => {
+  const router = useRouter();
   // const product = props.product;
   const product = useAppSelector((state: RootState) => state.products.currentItem);
+
+  useEffect(() => {
+    if (!product || (!product.image && (!product.images || product.images.length === 0))) {
+      void router.push('/'); // Redireciona para a home se não houver produto
+    }
+  }, [product, router]);
+
+  if (!product) return null;
+
   // const { name, banner } = product;
   return (
     <>
-      {product && (
-        <>
-          <div className="productDetail">
-            <div className="productDetail__container">
-              <div className="row">
-                <ShowProductBanner product={{ name: product.name, image: product.image }} />
-                <Details product={product} />
-              </div>
-              <CheckoutInfo />
-              <div className="wrapper-2">
-                <TechnicalInfo />
-                <div className="row-2">
-                  <FeatureInfo />
-                  <ShippingInfo />
-                </div>
-                <ReviewsInfo />
-              </div>
-            </div>
+      <div className="productDetail">
+        <div className="productDetail__container">
+          <div className="row">
+            <ShowProductBanner product={{ name: product.name, image: product.image, images: product.images }} />
+            <Details product={product} />
           </div>
-          <CheapestProducts />
-        </>
-      )}
+          <CheckoutInfo />
+          <div className="wrapper-2">
+            <TechnicalInfo />
+            <div className="row-2">
+              <FeatureInfo />
+              <ShippingInfo />
+            </div>
+            <ReviewsInfo />
+          </div>
+        </div>
+      </div>
+      <CheapestProducts />
     </>
   );
 };

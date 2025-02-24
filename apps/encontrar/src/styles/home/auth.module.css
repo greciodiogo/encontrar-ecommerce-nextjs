@@ -1,3 +1,14 @@
+.authPage {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem !important;
+}
+
 .auth {
   position: fixed;
   width: 100%;
@@ -18,18 +29,19 @@
   display: flex;
 }
 
-.auth .container {
+.authContainer {
   width: 400px;
   opacity: 1;
   position: relative;
   border-radius: 4px;
   background-color: white;
+  border: 1px solid #e4e7e9;
   transition: all 250ms ease-in-out;
   display: flex;
   flex-direction: column;
 }
 
-.auth .container .top {
+.authPage .top {
   height: 60px;
   width: 100%;
   border-bottom: 1px solid #ccc;
@@ -40,7 +52,22 @@
   position: relative;
 }
 
-.auth .container .top button {
+.auth .top .btn.outlinedBtn {
+  width: fit-content !important;
+  margin-bottom: 20px;
+}
+
+.auth .top {
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.authContainer .top button {
   font-size: 20px;
   font-weight: 400;
   height: 100%;
@@ -49,12 +76,12 @@
   padding: 10px;
 }
 
-.auth .container .top button.active {
+.authContainer .top button.active {
   color: #111;
   border-bottom: 3px solid #bd7b2d;
 }
 
-.auth .container .top .btnClose {
+.authContainer .top .btnClose {
   cursor: pointer;
   background-color: transparent;
   font-size: 12px;
@@ -64,34 +91,34 @@
   right: 0px;
 }
 
-.auth .container .main .row {
+.authContainer .main .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
 
-.auth .container .main .row > button:hover {
+.authContainer .main .row > button:hover {
   opacity: 0.85;
 }
 
-.auth .container .main .row > button {
+.authContainer .main .row > button {
   color: #bd7b2d;
   font-weight: 500px;
   cursor: pointer;
 }
 
-.auth .container .main {
+.authContainer .main {
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
   gap: 10px;
-  padding: 1rem;
+  padding: 2rem;
   position: relative;
 }
 
-.auth .container .main .subtitle {
+.authContainer .main .subtitle {
   font-size: 18px;
   opacity: 0.9;
 }
@@ -111,19 +138,20 @@
   margin-top: 10px;
   font-size: 14px;
   color: #5f6c72;
+  padding: 0 2rem;
 }
 
-.auth .container .field {
+.authContainer .field {
   display: flex;
   border-radius: 4px;
-  border: 1px solid #909090;
+  border: 1px solid #e4e7e9;
   background-color: transparent;
   width: 100%;
   gap: 10px;
   padding: 8px 16px;
 }
 
-.auth .container .main .divisor {
+.authContainer .main .divisor {
   position: relative;
   font-size: 14px;
   color: #77878f;
@@ -133,8 +161,8 @@
   justify-content: center;
   z-index: 1;
 }
-.auth .container .main .divisor::before,
-.auth .container .main .divisor:after {
+.authContainer .main .divisor::before,
+.authContainer .main .divisor:after {
   position: absolute;
   content: '';
   width: 47%;
@@ -145,12 +173,12 @@
   opacity: 0.6;
 }
 
-.auth .container .main .divisor::after {
+.authContainer .main .divisor::after {
   left: auto;
   right: 0;
 }
 
-.auth .container .group {
+.authContainer .group {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -158,11 +186,11 @@
   gap: 5px;
 }
 
-.auth .container .labelForCheck {
+.authContainer .labelForCheck {
   font-size: 12px;
 }
 
-.auth .container a {
+.authContainer a {
   font-size: 12px;
   align-self: flex-start;
   text-decoration: underline;
@@ -174,18 +202,18 @@
   font-size: 14px;
 }
 
-.auth .container .authForm {
+.authContainer .authForm {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.auth .container .authForm input {
+.authContainer .authForm input {
   height: 44px;
 }
 
-.auth .container .btn {
+.authContainer .btn {
   width: 100%;
   padding: 10px 16px;
   border-radius: 8px;
@@ -201,38 +229,42 @@
   gap: 10px;
 }
 
-.auth .container .btn.outlinedBtn {
-  border: 1px solid #909090;
+.authContainer .btn.outlinedBtn {
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid #dadce0;
   opacity: 0.8;
   color: black;
   background-color: white;
-  border-radius: 2px;
+  padding: 18px 10px;
+  font-size: 14px;
+  justify-content: space-between;
 }
 
-.auth .container .btn.colourid {
+.authContainer .btn.colourid {
   border: 1px solid var(--primary);
   color: var(--primary);
   font-weight: bold;
 }
 
-.auth .container .btn.filled {
+.authContainer .btn.filled {
   border-radius: 0;
   color: white;
   border: 2px solid #22226e;
   background-color: #22226e;
 }
 
-.auth .container .btn:hover {
+.authContainer .btn:hover {
   opacity: 0.8;
 }
 
-.auth .btn .btn__center {
+.authContainer .btn .btn__center {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.auth i {
+.authContainer i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,7 +272,7 @@
   width: 20px;
 }
 
-.auth i img {
+.authContainer i img {
   height: 100%;
   width: 100%;
 }

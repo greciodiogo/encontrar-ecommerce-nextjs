@@ -31,20 +31,23 @@ export const Framer = () => {
             <div className="btn_container">
               <button className="" onClick={redirectToProducts}>
                 Explorar Produtos
-                <i>
-                  <img src={`${url}/svg/ArrowRight.png`} alt="star" />
+                <i className="white">
+                  <img src={`${url}/svg/ArrowRight.png`} alt="arrow" />
+                </i>
+                <i className="black">
+                  <img src={`${url}/svg/ArrowRight-3.png`} alt="arrow" />
                 </i>
               </button>
               <button className="simple">
                 Entre em Contacto
                 <i>
-                  <img src={`${url}/svg/call_center-black.png`} alt="star" />
+                  <img src={`${url}/svg/call_center-black.png`} alt="contact" />
                 </i>
               </button>
             </div>
           </div>
           <div className="picture">
-            <img src={`${url}/app-bg.png`} alt="star" />
+            <img src={`${url}/app-bg.png`} alt="background" />
           </div>
         </div>
       </div>

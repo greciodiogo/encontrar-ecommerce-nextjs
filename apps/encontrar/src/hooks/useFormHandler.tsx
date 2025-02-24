@@ -1,4 +1,5 @@
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
 import { alpha, styled } from '@mui/material/styles';
@@ -6,10 +7,10 @@ import { Control, FieldErrors, FieldValues, Path } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
 type ControlledTextFieldProps<T extends FieldValues> = {
-  name: Path<T>; // Garante que `name` seja uma chave válida de `T`
+  name: Path<T>;
   label: string;
   type?: string;
-  control: Control<T>; // `T` é inferido do formulário
+  control: Control<T>;
   errors: FieldErrors<T>;
   className?: string;
   fullWidth?: boolean;
@@ -29,21 +30,12 @@ export const ControlledTextField = <T extends FieldValues>({
     name={name}
     control={control}
     render={({ field }) => (
-      <FormControl
-        variant="standard"
-        {...field}
-        label={label}
-        error={!!errors[name]} // Verifica se há erro
-        helpertext={errors[name]?.message as string} // Garante que a mensagem seja string
-        className={className}
-        type={type}
-        fullWidth={fullWidth}
-        {...props}
-      >
-        <InputLabel shrink htmlFor="bootstrap-input">
+      <FormControl variant="standard" className={className} fullWidth={fullWidth}>
+        <InputLabel shrink htmlFor={name}>
           {label}
         </InputLabel>
-        <BootstrapInput id="bootstrap-input" />
+        <BootstrapInput id={name} error={!!errors[name]} {...field} type={type} {...props} />
+        {errors[name] && <FormHelperText>{errors[name]?.message as string}</FormHelperText>}
       </FormControl>
     )}
   />
@@ -66,7 +58,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     width: '100%',
     padding: '10px 12px',
     transition: theme.transitions.create(['border-color', 'background-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',

@@ -1,3 +1,4 @@
+// import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { ProductTypeProps } from 'types/product';
@@ -8,6 +9,8 @@ export const BestSelledProduct = ({
   handlepreviewProduct,
   hasButtons = true,
 }: ProductTypeProps) => {
+  // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
+
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
 
@@ -37,7 +40,7 @@ export const BestSelledProduct = ({
           ))}
         </div>
         <p>{price}Kz</p>
-        <span>{about}</span>
+        {hasButtons && <span>{about}</span>}
       </div>
       {hasButtons && (
         <a

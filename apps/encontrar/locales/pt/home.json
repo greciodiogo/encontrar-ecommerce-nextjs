@@ -1,0 +1,76 @@
+{
+  "banner": {
+    "text": "Encontre os melhores produtos aqui"
+  },
+  "categories": {
+    "drink": "Bebidas",
+    "home_items": "Items para Casa",
+    "personal_care": "Cuidados Pessoais",
+    "toys": "Brinquedos Infantis",
+    "electronics": "Produtos Elétricos",
+    "food": "Alimentos",
+    "stationery": "Papelaria e Escritório",
+    "various": "Diversos",
+    "health": "Saúde",
+    "view_more": "Ver outros Produtos"
+  },
+  "framer": {
+    "customer_feedbacks": "Feedbacks dos Nossos Clientes",
+    "discover_products": "Descubra os produtos mais incríveis da banda!",
+    "we_sell_best": "Vendemos para si as melhores bebidas a disposição do mercado, desde vinhos até refrigerantes e água.",
+    "explore_products": "Explorar Produtos",
+    "contact_us": "Entre em Contacto"
+  },
+  "products": {
+    "what_we_sell": "O que vendemos na Encontrar",
+    "search_products": "Pesquisar Produtos"
+  },
+  "why_us": {
+    "title": "Porque escolher a Encontrar para comprar os seus produtos?",
+    "fast_delivery": {
+      "name": "Entrega Rápida",
+      "description": "Entregamos os produtos diretamente na sua morada."
+    },
+    "support": {
+      "name": "Suporte",
+      "description": "Linha de contato sempre pronta para lhe ajudar."
+    },
+    "easy_payments": {
+      "name": "Facilidade de Pagamentos",
+      "description": "Opções de pagamento como Fasmapay, Express e Cash."
+    },
+    "returns": {
+      "name": "Devolução",
+      "description": "Teste e devolução do produto à disposição do cliente."
+    }
+  },
+  "cheapest_products": {
+    "popular_products": "Produtos mais Populares",
+    "best_food_deals": "Melhores Negócios em Alimentos"
+  },
+  "reviews": {
+    "testimonial": "Encontrar é uma das poucas plataformas que usamos para comprar produtos que valem a pena"
+  },
+  "footer": {
+    "terms": "Termos de Uso",
+    "privacy": "Privacidade e Política",
+    "notice": "Aviso",
+    "payment_methods": "Formas de Pagamento",
+    "social_networks": "Redes Sociais",
+    "live_chat": "Live Chat",
+    "business_hours": "Seg–Sex, 6h–20h PT",
+    "help_center": "Centro de Ajuda",
+    "contact_us": "Entre em contato conosco para suporte",
+    "location": "Localização",
+    "orders_and_returns": "Pedidos e Devoluções",
+    "order_status": "Status do Pedido",
+    "store_pickup": "Retirada na Loja",
+    "return_policy": "Política e Informações de Devolução",
+    "shipping_info": "Informações de Envio",
+    "shopping_tools": "Ferramentas de Compras",
+    "member_number_lookup": "Consulta de Número de Membro",
+    "products": "Produtos",
+    "electronics": "Eletrónicos",
+    "food": "Alimentação"
+  }
+}

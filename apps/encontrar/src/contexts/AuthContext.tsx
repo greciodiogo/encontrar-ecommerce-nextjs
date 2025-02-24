@@ -13,6 +13,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState('CASH');
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
 
@@ -88,7 +89,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isClient, isAuthenticated, loginGoogle, logout }}>
+    <AuthContext.Provider
+      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

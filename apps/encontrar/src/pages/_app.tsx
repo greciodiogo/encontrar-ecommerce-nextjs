@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
 import './../styles/menu-categories.css';
+import './../styles/product-detail/slide.css';
+// import './../styles/review.module.css';
 import { Banner, Footer, Header } from 'components';
 import { store } from 'slices/store';
 

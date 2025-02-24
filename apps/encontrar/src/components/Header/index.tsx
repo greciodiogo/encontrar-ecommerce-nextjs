@@ -1,12 +1,15 @@
+import MenuIcon from '@mui/icons-material/Menu';
+import TranslateIcon from '@mui/icons-material/Translate';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Auth } from 'components/Auth/SignIn';
 import { CrossIcon } from 'components/icon/CrossIcon';
-import { MenuIcon } from 'components/icon/MenuIcon';
+// import { MenuIcon } from 'components/icon/MenuIcon';
 import { MobileMenu } from 'components/MobileMenu/MobileMenu';
 import { useAuth } from 'hooks/useAuth';
+// import { ToastContainer } from 'shared/components/Toast/ToastContainer';
 import { RootState } from 'types/product';
 
 import styles from '../../styles/menu.module.css'; // Estilo separado em um arquivo CSS
@@ -25,17 +28,36 @@ const menuItems = [
 
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
   const productos = useSelector((state: RootState) => state.products.cart);
-  const [showAuthPainel, setShowAuthPainel] = useState(false);
 
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const { isClient, isAuthenticated, user } = useAuth();
   const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest'; // Exibe "Guest" se o nome não estiver disponível
 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  // After mounting, we have access to the theme
+  useEffect(() => setMounted(true), []);
+  const notify = () => {
+    setMounted((state) => !state);
+    // toast('Idioma Alterado');
+    // toast.success('Idioma Alterado!', {
+    //   position: 'bottom-center',
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: false,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: 'light',
+    // });
+  };
 
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
+  const isCartRoute = router.pathname.startsWith('/cart');
+  const isCheckoutRoute = router.pathname.startsWith('/checkout');
+  const isAuthRoute = router.pathname.startsWith('/auth');
 
   const handleCartClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -44,11 +66,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   };
 
   const handleAuthBtnClick = () => {
-    setShowAuthPainel(true);
-  };
-
-  const onCloseSignInForm = () => {
-    setShowAuthPainel(false);
+    void router.push('/auth');
   };
 
   const redirectTo = (route: string) => {
@@ -82,7 +100,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   return (
     <>
-      <div className="header">
+      <div className={`header ${isCheckoutRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="logo_container" onClick={redirectHome}>
             <img src="/assets_ecommerce/logo.png" alt="" />
@@ -96,14 +114,16 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
           )}
           <nav className="options">
-            <a className="nav-item location">
-              <i>
+            <Link className="nav-item location" href="/" locale={mounted ? 'en' : 'pt'} onClick={notify}>
+              {/* <i>
                 <img src="/assets_ecommerce/svg/location.png" alt="" />
               </i>
               <p>
                 <span>Viana</span>, Aberto 24/7
-              </p>
-            </a>
+              </p> */}
+              <TranslateIcon />
+            </Link>
+            {/* <ToastContainer /> */}
             {isAuthenticated ? (
               <div className={styles.dropdown}>
                 <button className={styles.dropdown_button}>Olá, {USERNAME}</button>
@@ -119,7 +139,10 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 </div>
               </div>
             ) : (
-              <button className="nav-item signIn" onClick={handleAuthBtnClick}>
+              <button
+                className={`nav-item signIn ${isAuthRoute ? 'item_visibility' : ''}`}
+                onClick={handleAuthBtnClick}
+              >
                 <i>
                   <img src="/assets_ecommerce/svg/user.png" alt="" />
                 </i>
@@ -127,7 +150,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
               </button>
             )}
             <a
-              className="nav-item header-cart"
+              className={`nav-item header-cart ${isCartRoute ? 'item_visibility' : ''}`}
               href="#"
               role="button"
               tabIndex={0}
@@ -156,7 +179,6 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
         )}
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
-      <Auth showAuthPainel={showAuthPainel} closeAuth={onCloseSignInForm} />
     </>
   );
 };

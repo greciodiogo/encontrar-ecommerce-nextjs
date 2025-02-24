@@ -1,0 +1,76 @@
+{
+  "banner": {
+    "text": "Find the best products here"
+  },
+  "categories": {
+    "drink": "Drinks",
+    "home_items": "Home Items",
+    "personal_care": "Personal Care",
+    "toys": "Children's Toys",
+    "electronics": "Electrical Products",
+    "food": "Food",
+    "stationery": "Stationery & Office",
+    "various": "Various",
+    "health": "Health",
+    "view_more": "See More Products"
+  },
+  "framer": {
+    "customer_feedbacks": "Our Customers' Feedback",
+    "discover_products": "Discover the most amazing products in town!",
+    "we_sell_best": "We sell the best beverages available on the market, from wines to soft drinks and water.",
+    "explore_products": "Explore Products",
+    "contact_us": "Contact Us"
+  },
+  "products": {
+    "what_we_sell": "What we sell at Encontrar",
+    "search_products": "Search Products"
+  },
+  "why_us": {
+    "title": "Why choose Encontrar to buy your products?",
+    "fast_delivery": {
+      "name": "Fast Delivery",
+      "description": "We deliver products directly to your address."
+    },
+    "support": {
+      "name": "Support",
+      "description": "Contact line always ready to assist you."
+    },
+    "easy_payments": {
+      "name": "Easy Payments",
+      "description": "Payment options like Fasmapay, Express, and Cash."
+    },
+    "returns": {
+      "name": "Returns",
+      "description": "Testing and product return available for customers."
+    }
+  },
+  "cheapest_products": {
+    "popular_products": "Most Popular Products",
+    "best_food_deals": "Best Food Deals"
+  },
+  "reviews": {
+    "testimonial": "Encontrar is one of the few platforms we use to buy worthwhile products"
+  },
+  "footer": {
+    "terms": "Terms of Use",
+    "privacy": "Privacy and Policy",
+    "notice": "Notice",
+    "payment_methods": "Payment Methods",
+    "social_networks": "Social Networks",
+    "live_chat": "Live Chat",
+    "business_hours": "Mon–Fri, 6am–8pm PT",
+    "help_center": "Help Center",
+    "contact_us": "Contact us for support",
+    "location": "Location",
+    "orders_and_returns": "Orders and Returns",
+    "order_status": "Order Status",
+    "store_pickup": "Store Pickup",
+    "return_policy": "Return Policy and Information",
+    "shipping_info": "Shipping Information",
+    "shopping_tools": "Shopping Tools",
+    "member_number_lookup": "Member Number Lookup",
+    "products": "Products",
+    "electronics": "Electronics",
+    "food": "Food"
+  }
+}

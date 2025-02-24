@@ -38,7 +38,7 @@ export const OrderList = () => {
       </table>
 
       <div className="pagintation__container">
-        <Pagination count={10} color="primary" />
+        <Pagination count={1} color="primary" />
       </div>
     </div>
   );
