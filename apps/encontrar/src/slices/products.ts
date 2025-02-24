@@ -30,6 +30,7 @@ const loadStateFromLocalStorage = (): ProductState => {
   }
 
   const savedState = localStorage.getItem('ecommerceState');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return savedState
     ? JSON.parse(savedState)
     : {
