@@ -20,5 +20,3 @@ const nextConfig = {
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 module.exports = nextTranslate(nextConfig);
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-module.exports = nextTranslate();
