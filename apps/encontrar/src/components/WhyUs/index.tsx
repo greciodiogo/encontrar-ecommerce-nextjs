@@ -1,41 +1,42 @@
-import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const WhyUs = () => {
-  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
   const url = 'assets_ecommerce/svg';
 
   const whyUsJson = [
     {
       icon: 'Icon - Shipping.png',
-      slug: 'fast_delivery',
+      name: 'Entrega Rápida',
+      description: 'Entregamos os produtos directamente na sua morada.',
     },
     {
       icon: 'call_center-black.png',
-      slug: 'support',
+      name: 'Suporte',
+      description: 'Linha de contato sempre pronta para lhe ajudar',
     },
     {
       icon: 'Icons - Payment.png',
-      slug: 'easy_payments',
+      name: 'Facilidade de Pagamentos',
+      description: 'Opções de pagamentos como Fasmapay, Express e Cash',
     },
     {
       icon: 'KeyReturn.png',
-      slug: 'returns',
+      name: 'Devolução',
+      description: 'Teste e devolução do produto a disposição do cliente',
     },
   ];
-
   return (
     <div className="whyUs">
       <div className="whyUs_container">
-        <h4>{t('why_us.title')}</h4>
+        <h4>Porque escolher a Encontrar para comprar os seus produtos?</h4>
         <div className="wrapper">
           {whyUsJson.map((item, index) => (
             <div className="box" key={index}>
               <i>
-                <img src={`${url}/${item.icon}`} alt={t(`why_us.${item.slug}.name`)} />
+                <img src={`${url}/${item.icon}`} alt={item.name} />
               </i>
-              <p>{t(`why_us.${item.slug}.name`)}</p>
-              <span>{t(`why_us.${item.slug}.description`)}</span>
+              <p>{item.name}</p>
+              <span>{item.description}</span>
             </div>
           ))}
         </div>

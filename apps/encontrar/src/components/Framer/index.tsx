@@ -1,10 +1,8 @@
 import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const Framer = () => {
   const router = useRouter();
-  const { t } = useTranslation('home'); // 'common' corresponde ao JSON
   const url = 'assets_ecommerce';
 
   const redirectToProducts = () => {
@@ -24,13 +22,15 @@ export const Framer = () => {
                   </i>
                 ))}
               </div>
-              <p>{t('framer.customer_feedbacks')}</p>
+              <p>Feedbacks dos Nossos Clientes</p>
             </div>
-            <h2>{t('framer.discover_products')}</h2>
-            <h4>{t('framer.we_sell_best')}</h4>
+            <h2>Descubra os produtos mais incríveis da banda!</h2>
+            <h4>
+              Vendemos para si as melhores bebidas a disposição do mercado, desde vinhos até refrigerantes e água.
+            </h4>
             <div className="btn_container">
               <button className="" onClick={redirectToProducts}>
-                {t('framer.explore_products')}
+                Explorar Produtos
                 <i className="white">
                   <img src={`${url}/svg/ArrowRight.png`} alt="arrow" />
                 </i>
@@ -39,7 +39,7 @@ export const Framer = () => {
                 </i>
               </button>
               <button className="simple">
-                {t('framer.contact_us')}
+                Entre em Contacto
                 <i>
                   <img src={`${url}/svg/call_center-black.png`} alt="contact" />
                 </i>

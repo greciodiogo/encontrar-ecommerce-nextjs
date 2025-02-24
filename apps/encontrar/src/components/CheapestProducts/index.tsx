@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
@@ -9,8 +8,6 @@ import { cheapestProducts, products } from 'fixture/ecommerceData';
 import { useAppDispatch } from '../../hooks';
 
 export const CheapestProducts = ({ bannerText = 'Melhores Negócios em Eletrônicos.', hasButtons = true }) => {
-  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
-
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -37,7 +34,7 @@ export const CheapestProducts = ({ bannerText = 'Melhores Negócios em Eletrôni
         <div className="products_container_top">
           <h4>{bannerText}</h4>
           <button className="more_categories" onClick={handleSeeMoreBtnClick}>
-            {t('products.search_products')}
+            Ver Produtos
             <i>
               <img src="/assets_ecommerce/svg/ArrowRight-2.png" alt="" />
             </i>

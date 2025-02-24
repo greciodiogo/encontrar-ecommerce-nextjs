@@ -1,5 +1,4 @@
 import type { GetStaticProps, NextPage } from 'next';
-import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { Categories, CheapestProducts, Framer, Products, Reviews, WhyUs } from 'components';
@@ -18,8 +17,6 @@ type PropsType = {
 };
 
 const Homepage: NextPage<PropsType> = () => {
-  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
-
   return (
     <Container useStyle={false}>
       <Categories />
@@ -28,8 +25,8 @@ const Homepage: NextPage<PropsType> = () => {
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts />
-      <CheapestProducts bannerText={t('cheapest_products.popular_products')} />
-      <CheapestProducts bannerText={t('cheapest_products.best_food_deals')} hasButtons={false} />
+      <CheapestProducts bannerText="Produtos mais Populares" />
+      <CheapestProducts bannerText="Melhores Negócios em Alimentos." hasButtons={false} />
       <Reviews />
     </Container>
   );

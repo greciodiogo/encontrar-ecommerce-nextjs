@@ -3084,6 +3084,12 @@ a:visited {
   background: #fff;
 }
 
+@media (max-width: 450px) {
+  .products.simple .category-item {
+    width: 120px;
+  }
+}
+
 .products.simple .wrap_item .category-item .category_picture {
   background: #cccccc8a;
   border-radius: 8px;
