@@ -1,18 +1,13 @@
 import React from 'react';
 
-import { Auth } from 'components/Auth/SignIn';
-// import RecouverPassword from 'components/Auth/RecouverPassword';
-// import { VerifyEmail } from 'components/Auth/VerifyEmail';
-const handleCloseBtn = () => {
-  return false;
-};
+import { AuthPage } from 'components/Auth/KeepAsGuess';
 
-const AuthPage = () => {
+const Auth = () => {
   return (
     <div>
-      <Auth showAuthPainel={true} closeAuth={handleCloseBtn} />
+      <AuthPage />
     </div>
   );
 };
 
-export default AuthPage;
+export default Auth;

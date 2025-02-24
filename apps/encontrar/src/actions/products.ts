@@ -6,11 +6,12 @@ import {
   LoadCurrentItem,
   RemoveFromCart,
   SetAddress,
+  SetOrder,
   SetPaymentMethod,
 } from 'constants/products';
 import { CheckoutDTO } from 'types/checkout';
-import { ProductDTO } from 'types/product';
-import { SetAddressAction, SetPaymentMethodAction } from 'types/store';
+import { OrderType, ProductDTO } from 'types/product';
+import { SetAddressAction, SetOrderAction, SetPaymentMethodAction } from 'types/store';
 
 type CartAction = {
   type: string;
@@ -61,6 +62,14 @@ export const setAddress = (checkoutData: CheckoutDTO) => (dispatch: Dispatch<Set
 export const setPaymentMethod = (method: string) => (dispatch: Dispatch<SetPaymentMethodAction>) => {
   try {
     dispatch({ type: SetPaymentMethod, payload: method });
+  } catch (error) {
+    console.error("Can't Set Payment Method", error);
+  }
+};
+
+export const setOrder = (order: OrderType) => (dispatch: Dispatch<SetOrderAction>) => {
+  try {
+    dispatch({ type: SetOrder, payload: order });
   } catch (error) {
     console.error("Can't Set Payment Method", error);
   }

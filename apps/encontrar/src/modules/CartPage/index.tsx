@@ -18,7 +18,6 @@ export const CartPage = () => {
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
-  const [selectedPrice, setSelectedPrice] = useState('CASH');
   const { isAuthenticated, isClient } = useAuth();
 
   const router = useRouter();
@@ -61,9 +60,8 @@ export const CartPage = () => {
               ))}
             </div>
             <div>
-              <PaymentStep selectedPrice={selectedPrice} setSelectedPrice={setSelectedPrice} />
+              <PaymentStep />
               <CartResume
-                selectedPrice={selectedPrice}
                 totalProduct={TOTAL_ITEMS_CART}
                 total={total}
                 subtotal={subtotal}

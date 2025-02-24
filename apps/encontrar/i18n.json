@@ -3,7 +3,11 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["home"],
-    "/footer": ["footer"]
+    "/": ["home", "common"],
+    // "/cart": ["home", "common"],
+    "/footer": ["home", "common"],
+    "/checkout": ["home", "common"],
+    "/preview-product": ["home", "common"],
+    "/products": ["home", "common"]
   }
 }

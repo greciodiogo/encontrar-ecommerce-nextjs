@@ -1,18 +1,13 @@
-import React from 'react';
-import { ToastContainer as ReactToastContainer } from 'react-toastify';
+import { ToastContainerProps } from 'react-toastify';
 
-export const ToastContainer: React.FC = () => {
-  return (
-    <ReactToastContainer
-      position="bottom-center"
-      hideProgressBar={false}
-      newestOnTop={true}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss={false}
-      draggable
-      pauseOnHover
-      theme="light"
-    />
-  );
+export const toastProps: ToastContainerProps = {
+  position: 'top-center',
+  hideProgressBar: false,
+  newestOnTop: true,
+  closeOnClick: true,
+  rtl: false,
+  pauseOnFocusLoss: false,
+  draggable: true,
+  pauseOnHover: true,
+  theme: 'light',
 };

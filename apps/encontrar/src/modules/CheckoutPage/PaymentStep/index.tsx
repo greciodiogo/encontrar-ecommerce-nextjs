@@ -1,12 +1,9 @@
 import React from 'react';
 
-export const PaymentStep = ({
-  selectedPrice,
-  setSelectedPrice,
-}: {
-  selectedPrice: string;
-  setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+import { useAuth } from 'hooks/useAuth';
+
+export const PaymentStep = () => {
+  const { selectedPrice, setSelectedPrice } = useAuth();
   return (
     <div className="checkout_payment">
       <div className="wrapper">
@@ -24,7 +21,7 @@ export const PaymentStep = ({
                 <div className={`radioBtn ${selectedPrice === range ? 'active' : ''}`}>
                   {selectedPrice === range && <div className="radio-desc"></div>}
                 </div>
-                <i>
+                <i className={`payment-icon ${range}`}>
                   <img src={`/assets_ecommerce/payments_methods/${range}.png`} alt="" />
                 </i>
               </label>

@@ -6,6 +6,7 @@ import {
   RemoveFromCart,
   SetAddress,
   SetPaymentMethod,
+  SetOrder,
 } from 'constants/products';
 import { products } from 'fixture/ecommerceData';
 import { ProductState } from 'types/product';
@@ -26,6 +27,7 @@ const loadStateFromLocalStorage = (): ProductState => {
       currentItem: {},
       address: null,
       paymentMethod: null,
+      order: null,
     }; // Estado padrão para o lado do servidor
   }
 
@@ -39,6 +41,7 @@ const loadStateFromLocalStorage = (): ProductState => {
         currentItem: {},
         address: null,
         paymentMethod: null,
+        order: null,
       };
 };
 
@@ -108,6 +111,12 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
 
     case SetPaymentMethod: {
       const newState = { ...state, paymentMethod: action.payload };
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case SetOrder: {
+      const newState = { ...state, order: action.payload };
       saveStateToLocalStorage(newState);
       return newState;
     }

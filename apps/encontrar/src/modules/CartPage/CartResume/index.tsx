@@ -5,19 +5,16 @@ import { useAuth } from 'hooks/useAuth';
 import { SubmitButton } from 'shared/components/SubmitButton';
 export const CartResume = ({
   total = 0,
-  subtotal = 0,
   totalProduct = 0,
-  selectedPrice,
   handleGoToCheckout,
 }: {
   total: number;
   subtotal: number;
   totalProduct: number;
-  selectedPrice: string;
   handleGoToCheckout?: () => void;
 }) => {
   const DELIVERY_COST = 2000;
-  const { isClient } = useAuth();
+  const { isClient, selectedPrice } = useAuth();
 
   if (!isClient) {
     return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
@@ -28,7 +25,7 @@ export const CartResume = ({
       <div className="price">
         <ul>
           <li>Subtotal</li>
-          <li>{subtotal}kz</li>
+          <li>{total.toFixed(2)}kz</li>
         </ul>
         <ul>
           <li>Entrega:</li>
@@ -43,7 +40,10 @@ export const CartResume = ({
       </div>
       <div className="price">
         <div className="cartButtons">
-          <SubmitButton title={`PAGAR COM ${selectedPrice}`} onClick={handleGoToCheckout} />
+          <SubmitButton
+            title={`PAGAR ${selectedPrice === 'CASH' ? 'em' : 'com'} ${selectedPrice}`}
+            onClick={handleGoToCheckout}
+          />
         </div>
       </div>
     </div>
