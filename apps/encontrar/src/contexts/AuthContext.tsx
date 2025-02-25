@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [selectedPrice, setSelectedPrice] = useState('CASH');
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
+  const [username, setUsername] = useState('Guest');
 
   useEffect(() => {
     setIsClient(true);
@@ -36,6 +37,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (user?.name) {
+      setUsername(user.name.split(' ')[0]);
+    }
+  }, [user]);
 
   const isDecodedPayload = (payload: unknown): payload is DecodedPayload => {
     return (
@@ -90,7 +97,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
+      value={{ user, username, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
     >
       {children}
     </AuthContext.Provider>

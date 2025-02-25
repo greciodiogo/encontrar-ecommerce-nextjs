@@ -35,7 +35,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
-    toast.success('Metodo de pagamento indisponivel!');
+    toast.warning('Método de pagamento indisponivel!');
     setFormData(INITIALSTATE);
     // void router.push('/checkoutPage');
   };

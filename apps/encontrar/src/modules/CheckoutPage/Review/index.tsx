@@ -1,24 +1,35 @@
+import moment from 'moment';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-// import { useAuth } from 'hooks/useAuth';
+import { useAppSelector } from 'hooks';
+import { useAuth } from 'hooks/useAuth';
+import { RootState } from 'types/product';
 
-export const ReviewStep = () => {
-  const transactionDate = '';
-  const paymentMethod = '';
-  const shippingMethod = '';
+export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
+  const repo = useAppSelector((state: RootState) => state.products);
+  const router = useRouter();
+  const { selectedPrice } = useAuth();
+
+  const transactionDate = repo.order?.created_at;
+  const paymentMethod = selectedPrice;
+  const shippingMethod = 'Transporte - Motociclo';
   const subtotal = 0;
   const discount = 0;
-  const shippingCost = 0;
-  const total = 0;
-  const onCancel = () => void {};
-  const onFinish = () => void {};
-  //   const { selectedPrice, setSelectedPrice } = useAuth();
+  const shippingCost = 2000;
+  const total = subtotal + shippingCost;
+  const onCancel = () => {
+    void router.push('/');
+  };
+  const onFinish = () => {
+    handleNextStep();
+  };
   return (
     <div className="order-review">
       <div className="details">
         <div className="row">
           <span className="label">Transaction Date</span>
-          <span className="value">{transactionDate}</span>
+          <span className="value">{moment(transactionDate).format('YYYY-MM-DD')}</span>
         </div>
         <div className="row">
           <span className="label">Payment Method</span>
@@ -36,26 +47,26 @@ export const ReviewStep = () => {
       <div className="pricing">
         <div className="row">
           <span>Subtotal</span>
-          <span>{subtotal.toFixed(2)}KZS</span>
+          <span>{subtotal.toFixed(2)} Kz</span>
         </div>
         <div className="row">
           <span>Desconto</span>
-          <span>{discount.toFixed(2)}KZS</span>
+          <span>{discount.toFixed(2)} Kz</span>
         </div>
         <div className="row">
           <span>Preço de Envio</span>
-          <span>{shippingCost.toFixed(2)}KZS</span>
+          <span>{shippingCost} Kz</span>
         </div>
       </div>
 
       <div className="total">
         <span>Total</span>
-        <span>{total.toFixed(2)}KZS</span>
+        <span>{total} Kz</span>
       </div>
 
       <div className="buttons">
         <button onClick={onCancel} className="cancel-btn">
-          ← Cancelar
+          Cancelar
         </button>
         <button onClick={onFinish} className="finish-btn">
           finalizar compra →

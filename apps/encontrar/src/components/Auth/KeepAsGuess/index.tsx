@@ -2,8 +2,10 @@ import { GoogleLogin } from '@react-oauth/google';
 import { CredentialResponse as GoogleCredentialResponse } from '@react-oauth/google';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 import { useAuth } from 'hooks/useAuth';
+import { toastProps } from 'shared/components/Toast/ToastContainer';
 import styles from 'styles/home/auth.module.css';
 
 type CredentialResponse = {
@@ -21,10 +23,10 @@ export const AuthPage: React.FC = () => {
   const router = useRouter();
   const { loginGoogle } = useAuth();
 
-  const amIinCartRoute = router.pathname.startsWith('/cart');
-
   const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    event.stopPropagation();
+    toast.warning('Método indisponivel! Tente com a Google');
     if (typeof window !== 'undefined') {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
@@ -34,10 +36,6 @@ export const AuthPage: React.FC = () => {
 
   const handleSignInClick = () => {
     setIsSignIn((state) => !state);
-  };
-
-  const handleClickKeepAsGuess = () => {
-    void router.push('/checkout');
   };
 
   const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
@@ -51,9 +49,7 @@ export const AuthPage: React.FC = () => {
     // Envolvemos a chamada assíncrona em uma função
     try {
       loginGoogle(tokenId); // Função de login
-      if (amIinCartRoute) {
-        void router.push('/checkout');
-      }
+      void router.push('/');
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -70,6 +66,7 @@ export const AuthPage: React.FC = () => {
             Sign Up
           </button>
         </div>
+        <ToastContainer {...toastProps} />
         <div className={styles.main}>
           <form className={styles.authForm} onSubmit={handleSumit} autoComplete="off" noValidate>
             {!isSignIn && (
@@ -125,7 +122,7 @@ export const AuthPage: React.FC = () => {
               onSuccess={handleGoogleLogin}
               onError={() => console.error('Erro ao logar com Google')}
             ></GoogleLogin>
-            <button className={`${styles.btn} ${styles.outlinedBtn}`} onClick={handleClickKeepAsGuess}>
+            <button className={`${styles.btn} ${styles.outlinedBtn}`}>
               <i>
                 <img src={`${url}/svg/Apple.png`} alt="star" />
               </i>

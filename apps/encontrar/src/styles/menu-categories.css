@@ -36,6 +36,11 @@
   font-size: 17px;
 }
 
+.menu-categories .menu-top button {
+  color: #b66506;
+  font-weight: 600;
+}
+
 .menu-categories .menu-list {
   list-style: none;
   padding: 10px;
@@ -81,6 +86,8 @@
   align-items: center;
   width: 100%;
   font-size: 16px;
+  color: #b66506;
+  font-weight: 600;
 }
 
 .order-review {
@@ -127,7 +134,7 @@
 
 .order-review .track-order {
   font-weight: bold;
-  color: #007bff;
+  color: #bd7b2d;
   cursor: pointer;
 }
 

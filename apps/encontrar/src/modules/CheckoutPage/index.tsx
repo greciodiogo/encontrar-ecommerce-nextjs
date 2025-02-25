@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -30,6 +31,8 @@ export const CheckoutPage = () => {
   const {
     control,
     handleSubmit,
+    trigger,
+    setValue,
     getValues,
     formState: { errors },
   } = useForm({
@@ -49,31 +52,36 @@ export const CheckoutPage = () => {
     void router.push('/sucessful-order'); // Redireciona ao finalizar
   };
 
-  const handleNextStep = () => {
-    if (activeStep === steps.length - 1) {
-      if (selectedPrice !== 'CASH') {
-        toast.warning('Método de pagamento indisponível');
-      } else {
-        saveOrder();
-      }
-    } else {
-      setActiveStep((prev) => prev + 1);
+  const handleNextStep = async () => {
+    // Valida o formulário antes de avançar
+    const isValid = await trigger(); // Valida todos os campos do formulário
 
-      // Scroll para o topo do formulário após avançar
-      setTimeout(() => {
-        document.getElementById('checkout-container')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }, 100);
+    if (activeStep === 1 && !isValid) {
+      toast.warning('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    } else if (activeStep === 2 && selectedPrice !== 'CASH') {
+      toast.warning('Método de pagamento indisponível');
+      return;
+    } else if (activeStep === steps.length) {
+      dispatch(setPaymentMethod(selectedPrice));
+      saveOrder();
     }
+
+    setActiveStep((prev) => prev + 1);
+    // Scroll para o topo do formulário após avançar
+    setTimeout(() => {
+      document.getElementById('checkout-container')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, 100);
   };
 
   const handleFormSubmit = () => {
     const checkoutData = getValues();
+
     try {
       dispatch(setAddress(checkoutData));
-      dispatch(setPaymentMethod(selectedPrice));
     } catch (err) {
       console.error('Erro ao processar o formulário:', err);
     }
@@ -87,7 +95,7 @@ export const CheckoutPage = () => {
         <div ref={formRef}>
           <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
             <div className="modal-body">
-              <Stepper activeStep={activeStep} alternativeLabel>
+              <Stepper activeStep={activeStep + 1} alternativeLabel>
                 {steps.map((label) => (
                   <Step key={label}>
                     <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
@@ -99,15 +107,15 @@ export const CheckoutPage = () => {
                 <div className="content">
                   <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
                   <p>
-                    {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                    {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                    {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
+                    {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                    {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                    {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
                   </p>
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
-                  {activeStep === 0 && <AddressForm errors={errors} control={control} />}
+                  {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
                   {activeStep === 1 && <PaymentStep />}
-                  {activeStep === 2 && <ReviewStep />}
+                  {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
                 </Box>
                 {activeStep != steps.length - 1 && (
                   <div className="col-md-12">

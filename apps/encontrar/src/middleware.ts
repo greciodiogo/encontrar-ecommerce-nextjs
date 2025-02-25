@@ -26,7 +26,9 @@ const middleware = (req: NextRequest) => {
 
   // 5. Redirect to / if the user is authenticated
   if (isPublicRoute && session?.value && !req.nextUrl.pathname.startsWith('/')) {
-    return NextResponse.redirect(new URL('/', req.nextUrl));
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    const locale = req.cookies.get('NEXT_LOCALE')?.value || 'en';
+    return NextResponse.redirect(new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url));
   }
 
   return NextResponse.next();

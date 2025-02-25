@@ -4,6 +4,7 @@ import { adjustQty, removeFromCart } from 'actions/products';
 import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { CartItemProps } from 'types/product';
+
 import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: CartItemProps) => {
@@ -18,17 +19,16 @@ export const CartItem = (props: CartItemProps) => {
   const [localQty, setLocalQty] = useState(qty);
 
   useEffect(() => {
-    // Atualiza o total e subtotal ao montar o componente
     const itemSubtotal = price * localQty;
+
     setTotal((prevTotal) => Math.max(0, prevTotal + itemSubtotal));
     setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal + itemSubtotal));
 
     return () => {
-      // Remove o subtotal do item ao desmontar o componente
       setTotal((prevTotal) => Math.max(0, prevTotal - itemSubtotal));
       setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal - itemSubtotal));
     };
-  }, []);
+  }, [price, localQty, setTotal, setSubtotal]);
 
   const handleRemoveFromCart = () => {
     const itemSubtotal = price * localQty;

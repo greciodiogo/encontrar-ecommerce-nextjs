@@ -24,24 +24,27 @@ export const ControlledTextField = <T extends FieldValues>({
   errors,
   className,
   fullWidth = true,
+  disabled = false, // Adicionamos essa propriedade
   ...props
-}: ControlledTextFieldProps<T>) => (
+}: ControlledTextFieldProps<T> & { disabled?: boolean }) => (
   <Controller
     name={name}
     control={control}
     render={({ field }) => (
-      <FormControl variant="standard" className={className} fullWidth={fullWidth}>
+      <FormControl variant="standard" className={className} fullWidth={fullWidth} error={!!errors[name]}>
         <InputLabel shrink htmlFor={name}>
           {label}
         </InputLabel>
-        <BootstrapInput id={name} error={!!errors[name]} {...field} type={type} {...props} />
-        {errors[name] && <FormHelperText>{errors[name]?.message as string}</FormHelperText>}
+        <BootstrapInput id={name} {...field} hasError={!!errors[name]} type={type} disabled={disabled} {...props} />
+        {errors[name] && <FormHelperText error>{errors[name]?.message as string}</FormHelperText>}
       </FormControl>
     )}
   />
 );
 
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
+const BootstrapInput = styled(InputBase, {
+  shouldForwardProp: (prop) => prop !== 'hasError', // Garante que `hasError` não seja passado ao DOM
+})<{ hasError: boolean }>(({ theme, hasError }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
     fontSize: 16,
@@ -53,7 +56,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     position: 'relative',
     backgroundColor: '#fff',
     border: '1px solid',
-    borderColor: '#E0E3E7',
+    borderColor: hasError ? theme.palette.error.main : '#E0E3E7', // Define borda vermelha em erro
     fontSize: 16,
     width: '100%',
     padding: '10px 12px',
@@ -71,12 +74,10 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
+      boxShadow: hasError
+        ? `${alpha(theme.palette.error.main, 0.25)} 0 0 0 0.2rem`
+        : `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: hasError ? theme.palette.error.main : theme.palette.primary.main,
     },
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#1A2027',
-      borderColor: '#2D3843',
-    }),
   },
 }));
