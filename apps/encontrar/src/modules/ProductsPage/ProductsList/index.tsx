@@ -1,3 +1,4 @@
+import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,6 +11,11 @@ import { useAppDispatch } from '../../../hooks';
 export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const PAGINATION = {
+    PERPAGE: 1,
+    TOTALITEMS: 0,
+  };
+
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
     //
@@ -32,7 +38,9 @@ export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
           />
         ))}
       </div>
-      pagination
+      <div className="pagintation__container">
+        <Pagination count={PAGINATION.PERPAGE} color="primary" />
+      </div>
     </div>
   );
 };

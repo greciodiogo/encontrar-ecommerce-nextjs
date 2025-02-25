@@ -33,7 +33,7 @@ button {
 }
 
 a {
-  color: #111;
+  color: black;
 }
 
 a:focus {
@@ -1135,6 +1135,10 @@ a:visited {
   object-fit: contain;
 }
 
+.bestselled_product.category-item .content span {
+  color: #958e83;
+}
+
 .addCartBtn {
   width: 100%;
   display: flex;
@@ -2177,7 +2181,7 @@ a:visited {
 }
 
 .productsPage__container {
-  padding: 1rem 0;
+  padding: 1rem;
   max-width: 1100px;
   width: 100%;
   display: flex;
@@ -2192,7 +2196,7 @@ a:visited {
   gap: 20px;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .productsPage .productsPage__top h5 {
@@ -2275,10 +2279,12 @@ a:visited {
 @media (max-width: 670px) {
   .productsList .wrapper {
     width: 100%;
+    gap: 10px;
   }
 
   .productsList .wrapper .bestselled_product {
     width: 100%;
+    gap: 10px;
   }
 
   .productsList {
@@ -2857,10 +2863,24 @@ a:visited {
   font-size: 16px;
   padding: 8 12px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.accountConfig button i {
-  margin-left: 10px;
+.accountConfig i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.accountConfig i img {
+  /* margin-left: 10px; */
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 450px) {
@@ -3047,7 +3067,7 @@ a:visited {
   margin-left: 5px;
 }
 
-.orderList .pagintation__container {
+.pagintation__container {
   padding-top: 2rem;
   display: flex;
   align-items: center;
