@@ -33,6 +33,7 @@ export const CheckoutPage = () => {
     control,
     handleSubmit,
     trigger,
+    setValue,
     getValues,
     formState: { errors },
   } = useForm({
@@ -114,7 +115,7 @@ export const CheckoutPage = () => {
                   </p>
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
-                  {activeStep === 0 && <AddressForm errors={errors} control={control} />}
+                  {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
                   {activeStep === 1 && <PaymentStep />}
                   {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
                 </Box>

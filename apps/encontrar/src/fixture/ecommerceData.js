@@ -74,6 +74,17 @@ export const new_categories = [
 //     ],
 //   },
 // ];
+export const municipiosLuanda = [
+  'Belas',
+  'Cacuaco',
+  'Cazenga',
+  'Ícolo e Bengo',
+  'Kilamba Kiaxi',
+  'Quiçama',
+  'Talatona',
+  'Viana',
+];
+
 export const footer = [
   {
     title: 'Pedidos e Devoluções',

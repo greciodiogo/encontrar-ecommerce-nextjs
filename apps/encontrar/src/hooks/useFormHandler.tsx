@@ -24,22 +24,18 @@ export const ControlledTextField = <T extends FieldValues>({
   errors,
   className,
   fullWidth = true,
+  disabled = false, // Adicionamos essa propriedade
   ...props
-}: ControlledTextFieldProps<T>) => (
+}: ControlledTextFieldProps<T> & { disabled?: boolean }) => (
   <Controller
     name={name}
     control={control}
     render={({ field }) => (
-      <FormControl
-        variant="standard"
-        className={className}
-        fullWidth={fullWidth}
-        error={!!errors[name]} // <- Define erro no FormControl
-      >
+      <FormControl variant="standard" className={className} fullWidth={fullWidth} error={!!errors[name]}>
         <InputLabel shrink htmlFor={name}>
           {label}
         </InputLabel>
-        <BootstrapInput id={name} {...field} hasError={!!errors[name]} type={type} {...props} />
+        <BootstrapInput id={name} {...field} hasError={!!errors[name]} type={type} disabled={disabled} {...props} />
         {errors[name] && <FormHelperText error>{errors[name]?.message as string}</FormHelperText>}
       </FormControl>
     )}
