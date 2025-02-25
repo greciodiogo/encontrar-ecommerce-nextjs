@@ -16,7 +16,7 @@
   height: 100%;
   z-index: 999;
   top: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   display: none;
   align-items: center;
   justify-content: center;
@@ -39,6 +39,7 @@
   transition: all 250ms ease-in-out;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12);
 }
 
 .authPage .top {

@@ -1,24 +1,36 @@
+import moment from 'moment';
+import { useRouter } from 'next/router';
 import React from 'react';
+
+import { useAppSelector } from 'hooks';
+import { RootState } from 'types/product';
 
 // import { useAuth } from 'hooks/useAuth';
 
-export const ReviewStep = () => {
-  const transactionDate = '';
-  const paymentMethod = '';
+export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
+  const repo = useAppSelector((state: RootState) => state.products);
+  const router = useRouter();
+
+  const transactionDate = repo.order?.created_at;
+  const paymentMethod = repo.paymentMethod;
   const shippingMethod = '';
   const subtotal = 0;
   const discount = 0;
-  const shippingCost = 0;
+  const shippingCost = 2000;
   const total = 0;
-  const onCancel = () => void {};
-  const onFinish = () => void {};
+  const onCancel = () => {
+    void router.push('/');
+  };
+  const onFinish = () => {
+    handleNextStep();
+  };
   //   const { selectedPrice, setSelectedPrice } = useAuth();
   return (
     <div className="order-review">
       <div className="details">
         <div className="row">
           <span className="label">Transaction Date</span>
-          <span className="value">{transactionDate}</span>
+          <span className="value">{moment(transactionDate).format('YYYY-MM-DD')}</span>
         </div>
         <div className="row">
           <span className="label">Payment Method</span>
