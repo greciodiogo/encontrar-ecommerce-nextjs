@@ -58,13 +58,13 @@ export const CheckoutPage = () => {
     const isValid = await trigger(); // Valida todos os campos do formulário
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (activeStep === 0 && !isValid) {
+    if (activeStep === 1 && !isValid) {
       toast.warning('Por favor, preencha todos os campos obrigatórios.');
       return;
-    } else if (activeStep === 1 && selectedPrice !== 'CASH') {
+    } else if (activeStep === 2 && selectedPrice !== 'CASH') {
       toast.warning('Método de pagamento indisponível');
       return;
-    } else if (activeStep === steps.length - 1) {
+    } else if (activeStep === steps.length) {
       dispatch(setPaymentMethod(selectedPrice));
       saveOrder();
     }
@@ -97,7 +97,7 @@ export const CheckoutPage = () => {
         <div ref={formRef}>
           <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
             <div className="modal-body">
-              <Stepper activeStep={activeStep} alternativeLabel>
+              <Stepper activeStep={activeStep + 1} alternativeLabel>
                 {steps.map((label) => (
                   <Step key={label}>
                     <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
@@ -109,9 +109,9 @@ export const CheckoutPage = () => {
                 <div className="content">
                   <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
                   <p>
-                    {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                    {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                    {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
+                    {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                    {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                    {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
                   </p>
                 </div>
                 <Box sx={{ mt: 2, mb: 1 }}>
