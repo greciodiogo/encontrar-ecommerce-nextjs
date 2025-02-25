@@ -8,7 +8,6 @@ export * from './Framer';
 export * from './Footer';
 export * from './Header';
 export * from '../modules/PreviewProduct';
-export * from '../modules/ProductsPage';
 export * from './Products';
 export * from './Reviews';
 export * from '../modules/ShowProduct';
