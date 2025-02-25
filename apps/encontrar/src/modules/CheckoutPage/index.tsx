@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -57,7 +56,6 @@ export const CheckoutPage = () => {
     // Valida o formulário antes de avançar
     const isValid = await trigger(); // Valida todos os campos do formulário
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (activeStep === 1 && !isValid) {
       toast.warning('Por favor, preencha todos os campos obrigatórios.');
       return;
