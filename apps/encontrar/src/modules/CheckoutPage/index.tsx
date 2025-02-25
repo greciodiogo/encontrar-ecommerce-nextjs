@@ -32,6 +32,7 @@ export const CheckoutPage = () => {
   const {
     control,
     handleSubmit,
+    trigger,
     getValues,
     formState: { errors },
   } = useForm({
@@ -51,40 +52,37 @@ export const CheckoutPage = () => {
     void router.push('/sucessful-order'); // Redireciona ao finalizar
   };
 
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
     // Valida o formulário antes de avançar
-    const isValid = handleSubmit(handleFormSubmit)();
+    const isValid = await trigger(); // Valida todos os campos do formulário
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (!isValid) {
-      toast.error('Por favor, preencha todos os campos obrigatórios.');
+    if (activeStep === 0 && !isValid) {
+      toast.warning('Por favor, preencha todos os campos obrigatórios.');
       return;
+    } else if (activeStep === 1 && selectedPrice !== 'CASH') {
+      toast.warning('Método de pagamento indisponível');
+      return;
+    } else if (activeStep === steps.length - 1) {
+      dispatch(setPaymentMethod(selectedPrice));
+      saveOrder();
     }
 
-    if (activeStep === steps.length - 1) {
-      if (selectedPrice !== 'CASH') {
-        toast.warning('Método de pagamento indisponível');
-      } else {
-        saveOrder();
-      }
-    } else {
-      setActiveStep((prev) => prev + 1);
-
-      // Scroll para o topo do formulário após avançar
-      setTimeout(() => {
-        document.getElementById('checkout-container')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }, 100);
-    }
+    setActiveStep((prev) => prev + 1);
+    // Scroll para o topo do formulário após avançar
+    setTimeout(() => {
+      document.getElementById('checkout-container')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, 100);
   };
 
   const handleFormSubmit = () => {
     const checkoutData = getValues();
+
     try {
       dispatch(setAddress(checkoutData));
-      dispatch(setPaymentMethod(selectedPrice));
     } catch (err) {
       console.error('Erro ao processar o formulário:', err);
     }
