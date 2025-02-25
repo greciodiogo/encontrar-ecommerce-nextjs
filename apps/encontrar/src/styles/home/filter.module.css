@@ -1,0 +1,98 @@
+.filterProducts.container {
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+}
+
+.filterProducts .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filterProducts .header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.filterProducts .closeIcon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  color: #191c1f;
+}
+
+.filterProducts .tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.filterProducts .tag {
+  color: #4b4a48;
+  font-size: 14px;
+  padding: 5px 12px;
+  border: 1.5px solid #958e83;
+  border-radius: 21px;
+}
+
+.filterProducts .filterSection {
+  background: rgb(174, 174, 174, 0.15);
+  border-bottom: 2px solid #dddddd;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.filterProducts .filterTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #04040b;
+}
+
+.filterProducts .chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.filterProducts .chevron.open {
+  transform: rotate(90deg);
+}
+
+.filterProducts .brandsList {
+  margin-top: 10px;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.filterProducts .brandItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.filterProducts .checkbox {
+  width: 16px;
+  height: 16px;
+  background: #62615d;
+}
+
+.filterProducts .brandName {
+  color: #958e83;
+  font-weight: 400;
+}
+
+.filterProducts .brandCount {
+  color: #958e83;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
