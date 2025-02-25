@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -50,6 +52,15 @@ export const CheckoutPage = () => {
   };
 
   const handleNextStep = () => {
+    // Valida o formulário antes de avançar
+    const isValid = handleSubmit(handleFormSubmit)();
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!isValid) {
+      toast.error('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
     if (activeStep === steps.length - 1) {
       if (selectedPrice !== 'CASH') {
         toast.warning('Método de pagamento indisponível');
@@ -107,7 +118,7 @@ export const CheckoutPage = () => {
                 <Box sx={{ mt: 2, mb: 1 }}>
                   {activeStep === 0 && <AddressForm errors={errors} control={control} />}
                   {activeStep === 1 && <PaymentStep />}
-                  {activeStep === 2 && <ReviewStep />}
+                  {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
                 </Box>
                 {activeStep != steps.length - 1 && (
                   <div className="col-md-12">

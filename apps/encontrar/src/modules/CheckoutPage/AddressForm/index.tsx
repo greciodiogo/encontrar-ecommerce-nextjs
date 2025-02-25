@@ -25,8 +25,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors }) => 
     {(
       [
         { label: 'Nome Completo', name: 'name' },
-        { label: 'Email', name: 'email' },
-        { label: 'Confirmar Email', name: 'email_confirmation' },
+        { label: 'Email', name: 'email', type: 'email' },
+        { label: 'Confirmar Email', name: 'email_confirmation', type: 'email' },
         { label: 'País', name: 'pais' },
         { label: 'Cidade', name: 'cidade' },
         { label: 'Número de Telemóvel', name: 'telefone' },

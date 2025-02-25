@@ -4,6 +4,7 @@ import { adjustQty, removeFromCart } from 'actions/products';
 import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { CartItemProps } from 'types/product';
+
 import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: CartItemProps) => {

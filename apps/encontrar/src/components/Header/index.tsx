@@ -31,8 +31,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { isClient, isAuthenticated, user } = useAuth();
-  const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest'; // Exibe "Guest" se o nome não estiver disponível
+  const { isClient, isAuthenticated, username } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -126,10 +125,10 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             {/* <ToastContainer /> */}
             {isAuthenticated ? (
               <div className={styles.dropdown}>
-                <button className={styles.dropdown_button}>Olá, {USERNAME}</button>
+                <button className={styles.dropdown_button}>Olá, {username}</button>
 
                 <div className={styles.dropdown_menu}>
-                  <p className={styles.dropdown_header}>Olá {USERNAME}, seja bem-vindo ao Encontrar</p>
+                  <p className={styles.dropdown_header}>Olá {username}, seja bem-vindo ao Encontrar</p>
                   <hr className={styles.divider} />
                   <ul>
                     {menuItems.map(({ label, path, icon }, index) => (
