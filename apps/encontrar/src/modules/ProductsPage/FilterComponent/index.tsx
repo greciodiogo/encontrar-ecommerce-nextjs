@@ -15,4 +15,3 @@ export const FilterComponent = () => {
     </div>
   );
 };
-populartTags;

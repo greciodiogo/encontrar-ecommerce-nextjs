@@ -101,7 +101,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Jack Daniels',
     productId: 'B001',
-    price: 44.99,
+    price: 5000,
     rating: 4.8,
   },
   {
@@ -115,7 +115,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Quinta das Amoras',
     productId: 'B002',
-    price: 12.99,
+    price: 4500,
     rating: 4.5,
   },
   {
@@ -129,7 +129,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png', 'whiskey.png', 'wine_green.png'],
     brand: 'Casa Valduga',
     productId: 'B003',
-    price: 19.99,
+    price: 7000,
     rating: 4.7,
   },
   {
@@ -143,7 +143,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Vinha Real',
     productId: 'B004',
-    price: 29.99,
+    price: 6000,
     rating: 4.9,
   },
   {
@@ -157,7 +157,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Samsung',
     productId: 'E001',
-    price: 2599.99,
+    price: 250000,
     rating: 4.6,
   },
   {
@@ -171,7 +171,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Nestlé',
     productId: 'A001',
-    price: 5.49,
+    price: 3000,
     rating: 4.3,
   },
   {
@@ -185,7 +185,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'bam boo',
     productId: 'A002',
-    price: 4.99,
+    price: 500,
     rating: 4.8,
   },
   {
@@ -199,7 +199,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Sony',
     productId: 'E002',
-    price: 299.99,
+    price: 25000,
     rating: 4.7,
   },
   {
@@ -213,7 +213,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Compal',
     productId: 'A003',
-    price: 3.99,
+    price: 1500,
     rating: 4.4,
   },
   {
@@ -227,7 +227,7 @@ export const products = [
     images: ['whiskey.png', 'wine_green.png'],
     brand: 'Nestlé',
     productId: 'A004',
-    price: 2.49,
+    price: 1000,
     rating: 4.2,
   },
 ];

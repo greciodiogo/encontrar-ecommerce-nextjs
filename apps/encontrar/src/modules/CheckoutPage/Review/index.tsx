@@ -66,7 +66,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
 
       <div className="buttons">
         <button onClick={onCancel} className="cancel-btn">
-          ← Cancelar
+          Cancelar
         </button>
         <button onClick={onFinish} className="finish-btn">
           finalizar compra →
