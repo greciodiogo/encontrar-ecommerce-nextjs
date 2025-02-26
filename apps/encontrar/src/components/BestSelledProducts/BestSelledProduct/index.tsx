@@ -1,6 +1,7 @@
 // import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
+import { FnService } from 'shared/utils/FnService';
 import { ProductTypeProps } from 'types/product';
 
 export const BestSelledProduct = ({
@@ -13,6 +14,7 @@ export const BestSelledProduct = ({
 
   const { id, image, name, price, about } = product;
   const url = 'assets_ecommerce';
+  const fnService = new FnService();
 
   const handleAddToCartClick = (event: React.MouseEvent<HTMLAnchorElement>, id = 0) => {
     event.preventDefault();
@@ -39,7 +41,7 @@ export const BestSelledProduct = ({
             </i>
           ))}
         </div>
-        <p>{price}Kz</p>
+        <p>{fnService.numberFormat(price ?? 0)}Kz</p>
         {hasButtons && <span>{about}</span>}
       </div>
       {hasButtons && (

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { FnService } from 'shared/utils/FnService';
 import { ProductTypeProps } from 'types/product';
 
 export const Product = ({ product, handlepreviewProduct }: ProductTypeProps) => {
+  const fnService = new FnService();
   const { id, image, name, price } = product;
   const url = 'assets_ecommerce';
   return (
@@ -18,7 +20,7 @@ export const Product = ({ product, handlepreviewProduct }: ProductTypeProps) => 
           </i>
         ))}
       </div>
-      <p>{price}</p>
+      <p>{fnService.numberFormat(price ?? 0)}</p>
     </button>
   );
 };

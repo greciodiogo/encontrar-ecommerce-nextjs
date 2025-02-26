@@ -5,11 +5,13 @@ import { addToCart } from 'actions/products';
 import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { SubmitButton } from 'shared/components/SubmitButton';
+import { FnService } from 'shared/utils/FnService';
 import { ProductDetailProps, RootState } from 'types/product';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 export const ProductDetail = (props: ProductDetailProps) => {
+  const fnService = new FnService();
   const url = 'assets_ecommerce';
   const [quantity, setQuantity] = useState(1);
   const { name, availability, category, price, brand, id = 0, qty } = props.product;
@@ -64,7 +66,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
         </p>
       </div>
       <div className="product_price">
-        {price} <span>Kz</span>
+        {fnService.numberFormat(price ?? 0)} <span>Kz</span>
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">

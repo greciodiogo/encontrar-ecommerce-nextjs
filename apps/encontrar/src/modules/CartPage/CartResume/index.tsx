@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useAuth } from 'hooks/useAuth';
 import { SubmitButton } from 'shared/components/SubmitButton';
+import { FnService } from 'shared/utils/FnService';
 export const CartResume = ({
   total = 0,
   totalProduct = 0,
@@ -13,6 +14,7 @@ export const CartResume = ({
   totalProduct: number;
   handleGoToCheckout?: () => void;
 }) => {
+  const fnService = new FnService();
   const DELIVERY_COST = 2000;
   const { isClient, selectedPrice } = useAuth();
 
@@ -25,17 +27,17 @@ export const CartResume = ({
       <div className="price">
         <ul>
           <li>Subtotal</li>
-          <li>{total.toFixed(2)}kz</li>
+          <li>{fnService.numberFormat(total)}kz</li>
         </ul>
         <ul>
           <li>Entrega:</li>
-          <li>{DELIVERY_COST}kz</li>
+          <li>{fnService.numberFormat(DELIVERY_COST)}kz</li>
         </ul>
       </div>
       <div className="price">
         <ul>
           <li>Total ({totalProduct} items)</li>
-          <li>{total + DELIVERY_COST}kz</li>
+          <li>{fnService.numberFormat(total + DELIVERY_COST)}kz</li>
         </ul>
       </div>
       <div className="price">

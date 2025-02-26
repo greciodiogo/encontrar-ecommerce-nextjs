@@ -4,9 +4,11 @@ import React from 'react';
 
 import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
+import { FnService } from 'shared/utils/FnService';
 import { RootState } from 'types/product';
 
 export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
+  const fnService = new FnService();
   const repo = useAppSelector((state: RootState) => state.products);
   const router = useRouter();
   const { selectedPrice } = useAuth();
@@ -47,21 +49,21 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
       <div className="pricing">
         <div className="row">
           <span>Subtotal</span>
-          <span>{subtotal.toFixed(2)} Kz</span>
+          <span>{fnService.numberFormat(subtotal)} Kz</span>
         </div>
         <div className="row">
           <span>Desconto</span>
-          <span>{discount.toFixed(2)} Kz</span>
+          <span>{fnService.numberFormat(discount)} Kz</span>
         </div>
         <div className="row">
           <span>Preço de Envio</span>
-          <span>{shippingCost} Kz</span>
+          <span>{fnService.numberFormat(shippingCost)} Kz</span>
         </div>
       </div>
 
       <div className="total">
         <span>Total</span>
-        <span>{total} Kz</span>
+        <span>{fnService.numberFormat(total)} Kz</span>
       </div>
 
       <div className="buttons">

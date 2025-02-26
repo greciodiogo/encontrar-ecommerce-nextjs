@@ -4,25 +4,27 @@ import { Card, CardContent, Typography, Divider, Grid } from '@mui/material';
 import React from 'react';
 
 import { Container } from 'components/Container';
+import { FnService } from 'shared/utils/FnService';
 
 const OrderDetails = () => {
+  const fnService = new FnService();
   // const router = useRouter();
   // const { id } = router.query; // Obtém o ID da rota dinâmica
   const order = {
     id: '96459761',
     date: '11 Fev, 2025 às 7:32',
-    total: '2999.00KZS',
+    total: 2999,
     products: [
       {
         name: 'Google Pixel 6 Pro - Telefone Android 5G',
         description: 'Smartphone Desbloqueado com Câmera Avançada',
-        price: '1499.5KZS',
+        price: 1499,
         quantity: 1,
       },
       {
         name: 'Tech21 Evo Clear para Google Pixel 6 Pro',
         description: 'Capa de Telefone Cristalina com Resistência',
-        price: '1499.5KZS',
+        price: 1499.5,
         quantity: 1,
       },
     ],
@@ -138,13 +140,13 @@ const OrderDetails = () => {
                 <Typography color="textSecondary">{product.description}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{product.price}</Typography>
+                <Typography>{fnService.numberFormat(product.price)}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{product.quantity}</Typography>
+                <Typography>{fnService.formatarQuantidade(product.quantity)}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{parseFloat(product.price) * product.quantity}KZS</Typography>
+                <Typography>{fnService.numberFormat(product.price * product.quantity)}Kz</Typography>
               </Grid>
             </Grid>
           ))}

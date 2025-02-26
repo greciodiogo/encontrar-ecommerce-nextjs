@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { products } from 'fixture/ecommerceData';
+import { FnService } from 'shared/utils/FnService';
 
 import { FilterComponent } from './FilterComponent';
 import { ProductsList } from './ProductsList';
 
 export const ProductsPage = () => {
+  const fnService = new FnService();
+
   const [showFilter, setShowFilter] = useState(false);
 
   const handleShowFilterPainel = () => {
@@ -40,7 +43,7 @@ export const ProductsPage = () => {
     <div className="productsPage">
       <div className="productsPage__container">
         <div className="productsPage__top">
-          <h5>Total de Produtos ({TOTAL_PRODUCTS})</h5>
+          <h5>Total de Produtos ({fnService.formatarQuantidade(TOTAL_PRODUCTS)})</h5>
           <h5>Os mais recomendados</h5>
         </div>
         <div className="productsPage__top">

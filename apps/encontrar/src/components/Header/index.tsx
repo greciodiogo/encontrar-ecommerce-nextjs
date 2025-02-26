@@ -56,7 +56,6 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
   const isHomeRoute = router.pathname === '/';
-  console.log(isHomeRoute);
   const isAuthRoute = router.pathname.startsWith('/auth');
 
   const handleCartClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
