@@ -24,7 +24,7 @@
 }
 
 button {
-  background-color: transparent;
+  background: transparent;
 }
 
 button {
@@ -62,7 +62,7 @@ a:visited {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  background-color: var(--default-color);
+  background: var(--default-color);
   height: var(--header-height);
 }
 
@@ -73,7 +73,7 @@ a:visited {
 
 .slider-container {
   padding-top: 10px;
-  background-color: var(--default-color);
+  background: var(--default-color);
   height: var(--header-height);
 }
 
@@ -103,7 +103,7 @@ a:visited {
   position: sticky;
   top: 0;
   z-index: 999;
-  background-color: #fff;
+  background: #fff;
 }
 
 @media (max-width: 650px) {
@@ -112,7 +112,7 @@ a:visited {
   }
 
   .borderActive {
-    border-bottom: 2px solid transparent;
+    border-bottom: 2px solid #dddddd !important;
   }
 }
 
@@ -335,6 +335,10 @@ a:visited {
   flex-shrink: 0;
 }
 
+.categories .wrapper .category-item a:hover {
+  color: #b66506;
+}
+
 .categories .wrapper .category-item a {
   cursor: pointer;
 }
@@ -381,7 +385,7 @@ a:visited {
   width: 100%;
   display: flex;
   position: relative;
-  background-color: #ebad1e;
+  background: #ebad1e;
   border-radius: 25px;
 }
 
@@ -413,12 +417,12 @@ a:visited {
 }
 
 .star_container i {
-  background-color: #b66506;
+  background: #b66506;
   padding: 1px;
 }
 
 .framer .star_container i {
-  background-color: transparent;
+  background: transparent;
   padding: 1px;
 }
 
@@ -478,7 +482,7 @@ a:visited {
 
 .framer_container .content .btn_container button:hover {
   color: #111;
-  background-color: #ececec;
+  background: #ececec;
 }
 
 .framer_container .content .btn_container button:hover i.white {
@@ -499,7 +503,7 @@ a:visited {
 }
 
 .framer_container .content .btn_container button.simple {
-  background-color: transparent;
+  background: transparent;
   color: #111;
   font-weight: 500;
   /* color: fff; */
@@ -516,7 +520,7 @@ a:visited {
   border-bottom-right-radius: 24px;
   /* height: 495px; */
   width: 100%;
-  background-color: #ebad1e;
+  background: #ebad1e;
 }
 
 .framer_container .picture img {
@@ -593,7 +597,7 @@ a:visited {
 }
 
 .products_container {
-  background-color: #fff;
+  background: #fff;
   max-width: 1100px;
   width: 100%;
   display: flex;
@@ -635,7 +639,7 @@ a:visited {
   color: #bd7b2d;
   font-weight: 600;
   cursor: pointer;
-  background-color: white;
+  background: white;
   border-radius: 6px;
   padding: 10px;
 }
@@ -663,14 +667,14 @@ a:visited {
   gap: 10px;
 }
 
-.category-item:hover .product_name {
+/* .category-item:hover .product_name {
   color: #bd7b2d;
-}
+} */
 
 .mini.categories .category-item,
 .products .category-item {
   font-size: 14px;
-  background-color: #f2f2f2;
+  background: #f2f2f2;
   color: #958e83;
   padding: 10px;
   cursor: pointer;
@@ -690,7 +694,7 @@ a:visited {
   font-weight: 500;
 }
 .products .star_container i {
-  background-color: #b66506;
+  background: #b66506;
   padding: 1px;
   height: 15px;
 }
@@ -731,10 +735,14 @@ a:visited {
   text-align: left;
 }
 
+.category-item .btn:hover {
+  background: #323232;
+}
+
 .category-item .btn {
   color: #fff;
   width: 100%;
-  background-color: #060400;
+  background: #060400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -873,7 +881,7 @@ a:visited {
 /* brandNew starts here */
 
 .brandNew {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -904,7 +912,7 @@ a:visited {
 }
 
 .brandNew .wrapper .box:last-of-type {
-  background-color: #fff;
+  background: #fff;
 }
 
 .brandNew .wrapper .box .content {
@@ -920,7 +928,7 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #c7370f;
+  background: #c7370f;
 }
 
 .brandNew .wrapper .box .content .badge p {
@@ -931,7 +939,7 @@ a:visited {
 }
 
 .brandNew .wrapper .box:last-of-type .content .badge {
-  background-color: #efd33d;
+  background: #efd33d;
 }
 
 .brandNew .wrapper .box:last-of-type .content .badge p {
@@ -962,7 +970,7 @@ a:visited {
   height: 48px;
   padding: 4px 24px;
   cursor: pointer;
-  background-color: #000000;
+  background: #000000;
   color: #fff;
   margin-top: 10px;
 }
@@ -977,7 +985,7 @@ a:visited {
 
 .brandNew .wrapper .box:last-of-type .content > button {
   color: #000000;
-  background-color: transparent;
+  background: transparent;
 }
 
 @media (max-width: 970px) {
@@ -1005,7 +1013,7 @@ a:visited {
 /* reviews starts here */
 
 .reviews {
-  background-color: #f1d2c9;
+  background: #f1d2c9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1076,7 +1084,7 @@ a:visited {
 }
 
 .subcategories.cheapest .category-item .star_container i {
-  background-color: transparent;
+  background: transparent;
 }
 
 .subcategories.cheapest .category-item p {
@@ -1101,7 +1109,7 @@ a:visited {
 
 .bestselled_product {
   width: 290px;
-  background-color: #fff;
+  background: #fff;
   padding: 1rem;
   flex-shrink: 0;
   display: flex;
@@ -1166,11 +1174,11 @@ a:visited {
 }
 
 .category-item {
-  background-color: #f2f2f2;
+  background: #f2f2f2;
 }
 
 .bestselled .category-item .star_container i {
-  background-color: transparent;
+  background: transparent;
 }
 
 .bs .category_picture {
@@ -1188,7 +1196,7 @@ a:visited {
   align-items: center;
   justify-content: center;
   padding: 4rem;
-  background-color: #fffbf3;
+  background: #fffbf3;
 }
 
 .footer_container {
@@ -1350,7 +1358,7 @@ a:visited {
 }
 
 .footer .wrapper_right .row-3 .chat_container .badge {
-  background-color: #d5cfc3;
+  background: #d5cfc3;
   max-width: fit-content;
   padding: 3px;
   color: #04040b;
@@ -1386,7 +1394,7 @@ a:visited {
 }
 
 .footer .category-item {
-  background-color: transparent;
+  background: transparent;
 }
 
 @media (max-width: 850px) {
@@ -1497,7 +1505,7 @@ a:visited {
 }
 
 .emptyCart .content > button {
-  background-color: #000000;
+  background: #000000;
   border-radius: 24px;
   font-size: 16px;
   font-weight: 400;
@@ -1525,7 +1533,7 @@ a:visited {
 
 @media (max-width: 750px) {
   .emptyCart .content h2 {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .emptyCart .content > span {
@@ -1625,7 +1633,7 @@ a:visited {
 .submitButton {
   padding: 6px 12px;
   border-radius: 4px;
-  background-color: #000000;
+  background: #000000;
   border: 1px solid var(--primary);
   color: white;
   cursor: pointer;
@@ -1643,7 +1651,7 @@ a:visited {
   color: #a3651b;
   border: 2px solid #a3651b;
   border-radius: 8px;
-  background-color: #fff;
+  background: #fff;
 }
 
 .submitButton i {
@@ -1660,7 +1668,7 @@ a:visited {
   border: 1px solid #909090;
   opacity: 0.8;
   color: black;
-  background-color: white;
+  background: white;
 }
 
 .cart .row {
@@ -1681,7 +1689,7 @@ a:visited {
   justify-content: flex-start;
   gap: 30px;
   width: 800px;
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   padding: 1rem 1rem;
 }
 
@@ -1746,7 +1754,7 @@ a:visited {
 .set_qtd {
   border: 2px solid #e4e7e9;
   border-radius: 8px;
-  background-color: #fff;
+  background: #fff;
   height: 48px;
   width: 100%;
   display: flex;
@@ -1935,7 +1943,7 @@ a:visited {
 }
 
 .productDetail .star_container i {
-  background-color: transparent;
+  background: transparent;
   height: 20px;
 }
 
@@ -2159,7 +2167,7 @@ a:visited {
 }
 
 .reviewsInfo > p > span {
-  background-color: #eaeaea;
+  background: #eaeaea;
   border-radius: 12px;
   padding: 4px 12px;
   font-size: 13px;
@@ -2246,7 +2254,7 @@ a:visited {
     overflow-y: auto;
     position: fixed;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     z-index: 999;
     top: 0;
     left: 0;
@@ -2260,18 +2268,18 @@ a:visited {
 
   .mobileFilter {
     width: 85%;
-    height: 100%;
+    /* height: 100%; */
     opacity: 1;
     overflow-y: auto;
     position: relative;
-    background-color: white;
+    background: white;
     border: 1px solid #e4e7e9;
     transition: all 250ms ease-in-out;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12);
     padding: 1rem;
-    margin-bottom: 5rem;
+    margin-bottom: 7rem;
   }
 }
 
@@ -2416,7 +2424,7 @@ a:visited {
 
 .popularTags .wrapper p.active {
   color: #d2593b;
-  background-color: #bd7b2d;
+  background: #bd7b2d;
 }
 
 /* popularTags section ends here */
@@ -2564,7 +2572,7 @@ a:visited {
 .checkoutPage .btn-group .btn {
   font-size: 15px;
   width: 100%;
-  background-color: #111;
+  background: #111;
   color: white;
   border-radius: 4px;
   padding: 9px 18px;
@@ -2745,7 +2753,7 @@ a:visited {
 }
 
 .successfulOrder .content button {
-  background-color: #000000;
+  background: #000000;
   border: 2px solid;
   border-radius: 8px;
   font-size: 16px;
@@ -2764,7 +2772,7 @@ a:visited {
 }
 
 .successfulOrder .content button.outlined {
-  background-color: transparent;
+  background: transparent;
   border: 2px solid #958e83;
   color: #bd7b2d;
   border-radius: 8px;
@@ -2838,7 +2846,7 @@ a:visited {
 }
 
 .panelItem {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 8px;
   padding: 0.5rem 1rem;
   display: flex;
@@ -2877,7 +2885,7 @@ a:visited {
 
 /* ******************* controlPanel section ends here ************************* */
 .panel {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 8px;
   padding: 0.5rem 0;
   display: flex;
@@ -3041,7 +3049,7 @@ a:visited {
 }
 
 .addOrEditAddress button {
-  background-color: #000000;
+  background: #000000;
   border: 2px solid;
   border-radius: 8px;
   font-size: 16px;
@@ -3060,7 +3068,7 @@ a:visited {
 }
 
 .addOrEditAddress button.outlined {
-  background-color: transparent;
+  background: transparent;
   border: 2px solid #958e83;
   color: #bd7b2d;
   border-radius: 8px;

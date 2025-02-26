@@ -55,7 +55,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
-  const isCheckoutRoute = router.pathname.startsWith('/checkout');
+  const isHomeRoute = router.pathname === '/';
+  console.log(isHomeRoute);
   const isAuthRoute = router.pathname.startsWith('/auth');
 
   const handleCartClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -99,7 +100,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   return (
     <>
-      <div className={`header ${isCheckoutRoute ? 'borderActive' : ''}`} id="header">
+      <div className={`header ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="logo_container" onClick={redirectHome}>
             <img src="/assets_ecommerce/logo.png" alt="" />

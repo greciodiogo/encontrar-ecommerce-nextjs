@@ -9,7 +9,7 @@ export const EmptyCart = () => {
   const url = 'assets_ecommerce/svg';
 
   const handleStartBuying = () => {
-    void router.push('/');
+    void router.push('/products');
   };
 
   if (!isClient) {
@@ -20,7 +20,7 @@ export const EmptyCart = () => {
       <div className="emptyCart__container">
         <div className="content">
           <h2>
-            <span>O SEU CARRINHO DE COMPRAS ESTÁ VAZIO</span>
+            <span>CARRINHO ESTÁ VAZIO</span>
             <i>
               <img src={`${url}/cart.png`} alt="cart" />
             </i>
