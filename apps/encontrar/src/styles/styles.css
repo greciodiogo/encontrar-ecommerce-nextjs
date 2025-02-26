@@ -2305,6 +2305,10 @@ a:visited {
 /* productsList section starts here */
 
 .productsList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 .productsList .wrapper {
@@ -2314,13 +2318,6 @@ a:visited {
   gap: 5px;
 }
 @media (max-width: 1160px) {
-  .productsList {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .productsList .wrapper {
     width: max-content;
   }

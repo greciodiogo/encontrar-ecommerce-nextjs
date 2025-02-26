@@ -14,6 +14,7 @@ import './../styles/menu-categories.css';
 import './../styles/product-detail/slide.css';
 // import './../styles/review.module.css';
 import { Banner, Footer, Header } from 'components';
+import { ProductProvider } from 'contexts/ProductContext';
 import { store } from 'slices/store';
 
 import { AuthProvider } from '../contexts/AuthContext';
@@ -42,14 +43,16 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     ((page) => (
       <AuthProvider>
         <Provider store={store}>
-          <GoogleOAuthProvider clientId={clientId}>
-            <CacheProvider value={clientSideEmotionCache}>
-              {!isCheckoutRoute && <Banner />}
-              <Header hideItemsHeader={isCheckoutRoute} />
-              {page}
-              <Footer />
-            </CacheProvider>
-          </GoogleOAuthProvider>
+          <ProductProvider>
+            <GoogleOAuthProvider clientId={clientId}>
+              <CacheProvider value={clientSideEmotionCache}>
+                {!isCheckoutRoute && <Banner />}
+                <Header hideItemsHeader={isCheckoutRoute} />
+                {page}
+                <Footer />
+              </CacheProvider>
+            </GoogleOAuthProvider>
+          </ProductProvider>
         </Provider>
       </AuthProvider>
     ));

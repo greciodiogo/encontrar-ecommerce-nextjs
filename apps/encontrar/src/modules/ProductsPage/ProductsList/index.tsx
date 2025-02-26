@@ -4,17 +4,16 @@ import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
-import { ProductDTO } from 'types/product';
+import { useProductContext } from 'contexts/ProductContext';
 
 import { useAppDispatch } from '../../../hooks';
 
-export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
+export const ProductsList = () => {
+  const { filteredProducts, currentPage, itemsPerPage, totalPages, setCurrentPage } = useProductContext();
+  const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const PAGINATION = {
-    PERPAGE: 1,
-    TOTALITEMS: 0,
-  };
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
@@ -22,14 +21,14 @@ export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
   };
 
   const handlepreviewProduct = (id: number) => {
-    dispatch(loadCurrentItem(products[id - 1]));
+    dispatch(loadCurrentItem(displayedProducts[id - 1]));
     // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/preview-product');
   };
   return (
     <div className="productsList">
       <div className="wrapper bestselled">
-        {products.map((item, itemIndex) => (
+        {displayedProducts.map((item, itemIndex) => (
           <BestSelledProduct
             product={item}
             key={itemIndex}
@@ -38,9 +37,16 @@ export const ProductsList = ({ products }: { products: Array<ProductDTO> }) => {
           />
         ))}
       </div>
-      <div className="pagintation__container">
-        <Pagination count={PAGINATION.PERPAGE} color="primary" />
-      </div>
+      {displayedProducts.length > 1 && (
+        <div className="pagintation__container">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, page) => setCurrentPage(page)}
+            color="primary"
+          />
+        </div>
+      )}
     </div>
   );
 };

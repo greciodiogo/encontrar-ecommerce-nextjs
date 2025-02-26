@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { products } from 'fixture/ecommerceData';
 import { FnService } from 'shared/utils/FnService';
 
 import { FilterComponent } from './FilterComponent';
@@ -70,7 +69,7 @@ export const ProductsPage = () => {
               <FilterComponent onCloseFilter={onCloseFilter} />
             </div>
           </div>
-          <ProductsList products={products} />
+          <ProductsList />
         </div>
       </div>
     </div>
