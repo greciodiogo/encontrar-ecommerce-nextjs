@@ -335,10 +335,6 @@ a:visited {
   flex-shrink: 0;
 }
 
-.categories .wrapper .category-item a:hover {
-  color: #b66506;
-}
-
 .categories .wrapper .category-item a {
   cursor: pointer;
 }

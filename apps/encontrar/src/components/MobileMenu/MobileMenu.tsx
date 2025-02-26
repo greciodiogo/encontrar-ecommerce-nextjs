@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
 
@@ -31,9 +32,15 @@ export const MobileMenu = ({
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [activeCategory, setActiveCategory] = useState('');
+  const router = useRouter();
 
   const toggleCategory = (category: string) => {
     setActiveCategory(activeCategory === category ? '' : category);
+  };
+
+  const goToCategories = () => {
+    void router.push('products');
+    setMenuOpen(false);
   };
 
   const closeMenu = () => {
@@ -41,19 +48,44 @@ export const MobileMenu = ({
     setActiveCategory('');
   };
 
+  const handleOverlayClick = () => {
+    setMenuOpen(false);
+  };
+
+  const handleContainerClick = (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+    event.stopPropagation(); // Impede o fechamento ao clicar dentro do filtro
+  };
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto'; // Restaura ao fechar
+    };
+  }, [menuOpen]);
+
   return (
     <div className="menu-categories">
       {menuOpen && (
-        <div className="menu-overlay">
+        <div
+          className="menu-overlay"
+          onClick={handleOverlayClick}
+          onKeyDown={(event) => event.key === 'Enter' && handleOverlayClick()}
+          role="button"
+          tabIndex={0}
+        >
           <div
             className="menu"
             role="button"
             tabIndex={0}
-            onKeyDown={closeMenu}
-            onClick={(event) => event.stopPropagation()}
+            onClick={handleContainerClick}
+            onKeyDown={(event) => event.key === 'Enter' && handleContainerClick(event)}
           >
             <div className="menu-top">
-              <span></span>
+              {/* <span></span> */}
               <h5>Nossas Categorias de Produtos</h5>
               <button onClick={closeMenu}>
                 <CrossIcon />
@@ -69,6 +101,7 @@ export const MobileMenu = ({
                     {...category}
                     activeCategory={activeCategory}
                     toggleCategory={toggleCategory}
+                    goToCategories={goToCategories}
                   />
                 ),
               )}
@@ -86,12 +119,14 @@ const CategoryItem = ({
   subcategories,
   activeCategory,
   toggleCategory,
+  goToCategories,
 }: {
   label: string;
   categoryKey?: string;
   subcategories?: Array<string>;
   activeCategory: string | null;
   toggleCategory: (key: string) => void;
+  goToCategories: () => void;
 }) => {
   const isOpen = activeCategory === categoryKey;
   return (
@@ -100,9 +135,17 @@ const CategoryItem = ({
         <>
           <button onClick={() => toggleCategory(categoryKey)} className="category-button">
             {label}
-            {isOpen ? <FaChevronLeft size={16} /> : <FaChevronRight size={14} />}
+            {isOpen ? <FaChevronDown size={16} /> : <FaChevronRight size={14} />}
           </button>
-          {isOpen && <ul className="submenu">{subcategories?.map((item, index) => <li key={index}>{item}</li>)}</ul>}
+          {isOpen && (
+            <ul className="submenu">
+              {subcategories?.map((item, index) => (
+                <button onClick={goToCategories} key={index}>
+                  {item}
+                </button>
+              ))}
+            </ul>
+          )}
         </>
       ) : (
         label
