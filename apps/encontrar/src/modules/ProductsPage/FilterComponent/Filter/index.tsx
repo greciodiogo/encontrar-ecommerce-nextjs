@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
+// import { useProductContext } from 'contexts/ProductContext';
 import styles from 'styles/home/filter.module.css';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const [selectedBrands, setSelectedBrands] = useState<Array<string>>(['Vinho']);
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({});
+  // const { setSelectedCategory } = useProductContext();
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -43,6 +45,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
       {/* Tags de Filtros Selecionados */}
       <div className={styles.tags}>
         {['bebidas', 'vinhos', '30,000Kz'].map((tag, index) => (
+          // <button key={index} className={styles.tag} onClick={() => setSelectedCategory(tag)}>
           <span key={index} className={styles.tag}>
             {tag}
           </span>

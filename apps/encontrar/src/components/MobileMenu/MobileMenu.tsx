@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
+import { useProductContext } from 'contexts/ProductContext';
 
 const categories = [
   {
@@ -32,6 +33,7 @@ export const MobileMenu = ({
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [activeCategory, setActiveCategory] = useState('');
+  const { setSelectedCategory } = useProductContext();
   const router = useRouter();
 
   const toggleCategory = (category: string) => {
@@ -39,6 +41,7 @@ export const MobileMenu = ({
   };
 
   const goToCategories = () => {
+    setSelectedCategory('setSelectedCategory');
     void router.push('products');
     setMenuOpen(false);
   };
