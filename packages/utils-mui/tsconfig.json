@@ -2,6 +2,7 @@
   "extends": "config-tsconfig/tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "src",
+    "newLine": "CRLF",
     "paths": {
       ".": ["."]
     }
