@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
 import { Breadcrumb } from './Breadcrumb';
+import { CookieBanner } from './CookieBanner';
 
 type ContainerProps = {
   children: ReactNode;
@@ -42,6 +43,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main>
+        <CookieBanner />
         {useStyle && <Breadcrumb />}
         {children}
       </main>

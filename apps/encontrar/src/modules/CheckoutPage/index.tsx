@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { setAddress, setPaymentMethod, setOrder } from 'actions/products';
+import { Container } from 'components/Container';
 import { CustomStepIcon } from 'components/icon/CheckIcon';
 import { useAuth } from 'hooks/useAuth';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
@@ -88,50 +89,53 @@ export const CheckoutPage = () => {
   };
 
   return (
-    <div className="checkoutPage" id="checkout-container">
-      {' '}
-      {/* ID adicionado para rolagem correta */}
-      <div className="checkoutPage__container">
-        <div ref={formRef}>
-          <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
-            <div className="modal-body">
-              <Stepper activeStep={activeStep + 1} alternativeLabel>
-                {steps.map((label) => (
-                  <Step key={label}>
-                    <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
+    <Container useStyle={false}>
+      <div className="checkoutPage" id="checkout-container">
+        {' '}
+        {/* ID adicionado para rolagem correta */}
+        <div className="checkoutPage__container">
+          <div ref={formRef}>
+            <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
+              <div className="modal-body">
+                <Stepper activeStep={activeStep + 1} alternativeLabel>
+                  {steps.map((label) => (
+                    <Step key={label}>
+                      <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
 
-              <div className="form__container">
-                <div className="content">
-                  <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
-                  <p>
-                    {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                    {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                    {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
-                  </p>
-                </div>
-                <Box sx={{ mt: 2, mb: 1 }}>
-                  {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
-                  {activeStep === 1 && <PaymentStep />}
-                  {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
-                </Box>
-                {activeStep != steps.length - 1 && (
-                  <div className="col-md-12">
-                    <div className="btn-group" role="group" aria-label="Basic example">
-                      <button onClick={handleNextStep} type="button" className="btn btn-primary">
-                        <i className="fa fa-arrow-left"></i> {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
-                      </button>
-                      <ToastContainer {...toastProps} />
-                    </div>
+                <div className="form__container">
+                  <div className="content">
+                    <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
+                    <p>
+                      {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                      {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                      {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
+                    </p>
                   </div>
-                )}
+                  <Box sx={{ mt: 2, mb: 1 }}>
+                    {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
+                    {activeStep === 1 && <PaymentStep />}
+                    {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
+                  </Box>
+                  {activeStep != steps.length - 1 && (
+                    <div className="col-md-12">
+                      <div className="btn-group" role="group" aria-label="Basic example">
+                        <button onClick={handleNextStep} type="button" className="btn btn-primary">
+                          <i className="fa fa-arrow-left"></i>{' '}
+                          {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
+                        </button>
+                        <ToastContainer {...toastProps} />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };

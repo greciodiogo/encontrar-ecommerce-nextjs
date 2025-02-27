@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import { CheapestProducts } from 'components';
 import { Auth } from 'components/Auth/SignIn';
+import { Container } from 'components/Container';
 import { useAuth } from 'hooks/useAuth';
 import { PaymentStep } from 'modules/CheckoutPage/PaymentStep';
 import { RootState } from 'types/product';
@@ -49,7 +50,7 @@ export const CartPage = () => {
   }
 
   return (
-    <>
+    <Container useStyle={false}>
       <div className="cart">
         <div className="cart_container">
           <CartTitle qtdItems={TOTAL_ITEMS_CART} />
@@ -73,6 +74,6 @@ export const CartPage = () => {
       </div>
       <Auth showAuthPainel={showAuth} closeAuth={onCloseSignInForm} />
       <CheapestProducts />
-    </>
+    </Container>
   );
 };

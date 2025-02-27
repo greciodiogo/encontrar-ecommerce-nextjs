@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { Container } from 'components/Container';
 import { useProductContext } from 'contexts/ProductContext';
 import { FnService } from 'shared/utils/FnService';
 
@@ -41,39 +42,41 @@ export const ProductsPage = () => {
   }, [showFilter]);
 
   return (
-    <div className="productsPage">
-      <div className="productsPage__container">
-        <div className="productsPage__top">
-          <h5>Total de Produtos ({fnService.formatarQuantidade(filteredProducts.length)})</h5>
-          <h5>Os mais recomendados</h5>
-        </div>
-        <div className="productsPage__top">
-          <div className="productsPage__btnContainer">
-            <button onClick={handleShowFilterPainel}>Filtro ({2})</button>
-            <button onClick={handleShowFilterPainel}>Escolher por: Recomendado</button>
+    <Container useStyle={false}>
+      <div className="productsPage">
+        <div className="productsPage__container">
+          <div className="productsPage__top">
+            <h5>Total de Produtos ({fnService.formatarQuantidade(filteredProducts.length)})</h5>
+            <h5>Os mais recomendados</h5>
           </div>
-        </div>
-        <div className="row">
-          <div
-            className={`menu-overlay ${showFilter ? 'activeFilter' : ''}`}
-            onClick={handleOverlayClick}
-            onKeyDown={(event) => event.key === 'Enter' && handleOverlayClick()}
-            role="button"
-            tabIndex={0}
-          >
+          <div className="productsPage__top">
+            <div className="productsPage__btnContainer">
+              <button onClick={handleShowFilterPainel}>Filtro ({2})</button>
+              <button onClick={handleShowFilterPainel}>Escolher por: Recomendado</button>
+            </div>
+          </div>
+          <div className="row">
             <div
-              className="mobileFilter"
-              onClick={handleContainerClick}
-              onKeyDown={(event) => event.key === 'Enter' && handleContainerClick(event)}
+              className={`menu-overlay ${showFilter ? 'activeFilter' : ''}`}
+              onClick={handleOverlayClick}
+              onKeyDown={(event) => event.key === 'Enter' && handleOverlayClick()}
               role="button"
               tabIndex={0}
             >
-              <FilterComponent onCloseFilter={onCloseFilter} />
+              <div
+                className="mobileFilter"
+                onClick={handleContainerClick}
+                onKeyDown={(event) => event.key === 'Enter' && handleContainerClick(event)}
+                role="button"
+                tabIndex={0}
+              >
+                <FilterComponent onCloseFilter={onCloseFilter} />
+              </div>
             </div>
+            <ProductsList />
           </div>
-          <ProductsList />
         </div>
       </div>
-    </div>
+    </Container>
   );
 };

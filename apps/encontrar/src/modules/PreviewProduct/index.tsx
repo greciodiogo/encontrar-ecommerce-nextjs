@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import { CheapestProducts, ProductDetail as Details, ShowProductBanner } from 'components';
+import { Container } from 'components/Container';
 import { RootState } from 'types/product';
 
 import { useAppSelector } from '../../hooks';
@@ -27,7 +28,7 @@ export const ProductDetailPage = () => {
 
   // const { name, banner } = product;
   return (
-    <>
+    <Container useStyle={false}>
       <div className="productDetail">
         <div className="productDetail__container">
           <div className="row">
@@ -46,6 +47,6 @@ export const ProductDetailPage = () => {
         </div>
       </div>
       <CheapestProducts />
-    </>
+    </Container>
   );
 };

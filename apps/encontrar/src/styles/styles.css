@@ -3244,6 +3244,6 @@ a:visited {
   display: none !important;
 }
 
-.MuiSvgIcon-root {
+.header .MuiSvgIcon-root {
   color: #111 !important;
 }
