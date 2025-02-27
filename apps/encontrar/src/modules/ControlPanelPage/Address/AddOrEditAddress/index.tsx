@@ -8,6 +8,7 @@ import { validationSchema } from 'utils/validationSchema';
 export const AddOrEditAddress = ({ handleClick }: { handleClick: React.MouseEventHandler<HTMLButtonElement> }) => {
   const {
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema.step_user),
@@ -16,7 +17,7 @@ export const AddOrEditAddress = ({ handleClick }: { handleClick: React.MouseEven
 
   return (
     <div className="addOrEditAddress">
-      <AddressForm errors={errors} control={control} />
+      <AddressForm setValue={setValue} errors={errors} control={control} />
       <div className="btn__container">
         <button onClick={handleClick}>Salvar</button>
         <button className="outlined" onClick={handleClick}>

@@ -140,7 +140,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 {/* <i>
                   <img src="/assets_ecommerce/svg/user.png" alt="" />
                 </i> */}
-                <AccountCircleOutlinedIcon color="black" />
+                <AccountCircleOutlinedIcon />
                 <span>Sign in</span>
               </button>
             )}
