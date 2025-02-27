@@ -1,3 +1,5 @@
+import { ProductDTO } from './product';
+
 export type AuthContextType = {
   isClient: boolean;
   isAuthenticated: boolean;
@@ -16,4 +18,23 @@ export type DecodedPayload = {
   exp?: number;
   iat?: number;
   [key: string]: string | number | boolean | undefined;
+};
+
+export type ProductContextType = {
+  filteredProducts: Array<ProductDTO>;
+  selectedCategory: string;
+  minPrice: number;
+  maxPrice: number;
+  availability: string;
+  rating: number;
+  currentPage: number;
+  itemsPerPage: number;
+  totalPages: number;
+  setSelectedCategory: (category: string) => void;
+  setMinPrice: (price: number) => void;
+  setMaxPrice: (price: number) => void;
+  setAvailability: (status: string) => void;
+  setRating: (rating: number) => void;
+  setCurrentPage: (page: number) => void;
+  setItemsPerPage: (count: number) => void;
 };

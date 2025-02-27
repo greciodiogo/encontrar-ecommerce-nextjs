@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
-import { useProductContext } from 'contexts/ProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {

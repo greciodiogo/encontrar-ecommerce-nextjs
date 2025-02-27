@@ -1,29 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
 import { products } from 'fixture/ecommerceData';
-
-// Definição do tipo do contexto
-type ProductContextType = {
-  filteredProducts: typeof products;
-  selectedCategory: string;
-  minPrice: number;
-  maxPrice: number;
-  availability: string;
-  rating: number;
-  currentPage: number;
-  itemsPerPage: number;
-  totalPages: number;
-  setSelectedCategory: (category: string) => void;
-  setMinPrice: (price: number) => void;
-  setMaxPrice: (price: number) => void;
-  setAvailability: (status: string) => void;
-  setRating: (rating: number) => void;
-  setCurrentPage: (page: number) => void;
-  setItemsPerPage: (count: number) => void;
-};
+import { ProductContextType } from 'types/context';
 
 // Criando o contexto
-const ProductContext = createContext<ProductContextType | undefined>(undefined);
+export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 // Criando o Provider
 export function ProductProvider({ children }: { children: ReactNode }) {
@@ -87,13 +68,4 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       {children}
     </ProductContext.Provider>
   );
-}
-
-// Criando um hook personalizado para usar o contexto
-export function useProductContext() {
-  const context = useContext(ProductContext);
-  if (!context) {
-    throw new Error('useProductContext deve ser usado dentro de um ProductProvider');
-  }
-  return context;
 }

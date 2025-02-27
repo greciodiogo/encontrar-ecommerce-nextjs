@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Container } from 'components/Container';
-import { useProductContext } from 'contexts/ProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 import { FnService } from 'shared/utils/FnService';
 
 import { FilterComponent } from './FilterComponent';

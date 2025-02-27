@@ -4,7 +4,7 @@ import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
-import { useProductContext } from 'contexts/ProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 
 import { useAppDispatch } from '../../../hooks';
 
@@ -22,7 +22,6 @@ export const ProductsList = () => {
 
   const handlepreviewProduct = (id: number) => {
     dispatch(loadCurrentItem(displayedProducts[id - 1]));
-    // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/preview-product');
   };
   return (

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
-import { useProductContext } from 'contexts/ProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 
 const categories = [
   {

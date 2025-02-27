@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { useProductContext } from 'contexts/ProductContext';
 import { priceRanges } from 'fixture/ecommerceData';
+import { useProductContext } from 'hooks/useProductContext';
 
 export const FilterPrice = () => {
   const [selectedPrice, setSelectedPrice] = useState('Todos os Preços');

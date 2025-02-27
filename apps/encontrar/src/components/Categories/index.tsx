@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { useProductContext } from 'contexts/ProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 
 export const Categories = () => {
   const router = useRouter();
