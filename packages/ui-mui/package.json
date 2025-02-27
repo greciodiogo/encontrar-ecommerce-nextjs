@@ -14,9 +14,9 @@
     "lint": "eslint --report-unused-disable-directives --max-warnings 0 .",
     "lint-fix": "eslint --fix .",
     "tsc": "tsc -p tsconfig.json",
-    "test": "jest --verbose",
-    "test-watch": "jest --verbose --watch",
-    "test-coverage": "jest --coverage --verbose",
+    "test": "jest --verbose --passWithNoTests",
+    "test-watch": "jest --verbose --watch --passWithNoTests",
+    "test-coverage": "jest --coverage --verbose --passWithNoTests",
     "update-dependencies": "npx npm-check-updates -u"
   },
   "dependencies": {
