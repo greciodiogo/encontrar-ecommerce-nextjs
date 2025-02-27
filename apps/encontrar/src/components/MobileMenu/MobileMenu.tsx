@@ -40,8 +40,8 @@ export const MobileMenu = ({
     setActiveCategory(activeCategory === category ? '' : category);
   };
 
-  const goToCategories = () => {
-    setSelectedCategory('setSelectedCategory');
+  const goToCategories = (category: string) => {
+    setSelectedCategory(category);
     void router.push('products');
     setMenuOpen(false);
   };
@@ -129,7 +129,7 @@ const CategoryItem = ({
   subcategories?: Array<string>;
   activeCategory: string | null;
   toggleCategory: (key: string) => void;
-  goToCategories: () => void;
+  goToCategories: (category: string) => void;
 }) => {
   const isOpen = activeCategory === categoryKey;
   return (
@@ -143,7 +143,7 @@ const CategoryItem = ({
           {isOpen && (
             <ul className="submenu">
               {subcategories?.map((item, index) => (
-                <button onClick={goToCategories} key={index}>
+                <button onClick={() => goToCategories(item)} key={index}>
                   {item}
                 </button>
               ))}

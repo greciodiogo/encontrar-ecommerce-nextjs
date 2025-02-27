@@ -2395,6 +2395,12 @@ a:visited {
   }
 }
 
+@media (min-width: 1160px) {
+  .productsList .bestselled_product {
+    width: 270px;
+  }
+}
+
 /* productsList section ends here */
 
 /* filterComponent section starts here */

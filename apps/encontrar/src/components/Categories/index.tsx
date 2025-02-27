@@ -1,16 +1,27 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
+import { useProductContext } from 'contexts/ProductContext';
+
 export const Categories = () => {
+  const router = useRouter();
+  const { setSelectedCategory } = useProductContext();
+
+  const goToCategories = (category: string) => {
+    setSelectedCategory(category);
+    void router.push('products');
+  };
+
   const categories = [
     { slug: 'drink', name: 'Bebidas' },
-    { slug: 'drink', name: 'Items para Casa' },
-    { slug: 'drink', name: 'Cuidados Pessoais' },
-    { slug: 'drink', name: 'Brinquedos Infantis' },
-    { slug: 'drink', name: 'Produtos Elétricos' },
-    { slug: 'drink', name: 'Alimentos' },
+    { slug: 'home_items', name: 'Items para Casa' },
+    { slug: 'personal_care', name: 'Cuidados Pessoais' },
+    { slug: 'toys', name: 'Brinquedos Infantis' },
+    { slug: 'electronics', name: 'Produtos Elétricos' },
+    { slug: 'food', name: 'Alimentos' },
     { slug: 'drink', name: 'Papelaria e Escritório' },
-    { slug: 'drink', name: 'Diversos' },
-    { slug: 'drink', name: 'Ver outros Produtos' },
+    { slug: 'various', name: 'Diversos' },
+    { slug: 'all', name: 'Ver outros Produtos' },
   ];
 
   return (
@@ -20,9 +31,14 @@ export const Categories = () => {
           <div className="wrapper_list">
             <ul className="subcategories">
               {categories.map((item, itemIndex) => (
-                <li className="category-item" key={itemIndex} style={{ display: 'inline' }}>
+                <button
+                  className="category-item"
+                  key={itemIndex}
+                  style={{ display: 'inline' }}
+                  onClick={() => goToCategories(item.name)}
+                >
                   <a>{item.name}</a>
-                </li>
+                </button>
               ))}
             </ul>
           </div>

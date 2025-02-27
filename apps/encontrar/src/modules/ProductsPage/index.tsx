@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
+import { useProductContext } from 'contexts/ProductContext';
 import { FnService } from 'shared/utils/FnService';
 
 import { FilterComponent } from './FilterComponent';
 import { ProductsList } from './ProductsList';
 
 export const ProductsPage = () => {
+  const { filteredProducts } = useProductContext();
+
   const fnService = new FnService();
 
   const [showFilter, setShowFilter] = useState(false);
@@ -37,12 +40,11 @@ export const ProductsPage = () => {
     };
   }, [showFilter]);
 
-  const TOTAL_PRODUCTS = 3654;
   return (
     <div className="productsPage">
       <div className="productsPage__container">
         <div className="productsPage__top">
-          <h5>Total de Produtos ({fnService.formatarQuantidade(TOTAL_PRODUCTS)})</h5>
+          <h5>Total de Produtos ({fnService.formatarQuantidade(filteredProducts.length)})</h5>
           <h5>Os mais recomendados</h5>
         </div>
         <div className="productsPage__top">

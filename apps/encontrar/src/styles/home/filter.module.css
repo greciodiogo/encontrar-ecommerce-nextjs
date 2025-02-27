@@ -11,6 +11,12 @@
   margin-bottom: 15px;
 }
 
+@media (min-width: 670px) {
+  .filterProducts .header button {
+    display: none;
+  }
+}
+
 .filterProducts .header h2 {
   font-size: 18px;
   font-weight: 600;
@@ -41,6 +47,12 @@
   border: 1.5px solid #958e83;
   border-radius: 21px;
   cursor: pointer;
+}
+
+.filterProducts .active {
+  /* color: white; */
+  border: 1.5px solid #b66506;
+  background: rgba(182, 100, 6, 0.066) 54;
 }
 
 .filterProducts .filterSection {
