@@ -56,13 +56,13 @@ export const CheckoutPage = () => {
     // Valida o formulário antes de avançar
     const isValid = await trigger(); // Valida todos os campos do formulário
 
-    if (activeStep === 1 && !isValid) {
+    if (activeStep === 0 && !isValid) {
       toast.warning('Por favor, preencha todos os campos obrigatórios.');
       return;
-    } else if (activeStep === 2 && selectedPrice !== 'CASH') {
+    } else if (activeStep === 1 && selectedPrice !== 'CASH') {
       toast.warning('Método de pagamento indisponível');
       return;
-    } else if (activeStep === steps.length) {
+    } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
       saveOrder();
     }

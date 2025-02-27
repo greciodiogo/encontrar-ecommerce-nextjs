@@ -234,7 +234,7 @@ a:visited {
 }
 
 .header .options .nav-item.location span {
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .header .options .signIn i {
@@ -732,6 +732,7 @@ a:visited {
 }
 
 .category-item p {
+  font-size: 16px;
   color: #d2593b;
   font-weight: 600;
 }
@@ -3235,4 +3236,8 @@ a:visited {
 
 .item_visibility {
   display: none !important;
+}
+
+.MuiSvgIcon-root {
+  color: #111 !important;
 }
