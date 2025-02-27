@@ -1,5 +1,5 @@
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import TranslateIcon from '@mui/icons-material/Translate';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -31,30 +31,16 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { isClient, isAuthenticated, username } = useAuth();
+  const { isClient, isAuthenticated, user } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
-  const notify = () => {
-    setMounted((state) => !state);
-    // toast('Idioma Alterado');
-    // toast.success('Idioma Alterado!', {
-    //   position: 'bottom-center',
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: false,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: 'light',
-    // });
-  };
-
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
+  const isProductsRoute = router.pathname.startsWith('/products');
   const isHomeRoute = router.pathname === '/';
   const isAuthRoute = router.pathname.startsWith('/auth');
 
@@ -113,22 +99,31 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
           )}
           <nav className="options">
-            <Link className="nav-item location" href="/" locale={mounted ? 'en' : 'pt'} onClick={notify}>
-              {/* <i>
+            {/* <div> */}
+            {/* <i>
                 <img src="/assets_ecommerce/svg/location.png" alt="" />
               </i>
               <p>
                 <span>Viana</span>, Aberto 24/7
               </p> */}
-              <TranslateIcon />
+            {/* </div> */}
+            <Link className="nav-item location" href="/" locale={mounted ? 'en' : 'pt'}>
+              <i>
+                <img src="/assets_ecommerce/svg/GlobeStand.png" alt="" />
+              </i>
+              <p>
+                <span>Português</span>
+              </p>
             </Link>
             {/* <ToastContainer /> */}
             {isAuthenticated ? (
               <div className={styles.dropdown}>
-                <button className={styles.dropdown_button}>Olá, {username}</button>
+                <button className={styles.dropdown_button}>Olá, {user ? user.name.split(' ')[0] : 'Guess'}</button>
 
                 <div className={styles.dropdown_menu}>
-                  <p className={styles.dropdown_header}>Olá {username}, seja bem-vindo ao Encontrar</p>
+                  <p className={styles.dropdown_header}>
+                    Olá {user ? user.name.split(' ')[0] : 'Guess'}, seja bem-vindo ao Encontrar
+                  </p>
                   <hr className={styles.divider} />
                   <ul>
                     {menuItems.map(({ label, path, icon }, index) => (
@@ -142,9 +137,10 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 className={`nav-item signIn ${isAuthRoute ? 'item_visibility' : ''}`}
                 onClick={handleAuthBtnClick}
               >
-                <i>
+                {/* <i>
                   <img src="/assets_ecommerce/svg/user.png" alt="" />
-                </i>
+                </i> */}
+                <AccountCircleOutlinedIcon color="black" />
                 <span>Sign in</span>
               </button>
             )}
@@ -166,7 +162,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </a>
           </nav>
         </div>
-        {!isControlPanelRoute && (
+        {(isProductsRoute || isHomeRoute) && (
           <div className="searchInput__mobile">
             <div className="search_container">
               <input type="text" placeholder="Procure por ótimos equipamentos e comidas" />

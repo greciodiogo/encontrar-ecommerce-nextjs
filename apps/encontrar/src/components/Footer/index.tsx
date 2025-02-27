@@ -15,7 +15,7 @@ export const Footer = () => {
         <div className="wrapper">
           <div className="wrapper_left">
             <div className="col col-1">
-              <i>
+              <i className="footer_icon">
                 <img src="/assets_ecommerce/logo2.png" alt="" />
               </i>
               <div className="content">
@@ -26,15 +26,11 @@ export const Footer = () => {
             </div>
             <div className="col col-2">
               <h4>Formas de Pagamentos</h4>
-              <i>
-                <img src="/assets_ecommerce/payments_methods/fasmapay.png" alt="" />
-              </i>
-              <i>
-                <img src="/assets_ecommerce/payments_methods/multicaixa.png" alt="" />
-              </i>
-              <i>
-                <img src="/assets_ecommerce/payments_methods/CASH.png" alt="" />
-              </i>
+              {['fasmapay', 'multicaixa', 'CASH'].map((img) => (
+                <i className={`payment_icon ${img}`} key={img}>
+                  <img src={`/assets_ecommerce/payments_methods/${img}.png`} alt="" />
+                </i>
+              ))}
             </div>
           </div>
           <div className="wrapper_right">

@@ -16,33 +16,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [selectedPrice, setSelectedPrice] = useState('CASH');
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
-  const [username, setUsername] = useState('Guest');
+  // const [username, setUsername] = useState('Guest');
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    // Verifica se o token está presente no localStorage
-    const cookies: CookiesProps = parseCookies(); // Garante a estrutura esperada
-    const token = cookies.accessToken;
+    const updateUserFromCookies = () => {
+      const cookies: CookiesProps = parseCookies();
+      const token = cookies.accessToken;
 
-    if (token) {
-      try {
-        const data = JSON.parse(token) as TokenProps;
-        setIsAuthenticated(true);
-        setUser(data);
-      } catch (error) {
-        console.error('Token inválido:', error); // Para debugging
+      if (token) {
+        try {
+          const data = JSON.parse(token) as TokenProps;
+          setIsAuthenticated(true);
+          setUser(data);
+          // setUsername(data.name.split(' ')[0]); // Atualiza o nome
+        } catch (error) {
+          console.error('Token inválido:', error);
+        }
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+        // setUsername('Guest');
       }
-    }
-  }, []);
+    };
 
-  useEffect(() => {
-    if (user?.name) {
-      setUsername(user.name.split(' ')[0]);
-    }
-  }, [user]);
+    updateUserFromCookies();
+
+    // Reexecuta quando os cookies mudam
+    const interval = setInterval(updateUserFromCookies, 1000); // Verifica os cookies a cada 1s
+
+    return () => clearInterval(interval); // Limpa ao desmontar
+  }, []);
 
   const isDecodedPayload = (payload: unknown): payload is DecodedPayload => {
     return (
@@ -85,7 +92,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       maxAge: 60 * 60 * 1, // 1 hora
     });
 
+    setUser(token);
     setIsAuthenticated(true); // Marca o usuário como autenticado
+    // setUsername(token.name.split(' ')[0]); // Atualiza o nome do usuário
 
     // await Router.push('/dashboard'); // Aguarda a navegação antes de continuar
   };
@@ -97,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, username, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
+      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
     >
       {children}
     </AuthContext.Provider>
