@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { CheapestProducts } from 'components';
 import { Auth } from 'components/Auth/SignIn';
 import { Container } from 'components/Container';
 import { useAuth } from 'hooks/useAuth';
@@ -73,7 +72,7 @@ export const CartPage = () => {
         </div>
       </div>
       <Auth showAuthPainel={showAuth} closeAuth={onCloseSignInForm} />
-      <CheapestProducts />
+      {/* <CheapestProducts /> */}
     </Container>
   );
 };

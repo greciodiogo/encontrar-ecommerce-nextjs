@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CheapestProducts, Framer, Products, Reviews, WhyUs } from 'components';
+import { CheapestProducts, Framer, OtherProducts, Products, Reviews, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { products } from 'fixture/ecommerceData';
 // import { useProductContext } from 'hooks/useProductContext';
@@ -32,7 +32,7 @@ export const Homepage = () => {
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={topExpensiveDrinks} bannerText="Melhores Negócios em Bebidas" />
       <CheapestProducts products={randomPopularProducts} bannerText="Produtos mais Populares" />
-      <CheapestProducts
+      <OtherProducts
         products={topExpensiveElectrics}
         bannerText="Melhores Negócios em Eletrodomésticos"
         hasButtons={false}

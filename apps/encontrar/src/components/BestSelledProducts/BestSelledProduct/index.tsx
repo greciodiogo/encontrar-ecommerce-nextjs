@@ -1,18 +1,21 @@
 // import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
+import { useAppSelector } from 'hooks';
 import { FnService } from 'shared/utils/FnService';
-import { ProductTypeProps } from 'types/product';
+import { ProductTypeProps, RootState } from 'types/product';
 
 export const BestSelledProduct = ({
   product,
   handleAddToCart,
   handlepreviewProduct,
   hasButtons = true,
+  hasDescription = false,
 }: ProductTypeProps) => {
   // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
-
+  const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, about } = product;
+  const isProductInCart = productCart.some((item) => item.id === id);
   const url = 'assets_ecommerce';
   const fnService = new FnService();
 
@@ -24,11 +27,11 @@ export const BestSelledProduct = ({
 
   return (
     <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id ?? 0)}>
-      <a className="addCartBtn">
+      {/* <a className="addCartBtn">
         <i>
           <img src={`${url}/svg/Heart.png`} alt="Heart" />
         </i>
-      </a>
+      </a> */}
       <div className="category_picture bestselled">
         <img src={`${url}/products/${image ?? 'macbook.png'}`} alt={name} />
       </div>
@@ -42,7 +45,7 @@ export const BestSelledProduct = ({
           ))}
         </div>
         <p>{fnService.numberFormat(price ?? 0)}Kz</p>
-        {hasButtons && <span>{about}</span>}
+        {hasDescription && <span>{about}</span>}
       </div>
       {hasButtons && (
         <a
@@ -55,7 +58,7 @@ export const BestSelledProduct = ({
           <i>
             <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
           </i>
-          Adicionar ao Carrinho
+          {!isProductInCart ? 'Adicionar ao Carrinho' : 'Adicionado'}
         </a>
       )}
     </button>

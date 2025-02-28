@@ -11,9 +11,11 @@ import { useAppDispatch } from '../../hooks';
 export const CheapestProducts = ({
   bannerText = 'Melhores Negócios em Eletrônicos.',
   products,
+  hasDescription = false,
   hasButtons = true,
 }: {
   bannerText?: string;
+  hasDescription?: boolean;
   hasButtons?: boolean;
   products: Array<ProductDTO>;
 }) => {
@@ -57,6 +59,7 @@ export const CheapestProducts = ({
                   <BestSelledProduct
                     product={product}
                     hasButtons={hasButtons}
+                    hasDescription={hasDescription}
                     handleAddToCart={handleAddToCart}
                     handlepreviewProduct={handlepreviewProduct}
                     key={itemIndex}

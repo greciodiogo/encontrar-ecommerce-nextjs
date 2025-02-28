@@ -307,6 +307,10 @@ a:visited {
   gap: 0 !important;
 }
 
+.mini.categories .categories_container .category-item > a {
+  color: #958e83;
+}
+
 .mini.categories .categories_container {
   padding: 1rem;
 }
@@ -635,12 +639,12 @@ a:visited {
   height: 100%;
 }
 
-.products_container_top .more_categories:hover {
+.more_categories:hover {
   opacity: 0.8;
   text-decoration: underline;
 }
 
-.products_container_top .more_categories {
+.more_categories {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -654,7 +658,7 @@ a:visited {
   padding: 10px;
 }
 
-.products_container_top .more_categories i img {
+.more_categories i img {
   margin-top: 6px;
 }
 
@@ -694,7 +698,7 @@ a:visited {
 .category-item .product_name {
   cursor: pointer;
   color: #191c1f;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   text-align: left;
 }
@@ -1092,6 +1096,7 @@ a:visited {
   flex: 1 1;
   align-items: baseline;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .subcategories.cheapest .category-item .star_container i {
@@ -1120,6 +1125,7 @@ a:visited {
 
 .bestselled_product {
   width: 290px;
+  border-radius: 4px;
   background: #fff;
   padding: 1rem;
   flex-shrink: 0;
@@ -3251,3 +3257,89 @@ a:visited {
 .header .MuiSvgIcon-root {
   color: #111 !important;
 }
+
+/* ################################### */
+
+.otherProducts {
+}
+
+.otherProducts__container {
+  display: flex;
+  gap: 10px;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
+}
+
+.otCol {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.otherProducts .otWrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 5px;
+}
+
+.otherProducts .otWrapper2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.otherProducts .otWrapper3 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.otherProducts .bestselled_product {
+  width: fit-content;
+  background: #f4f1ed;
+}
+
+.otherProducts .bestselled_product .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.otherProducts .otWrapper .productListBanner {
+  /* width: 450px; */
+}
+
+.productListBanner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 254px;
+  width: 100%;
+}
+
+.productListBanner h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #191c1f;
+}
+
+.productListBanner p {
+  font-size: 17px;
+  font-weight: normal;
+  color: #4b4a48;
+}
+
+.productListBanner .more_categories {
+  margin: 0;
+  padding: 0;
+}
+.productListBanner .more_categories i img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ################################### */
