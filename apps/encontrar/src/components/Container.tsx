@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
 import { Breadcrumb } from './Breadcrumb';
+import { Categories } from './Categories';
 import { CookieBanner } from './CookieBanner';
 
 type ContainerProps = {
@@ -44,6 +45,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
       </Head>
       <main>
         <CookieBanner />
+        <Categories />
         {useStyle && <Breadcrumb />}
         {children}
       </main>

@@ -293,6 +293,10 @@ a:visited {
 /* banner ends here */
 
 /* categories starts here */
+.mini.categories.border {
+  border-bottom: 2px solid #dddddd;
+}
+
 .mini.categories .category-item {
   background: #fff !important;
   flex-shrink: inherit !important;

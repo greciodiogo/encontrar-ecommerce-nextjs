@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Categories, CheapestProducts, Framer, Products, Reviews, WhyUs } from 'components';
+import { CheapestProducts, Framer, Products, Reviews, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { products } from 'fixture/ecommerceData';
 // import { useProductContext } from 'hooks/useProductContext';
@@ -26,7 +26,6 @@ export const Homepage = () => {
   }
   return (
     <Container useStyle={false}>
-      <Categories />
       <Framer />
       <Products />
       <WhyUs />

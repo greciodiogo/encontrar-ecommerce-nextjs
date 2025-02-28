@@ -7,6 +7,10 @@ export const Categories = () => {
   const router = useRouter();
   const { setSelectedCategory } = useProductContext();
 
+  const isControlPanelRoute = router.pathname.startsWith('/control-panel');
+  const isCheckoutRoute = router.pathname.startsWith('/checkout');
+  const isHomeRoute = router.pathname === '/';
+
   const goToCategories = (category: string) => {
     setSelectedCategory(category);
     void router.push('products');
@@ -24,8 +28,10 @@ export const Categories = () => {
     { slug: 'all', name: 'Ver outros Produtos' },
   ];
 
+  if (isControlPanelRoute || isCheckoutRoute) return;
+
   return (
-    <div className="mini categories">
+    <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>
       <div className="categories_container">
         <div className="wrapper">
           <div className="wrapper_list">
