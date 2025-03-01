@@ -97,7 +97,7 @@ export const CheckoutPage = () => {
           <div ref={formRef}>
             <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
               <div className="modal-body">
-                <Stepper activeStep={activeStep + 1} alternativeLabel>
+                <Stepper activeStep={activeStep} alternativeLabel>
                   {steps.map((label) => (
                     <Step key={label}>
                       <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
