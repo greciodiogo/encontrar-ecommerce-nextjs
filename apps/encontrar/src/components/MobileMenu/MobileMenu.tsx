@@ -1,29 +1,52 @@
+import WestIcon from '@mui/icons-material/West';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
 import { useProductContext } from 'hooks/useProductContext';
 
-const categories = [
+const menuData: Array<MenuItem> = [
   {
-    label: 'Bebidas',
-    categoryKey: 'bebidas',
-    subcategories: ['Sumos', 'Cervejas', 'Vinhos'],
+    title: 'Bebidas',
+    subItems: [
+      {
+        title: 'Vinho',
+        subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
+          title,
+        })),
+      },
+      {
+        title: 'Uísques',
+        subItems: ['Coca-Cola', 'Pepsi', 'Fanta', 'Schweppes', 'Sprite'].map((title) => ({ title })),
+      },
+      {
+        title: 'Águas',
+        subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })),
+      },
+      {
+        title: 'Sumo',
+        subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })),
+      },
+    ],
   },
   {
-    label: 'Cuidados Pessoais',
-    categoryKey: 'cuidados',
-    subcategories: ['Creme', 'Perfume', 'Gel'],
+    title: 'Cuidados Pessoais',
+    subItems: ['Creme', 'Perfume', 'Gel'].map((title) => ({ title })),
   },
-  'Itens para Casa',
-  'Brinquedos Infantis',
-  'Produtos Elétricos',
-  'Alimentos',
-  'Papelaria e Escritório',
-  'Diversos',
-  'Ver outros Produtos',
+  { title: 'Itens para Casa' },
+  { title: 'Brinquedos Infantis' },
+  { title: 'Produtos Elétricos' },
+  { title: 'Alimentos' },
+  { title: 'Papelaria e Escritório' },
+  { title: 'Diversos' },
+  { title: 'Ver outros Produtos' },
 ];
+
+type MenuItem = {
+  title: string;
+  subItems?: Array<MenuItem>;
+};
 
 export const MobileMenu = ({
   menuOpen,
@@ -35,10 +58,6 @@ export const MobileMenu = ({
   const [activeCategory, setActiveCategory] = useState('');
   const { setSelectedCategory } = useProductContext();
   const router = useRouter();
-
-  const toggleCategory = (category: string) => {
-    setActiveCategory(activeCategory === category ? '' : category);
-  };
 
   const goToCategories = (category: string) => {
     setSelectedCategory(category);
@@ -70,6 +89,21 @@ export const MobileMenu = ({
     };
   }, [menuOpen]);
 
+  const [history, setHistory] = useState<Array<MenuItem>>([]);
+
+  const currentMenu = history.length > 0 ? history[history.length - 1].subItems ?? [] : menuData;
+
+  const handleClick = (item: MenuItem) => {
+    if (item.subItems) {
+      setHistory([...history, item]);
+    }
+    setActiveCategory(item.title);
+  };
+
+  const handleBack = () => {
+    setHistory(history.slice(0, -1));
+  };
+
   return (
     <div className="menu-categories">
       {menuOpen && (
@@ -89,70 +123,38 @@ export const MobileMenu = ({
           >
             <div className="menu-top">
               {/* <span></span> */}
-              <h5>Nossas Categorias de Produtos</h5>
-              <button onClick={closeMenu}>
-                <CrossIcon />
-              </button>
-            </div>
-            <ul className="menu-list">
-              {categories.map((category, index) =>
-                typeof category === 'string' ? (
-                  <li key={index}>{category}</li>
-                ) : (
-                  <CategoryItem
-                    key={index}
-                    {...category}
-                    activeCategory={activeCategory}
-                    toggleCategory={toggleCategory}
-                    goToCategories={goToCategories}
-                  />
-                ),
+              {history.length > 0 ? (
+                <>
+                  <button onClick={handleBack}>
+                    <WestIcon />
+                  </button>
+                  <h5>
+                    {activeCategory === 'Bebidas' ? 'Todas as ' : ''}
+                    {activeCategory}
+                  </h5>
+                </>
+              ) : (
+                <>
+                  <h5>Nossas Categorias de Produtos</h5>
+                  <button onClick={closeMenu}>
+                    <CrossIcon />
+                  </button>
+                </>
               )}
-            </ul>
+            </div>
+            <div className="menu-container">
+              <ul className="menu-list">
+                {currentMenu.map((item, index) => (
+                  <button key={index} className="menu-item" onClick={() => handleClick(item)}>
+                    <button onClick={() => goToCategories(item.title)}>{item.title}</button>{' '}
+                    {item.subItems && <FaChevronRight size={14} />}
+                  </button>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       )}
     </div>
-  );
-};
-
-const CategoryItem = ({
-  label,
-  categoryKey,
-  subcategories,
-  activeCategory,
-  toggleCategory,
-  goToCategories,
-}: {
-  label: string;
-  categoryKey?: string;
-  subcategories?: Array<string>;
-  activeCategory: string | null;
-  toggleCategory: (key: string) => void;
-  goToCategories: (category: string) => void;
-}) => {
-  const isOpen = activeCategory === categoryKey;
-  return (
-    <li>
-      {categoryKey ? (
-        <>
-          <button onClick={() => toggleCategory(categoryKey)} className="category-button">
-            {label}
-            {isOpen ? <FaChevronDown size={16} /> : <FaChevronRight size={14} />}
-          </button>
-          {isOpen && (
-            <ul className="submenu">
-              {subcategories?.map((item, index) => (
-                <button onClick={() => goToCategories(item)} key={index}>
-                  {item}
-                </button>
-              ))}
-            </ul>
-          )}
-        </>
-      ) : (
-        label
-      )}
-    </li>
   );
 };
