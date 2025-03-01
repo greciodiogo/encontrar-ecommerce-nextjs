@@ -32,6 +32,7 @@ export type ProductDTO = {
 export type ProductTypeProps = {
   product: ProductDTO;
   hasButtons?: boolean;
+  hasDescription?: boolean;
   handleAddToCart?: (id: number) => void;
   handlepreviewProduct: (id: number) => void;
 };

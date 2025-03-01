@@ -3,7 +3,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
+import { useAuth } from 'hooks/useAuth';
+
 import { Breadcrumb } from './Breadcrumb';
+import { Categories } from './Categories';
 import { CookieBanner } from './CookieBanner';
 
 type ContainerProps = {
@@ -17,6 +20,8 @@ type ContainerProps = {
 };
 export const Container: React.FC<ContainerProps> = (props) => {
   const { children, useStyle = true, ...customMeta } = props;
+  const { isClient } = useAuth();
+
   const router = useRouter();
 
   const meta = {
@@ -26,6 +31,10 @@ export const Container: React.FC<ContainerProps> = (props) => {
     type: 'website',
     ...customMeta,
   };
+
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
   return (
     <div className={cn(useStyle && 'app')}>
       <Head>
@@ -44,6 +53,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
       </Head>
       <main>
         <CookieBanner />
+        <Categories />
         {useStyle && <Breadcrumb />}
         {children}
       </main>

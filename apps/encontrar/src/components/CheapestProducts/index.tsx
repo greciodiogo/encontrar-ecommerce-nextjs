@@ -1,13 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
-import { cheapestProducts, products } from 'fixture/ecommerceData';
+import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../hooks';
 
-export const CheapestProducts = ({ bannerText = 'Melhores Negócios em Eletrônicos.', hasButtons = true }) => {
+export const CheapestProducts = ({
+  bannerText = 'Melhores Negócios em Eletrônicos.',
+  products,
+  hasDescription = false,
+  hasButtons = true,
+}: {
+  bannerText?: string;
+  hasDescription?: boolean;
+  hasButtons?: boolean;
+  products: Array<ProductDTO>;
+}) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -41,21 +52,24 @@ export const CheapestProducts = ({ bannerText = 'Melhores Negócios em Eletrôni
           </button>
         </div>
         <div className="wrapper">
-          {cheapestProducts.map((category, index) => (
-            <div className="wrapper_list" key={index}>
+          <div className="wrapper_list">
+            {products && products.length > 0 ? (
               <ul className="subcategories cheapest">
-                {category.data.map((product, itemIndex) => (
+                {products.map((product, itemIndex) => (
                   <BestSelledProduct
                     product={product}
                     hasButtons={hasButtons}
+                    hasDescription={hasDescription}
                     handleAddToCart={handleAddToCart}
                     handlepreviewProduct={handlepreviewProduct}
                     key={itemIndex}
                   />
                 ))}
               </ul>
-            </div>
-          ))}
+            ) : (
+              <p>Carregando produtos...</p> // ou um spinner de loading
+            )}
+          </div>
         </div>
       </div>
     </div>

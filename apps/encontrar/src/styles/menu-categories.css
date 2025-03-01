@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
   border-bottom: 2px solid #d1d1d1;
   background-color: #ececec;
@@ -49,6 +49,8 @@
 
 .menu-categories .menu-top h5 {
   font-size: 17px;
+  color: #04040b;
+  font-weight: 500;
 }
 
 .menu-categories .menu-top button {
@@ -61,20 +63,50 @@
   /* text-align: center; */
 }
 
-.menu-categories .menu-list > li {
-  margin: 10px 0;
+.menu-categories .menu-list > .menu-item {
+  width: 100%;
   padding: 5px 10px;
   padding-bottom: 10px;
   font-size: 16px;
   color: #524f4b;
   font-weight: 500;
   opacity: 0.85;
+  display: flex;
+  justify-content: space-between;
   border-bottom: 2px solid #d1d1d1;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.menu-categories .menu-list > li:last-of-type {
+.menu-container {
+  width: 100%;
+}
+
+.menu-list {
+  list-style: none;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+@media (min-width: 750px) {
+  .menu-categories {
+    display: none;
+  }
+}
+
+.menu-categories .menu-list > .menu-item button {
+  color: #524f4b;
+  background-color: transparent;
+}
+
+.menu-categories .menu-list > .menu-item:last-of-type {
   /* text-decoration: underline; */
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .menu-categories > .submenu {

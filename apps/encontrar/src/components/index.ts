@@ -7,6 +7,7 @@ export * from './CheapestProducts';
 export * from './Framer';
 export * from './Footer';
 export * from './Header';
+export * from './OtherProducts';
 export * from '../modules/PreviewProduct';
 export * from './Products';
 export * from './Reviews';
