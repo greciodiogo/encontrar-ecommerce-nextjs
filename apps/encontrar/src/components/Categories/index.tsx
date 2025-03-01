@@ -14,7 +14,7 @@ export const Categories = () => {
 
   const goToCategories = (category: string) => {
     setSelectedCategory(category);
-    void router.push(`products/${category}`);
+    void router.push(`products`);
   };
 
   const categories = [

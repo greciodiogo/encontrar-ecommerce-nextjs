@@ -3374,3 +3374,35 @@ a:visited {
 }
 
 /* ################################### */
+
+.notFound {
+  width: 100%;
+  margin: 0rem 1rem;
+}
+
+.notFound h3 {
+  font-weight: 500;
+  font-size: 22px;
+  color: #191c1f;
+  margin-bottom: 10px;
+}
+
+.notFound p {
+  font-weight: 400;
+  font-size: 18px;
+  color: #958e83;
+  max-width: 400px;
+  width: 100%;
+}
+
+@media (max-width: 750px) {
+  .notFound {
+    margin: 0;
+    margin-top: 1rem;
+  }
+}
+
+.google-login-container {
+  width: 100% !important;
+  display: flex;
+}

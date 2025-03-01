@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { Container } from 'components/Container';
-import { useProductContext } from 'hooks/useProductContext';
-import { FnService } from 'shared/utils/FnService';
 
 import { FilterComponent } from './FilterComponent';
 import { ProductsList } from './ProductsList';
 
 export const ProductsPage = () => {
-  const { filteredProducts } = useProductContext();
-
-  const fnService = new FnService();
-
   const [showFilter, setShowFilter] = useState(false);
 
   const handleShowFilterPainel = () => {
@@ -45,10 +39,6 @@ export const ProductsPage = () => {
     <Container useStyle={false}>
       <div className="productsPage">
         <div className="productsPage__container">
-          <div className="productsPage__top">
-            <h5>Total de Produtos ({fnService.formatarQuantidade(filteredProducts.length)})</h5>
-            <h5>Os mais recomendados</h5>
-          </div>
           <div className="productsPage__top">
             <div className="productsPage__btnContainer">
               <button onClick={handleShowFilterPainel}>Filtro ({2})</button>
