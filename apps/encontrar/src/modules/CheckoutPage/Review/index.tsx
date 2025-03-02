@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
@@ -19,6 +20,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const subtotal = 0;
   const discount = 0;
   const shippingCost = 2000;
+  const serviceCost = 150;
   const total = subtotal + shippingCost;
   const onCancel = () => {
     void router.push('/');
@@ -30,18 +32,18 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
     <div className="order-review">
       <div className="details">
         <div className="row">
-          <span className="label">Transaction Date</span>
+          <span className="label">Data Transação</span>
           <span className="value">{moment(transactionDate).format('YYYY-MM-DD')}</span>
         </div>
         <div className="row">
-          <span className="label">Payment Method</span>
+          <span className="label">Método de Pagamento</span>
           <span className="value">{paymentMethod}</span>
         </div>
         <div className="row">
-          <span className="track-order">Track Order</span>
+          <span className="track-order">Histórico do Pedido</span>
         </div>
         <div className="row">
-          <span className="label">Metodo de Envio</span>
+          <span className="label">Método de Envio</span>
           <span className="value">{shippingMethod}</span>
         </div>
       </div>
@@ -50,6 +52,10 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
         <div className="row">
           <span>Subtotal</span>
           <span>{fnService.numberFormat(subtotal)} Kz</span>
+        </div>
+        <div className="row">
+          <span>Taxa de Serviço</span>
+          <span>{fnService.numberFormat(serviceCost)} Kz</span>
         </div>
         <div className="row">
           <span>Desconto</span>
@@ -71,7 +77,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
           Cancelar
         </button>
         <button onClick={onFinish} className="finish-btn">
-          finalizar compra →
+          finalizar compra <FaArrowRight />
         </button>
       </div>
     </div>

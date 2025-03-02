@@ -109,11 +109,15 @@ export const CheckoutPage = () => {
 
                 <div className="form__container">
                   <div className="content">
-                    <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
+                    <h4>
+                      {activeStep === 0 && 'Adicione seu endereço'}
+                      {activeStep === 1 && 'Formas de Pagamento'}
+                      {activeStep === 2 && 'Resumo'}
+                    </h4>
                     <p>
-                      {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                      {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                      {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
+                      {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                      {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                      {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
                     </p>
                   </div>
                   <Box sx={{ mt: 2, mb: 1 }}>

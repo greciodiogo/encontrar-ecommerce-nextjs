@@ -3304,6 +3304,7 @@ a:visited {
   /* border-radius: 4px; */
   /* box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12); */
   /* border: 1px solid #d0d0d0; */
+  box-shadow: none;
   background: transparent;
   display: flex;
   justify-content: center;
