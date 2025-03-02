@@ -60,6 +60,7 @@ export const CartPage = () => {
               ))}
             </div>
             <div>
+              <h3 style={{ fontWeight: 500, color: '#191C1F', fontSize: '20px' }}>Formas de Pagamento</h3>
               <PaymentStep />
               <CartResume
                 totalProduct={TOTAL_ITEMS_CART}
