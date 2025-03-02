@@ -100,13 +100,11 @@ a:visited {
   align-items: center;
   justify-content: center;
   width: 100%;
-  border-bottom: 2px solid transparent;
   position: sticky;
   top: 0;
   z-index: 999;
   background: #fff;
 }
-
 @media (max-width: 750px) {
   .header {
     /* border-bottom: 2px solid transparent; */
@@ -114,6 +112,12 @@ a:visited {
 
   .borderActive {
     border-bottom: 2px solid #dddddd !important;
+  }
+}
+
+@media (min-width: 750px) {
+  .header {
+    border-bottom: 2px solid #dddddd;
   }
 }
 
