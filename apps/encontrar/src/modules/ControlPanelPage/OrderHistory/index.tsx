@@ -23,10 +23,14 @@ export const OrderHistoryPage = () => {
       <Panel>
         <Panel.Icon>Storefront</Panel.Icon>
         <Panel.Title>Histórico de Pedidos</Panel.Title>
-        <Panel.Description>Consulte o seu histórico de encomentas</Panel.Description>
+        <Panel.Description>Consulte o seu histórico de encomendas</Panel.Description>
       </Panel>
       <div className="orderHistory">
-        {order?.estado === 'ANDAMENTO' ? <OrderList /> : <EmptyPanelItem title={title} handleClick={handleClick} />}
+        {order?.estado === 'ANDAMENTO' ? (
+          <OrderList />
+        ) : (
+          <EmptyPanelItem title={title} type="order-history" handleClick={handleClick} />
+        )}
       </div>
     </>
   );

@@ -5,10 +5,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const information = [
-  'Encontre os melhores produtos aqui lorem ipsum lorem ipsum lorem ipsum',
-  'Encontre os melhores produtos aqui lorem ipsum lorem ipsum lorem ipsum',
-  'Encontre os melhores produtos aqui lorem ipsum lorem ipsum lorem ipsum',
-  'Encontre os melhores produtos aqui lorem ipsum lorem ipsum lorem ipsum',
+  'Encontre os melhores produtos aqui',
+  'Encontre os melhores produtos aqui',
+  'Encontre os melhores produtos aqui',
+  'Encontre os melhores produtos aqui',
 ];
 
 export const Banner = () => {

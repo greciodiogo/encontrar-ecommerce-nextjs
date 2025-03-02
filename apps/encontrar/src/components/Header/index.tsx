@@ -153,7 +153,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             >
               <i>
                 <img src="/assets_ecommerce/svg/cart.png" alt="" />
-                <span>{isClient && productos.length !== 0 && productos.length}</span>
+                {isClient && productos.length !== 0 && <span>{productos.length}</span>}
               </i>
               <span>Carrinho</span>
             </a>

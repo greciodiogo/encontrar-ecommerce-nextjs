@@ -16,10 +16,10 @@ export const CreditCardPage = () => {
       <Panel>
         <Panel.Icon>CreditCard-dark</Panel.Icon>
         <Panel.Title>Cartões</Panel.Title>
-        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+        <Panel.Description>Adicione cartões a sua carteira</Panel.Description>
       </Panel>
       <div className="orderHistory">
-        <EmptyPanelItem title={title} handleClick={handleClick} />
+        <EmptyPanelItem title={title} type="credit-card" handleClick={handleClick} />
       </div>
     </>
   );

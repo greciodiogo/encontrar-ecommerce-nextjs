@@ -14,31 +14,31 @@ const panelItems = [
     icon: 'Storefront.png',
     routerLink: 'order-history',
     title: 'Histórico de Pedidos',
-    description: 'Consulte o seu histórico de encomentas',
+    description: 'Consulte o seu histórico de encomendas',
   },
   {
     icon: 'Heart.png',
     routerLink: 'wish-list',
     title: 'Lista de Desejos',
-    description: 'Edite seu nome, endereço, email e password',
+    description: 'Consulte a sua lista de Desejos',
   },
   {
     icon: 'Icons - Location.png',
     routerLink: 'address',
     title: 'Endereço',
-    description: 'Edite seu nome, endereço, email e password',
+    description: 'Altere detalhes do seu Endereço',
   },
   {
     icon: 'CreditCard-dark.png',
     routerLink: 'credit-card',
     title: 'Cartões',
-    description: 'Edite seu nome, endereço, email e password',
+    description: 'Adicione cartões a sua carteira',
   },
   {
     icon: 'ShoppingCart.png',
     routerLink: 'shopping-cart',
     title: 'Carrinho de Compras',
-    description: 'Edite seu nome, endereço, email e password',
+    description: 'Carrinho de Compras',
   },
 ];
 export const ControlPanelPage = () => {
