@@ -100,16 +100,16 @@ a:visited {
   align-items: center;
   justify-content: center;
   width: 100%;
-  border-bottom: 2px solid #dddddd;
+  border-bottom: 2px solid transparent;
   position: sticky;
   top: 0;
   z-index: 999;
   background: #fff;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
   .header {
-    border-bottom: 2px solid transparent;
+    /* border-bottom: 2px solid transparent; */
   }
 
   .borderActive {

@@ -64,7 +64,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   if (hideItemsHeader) {
     return (
-      <div className="header">
+      <div className={`header ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="goBack" onClick={redirectHome}>
             {/* <i>
