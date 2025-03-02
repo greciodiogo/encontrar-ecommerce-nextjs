@@ -11,6 +11,8 @@ import { Container } from 'components/Container';
 import { CustomStepIcon } from 'components/icon/CheckIcon';
 import { useAuth } from 'hooks/useAuth';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
+import { INVALID_FORM, UNVAILABLE_PAYMENT_METHOD } from 'shared/constants';
+import { showToast } from 'shared/hooks/showToast';
 import { validationSchema } from 'utils/validationSchema';
 
 import { useAppDispatch } from '../../hooks';
@@ -58,10 +60,10 @@ export const CheckoutPage = () => {
     const isValid = await trigger(); // Valida todos os campos do formulário
 
     if (activeStep === 0 && !isValid) {
-      toast.warning('Por favor, preencha todos os campos obrigatórios.');
+      showToast({ ...INVALID_FORM });
       return;
     } else if (activeStep === 1 && selectedPrice !== 'CASH') {
-      toast.warning('Método de pagamento indisponível');
+      showToast({ ...UNVAILABLE_PAYMENT_METHOD });
       return;
     } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
