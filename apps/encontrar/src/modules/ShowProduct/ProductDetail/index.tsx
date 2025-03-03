@@ -6,18 +6,19 @@ import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { SubmitButton } from 'shared/components/SubmitButton';
 import { FnService } from 'shared/utils/FnService';
-import { ProductDetailProps, RootState } from 'types/product';
+import { RootState } from 'types/product';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-export const ProductDetail = (props: ProductDetailProps) => {
+export const ProductDetail = () => {
   const fnService = new FnService();
+  const product = useAppSelector((state: RootState) => state.products.currentItem);
+
   const url = 'assets_ecommerce';
   const [quantity, setQuantity] = useState(1);
-  const { name, availability, category, price, brand, id = 0, qty } = props.product;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { name, availability, category, price, brand, id = 0, qty } = product ?? {};
   const { isClient } = useAuth();
-
-  const product = useAppSelector((state: RootState) => state.products.currentItem);
 
   const router = useRouter();
   const dispatch = useAppDispatch();

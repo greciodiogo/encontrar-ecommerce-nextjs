@@ -15,7 +15,7 @@ export const BestSelledProduct = ({
   // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, about } = product;
-  const isProductInCart = productCart.items.some((item) => item.id === id);
+  const isProductInCart = productCart.some((item) => item.id === id);
   const url = 'assets_ecommerce';
   const fnService = new FnService();
 

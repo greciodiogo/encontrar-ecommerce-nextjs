@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { ProductDetail as Details, ShowProductBanner } from 'components';
 import { Container } from 'components/Container';
@@ -16,19 +15,10 @@ import { TechnicalInfo } from './TechnicalInfo';
 
 export const ProductDetailPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
   // const product = props.product;
   const product = useAppSelector((state: RootState) => state.products.currentItem);
 
   const products = [{ ...product }];
-
-  useEffect(() => {
-    if (!product || (!product.image && (!product.images || product.images.length === 0))) {
-      void router.push('/'); // Redireciona para a home se não houver produto
-    }
-  }, [product, router]);
-
-  if (!product) return null;
 
   // const { name, banner } = product;
   return (
@@ -36,8 +26,8 @@ export const ProductDetailPage = () => {
       <div className="productDetail">
         <div className="productDetail__container">
           <div className="row">
-            <ShowProductBanner product={{ name: product.name, image: product.image, images: product.images }} />
-            <Details product={product} />
+            <ShowProductBanner />
+            <Details />
           </div>
           <CheckoutInfo />
           <div className="wrapper-2">
