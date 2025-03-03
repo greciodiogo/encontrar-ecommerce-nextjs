@@ -1,17 +1,16 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
+import { RootState } from 'types/product';
 
-type ShowProductBannerProps = {
-  product: { name?: string; image?: string; images?: Array<string> };
-};
-
-export const ShowProductBanner = (props: ShowProductBannerProps) => {
+export const ShowProductBanner = () => {
   const { isClient } = useAuth();
   const url = 'assets_ecommerce';
-  const { name, image = '', images = [] } = props.product;
-  const [selectedImage, setSelectedImage] = useState(image || 'macbook.png');
+  const product = useAppSelector((state: RootState) => state.products.currentItem);
+  const { name, image = '', images = [] } = product ?? {};
+  const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
 
   if (!isClient) return null;
   return (
@@ -26,16 +25,24 @@ export const ShowProductBanner = (props: ShowProductBannerProps) => {
               blurDataURL="www.google.com"
               placeholder="blur"
               height={300}
-              width={250}
+              width={100}
               objectFit="contain"
             />
           </div>
 
           {/* Thumbnails */}
           <div className="thumbnail-container">
-            {images.map((im, index) => (
+            {images.map((im, index: number) => (
               <button onClick={() => setSelectedImage(im)} key={index} className={selectedImage === im ? 'active' : ''}>
-                <img src={`${url}/products/${im}`} alt={im} />
+                <Image
+                  src={`/${url}/products/${im}`}
+                  alt={im}
+                  blurDataURL="www.google.com"
+                  placeholder="blur"
+                  height={70}
+                  width={70}
+                  objectFit="contain"
+                />
               </button>
             ))}
           </div>

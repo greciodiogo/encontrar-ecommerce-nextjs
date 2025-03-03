@@ -97,10 +97,9 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
     }
 
     case LoadCurrentItem: {
-      return {
-        ...state,
-        currentItem: action.payload,
-      };
+      const newState = { ...state, currentItem: action.payload };
+      saveStateToLocalStorage(newState);
+      return newState;
     }
 
     case SetAddress: {

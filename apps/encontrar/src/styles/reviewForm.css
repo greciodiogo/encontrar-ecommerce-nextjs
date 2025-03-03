@@ -1,0 +1,159 @@
+/* Fundo escuro ao redor do modal */
+.reviewForm.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.reviewForm.modal-overlay.active {
+  display: flex;
+}
+
+/* Janela do modal */
+.reviewForm .modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 650px;
+  width: 100%;
+  box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12);
+  /* text-align: center; */
+}
+
+.reviewForm .modal > h2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #010814;
+}
+
+.reviewForm .modal > p {
+  font-size: 16px;
+  font-weight: normal;
+  color: #010814;
+  border-bottom: 1px solid #e6e7ea;
+  padding-bottom: 10px;
+}
+
+/* Estilizando os produtos */
+.reviewForm .product-review {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px;
+  border-bottom: 1px solid #e6e7ea;
+}
+
+.reviewForm .product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.reviewForm .product-review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.reviewForm .product-review .content {
+  flex: 1;
+  text-align: left;
+  display: flex;
+}
+
+.reviewForm .product-review > p {
+  margin: 10px 0;
+  color: #354259;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.reviewForm .product-info > h4 {
+  color: #bd7b2d;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.reviewForm .product-info > p {
+  color: #191c1f;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.reviewForm .store-review > p {
+  font-weight: 400;
+  font-size: 14px;
+  color: #354259;
+}
+
+/* Estrelas de avaliação */
+.reviewForm .stars {
+  display: flex;
+  gap: 5px;
+}
+
+.reviewForm .star {
+  font-size: 22px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.reviewForm .star.selected {
+  color: gold;
+}
+
+/* Avaliação da loja */
+.reviewForm .store-review {
+  margin-top: 15px;
+}
+
+/* Campo de feedback */
+.reviewForm .feedback {
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #e6e7ea;
+  border-radius: 5px;
+}
+
+/* Botões */
+.reviewForm .buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.reviewForm .cancel,
+.submit {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  height: 44px;
+}
+
+.reviewForm .cancel {
+  background: transparent;
+  border: 1px solid #e6e7ea;
+  color: #191c1f;
+}
+
+.reviewForm .submit {
+  background: black;
+  color: white;
+}

@@ -24,8 +24,8 @@ export const OtherProducts = ({
     //
   };
 
-  const handlepreviewProduct = (id: number) => {
-    dispatch(loadCurrentItem(products[id - 1]));
+  const handlepreviewProduct = (productDTO: ProductDTO) => {
+    dispatch(loadCurrentItem(productDTO));
     // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/preview-product');
   };

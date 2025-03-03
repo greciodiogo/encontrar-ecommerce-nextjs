@@ -26,7 +26,7 @@ export const BestSelledProduct = ({
   };
 
   return (
-    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id ?? 0)}>
+    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(product)}>
       {/* <a className="addCartBtn">
         <i>
           <img src={`${url}/svg/Heart.png`} alt="Heart" />

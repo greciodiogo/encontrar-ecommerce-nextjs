@@ -6,6 +6,7 @@ import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
 import { useProductContext } from 'hooks/useProductContext';
 import { FnService } from 'shared/utils/FnService';
+import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../../hooks';
 
@@ -22,8 +23,8 @@ export const ProductsList = () => {
     //
   };
 
-  const handlepreviewProduct = (id: number) => {
-    dispatch(loadCurrentItem(displayedProducts[id - 1]));
+  const handlepreviewProduct = (productDTO: ProductDTO) => {
+    dispatch(loadCurrentItem(productDTO));
     void router.push('/preview-product');
   };
 

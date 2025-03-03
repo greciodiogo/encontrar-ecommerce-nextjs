@@ -5,7 +5,7 @@ import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 
 export const Products = () => {
-  const url = 'assets_ecommerce/categories';
+  const url = 'assets_ecommerce/svg';
   const router = useRouter();
   const { setSelectedCategory } = useProductContext();
   const goToCategories = (category: string) => {

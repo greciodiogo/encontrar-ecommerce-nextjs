@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 import { useAppSelector } from 'hooks';
@@ -10,21 +10,30 @@ import { RootState } from 'types/product';
 
 export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
   const fnService = new FnService();
+  const [subtotal, setSubtotal] = useState(0);
+  const [atotal, setATotal] = useState(0);
   const repo = useAppSelector((state: RootState) => state.products);
+  const cartItems = useAppSelector((state: RootState) => state.products.cart);
+
   const router = useRouter();
   const { selectedPrice } = useAuth();
 
   const transactionDate = repo.order?.created_at;
   const paymentMethod = selectedPrice;
   const shippingMethod = 'Transporte - Motociclo';
-  const subtotal = 0;
   const discount = 0;
   const shippingCost = 2000;
   const serviceCost = 150;
-  const total = subtotal + shippingCost;
   const onCancel = () => {
     void router.push('/');
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-array-reduce/no-reduce
+    const total_ = cartItems.reduce((acc, item) => acc + (item.price ?? 0) * (item.qty ?? 0), 0);
+    setSubtotal(total_);
+    setATotal(subtotal + serviceCost + discount + shippingCost);
+  }, [atotal]);
   const onFinish = () => {
     handleNextStep();
   };
@@ -69,7 +78,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
 
       <div className="total">
         <span>Total</span>
-        <span>{fnService.numberFormat(total)} Kz</span>
+        <span>{fnService.numberFormat(atotal)} Kz</span>
       </div>
 
       <div className="buttons">

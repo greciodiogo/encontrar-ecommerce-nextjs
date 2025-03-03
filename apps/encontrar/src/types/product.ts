@@ -34,7 +34,7 @@ export type ProductTypeProps = {
   hasButtons?: boolean;
   hasDescription?: boolean;
   handleAddToCart?: (id: number) => void;
-  handlepreviewProduct: (id: number) => void;
+  handlepreviewProduct: (ProductDTO: ProductDTO) => void;
 };
 
 export type CartProps = {
