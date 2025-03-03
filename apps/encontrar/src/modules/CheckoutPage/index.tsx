@@ -11,6 +11,8 @@ import { Container } from 'components/Container';
 import { CustomStepIcon } from 'components/icon/CheckIcon';
 import { useAuth } from 'hooks/useAuth';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
+import { INVALID_FORM, UNVAILABLE_PAYMENT_METHOD } from 'shared/constants';
+import { showToast } from 'shared/hooks/showToast';
 import { validationSchema } from 'utils/validationSchema';
 
 import { useAppDispatch } from '../../hooks';
@@ -58,10 +60,10 @@ export const CheckoutPage = () => {
     const isValid = await trigger(); // Valida todos os campos do formulário
 
     if (activeStep === 0 && !isValid) {
-      toast.warning('Por favor, preencha todos os campos obrigatórios.');
+      showToast({ ...INVALID_FORM });
       return;
     } else if (activeStep === 1 && selectedPrice !== 'CASH') {
-      toast.warning('Método de pagamento indisponível');
+      showToast({ ...UNVAILABLE_PAYMENT_METHOD });
       return;
     } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
@@ -107,11 +109,15 @@ export const CheckoutPage = () => {
 
                 <div className="form__container">
                   <div className="content">
-                    <h4>{activeStep === 0 ? 'Adicione seu endereço' : 'Formas de Pagamento'}</h4>
+                    <h4>
+                      {activeStep === 0 && 'Adicione seu endereço'}
+                      {activeStep === 1 && 'Formas de Pagamento'}
+                      {activeStep === 2 && 'Resumo'}
+                    </h4>
                     <p>
-                      {activeStep === 1 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                      {activeStep === 2 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                      {activeStep === 3 && 'Abaixo, uma visão revisão geral da sua compra '}
+                      {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
+                      {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
+                      {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
                     </p>
                   </div>
                   <Box sx={{ mt: 2, mb: 1 }}>

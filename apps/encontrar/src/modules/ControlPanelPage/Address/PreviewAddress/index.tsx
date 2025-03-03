@@ -16,11 +16,11 @@ export const PreviewAddress = () => {
       <Panel>
         <Panel.Icon>Icons - Location</Panel.Icon>
         <Panel.Title>Endereço</Panel.Title>
-        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+        <Panel.Description>Altere detalhes do seu Endereço</Panel.Description>
       </Panel>
       <div className="addressPreview">
         {isPreviewAddress ? (
-          <EmptyPanelItem handleClick={handleClick} title={title} />
+          <EmptyPanelItem handleClick={handleClick} title={title} type="address" />
         ) : (
           <AddOrEditAddress handleClick={handleClick} />
         )}

@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 // import { ToastContainer } from 'shared/components/Toast/ToastContainer';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
+import { UNVAILABLE_PAYMENT_METHOD } from 'shared/constants';
+import { showToast } from 'shared/hooks/showToast';
 import styles from 'styles/home/auth.module.css';
 
 import { useAuth } from './../../../hooks/useAuth';
@@ -35,7 +37,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
-    toast.warning('Método de pagamento indisponivel!');
+    showToast({ ...UNVAILABLE_PAYMENT_METHOD });
     setFormData(INITIALSTATE);
     // void router.push('/checkoutPage');
   };

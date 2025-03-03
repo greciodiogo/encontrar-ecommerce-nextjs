@@ -16,10 +16,10 @@ export const WishListPage = () => {
       <Panel>
         <Panel.Icon>Heart</Panel.Icon>
         <Panel.Title>Lista de Desejos</Panel.Title>
-        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+        <Panel.Description>Consulte a sua lista de Desejos</Panel.Description>
       </Panel>
       <div className="wishList">
-        <EmptyPanelItem title={title} handleClick={handleClick} />
+        <EmptyPanelItem title={title} type="wish-list" handleClick={handleClick} />
       </div>
     </>
   );

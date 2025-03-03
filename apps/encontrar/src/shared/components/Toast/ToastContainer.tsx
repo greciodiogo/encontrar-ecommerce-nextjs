@@ -2,7 +2,8 @@ import { ToastContainerProps } from 'react-toastify';
 
 export const toastProps: ToastContainerProps = {
   position: 'top-right',
-  hideProgressBar: false,
+  hideProgressBar: true,
+  autoClose: 4000,
   newestOnTop: true,
   closeOnClick: true,
   rtl: false,

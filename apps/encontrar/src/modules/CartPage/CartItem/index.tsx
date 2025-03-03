@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { adjustQty, removeFromCart } from 'actions/products';
 import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
+import { FnService } from 'shared/utils/FnService';
 import { CartItemProps } from 'types/product';
 
 import { useAppDispatch } from '../../../hooks';
@@ -10,6 +11,7 @@ import { useAppDispatch } from '../../../hooks';
 export const CartItem = (props: CartItemProps) => {
   const dispatch = useAppDispatch();
   const url = 'assets_ecommerce';
+  const fnService = new FnService();
 
   const { name, image, id = 0, availability, category, brand, qty = 1, price = 0 } = props.cart;
   const { setTotal, setSubtotal } = props;
@@ -71,14 +73,19 @@ export const CartItem = (props: CartItemProps) => {
           <p>
             Sku: <span>{id}</span>
           </p>
-          <p>
+          <p className="wrapItemRight">
             Disponibilidade: <span>{availability}</span>
           </p>
           <p>
             Marca: <span>{brand}</span>
           </p>
-          <p>
+          <p className="wrapItemRight">
             Categoria: <span>{category}</span>
+          </p>
+        </div>
+        <div className="wrapPrice">
+          <p className="priceContainer">
+            Preço Total: <span className="priceItem">{fnService.numberFormat(price)}kz</span>
           </p>
         </div>
         <div className="cart-item-btn">

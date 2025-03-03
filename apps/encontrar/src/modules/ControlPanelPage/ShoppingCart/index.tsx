@@ -17,10 +17,10 @@ export const ShoppingCartPage = () => {
       <Panel>
         <Panel.Icon>ShoppingCart</Panel.Icon>
         <Panel.Title>Carrinho de Compras</Panel.Title>
-        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+        <Panel.Description>Carrinho de Compras</Panel.Description>
       </Panel>
       <div className="shoppingCart">
-        <EmptyPanelItem title={title} handleClick={handleClick} />
+        <EmptyPanelItem title={title} type="shopping-cart" handleClick={handleClick} />
       </div>
     </>
   );

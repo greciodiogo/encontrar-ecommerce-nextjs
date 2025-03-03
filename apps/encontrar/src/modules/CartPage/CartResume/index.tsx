@@ -26,11 +26,11 @@ export const CartResume = ({
     <div className="box">
       <div className="price">
         <ul>
-          <li>Subtotal</li>
+          <li className="priceTitle">Subtotal</li>
           <li>{fnService.numberFormat(total)}kz</li>
         </ul>
         <ul>
-          <li>Entrega:</li>
+          <li className="priceTitle">Entrega:</li>
           <li>{fnService.numberFormat(DELIVERY_COST)}kz</li>
         </ul>
       </div>
