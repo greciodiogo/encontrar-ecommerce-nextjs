@@ -17,7 +17,7 @@ export const Dropdown: React.FC = () => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <span className="dropdown-trigger">Bebidas</span>
+      <span className="dropdown-trigger">Bebidas e Alimentação</span>
 
       {isOpen && (
         <div className="dropdown-menu">

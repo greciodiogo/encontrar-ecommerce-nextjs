@@ -33,15 +33,13 @@ export const categories = [
 //   { slug: 'health', image: `saude.png` },
 // ];
 export const new_categories = [
-  { name: 'Items para Casa', image: `items_casa.png` },
-  { name: 'Brinquedos Infantis', image: `brinquedos.png` },
-  { name: 'Produtos Eletricos', image: `eletricos.png` },
-  { name: 'Alimentos', image: `alimentos.png` },
-  { name: 'Diversos', image: `diversos.png` },
-  { name: 'Bebidas', image: `bebidas.png` },
-  { name: 'Cuidados Pessoais', image: `cuidados_pessoais.png` },
-  { name: 'Papelaria e Escritório', image: `papelaria.png` },
-  { name: 'Saúde', image: `saude.png` },
+  { name: 'Bebidas e Alimentação', image: `bebidas.png` },
+  { name: 'Brinquedos', image: `Brinquedos.png` },
+  { name: 'Eletrodomésticos', image: `Eletrodomésticos.png` },
+  { name: 'Escritorio', image: `Escritorio.png` },
+  { name: 'Items para Casa', image: `Items para Casa.png` },
+  { name: 'Cuidados Pessoais', image: `Cuidados Pessoais.png` },
+  { name: 'Diversos', image: `box.png` },
 ];
 
 // export const footer = [

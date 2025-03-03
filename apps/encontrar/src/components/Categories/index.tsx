@@ -21,12 +21,11 @@ export const Categories = () => {
     // { slug: 'drink', name: 'Bebidas' },
     { slug: 'home_items', name: 'Items para Casa' },
     { slug: 'personal_care', name: 'Cuidados Pessoais' },
-    { slug: 'toys', name: 'Brinquedos Infantis' },
-    { slug: 'electronics', name: 'Produtos Elétricos' },
-    { slug: 'food', name: 'Alimentos' },
+    { slug: 'toys', name: 'Brinquedos' },
+    { slug: 'electronics', name: 'Eletrodomésticos' },
+    // { slug: 'food', name: 'Alimentos' },
     { slug: 'drink', name: 'Papelaria e Escritório' },
     { slug: 'various', name: 'Diversos' },
-    { slug: 'all', name: 'Ver outros Produtos' },
   ];
 
   if (isControlPanelRoute || isCheckoutRoute) return;
