@@ -11,7 +11,7 @@ export const ShowProductBanner = (props: ShowProductBannerProps) => {
   const { isClient } = useAuth();
   const url = 'assets_ecommerce';
   const { name, image = '', images = [] } = props.product;
-  const [selectedImage, setSelectedImage] = useState(image || 'macbook.png');
+  const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
 
   if (!isClient) return null;
   return (
@@ -35,7 +35,15 @@ export const ShowProductBanner = (props: ShowProductBannerProps) => {
           <div className="thumbnail-container">
             {images.map((im, index) => (
               <button onClick={() => setSelectedImage(im)} key={index} className={selectedImage === im ? 'active' : ''}>
-                <img src={`${url}/products/${im}`} alt={im} />
+                <Image
+                  src={`/${url}/products/${im}`}
+                  alt={im}
+                  blurDataURL="www.google.com"
+                  placeholder="blur"
+                  height={70}
+                  width={70}
+                  objectFit="contain"
+                />
               </button>
             ))}
           </div>

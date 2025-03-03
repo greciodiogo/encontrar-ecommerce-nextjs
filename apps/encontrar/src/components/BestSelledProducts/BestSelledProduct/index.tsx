@@ -15,7 +15,7 @@ export const BestSelledProduct = ({
   // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, about } = product;
-  const isProductInCart = productCart.some((item) => item.id === id);
+  const isProductInCart = productCart.items.some((item) => item.id === id);
   const url = 'assets_ecommerce';
   const fnService = new FnService();
 
@@ -26,7 +26,7 @@ export const BestSelledProduct = ({
   };
 
   return (
-    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(id ?? 0)}>
+    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(product)}>
       {/* <a className="addCartBtn">
         <i>
           <img src={`${url}/svg/Heart.png`} alt="Heart" />
