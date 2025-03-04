@@ -2,33 +2,23 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { Dropdown } from 'components/Header/Drowdown';
+import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 
 export const Categories = () => {
   const router = useRouter();
-  const { setSelectedCategory } = useProductContext();
+  const { setSelectedCategories } = useProductContext();
 
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
   const isHomeRoute = router.pathname === '/';
 
-  const goToCategories = (category: string) => {
-    setSelectedCategory(category);
-    void router.push(`products`);
+  const goToCategories = (categorySlug: string) => {
+    setSelectedCategories([categorySlug]); // Agora é um array de strings
+    void router.push(`/products`);
   };
 
-  const categories = [
-    // { slug: 'drink', name: 'Bebidas' },
-    { slug: 'home_items', name: 'Items para Casa' },
-    { slug: 'personal_care', name: 'Cuidados Pessoais' },
-    { slug: 'toys', name: 'Brinquedos' },
-    { slug: 'electronics', name: 'Eletrodomésticos' },
-    // { slug: 'food', name: 'Alimentos' },
-    { slug: 'drink', name: 'Papelaria e Escritório' },
-    { slug: 'various', name: 'Diversos' },
-  ];
-
-  if (isControlPanelRoute || isCheckoutRoute) return;
+  if (isControlPanelRoute || isCheckoutRoute) return null;
 
   return (
     <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>
@@ -36,17 +26,14 @@ export const Categories = () => {
         <div className="wrapper">
           <div className="wrapper_list">
             <ul className="subcategories">
-              <Dropdown />
-              {categories.map((item, itemIndex) => (
-                <button
-                  className="category-item"
-                  key={itemIndex}
-                  style={{ display: 'inline' }}
-                  onClick={() => goToCategories(item.name)}
-                >
-                  <a>{item.name}</a>
-                </button>
-              ))}
+              <Dropdown goToCategories={goToCategories} />
+              {new_categories
+                .map((item) => (
+                  <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">
+                    <a>{item.name}</a>
+                  </button>
+                ))
+                .slice(1)}
             </ul>
           </div>
         </div>

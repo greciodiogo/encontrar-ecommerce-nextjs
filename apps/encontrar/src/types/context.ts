@@ -32,7 +32,9 @@ export type ProductContextType = {
   currentPage: number;
   itemsPerPage: number;
   totalPages: number;
+  toggleSelection: (list: Array<string>, setList: (value: Array<string>) => void, item: string) => void;
   setSelectedCategories: Dispatch<SetStateAction<Array<string>>>;
+  getCategoryCount: (categoryName: string) => number;
   setMinPrice: (price: number) => void;
   setMaxPrice: (price: number) => void;
   setAvailability: (status: string) => void;

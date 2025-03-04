@@ -17,12 +17,37 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
+  const categoryMappings: Record<string, Array<string>> = {
+    'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
+  };
+  const getCategoryCount = (categoryName: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const mappedCategories = categoryMappings[categoryName] || [categoryName];
+
+    return products.filter((product) => product.categories.some((cat) => mappedCategories.includes(cat))).length;
+  };
+
+  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const mappedCategories = categoryMappings[item] || [item];
+
+    if (mappedCategories.every((cat) => list.includes(cat))) {
+      setList(list.filter((cat) => !mappedCategories.includes(cat)));
+    } else {
+      setList([...new Set([...list, ...mappedCategories])]);
+    }
+  };
+
   useEffect(() => {
     let filtered = products;
 
+    // Expandir categorias antes do filtro
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const expandedCategories = selectedCategories.flatMap((category) => categoryMappings[category] || category);
+
     // Filtro por múltiplas categorias
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter((prod) => selectedCategories.some((cat) => prod.categories.includes(cat)));
+    if (expandedCategories.length > 0) {
+      filtered = filtered.filter((prod) => expandedCategories.some((cat) => prod.categories.includes(cat)));
     }
 
     if (availability) {
@@ -57,6 +82,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
+        toggleSelection,
+        getCategoryCount,
         setSelectedCategories, // Atualizado para múltiplas categorias
         setMinPrice,
         setMaxPrice,

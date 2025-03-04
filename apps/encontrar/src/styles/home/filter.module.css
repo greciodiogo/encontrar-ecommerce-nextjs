@@ -113,3 +113,26 @@
   font-weight: 500;
   margin-bottom: 4px;
 }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  color: #4b4a48;
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1.5px solid #958e83;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.tag:hover {
+  border: 1.5px solid #b66506;
+}

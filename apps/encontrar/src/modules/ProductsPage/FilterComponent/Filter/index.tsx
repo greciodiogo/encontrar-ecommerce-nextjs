@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
@@ -6,8 +7,7 @@ import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
-  const { selectedCategories, setSelectedCategories, selectedBrands, setSelectedBrands } = useProductContext();
-
+  const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({});
 
   const toggleMenu = (key: string) => {
@@ -18,26 +18,20 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
     'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
   };
 
-  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
-    const mappedCategories = categoryMappings[item] || [item];
-
-    if (mappedCategories.every((cat) => list.includes(cat))) {
-      setList(list.filter((cat) => !mappedCategories.includes(cat)));
-    } else {
-      setList([...new Set([...list, ...mappedCategories])]);
-    }
+  const removeFilter = (item: string, list: Array<string>, setList: (value: Array<string>) => void) => {
+    setList(list.filter((cat) => cat !== item));
   };
 
   const filters = [
     { name: 'Categorias', hasDropdown: true },
-    { name: 'Marcas', hasDropdown: true },
+    // { name: 'Marcas', hasDropdown: true },
   ];
 
-  const brands = [
-    { name: 'Jack Daniels', count: 7 },
-    { name: 'Quinta das Amoras', count: 14 },
-    { name: 'Coca-Cola', count: 5 },
-  ];
+  // const brands = [
+  //   { name: 'Jack Daniels', count: 7 },
+  //   { name: 'Quinta das Amoras', count: 14 },
+  //   { name: 'Coca-Cola', count: 5 },
+  // ];
 
   return (
     <div className={`${styles.filterProducts} ${styles.container}`}>
@@ -50,18 +44,24 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
       </div>
 
       {/* Tags de Filtros Selecionados */}
-      {/* <div className={styles.tags}>
-        {selectedCategories.map((category) => (
-          <span key={category} className={styles.tag}>
-            {category}
-          </span>
-        ))}
-        {selectedBrands.map((brand) => (
-          <span key={brand} className={styles.tag}>
-            {brand}
-          </span>
-        ))}
-      </div> */}
+      {selectedCategories.length > 0 ? (
+        <div className={styles.tags}>
+          {selectedCategories.map((category) => (
+            <button
+              key={category}
+              className={styles.tag}
+              onClick={() => removeFilter(category, selectedCategories, setSelectedCategories)}
+            >
+              {category} <FaTimes size={12} />
+            </button>
+          ))}
+          {/* {selectedBrands.map((brand) => (
+            <span key={brand} className={styles.tag} onClick={() => removeFilter(brand, selectedBrands, setSelectedBrands)}>
+              {brand} <FaTimes size={12} />
+            </span>
+          ))} */}
+        </div>
+      ) : null}
 
       {/* Seções de Filtros */}
       {filters.map((filter) => (
@@ -94,14 +94,16 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                 onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
                 className={styles.checkbox}
               />
-              <span className={styles.brandName}>{category.name}</span>
+              <span className={styles.brandName}>
+                {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
+              </span>
             </label>
           ))}
         </div>
       )}
 
       {/* Lista de Marcas */}
-      {menuOpen.Marcas && (
+      {/* {menuOpen.Marcas && (
         <div className={styles.brandsList}>
           {brands.map((brand) => (
             <label key={brand.name} className={styles.brandItem}>
@@ -115,7 +117,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
             </label>
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
