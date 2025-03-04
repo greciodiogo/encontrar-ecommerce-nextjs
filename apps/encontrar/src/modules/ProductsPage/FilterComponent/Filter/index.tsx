@@ -1,35 +1,42 @@
-// import { ChevronDownIcon, XIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
+import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
-  const [selectedBrands, setSelectedBrands] = useState<Array<string>>(['Vinho']);
+  const { selectedCategories, setSelectedCategories, selectedBrands, setSelectedBrands } = useProductContext();
+
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({});
-  const { selectedCategory } = useProductContext();
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const toggleBrand = (brand: string) => {
-    setSelectedBrands((prev) => (prev.includes(brand) ? prev.filter((br) => br !== brand) : [...prev, brand]));
+  const categoryMappings: Record<string, Array<string>> = {
+    'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
+  };
+
+  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
+    const mappedCategories = categoryMappings[item] || [item];
+
+    if (mappedCategories.every((cat) => list.includes(cat))) {
+      setList(list.filter((cat) => !mappedCategories.includes(cat)));
+    } else {
+      setList([...new Set([...list, ...mappedCategories])]);
+    }
   };
 
   const filters = [
-    { name: 'Categorias' },
-    { name: 'Preços' },
-    { name: 'Disponibilidade' },
+    { name: 'Categorias', hasDropdown: true },
     { name: 'Marcas', hasDropdown: true },
   ];
 
   const brands = [
-    { name: 'Vinho', count: 14 },
-    { name: 'Uísques', count: 7 },
-    { name: 'Água', count: 7 },
-    { name: 'Refrigerante', count: 7 },
+    { name: 'Jack Daniels', count: 7 },
+    { name: 'Quinta das Amoras', count: 14 },
+    { name: 'Coca-Cola', count: 5 },
   ];
 
   return (
@@ -43,14 +50,18 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
       </div>
 
       {/* Tags de Filtros Selecionados */}
-      <div className={styles.tags}>
-        {selectedCategory && <span className={`${styles.tag} ${styles.active}`}>{selectedCategory}</span>}
-        {/* {['bebidas', 'vinhos', '30,000Kz'].map((tag, index) => (
-          <span key={index} className={styles.tag}>
-            {tag}
+      {/* <div className={styles.tags}>
+        {selectedCategories.map((category) => (
+          <span key={category} className={styles.tag}>
+            {category}
           </span>
-        ))} */}
-      </div>
+        ))}
+        {selectedBrands.map((brand) => (
+          <span key={brand} className={styles.tag}>
+            {brand}
+          </span>
+        ))}
+      </div> */}
 
       {/* Seções de Filtros */}
       {filters.map((filter) => (
@@ -70,6 +81,25 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
         </button>
       ))}
 
+      {/* Lista de Categorias */}
+      {menuOpen.Categorias && (
+        <div className={styles.brandsList}>
+          {new_categories.map((category) => (
+            <label key={category.name} className={styles.brandItem}>
+              <input
+                type="checkbox"
+                checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
+                  selectedCategories.includes(cat),
+                )}
+                onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
+                className={styles.checkbox}
+              />
+              <span className={styles.brandName}>{category.name}</span>
+            </label>
+          ))}
+        </div>
+      )}
+
       {/* Lista de Marcas */}
       {menuOpen.Marcas && (
         <div className={styles.brandsList}>
@@ -78,11 +108,10 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
               <input
                 type="checkbox"
                 checked={selectedBrands.includes(brand.name)}
-                onChange={() => toggleBrand(brand.name)}
+                onChange={() => toggleSelection(selectedBrands, setSelectedBrands, brand.name)}
                 className={styles.checkbox}
               />
               <span className={styles.brandName}>{brand.name}</span>
-              <span className={styles.brandCount}>({brand.count})</span>
             </label>
           ))}
         </div>

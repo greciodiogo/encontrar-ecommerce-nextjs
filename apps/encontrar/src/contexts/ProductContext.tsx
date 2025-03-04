@@ -9,7 +9,7 @@ export const ProductContext = createContext<ProductContextType | undefined>(unde
 // Criando o Provider
 export function ProductProvider({ children }: { children: ReactNode }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(500000);
   const [availability, setAvailability] = useState('');
@@ -20,8 +20,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let filtered = products;
 
-    if (selectedCategory) {
-      filtered = filtered.filter((prod) => prod.category === selectedCategory);
+    // Filtro por múltiplas categorias
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter((prod) => selectedCategories.some((cat) => prod.categories.includes(cat)));
     }
 
     if (availability) {
@@ -40,7 +41,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
     setFilteredProducts(filtered);
     setCurrentPage(1); // Resetar para a primeira página quando os filtros mudarem
-  }, [selectedCategory, minPrice, maxPrice, availability, rating]);
+  }, [selectedCategories, minPrice, maxPrice, availability, rating]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -48,7 +49,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     <ProductContext.Provider
       value={{
         filteredProducts,
-        selectedCategory,
+        selectedCategories,
         minPrice,
         maxPrice,
         availability,
@@ -56,7 +57,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
-        setSelectedCategory,
+        setSelectedCategories, // Atualizado para múltiplas categorias
         setMinPrice,
         setMaxPrice,
         setAvailability,

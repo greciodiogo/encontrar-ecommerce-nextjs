@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import { ProductDTO } from './product';
 
 export type AuthContextType = {
@@ -22,7 +24,7 @@ export type DecodedPayload = {
 
 export type ProductContextType = {
   filteredProducts: Array<ProductDTO>;
-  selectedCategory: string;
+  selectedCategories: Array<string>;
   minPrice: number;
   maxPrice: number;
   availability: string;
@@ -30,7 +32,7 @@ export type ProductContextType = {
   currentPage: number;
   itemsPerPage: number;
   totalPages: number;
-  setSelectedCategory: (category: string) => void;
+  setSelectedCategories: Dispatch<SetStateAction<Array<string>>>;
   setMinPrice: (price: number) => void;
   setMaxPrice: (price: number) => void;
   setAvailability: (status: string) => void;
