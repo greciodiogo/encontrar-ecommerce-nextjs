@@ -66,6 +66,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
     setFilteredProducts(filtered);
     setCurrentPage(1); // Resetar para a primeira página quando os filtros mudarem
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategories, minPrice, maxPrice, availability, rating]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);

@@ -37,7 +37,7 @@ export const new_categories = [
   { name: 'Brinquedos', image: `Brinquedos.png` },
   { name: 'Eletrodomésticos', image: `Eletrodomésticos.png` },
   { name: 'Escritorio', image: `Escritorio.png` },
-  { name: 'Items para Casa', image: `Items para Casa.png` },
+  { name: 'Itens para Casa', image: `Items para Casa.png` },
   { name: 'Cuidados Pessoais', image: `Cuidados Pessoais.png` },
   { name: 'Diversos', image: `box.png` },
 ];
