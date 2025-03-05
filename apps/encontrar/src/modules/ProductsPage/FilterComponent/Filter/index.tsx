@@ -10,7 +10,7 @@ import { FilterPrice } from '../FilterPrice';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
-  const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({});
+  const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({ Categorias: true });
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -26,7 +26,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
 
   const filters = [
     { name: 'Categorias', hasDropdown: true },
-    { name: 'Precos', hasDropdown: true },
+    { name: 'Preços', hasDropdown: true },
   ];
 
   return (
@@ -40,7 +40,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
       </div>
 
       {/* Tags de Filtros Selecionados */}
-      {selectedCategories.length > 0 ? (
+      {selectedCategories.length > 0 && (
         <div className={styles.tags}>
           {selectedCategories.map((category) => (
             <button
@@ -52,53 +52,51 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
             </button>
           ))}
         </div>
-      ) : null}
+      )}
 
       {/* Seções de Filtros */}
       {filters.map((filter) => (
-        <button
-          key={filter.name}
-          className={styles.filterSection}
-          onClick={() => filter.hasDropdown && toggleMenu(filter.name)}
-        >
-          <span className={styles.filterTitle}>{filter.name}</span>
-          {filter.hasDropdown && (
-            <FaChevronRight
-              size={12}
-              color="#191C1F"
-              className={`${styles.chevron} ${menuOpen[filter.name] ? styles.open : ''}`}
-            />
-          )}
-        </button>
-      ))}
-
-      {/* Lista de Categorias */}
-      {menuOpen.Categorias && (
-        <div className={styles.brandsList}>
-          {new_categories.map((category) => (
-            <label key={category.name} className={styles.brandItem}>
-              <input
-                type="checkbox"
-                checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
-                  selectedCategories.includes(cat),
-                )}
-                onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
-                className={styles.checkbox}
+        <div key={filter.name} className={styles.filterSectionWrapper}>
+          <button className={styles.filterSection} onClick={() => filter.hasDropdown && toggleMenu(filter.name)}>
+            <span className={styles.filterTitle}>{filter.name}</span>
+            {filter.hasDropdown && (
+              <FaChevronRight
+                size={12}
+                color="#191C1F"
+                className={`${styles.chevron} ${menuOpen[filter.name] ? styles.open : ''}`}
               />
-              <span className={styles.brandName}>
-                {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
-              </span>
-            </label>
-          ))}
+            )}
+          </button>
+          {menuOpen[filter.name] && (
+            <div className={styles.content}>
+              {filter.name === 'Categorias' && (
+                <div className={styles.brandsList}>
+                  {new_categories.map((category) => (
+                    <label key={category.name} className={styles.brandItem}>
+                      <input
+                        type="checkbox"
+                        checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
+                          selectedCategories.includes(cat),
+                        )}
+                        onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
+                        className={styles.checkbox}
+                      />
+                      <span className={styles.brandName}>
+                        {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+              {filter.name === 'Preços' && (
+                <div className={styles.brandsList}>
+                  <FilterPrice />
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
-
-      {/* Lista de Marcas */}
-      {menuOpen.Precos && (
-        <div className={styles.brandsList}>
-          <FilterPrice />
-        </div>
-      )}
+      ))}
     </div>
   );
 };

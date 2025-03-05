@@ -32,7 +32,7 @@ export const FilterPrice = () => {
         setMaxPrice(499999);
         break;
       case 'Acima de 500,000 Kz':
-        setMinPrice(50000);
+        setMinPrice(500000);
         setMaxPrice(9999999);
         break;
       default:
