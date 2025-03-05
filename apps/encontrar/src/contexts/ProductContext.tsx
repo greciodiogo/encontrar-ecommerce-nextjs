@@ -11,7 +11,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(500000);
+  const [maxPrice, setMaxPrice] = useState(9999999);
   const [availability, setAvailability] = useState('');
   const [rating, setRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +40,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let filtered = products;
+
+    filtered = filtered.filter((prod) => prod.price >= minPrice && prod.price <= maxPrice);
 
     // Expandir categorias antes do filtro
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

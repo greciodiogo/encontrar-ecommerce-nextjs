@@ -417,11 +417,11 @@ export const populartTags = [
 export const priceRanges = [
   'Todos os Preços',
   'Abaixo de 2000 kz',
-  '2000 Kz a 10,000 Kz',
-  '10,000 Kz a 30,000 Kz',
-  '30,000 Kz a 60,000 Kz',
-  '60,000 Kz a 90,000 Kz',
-  '1,200,000 Kz a 2,400,000 Kz',
+  '2000 Kz a 9,999 Kz',
+  '10,000 Kz a 49,999 Kz',
+  '50,000 Kz a 199,999 Kz',
+  '200,000 Kz a 499,999 Kz',
+  'Acima de 500,000 Kz',
 ];
 
 export const brands = [

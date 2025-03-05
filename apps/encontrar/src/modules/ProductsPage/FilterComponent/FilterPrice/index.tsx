@@ -7,6 +7,40 @@ export const FilterPrice = () => {
   const [selectedPrice, setSelectedPrice] = useState('Todos os Preços');
   const { setMinPrice, setMaxPrice } = useProductContext();
 
+  const handlePriceSelection = (range: string) => {
+    setSelectedPrice(range);
+
+    switch (range) {
+      case 'Abaixo de 2000 kz':
+        setMinPrice(0);
+        setMaxPrice(2000);
+        break;
+      case '2000 Kz a 9,999 Kz':
+        setMinPrice(2000);
+        setMaxPrice(9999);
+        break;
+      case '10,000 Kz a 49,999 Kz':
+        setMinPrice(10000);
+        setMaxPrice(49999);
+        break;
+      case '50,000 Kz a 199,999 Kz':
+        setMinPrice(50000);
+        setMaxPrice(199999);
+        break;
+      case '200,000 Kz a 499,999 Kz':
+        setMinPrice(200000);
+        setMaxPrice(499999);
+        break;
+      case 'Acima de 500,000 Kz':
+        setMinPrice(50000);
+        setMaxPrice(9999999);
+        break;
+      default:
+        setMinPrice(0);
+        setMaxPrice(9999999);
+        break;
+    }
+  };
   return (
     <div className="filterPrice">
       {/* <h4>Faixa de Preço</h4> */}
@@ -33,7 +67,7 @@ export const FilterPrice = () => {
                   type="radio"
                   value={range}
                   checked={selectedPrice === range}
-                  onChange={() => setSelectedPrice(range)}
+                  onChange={() => handlePriceSelection(range)}
                   className="hidden"
                 />
                 <div className={`radioBtn ${selectedPrice === range ? 'active' : ''}`}>
