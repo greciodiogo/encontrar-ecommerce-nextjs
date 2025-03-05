@@ -7,12 +7,12 @@ import { products } from 'fixture/ecommerceData';
 
 export const Homepage = () => {
   const topExpensiveDrinks = [...products]
-    .filter((prod) => prod.category === 'Bebidas')
+    .filter((prod) => prod.categories.some(() => prod.categories.includes('Bebidas')))
     .sort((a_, b_) => b_.price - a_.price)
     .slice(0, 8);
 
   const topExpensiveElectrics = [...products]
-    .filter((prod) => prod.category === 'Eletrônicos')
+    .filter((prod) => prod.categories.some(() => prod.categories.includes('Eletrodomésticos')))
     .sort((a_, b_) => b_.price - a_.price)
     .slice(0, 8);
 

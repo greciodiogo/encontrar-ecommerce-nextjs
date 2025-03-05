@@ -6,10 +6,11 @@ import { useProductContext } from 'hooks/useProductContext';
 
 export const Products = () => {
   const url = 'assets_ecommerce/svg';
+  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
-  const { setSelectedCategory } = useProductContext();
+
   const goToCategories = (category: string) => {
-    setSelectedCategory(category);
+    toggleSelection(selectedCategories, setSelectedCategories, category);
     void router.push(`products`);
   };
 
