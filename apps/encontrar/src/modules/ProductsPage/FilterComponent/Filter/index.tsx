@@ -6,6 +6,8 @@ import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
+import { FilterPrice } from '../FilterPrice';
+
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({});
@@ -24,14 +26,8 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
 
   const filters = [
     { name: 'Categorias', hasDropdown: true },
-    // { name: 'Marcas', hasDropdown: true },
+    { name: 'Precos', hasDropdown: true },
   ];
-
-  // const brands = [
-  //   { name: 'Jack Daniels', count: 7 },
-  //   { name: 'Quinta das Amoras', count: 14 },
-  //   { name: 'Coca-Cola', count: 5 },
-  // ];
 
   return (
     <div className={`${styles.filterProducts} ${styles.container}`}>
@@ -55,11 +51,6 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
               {category} <FaTimes size={12} />
             </button>
           ))}
-          {/* {selectedBrands.map((brand) => (
-            <span key={brand} className={styles.tag} onClick={() => removeFilter(brand, selectedBrands, setSelectedBrands)}>
-              {brand} <FaTimes size={12} />
-            </span>
-          ))} */}
         </div>
       ) : null}
 
@@ -73,7 +64,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
           <span className={styles.filterTitle}>{filter.name}</span>
           {filter.hasDropdown && (
             <FaChevronRight
-              size={18}
+              size={12}
               color="#191C1F"
               className={`${styles.chevron} ${menuOpen[filter.name] ? styles.open : ''}`}
             />
@@ -103,21 +94,11 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
       )}
 
       {/* Lista de Marcas */}
-      {/* {menuOpen.Marcas && (
+      {menuOpen.Precos && (
         <div className={styles.brandsList}>
-          {brands.map((brand) => (
-            <label key={brand.name} className={styles.brandItem}>
-              <input
-                type="checkbox"
-                checked={selectedBrands.includes(brand.name)}
-                onChange={() => toggleSelection(selectedBrands, setSelectedBrands, brand.name)}
-                className={styles.checkbox}
-              />
-              <span className={styles.brandName}>{brand.name}</span>
-            </label>
-          ))}
+          <FilterPrice />
         </div>
-      )} */}
+      )}
     </div>
   );
 };

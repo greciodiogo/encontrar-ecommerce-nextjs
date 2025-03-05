@@ -9,7 +9,7 @@ export const FilterPrice = () => {
 
   return (
     <div className="filterPrice">
-      <h4>Faixa de Preço</h4>
+      {/* <h4>Faixa de Preço</h4> */}
       <div className="wrapper">
         <div className="p-4 border rounded-lg w-64">
           <div className="max_min_container">

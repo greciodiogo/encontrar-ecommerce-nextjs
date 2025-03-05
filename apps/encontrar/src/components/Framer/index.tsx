@@ -1,11 +1,16 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { useProductContext } from 'hooks/useProductContext';
+
 export const Framer = () => {
   const router = useRouter();
+  const { setSelectedCategories } = useProductContext();
+
   const url = 'assets_ecommerce';
 
   const redirectToProducts = () => {
+    setSelectedCategories([]);
     void router.push('/products');
   };
 

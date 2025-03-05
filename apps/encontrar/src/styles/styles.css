@@ -2488,6 +2488,7 @@ a:visited {
 
 /* popularTags section starts here */
 .popularTags {
+  visibility: hidden;
 }
 
 .popularTags > h4 {
@@ -2534,6 +2535,7 @@ a:visited {
 /* filterPrice section starts here */
 
 .filterPrice {
+  margin-top: 10px;
 }
 
 .filterPrice > h4 {
@@ -2599,14 +2601,15 @@ a:visited {
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: #475156;
+  font-weight: 400;
+  color: #958e83;
 }
 .line_radio input {
   display: none;
 }
 
 .filterPrice .radio-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: #475156;
 }
 
