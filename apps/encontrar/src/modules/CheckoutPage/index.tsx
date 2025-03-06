@@ -68,6 +68,7 @@ export const CheckoutPage = () => {
     } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
       saveOrder();
+      return; // Impede de avançar para um passo extra
     }
 
     setActiveStep((prev) => prev + 1);
