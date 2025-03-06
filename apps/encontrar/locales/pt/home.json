@@ -3,16 +3,13 @@
     "text": "Encontre os melhores produtos aqui"
   },
   "categories": {
-    "drink": "Bebidas",
+    "drink_foods": "Bebidas e Alimentação",
+    "toys": "Brinquedos",
+    "electronics": "Eletrodomésticos",
+    "stationery": "Escritório",
     "home_items": "Items para Casa",
     "personal_care": "Cuidados Pessoais",
-    "toys": "Brinquedos Infantis",
-    "electronics": "Produtos Elétricos",
-    "food": "Alimentos",
-    "stationery": "Papelaria e Escritório",
-    "various": "Diversos",
-    "health": "Saúde",
-    "view_more": "Ver outros Produtos"
+    "various": "Diversos"
   },
   "framer": {
     "customer_feedbacks": "Feedbacks dos Nossos Clientes",
@@ -23,6 +20,7 @@
   },
   "products": {
     "what_we_sell": "O que vendemos na Encontrar",
+    "loading_products": "Carregando produtos...",
     "search_products": "Pesquisar Produtos"
   },
   "why_us": {
@@ -45,8 +43,13 @@
     }
   },
   "cheapest_products": {
+    "other_products": "Outros Produtos",
+    "other_related_products_label": "Veja aqui produtos que lhe poderão ser úteis.",
+    "see_more": "Ver mais",
     "popular_products": "Produtos mais Populares",
-    "best_food_deals": "Melhores Negócios em Alimentos"
+    "best_beverage_deals": "Melhores Negócios em Bebidas",
+    "best_food_deals": "Melhores Negócios em Alimentos",
+    "loading_products": "Carregando produtos..."
   },
   "reviews": {
     "testimonial": "Encontrar é uma das poucas plataformas que usamos para comprar produtos que valem a pena"

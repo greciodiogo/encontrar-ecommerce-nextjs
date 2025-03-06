@@ -1,11 +1,20 @@
+import StarIcon from '@mui/icons-material/Star';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
+
+import { useProductContext } from 'hooks/useProductContext';
 
 export const Framer = () => {
   const router = useRouter();
-  const url = 'assets_ecommerce';
+  const { t } = useTranslation('home'); // 'common' corresponde ao JSON
+
+  const { setSelectedCategories } = useProductContext();
 
   const redirectToProducts = () => {
+    setSelectedCategories([]);
     void router.push('/products');
   };
 
@@ -18,36 +27,34 @@ export const Framer = () => {
               <div className="star_container">
                 {[1, 2, 3, 4].map((__, index) => (
                   <i key={index}>
-                    <img src={`${url}/svg/star-black.png`} alt="star" />
+                    <StarIcon fontSize="small" htmlColor="#111" />
                   </i>
                 ))}
               </div>
-              <p>Feedbacks dos Nossos Clientes</p>
+              <p>{t('framer.customer_feedbacks')}</p>
             </div>
-            <h2>Descubra os produtos mais incríveis da banda!</h2>
-            <h4>
-              Vendemos para si as melhores bebidas a disposição do mercado, desde vinhos até refrigerantes e água.
-            </h4>
+            <h2>{t('framer.discover_products')}</h2>
+            <h4>{t('framer.we_sell_best')}</h4>
             <div className="btn_container">
               <button className="" onClick={redirectToProducts}>
-                Explorar Produtos
+                {t('framer.explore_products')}
                 <i className="white">
-                  <img src={`${url}/svg/ArrowRight.png`} alt="arrow" />
+                  <FaArrowRight size={12} fill="white" />
                 </i>
                 <i className="black">
-                  <img src={`${url}/svg/ArrowRight-3.png`} alt="arrow" />
+                  <FaArrowRight size={12} fill="black" />
                 </i>
               </button>
               <button className="simple">
-                Entre em Contacto
+                {t('framer.contact_us')}
                 <i>
-                  <img src={`${url}/svg/call_center-black.png`} alt="contact" />
+                  <SupportAgentIcon fontSize="small" />
                 </i>
               </button>
             </div>
           </div>
           <div className="picture">
-            <img src={`${url}/app-bg.png`} alt="background" />
+            <img src={`/assets_ecommerce/app-bg.png`} alt="background" />
           </div>
         </div>
       </div>

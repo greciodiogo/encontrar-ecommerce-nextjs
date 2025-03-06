@@ -3,16 +3,13 @@
     "text": "Find the best products here"
   },
   "categories": {
-    "drink": "Drinks",
+    "drink_foods": "Drinks and Foods",
     "home_items": "Home Items",
     "personal_care": "Personal Care",
     "toys": "Children's Toys",
     "electronics": "Electrical Products",
-    "food": "Food",
     "stationery": "Stationery & Office",
-    "various": "Various",
-    "health": "Health",
-    "view_more": "See More Products"
+    "various": "Various"
   },
   "framer": {
     "customer_feedbacks": "Our Customers' Feedback",
@@ -23,7 +20,8 @@
   },
   "products": {
     "what_we_sell": "What we sell at Encontrar",
-    "search_products": "Search Products"
+    "search_products": "Search Products",
+    "loading_products": "Loading Products..."
   },
   "why_us": {
     "title": "Why choose Encontrar to buy your products?",
@@ -45,8 +43,13 @@
     }
   },
   "cheapest_products": {
+    "other_products": "Other Products",
+    "other_related_products_label": "See here products that may be useful to you.",
+    "see_more": "See More",
     "popular_products": "Most Popular Products",
-    "best_food_deals": "Best Food Deals"
+    "best_beverage_deals": "Top Beverage Deals",
+    "best_food_deals": "Top Food Deals",
+    "loading_products": "Loading Products..."
   },
   "reviews": {
     "testimonial": "Encontrar is one of the few platforms we use to buy worthwhile products"

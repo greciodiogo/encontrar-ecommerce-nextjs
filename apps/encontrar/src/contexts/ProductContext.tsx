@@ -9,19 +9,47 @@ export const ProductContext = createContext<ProductContextType | undefined>(unde
 // Criando o Provider
 export function ProductProvider({ children }: { children: ReactNode }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(500000);
+  const [maxPrice, setMaxPrice] = useState(9999999);
   const [availability, setAvailability] = useState('');
   const [rating, setRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
+  const categoryMappings: Record<string, Array<string>> = {
+    'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
+  };
+  const getCategoryCount = (categoryName: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const mappedCategories = categoryMappings[categoryName] || [categoryName];
+
+    return products.filter((product) => product.categories.some((cat) => mappedCategories.includes(cat))).length;
+  };
+
+  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const mappedCategories = categoryMappings[item] || [item];
+
+    if (mappedCategories.every((cat) => list.includes(cat))) {
+      setList(list.filter((cat) => !mappedCategories.includes(cat)));
+    } else {
+      setList([...new Set([...list, ...mappedCategories])]);
+    }
+  };
+
   useEffect(() => {
     let filtered = products;
 
-    if (selectedCategory) {
-      filtered = filtered.filter((prod) => prod.category === selectedCategory);
+    filtered = filtered.filter((prod) => prod.price >= minPrice && prod.price <= maxPrice);
+
+    // Expandir categorias antes do filtro
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const expandedCategories = selectedCategories.flatMap((category) => categoryMappings[category] || category);
+
+    // Filtro por múltiplas categorias
+    if (expandedCategories.length > 0) {
+      filtered = filtered.filter((prod) => expandedCategories.some((cat) => prod.categories.includes(cat)));
     }
 
     if (availability) {
@@ -40,7 +68,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
     setFilteredProducts(filtered);
     setCurrentPage(1); // Resetar para a primeira página quando os filtros mudarem
-  }, [selectedCategory, minPrice, maxPrice, availability, rating]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategories, minPrice, maxPrice, availability, rating]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -48,7 +77,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     <ProductContext.Provider
       value={{
         filteredProducts,
-        selectedCategory,
+        selectedCategories,
         minPrice,
         maxPrice,
         availability,
@@ -56,7 +85,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
-        setSelectedCategory,
+        toggleSelection,
+        getCategoryCount,
+        setSelectedCategories, // Atualizado para múltiplas categorias
         setMinPrice,
         setMaxPrice,
         setAvailability,

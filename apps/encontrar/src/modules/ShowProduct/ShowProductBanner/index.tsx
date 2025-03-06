@@ -7,7 +7,6 @@ import { RootState } from 'types/product';
 
 export const ShowProductBanner = () => {
   const { isClient } = useAuth();
-  const url = 'assets_ecommerce';
   const product = useAppSelector((state: RootState) => state.products.currentItem);
   const { name, image = '', images = [] } = product ?? {};
   const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
@@ -19,14 +18,14 @@ export const ShowProductBanner = () => {
         <div className="showProductBanner">
           <div className="item-picture">
             <Image
-              src={`/${url}/products/${selectedImage}`}
+              src={`/assets_ecommerce/products/${selectedImage}`}
               alt={name}
               // priority={true}
               blurDataURL="www.google.com"
               placeholder="blur"
               height={300}
               width={100}
-              objectFit="contain"
+              // objectFit="contain"
             />
           </div>
 
@@ -35,13 +34,13 @@ export const ShowProductBanner = () => {
             {images.map((im, index: number) => (
               <button onClick={() => setSelectedImage(im)} key={index} className={selectedImage === im ? 'active' : ''}>
                 <Image
-                  src={`/${url}/products/${im}`}
+                  src={`/assets_ecommerce/products/${im}`}
                   alt={im}
                   blurDataURL="www.google.com"
                   placeholder="blur"
                   height={70}
                   width={70}
-                  objectFit="contain"
+                  // objectFit="contain"
                 />
               </button>
             ))}

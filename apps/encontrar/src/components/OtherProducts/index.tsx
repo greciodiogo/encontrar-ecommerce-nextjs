@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
@@ -35,7 +37,6 @@ export const OtherProducts = ({
     void router.push('/products');
   };
 
-  // const url = 'assets_ecommerce';
   return (
     <div className="products">
       <div className="products_container">
@@ -83,15 +84,18 @@ export const OtherProducts = ({
   );
 };
 
-const ProductBanner = ({ handleSeeMoreBtnClick }: { handleSeeMoreBtnClick: () => void }) => (
-  <div className="productListBanner">
-    <h2>Outros produtos</h2>
-    <p>Veja aqui produtos que lhe poderão ser úteis.</p>
-    <button className="more_categories" onClick={handleSeeMoreBtnClick}>
-      Ver Produtos
-      <i>
-        <img src="/assets_ecommerce/svg/ArrowRight-2.png" alt="" />
-      </i>
-    </button>
-  </div>
-);
+const ProductBanner = ({ handleSeeMoreBtnClick }: { handleSeeMoreBtnClick: () => void }) => {
+  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
+  return (
+    <div className="productListBanner">
+      <h2>{t('cheapest_products.other_products')}</h2>
+      <p>{t('cheapest_products.other_related_products_label')}</p>
+      <button className="more_categories" onClick={handleSeeMoreBtnClick}>
+        {t('cheapest_products.see_more')}
+        <i>
+          <EastIcon fontSize="small" fill="#BD7B2D" />
+        </i>
+      </button>
+    </div>
+  );
+};

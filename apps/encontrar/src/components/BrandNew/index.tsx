@@ -1,8 +1,7 @@
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 export const BrandNew = () => {
-  const url = 'assets_ecommerce';
-
   return (
     <div className="brandNew">
       <div className="brandNew_container">
@@ -17,12 +16,12 @@ export const BrandNew = () => {
               <button>
                 Shop now
                 <i>
-                  <img src={`${url}/svg/ArrowRight.png`} alt="star" />
+                  <FaArrowRight size={12} fill="white" />
                 </i>
               </button>
             </div>
             <div className="picture">
-              <img src={`${url}/products/audio.png`} alt="star" />
+              <img src={`/assets_ecommerce/products/audio.png`} alt="star" />
             </div>
           </div>
           <div className="box">
@@ -35,12 +34,12 @@ export const BrandNew = () => {
               <button>
                 Shop now
                 <i>
-                  <img src={`${url}/svg/ArrowRight-3.png`} alt="ArrowRight" />
+                  <FaArrowRight size={12} fill="black" />
                 </i>
               </button>
             </div>
             <div className="picture">
-              <img src={`${url}/products/smartfone.png`} alt="smartfone" />
+              <img src={`/assets_ecommerce/products/smartfone.png`} alt="smartfone" />
             </div>
           </div>
         </div>

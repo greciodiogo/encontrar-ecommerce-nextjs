@@ -73,8 +73,8 @@
 }
 
 .filterProducts .chevron {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   transition: transform 0.3s ease;
 }
 
@@ -83,17 +83,16 @@
 }
 
 .filterProducts .brandsList {
-  margin-top: 10px;
-  background: #f7f7f7;
-  padding: 10px;
+  background: #ffffff;
   border-radius: 8px;
 }
 
 .filterProducts .brandItem {
+  border-bottom: 2px solid #dddddd;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 5px;
+  padding: 10px;
 }
 
 .filterProducts .checkbox {
@@ -104,6 +103,7 @@
 
 .filterProducts .brandName {
   color: #958e83;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -112,4 +112,27 @@
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 4px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  color: #4b4a48;
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1.5px solid #958e83;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.tag:hover {
+  border: 1.5px solid #b66506;
 }

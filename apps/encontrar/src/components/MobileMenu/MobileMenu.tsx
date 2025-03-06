@@ -6,47 +6,41 @@ import { FaChevronRight } from 'react-icons/fa';
 import { CrossIcon } from 'components/icon/CrossIcon';
 import { useProductContext } from 'hooks/useProductContext';
 
-const menuData: Array<MenuItem> = [
-  {
-    title: 'Bebidas',
-    subItems: [
-      {
-        title: 'Vinho',
-        subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
-          title,
-        })),
-      },
-      {
-        title: 'Uísques',
-        subItems: ['Coca-Cola', 'Pepsi', 'Fanta', 'Schweppes', 'Sprite'].map((title) => ({ title })),
-      },
-      {
-        title: 'Águas',
-        subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })),
-      },
-      {
-        title: 'Sumo',
-        subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })),
-      },
-    ],
-  },
-  {
-    title: 'Cuidados Pessoais',
-    subItems: ['Creme', 'Perfume', 'Gel'].map((title) => ({ title })),
-  },
-  { title: 'Itens para Casa' },
-  { title: 'Brinquedos Infantis' },
-  { title: 'Produtos Elétricos' },
-  { title: 'Alimentos' },
-  { title: 'Papelaria e Escritório' },
-  { title: 'Diversos' },
-  { title: 'Ver outros Produtos' },
-];
-
 type MenuItem = {
   title: string;
   subItems?: Array<MenuItem>;
 };
+
+const menuData: Array<MenuItem> = [
+  {
+    title: 'Bebidas e Alimentação',
+    // subItems: [
+    //   {
+    //     title: 'Vinho',
+    //     subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
+    //       title,
+    //     })),
+    //   },
+    //   {
+    //     title: 'Uísques',
+    //     subItems: ['Johnnie Walker', 'Jack Daniel’s', 'Chivas Regal', 'Ballantine’s', 'Old Parr'].map((title) => ({
+    //       title,
+    //     })),
+    //   },
+    //   { title: 'Águas', subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })) },
+    //   { title: 'Sumo', subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })) },
+    // ],
+  },
+  { title: 'Brinquedos' },
+  { title: 'Eletrodomésticos' },
+  { title: 'Escritório' },
+  { title: 'Itens para Casa' },
+  {
+    title: 'Cuidados Pessoais',
+    // subItems: ['Creme', 'Perfume', 'Gel'].map((title) => ({ title })),
+  },
+  { title: 'Diversos' },
+];
 
 export const MobileMenu = ({
   menuOpen,
@@ -55,12 +49,14 @@ export const MobileMenu = ({
   menuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [activeCategory, setActiveCategory] = useState('');
-  const { setSelectedCategory } = useProductContext();
+  const [history, setHistory] = useState<Array<MenuItem>>([]);
+  const [activeCategory, setActiveCategory] = useState<string>('');
+  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
 
   const goToCategories = (category: string) => {
-    setSelectedCategory(category);
+    setSelectedCategories([]);
+    toggleSelection(selectedCategories, setSelectedCategories, category);
     void router.push('products');
     setMenuOpen(false);
   };
@@ -68,36 +64,24 @@ export const MobileMenu = ({
   const closeMenu = () => {
     setMenuOpen(false);
     setActiveCategory('');
-  };
-
-  const handleOverlayClick = () => {
-    setMenuOpen(false);
-  };
-
-  const handleContainerClick = (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-    event.stopPropagation(); // Impede o fechamento ao clicar dentro do filtro
+    setHistory([]); // Resetar histórico ao fechar
   };
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
     return () => {
-      document.body.style.overflow = 'auto'; // Restaura ao fechar
+      document.body.style.overflow = 'auto';
     };
   }, [menuOpen]);
-
-  const [history, setHistory] = useState<Array<MenuItem>>([]);
 
   const currentMenu = history.length > 0 ? history[history.length - 1].subItems ?? [] : menuData;
 
   const handleClick = (item: MenuItem) => {
     if (item.subItems) {
       setHistory([...history, item]);
+      goToCategories(item.title);
+      setActiveCategory(item.title);
     }
-    setActiveCategory(item.title);
   };
 
   const handleBack = () => {
@@ -109,29 +93,25 @@ export const MobileMenu = ({
       {menuOpen && (
         <div
           className="menu-overlay"
-          onClick={handleOverlayClick}
-          onKeyDown={(event) => event.key === 'Enter' && handleOverlayClick()}
+          onClick={closeMenu}
           role="button"
           tabIndex={0}
+          onKeyDown={(event) => event.key === 'Enter' && event.stopPropagation()}
         >
           <div
             className="menu"
             role="button"
             tabIndex={0}
-            onClick={handleContainerClick}
-            onKeyDown={(event) => event.key === 'Enter' && handleContainerClick(event)}
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.key === 'Enter' && event.stopPropagation()}
           >
             <div className="menu-top">
-              {/* <span></span> */}
               {history.length > 0 ? (
                 <>
                   <button onClick={handleBack}>
                     <WestIcon />
                   </button>
-                  <h5>
-                    {activeCategory === 'Bebidas' ? 'Todas as ' : ''}
-                    {activeCategory}
-                  </h5>
+                  <h5>{activeCategory}</h5>
                 </>
               ) : (
                 <>

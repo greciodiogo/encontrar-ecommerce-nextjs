@@ -10,7 +10,6 @@ import { useAppDispatch } from '../../../hooks';
 
 export const CartItem = (props: CartItemProps) => {
   const dispatch = useAppDispatch();
-  const url = 'assets_ecommerce';
   const fnService = new FnService();
 
   const { name, image, id = 0, availability, category, brand, qty = 1, price = 0 } = props.cart;
@@ -65,7 +64,7 @@ export const CartItem = (props: CartItemProps) => {
   return (
     <div className="cart-item">
       <div className="cart-item-picture">
-        <img src={`${url}/products/${image ?? 'macbook.png'}`} alt={name} />
+        <img src={`/assets_ecommerce/products/${image ?? 'sem-foto.webp'}`} alt={name} />
       </div>
       <div className="cart-item-content">
         <h3>{name}</h3>

@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 import { useAuth } from 'hooks/useAuth';
 
 export const EmptyCart = () => {
   const { isClient } = useAuth();
   const router = useRouter();
-  const url = 'assets_ecommerce/svg';
 
   const handleStartBuying = () => {
     void router.push('/products');
@@ -22,14 +22,14 @@ export const EmptyCart = () => {
           <h2>
             <span>CARRINHO ESTÁ VAZIO</span>
             <i>
-              <img src={`${url}/cart.png`} alt="cart" />
+              <img src={`/assets_ecommerce/cart.png`} alt="cart" />
             </i>
           </h2>
           <span>Clique no botão abaixo e continue explorando</span>
           <button onClick={handleStartBuying}>
             Explorar Produtos
             <i>
-              <img src={`${url}/ArrowRight.png`} alt="ArrowRight" />
+              <FaArrowRight size={12} fill="white" />
             </i>
           </button>
         </div>

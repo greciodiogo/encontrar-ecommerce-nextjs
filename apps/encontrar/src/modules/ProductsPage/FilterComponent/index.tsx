@@ -3,7 +3,7 @@ import React from 'react';
 import { populartTags } from 'fixture/ecommerceData';
 
 import { Filter } from './Filter';
-import { FilterPrice } from './FilterPrice';
+// import { FilterPrice } from './FilterPrice';
 import { PopularTags } from './PopularTags';
 
 export const FilterComponent = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
@@ -11,7 +11,7 @@ export const FilterComponent = ({ onCloseFilter }: { onCloseFilter: () => void }
     <div className="filterComponent">
       <div className="wrapper">
         <Filter onCloseFilter={onCloseFilter} />
-        <FilterPrice />
+        {/* <FilterPrice /> */}
         <PopularTags tags={populartTags} />
       </div>
     </div>

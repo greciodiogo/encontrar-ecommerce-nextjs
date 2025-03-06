@@ -1,5 +1,8 @@
-// import useTranslation from 'next-translate/useTranslation';
+import StarIcon from '@mui/icons-material/Star';
+import Image from 'next/image';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import { LuShoppingCart } from 'react-icons/lu';
 
 import { useAppSelector } from 'hooks';
 import { FnService } from 'shared/utils/FnService';
@@ -12,11 +15,10 @@ export const BestSelledProduct = ({
   hasButtons = true,
   hasDescription = false,
 }: ProductTypeProps) => {
-  // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
+  const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, about } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
-  const url = 'assets_ecommerce';
   const fnService = new FnService();
 
   const handleAddToCartClick = (event: React.MouseEvent<HTMLAnchorElement>, id = 0) => {
@@ -29,18 +31,26 @@ export const BestSelledProduct = ({
     <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(product)}>
       {/* <a className="addCartBtn">
         <i>
-          <img src={`${url}/svg/Heart.png`} alt="Heart" />
+          <img src={`/assets_ecommerce/svg/Heart.png`} alt="Heart" />
         </i>
       </a> */}
       <div className="category_picture bestselled">
-        <img src={`${url}/products/${image ?? 'macbook.png'}`} alt={name} />
+        <Image
+          src={`/assets_ecommerce/products/${image ?? 'sem-foto.webp'}`}
+          alt={name ?? 'sem-nome'}
+          // priority={true}
+          blurDataURL="www.google.com"
+          placeholder="blur"
+          height={160}
+          width={100}
+        />
       </div>
       <div className="content">
         <a className="product_name product-description">{name}</a>
         <div className="star_container">
           {[1, 2, 3, 4].map((__, index) => (
             <i key={index}>
-              <img src={`${url}/svg/star.png`} alt="star" />
+              <StarIcon fontSize="small" htmlColor="#EBC80C" />
             </i>
           ))}
         </div>
@@ -56,9 +66,9 @@ export const BestSelledProduct = ({
           onClick={(event) => handleAddToCartClick(event, id ?? 0)}
         >
           <i>
-            <img src="/assets_ecommerce/svg/cart-2.png" alt="" />
+            <LuShoppingCart fill={isProductInCart ? 'white' : ''} size={20} />
           </i>
-          {!isProductInCart ? 'Adicionar ao Carrinho' : 'Adicionado'}
+          {!isProductInCart ? t('products.add_to_cart') : t('products.added_to_cart')}
         </a>
       )}
     </button>

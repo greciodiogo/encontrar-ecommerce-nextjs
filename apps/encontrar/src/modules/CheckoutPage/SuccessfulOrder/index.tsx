@@ -5,7 +5,6 @@ import { Container } from 'components/Container';
 
 export const SuccessfulOrder = () => {
   const router = useRouter();
-  const url = 'assets_ecommerce/svg';
 
   const handleStartBuying = () => {
     void router.push('/');
@@ -21,7 +20,7 @@ export const SuccessfulOrder = () => {
           <div className="content">
             <div className="picture">
               <i>
-                <img src={`${url}/CheckCircle.png`} alt="cart" />
+                <img src={`/assets_ecommerce/CheckCircle.png`} alt="cart" />
               </i>
             </div>
             <h2>

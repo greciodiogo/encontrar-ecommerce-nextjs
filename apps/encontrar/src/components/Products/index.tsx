@@ -1,15 +1,20 @@
+import EastIcon from '@mui/icons-material/East';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 
 export const Products = () => {
-  const url = 'assets_ecommerce/svg';
+  const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
+
+  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
-  const { setSelectedCategory } = useProductContext();
+
   const goToCategories = (category: string) => {
-    setSelectedCategory(category);
+    toggleSelection(selectedCategories, setSelectedCategories, category);
     void router.push(`products`);
   };
 
@@ -21,25 +26,45 @@ export const Products = () => {
     <div className="products simple">
       <div className="products_container">
         <div className="products_container_top">
-          <h4>O que vendemos na Encontrar </h4>
+          <h4>{t('products.what_we_sell')}</h4>
           <button className="more_categories" onClick={goToProducts}>
-            Pesquisar Produtos
+            {t('products.search_products')}
             <i>
-              <img src="/assets_ecommerce/svg/ArrowRight-2.png" alt="" />
+              <EastIcon fontSize="small" fill="#BD7B2D" />
             </i>
           </button>
         </div>
         <div className="wrap_item">
           {new_categories.map((category, index) => (
-            <button className="category-item" key={index} onClick={() => goToCategories(category.name)}>
-              <div className="category_picture">
-                <img src={`${url}/${category.image}`} alt={category.name} />
-              </div>
-              <a className="category_label">{category.name}</a>
-            </button>
+            <CategoryItem category={category} goToCategories={goToCategories} key={index} />
           ))}
         </div>
       </div>
     </div>
+  );
+};
+
+const CategoryItem = ({
+  category,
+  goToCategories,
+}: {
+  category: { name: string; slug: string; image: string };
+  goToCategories: (category: string) => void;
+}) => {
+  const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
+  return (
+    <button className="category-item" onClick={() => goToCategories(category.name)}>
+      <div className="category_picture">
+        <Image
+          src={`/assets_ecommerce/svg/${category.image}`}
+          alt={t(`categories.${category.slug}`)}
+          blurDataURL="www.google.com"
+          placeholder="blur"
+          height={58}
+          width={58}
+        />
+      </div>
+      <a className="category_label">{t(`categories.${category.slug}`)}</a>
+    </button>
   );
 };

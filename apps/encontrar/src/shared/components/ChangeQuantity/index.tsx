@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+
 type ChangeQuantityProps = {
   id: number;
   qty: number;
@@ -11,11 +13,11 @@ export const ChangeQuantity = ({ id, qty = 1, onAdjustQty }: ChangeQuantityProps
   return (
     <div className="set_qtd">
       <button onClick={() => onAdjustQty(id, qty - 1)}>
-        <img src={`${url}/svg/Minus.png`} alt="cart" />
+        <FaMinus size={12} fill="#444" />
       </button>
       <span>{qty}</span>
       <button onClick={() => onAdjustQty(id, qty + 1)}>
-        <img src={`${url}/svg/Plus.png`} alt="cart" />
+        <FaPlus size={12} fill="#444" />
       </button>
     </div>
   );

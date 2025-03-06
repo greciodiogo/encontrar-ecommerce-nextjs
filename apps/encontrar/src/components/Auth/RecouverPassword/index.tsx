@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 // import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 
 import styles from 'styles/home/auth.module.css';
 
@@ -14,7 +15,6 @@ type AuthProps = {
 const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
 export const RecouverPassword: React.FC<AuthProps> = () => {
-  const url = 'assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
   const router = useRouter();
 
@@ -60,7 +60,7 @@ export const RecouverPassword: React.FC<AuthProps> = () => {
               <p className="btn__center">
                 Send Code
                 <i>
-                  <img src={`${url}/svg/ArrowRight.png`} alt="star" />
+                  <FaArrowRight size={12} fill="white" />
                 </i>
               </p>
             </button>

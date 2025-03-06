@@ -11,7 +11,6 @@ type ReviewModalProps = {
 };
 
 export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = false, onClose }) => {
-  const url = 'assets_ecommerce';
   const { isClient } = useAuth();
   const [ratings, setRatings] = useState<Record<number, number>>({});
   const [storeRating, setStoreRating] = useState({ advertisement: 0, delivery: 0 });
@@ -38,7 +37,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
             {product.id && (
               <div className="content">
                 <Image
-                  src={`/${url}/products/${product.image ?? 'sem-foto.webp'}`}
+                  src={`/assets_ecommerce/products/${product.image ?? 'sem-foto.webp'}`}
                   className="product-image"
                   alt={product.name ?? 'sem-nome'}
                   // priority={true}
@@ -46,7 +45,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
                   placeholder="blur"
                   height={80}
                   width={80}
-                  objectFit="contain"
+                  // objectFit="contain"
                 />
                 <div className="product-info">
                   <h4>{product.name}</h4>
