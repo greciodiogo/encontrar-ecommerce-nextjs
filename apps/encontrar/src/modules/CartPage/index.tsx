@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 
 import { Auth } from 'components/Auth/SignIn';
@@ -19,6 +20,7 @@ export const CartPage = () => {
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
   const { isAuthenticated, isClient } = useAuth();
+  const { t } = useTranslation('cart');
 
   const router = useRouter();
 
@@ -60,7 +62,7 @@ export const CartPage = () => {
               ))}
             </div>
             <div>
-              <h3 style={{ fontWeight: 500, color: '#191C1F', fontSize: '20px' }}>Formas de Pagamento</h3>
+              <h3 style={{ fontWeight: 500, color: '#191C1F', fontSize: '20px' }}>{t('cart.payment_method')}</h3>
               <PaymentStep />
               <CartResume
                 totalProduct={TOTAL_ITEMS_CART}

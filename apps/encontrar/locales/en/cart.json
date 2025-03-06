@@ -1,0 +1,28 @@
+{
+  "cart": {
+    "your_cart": "Your Cart",
+    "total_items": "Total items",
+    "empty_cart": "CART IS EMPTY",
+    "payment_method": "Payment Method"
+  },
+  "empty_cart": {
+    "title": "EMPTY CART",
+    "subtitle": "Click the button below and continue browsing",
+    "button": "Browse Products"
+  },
+  "cart_item": {
+    "sku": "Sku",
+    "availability": "Availability",
+    "brand": "Brand",
+    "category": "Category",
+    "total_price": "Total Price",
+    "remove_button": "Remove from Cart"
+  },
+  "cart_resume": {
+    "subtotal": "Subtotal",
+    "delivery": "Delivery",
+    "total_items": "Total ({{count}} items)",
+    "pay_button_cash": "Pay in cash",
+    "pay_button_other": "Pay with {{method}}"
+  }
+}

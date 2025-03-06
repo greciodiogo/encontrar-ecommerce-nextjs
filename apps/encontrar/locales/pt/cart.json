@@ -1,0 +1,27 @@
+{
+  "cart": {
+    "your_cart": "Seu Carrinho",
+    "total_items": "Total de itens",
+    "payment_method": "Formas de Pagamento"
+  },
+  "empty_cart": {
+    "title": "CARRINHO ESTÁ VAZIO",
+    "subtitle": "Clique no botão abaixo e continue explorando",
+    "button": "Explorar Produtos"
+  },
+  "cart_item": {
+    "sku": "Sku",
+    "availability": "Disponibilidade",
+    "brand": "Marca",
+    "category": "Categoria",
+    "total_price": "Preço Total",
+    "remove_button": "Remover do carrinho"
+  },
+  "cart_resume": {
+    "subtotal": "Subtotal",
+    "delivery": "Entrega",
+    "total_items": "Total ({{count}} items)",
+    "pay_button_cash": "PAGAR em dinheiro",
+    "pay_button_other": "PAGAR com {{method}}"
+  }
+}

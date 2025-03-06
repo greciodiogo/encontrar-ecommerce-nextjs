@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
@@ -7,27 +8,29 @@ import { useAuth } from 'hooks/useAuth';
 export const EmptyCart = () => {
   const { isClient } = useAuth();
   const router = useRouter();
+  const { t } = useTranslation('cart');
 
   const handleStartBuying = () => {
     void router.push('/products');
   };
 
   if (!isClient) {
-    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+    return null;
   }
+
   return (
     <div className="emptyCart">
       <div className="emptyCart__container">
         <div className="content">
           <h2>
-            <span>CARRINHO ESTÁ VAZIO</span>
+            <span>{t('empty_cart.title')}</span>
             <i>
-              <img src={`/assets_ecommerce/cart.png`} alt="cart" />
+              <img src={`/assets_ecommerce/svg/cart.png`} alt="cart" />
             </i>
           </h2>
-          <span>Clique no botão abaixo e continue explorando</span>
+          <span>{t('empty_cart.subtitle')}</span>
           <button onClick={handleStartBuying}>
-            Explorar Produtos
+            {t('empty_cart.button')}
             <i>
               <FaArrowRight size={12} fill="white" />
             </i>
