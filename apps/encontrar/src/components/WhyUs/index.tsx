@@ -1,8 +1,6 @@
 import React from 'react';
 
 export const WhyUs = () => {
-  const url = 'assets_ecommerce/svg';
-
   const whyUsJson = [
     {
       icon: 'Icon - Shipping.png',
@@ -33,7 +31,7 @@ export const WhyUs = () => {
           {whyUsJson.map((item, index) => (
             <div className="box" key={index}>
               <i>
-                <img src={`${url}/${item.icon}`} alt={item.name} />
+                <img src={`/assets_ecommerce/svg/${item.icon}`} alt={item.name} />
               </i>
               <p>{item.name}</p>
               <span>{item.description}</span>

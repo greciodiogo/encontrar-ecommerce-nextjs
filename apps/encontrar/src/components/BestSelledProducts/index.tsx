@@ -1,3 +1,4 @@
+import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -44,7 +45,7 @@ export const BestSelledProducts = ({
           <button className="more_categories" onClick={handleSeeMoreBtnClick}>
             Ver Produtos
             <i>
-              <img src="/assets_ecommerce/svg/ArrowRight-2.png" alt="" />
+              <EastIcon fontSize="small" fill="#BD7B2D" />
             </i>
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 export const OrderList = () => {
   const router = useRouter();
@@ -30,7 +31,7 @@ export const OrderList = () => {
             <td className="coloured-2" onClick={() => handleViewDetails('96459761')}>
               Ver Detalhes
               <i>
-                <img src={`/assets_ecommerce/svg/ArrowRight-4.png`} alt="ArrowRight" />
+                <FaArrowRight size={12} fill="#E8AA1D" />
               </i>
             </td>
           </tr>

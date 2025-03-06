@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -38,7 +39,6 @@ export const CheapestProducts = ({
     void router.push('/products');
   };
 
-  // const url = 'assets_ecommerce';
   return (
     <div className="products">
       <div className="products_container">
@@ -47,7 +47,7 @@ export const CheapestProducts = ({
           <button className="more_categories" onClick={handleSeeMoreBtnClick}>
             Ver Produtos
             <i>
-              <img src="/assets_ecommerce/svg/ArrowRight-2.png" alt="" />
+              <EastIcon fontSize="small" fill="#BD7B2D" />
             </i>
           </button>
         </div>

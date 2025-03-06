@@ -438,7 +438,6 @@ a:visited {
 .star_container {
   display: flex;
   align-items: center;
-  gap: 5px;
 }
 
 .star_container i {
@@ -449,6 +448,12 @@ a:visited {
 .framer .star_container i {
   background: transparent;
   padding: 1px;
+}
+
+.framer .star_container i .css-ptiqhd-MuiSvgIcon-root {
+  width: 0.8em;
+  height: 0.9em;
+  margin-top: 3px;
 }
 
 .star_container i img {
@@ -502,7 +507,7 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -5px;
+  /* margin-top: -5px; */
 }
 
 .framer_container .content .btn_container button:hover {
@@ -719,9 +724,13 @@ a:visited {
   font-weight: 500;
 }
 .products .star_container i {
-  background: #b66506;
+  background: transparent;
   padding: 1px;
-  height: 15px;
+  height: 12px;
+}
+.products .star_container i .css-ptiqhd-MuiSvgIcon-root {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .products .wrapper .subcategories {
@@ -2123,6 +2132,7 @@ a:visited {
     display: grid;
     grid-template-columns: 40% 60%;
     gap: 40px;
+    width: 100%;
   }
 }
 
@@ -3535,4 +3545,10 @@ a:visited {
 .bullet {
   font-size: 16px;
   margin-right: 5px;
+}
+
+button > i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

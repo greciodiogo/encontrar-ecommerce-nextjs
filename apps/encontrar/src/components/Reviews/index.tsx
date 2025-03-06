@@ -1,7 +1,7 @@
+import StarIcon from '@mui/icons-material/Star';
 import React from 'react';
 
 export const Reviews = () => {
-  const url = 'assets_ecommerce';
   return (
     <div className="reviews">
       <div className="reviews_container">
@@ -11,12 +11,12 @@ export const Reviews = () => {
           <div className="star_container">
             {[1, 2, 3, 4].map((__, index) => (
               <i key={index}>
-                <img src={`${url}/svg/star.png`} alt="star" />
+                <StarIcon fontSize="small" htmlColor="#EBC80C" />
               </i>
             ))}
           </div>
           <div className="picture">
-            <img src={`${url}/user-reviewed.png`} alt="user-reviewed" />
+            <img src={`/assets_ecommerce/user-reviewed.png`} alt="user-reviewed" />
           </div>
         </div>
       </div>

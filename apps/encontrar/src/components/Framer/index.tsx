@@ -1,13 +1,14 @@
+import StarIcon from '@mui/icons-material/Star';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 import { useProductContext } from 'hooks/useProductContext';
 
 export const Framer = () => {
   const router = useRouter();
   const { setSelectedCategories } = useProductContext();
-
-  const url = 'assets_ecommerce';
 
   const redirectToProducts = () => {
     setSelectedCategories([]);
@@ -23,7 +24,7 @@ export const Framer = () => {
               <div className="star_container">
                 {[1, 2, 3, 4].map((__, index) => (
                   <i key={index}>
-                    <img src={`${url}/svg/star-black.png`} alt="star" />
+                    <StarIcon fontSize="small" htmlColor="#111" />
                   </i>
                 ))}
               </div>
@@ -37,22 +38,22 @@ export const Framer = () => {
               <button className="" onClick={redirectToProducts}>
                 Explorar Produtos
                 <i className="white">
-                  <img src={`${url}/svg/ArrowRight.png`} alt="arrow" />
+                  <FaArrowRight size={12} fill="white" />
                 </i>
                 <i className="black">
-                  <img src={`${url}/svg/ArrowRight-3.png`} alt="arrow" />
+                  <FaArrowRight size={12} fill="black" />
                 </i>
               </button>
               <button className="simple">
                 Entre em Contacto
                 <i>
-                  <img src={`${url}/svg/call_center-black.png`} alt="contact" />
+                  <SupportAgentIcon fontSize="small" />
                 </i>
               </button>
             </div>
           </div>
           <div className="picture">
-            <img src={`${url}/app-bg.png`} alt="background" />
+            <img src={`/assets_ecommerce/app-bg.png`} alt="background" />
           </div>
         </div>
       </div>

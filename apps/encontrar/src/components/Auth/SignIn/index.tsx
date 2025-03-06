@@ -52,7 +52,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         <div className={styles.main}>
           <div className={styles.top}>
             <button className={`${styles.btn} ${styles.outlinedBtn}`} onClick={handleClickKeepAsGuess}>
-              <i>{/* <img src={`${url}/svg/Apple.png`} alt="star" /> */}</i>
+              <i>{/* <img src={`/assets_ecommerce/svg/Apple.png`} alt="star" /> */}</i>
               Continuar como convidado
               <span></span>
             </button>

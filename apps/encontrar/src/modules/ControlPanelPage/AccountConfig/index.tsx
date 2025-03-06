@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 import { Panel } from 'components/ControlPanel';
 import { useAuth } from 'hooks/useAuth';
@@ -29,7 +30,7 @@ export const AccountConfigPage = () => {
         <button>
           Editar Detalhes da Conta
           <i>
-            <img src={`/assets_ecommerce/svg/ArrowRight-3.png`} alt="ArrowRight" />
+            <FaArrowRight size={12} fill="black" />
           </i>
         </button>
       </div>

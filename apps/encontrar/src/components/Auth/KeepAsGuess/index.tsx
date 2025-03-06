@@ -17,7 +17,6 @@ type CredentialResponse = {
 const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
 export const AuthPage: React.FC = () => {
-  const url = '/assets_ecommerce';
   const [formData, setFormData] = useState(INITIALSTATE);
   const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const router = useRouter();
@@ -124,7 +123,7 @@ export const AuthPage: React.FC = () => {
             ></GoogleLogin>
             <button className={`${styles.btn} ${styles.outlinedBtn}`}>
               <i>
-                <img src={`${url}/svg/Apple.png`} alt="star" />
+                <img src={`/assets_ecommerce/svg/Apple.png`} alt="star" />
               </i>
               Login with Apple
               <span></span>

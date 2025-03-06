@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 export const EmptyPanelItem = ({
   title = 'histórico',
@@ -27,7 +28,7 @@ export const EmptyPanelItem = ({
         {type === 'order-history' && 'Realizar compra'}
         {type === 'shopping-cart' && 'Realizar compra'}
         <i>
-          <img src={`/assets_ecommerce/svg/ArrowRight.png`} alt="ArrowRight" />
+          <FaArrowRight size={12} fill="white" />
         </i>
       </button>
     </div>

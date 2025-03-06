@@ -1,3 +1,4 @@
+import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -14,7 +15,6 @@ export const ProductDetail = () => {
   const fnService = new FnService();
   const product = useAppSelector((state: RootState) => state.products.currentItem);
 
-  const url = 'assets_ecommerce';
   const [quantity, setQuantity] = useState(1);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { name, availability, category, price, brand, id = 0, qty } = product ?? {};
@@ -45,7 +45,7 @@ export const ProductDetail = () => {
       <div className="star_container">
         {[1, 2, 3, 4].map((__, index) => (
           <i key={index}>
-            <img src={`${url}/svg/star.png`} alt="star" />
+            <StarIcon fontSize="small" htmlColor="#EBC80C" />
           </i>
         ))}
         <span className="rating">4.7 Star Rating</span>
