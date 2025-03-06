@@ -6,8 +6,9 @@
     "/": ["home", "common"],
     "/products": ["home", "products", "common"],
     "/cart": ["home", "cart", "common"],
+    "/checkout": ["home", "checkout", "common"],
+    "/sucessful-order": ["home", "checkout", "common"],
     "/preview-product": ["home", "common"],
-    "/auth": ["home", "common"],
-    "/checkout": ["home", "common"]
+    "/auth": ["home", "common"]
   }
 }

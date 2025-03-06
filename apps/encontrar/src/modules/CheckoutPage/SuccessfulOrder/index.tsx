@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { Container } from 'components/Container';
 
 export const SuccessfulOrder = () => {
   const router = useRouter();
+  const { t } = useTranslation('checkout');
 
   const handleStartBuying = () => {
     void router.push('/');
@@ -13,6 +15,7 @@ export const SuccessfulOrder = () => {
   const handleSeeOrder = () => {
     void router.push('/control-panel/order-history');
   };
+
   return (
     <Container useStyle={false}>
       <div className="successfulOrder">
@@ -20,17 +23,17 @@ export const SuccessfulOrder = () => {
           <div className="content">
             <div className="picture">
               <i>
-                <img src={`/assets_ecommerce/CheckCircle.png`} alt="cart" />
+                <img src={`/assets_ecommerce/svg/CheckCircle.png`} alt="cart" />
               </i>
             </div>
             <h2>
-              <span>O seu pedido foi realizado com sucesso</span>
+              <span>{t('success.title')}</span>
             </h2>
-            <span>O seu pedido já foi encaminhado para a entrega. Será contactado para confirma a solicitação</span>
+            <span>{t('success.description')}</span>
             <div className="btn__container">
-              <button onClick={handleStartBuying}>Voltar a Página Principal</button>
+              <button onClick={handleStartBuying}>{t('success.back_home')}</button>
               <button className="outlined" onClick={handleSeeOrder}>
-                Ver Pedido
+                {t('success.view_order')}
               </button>
             </div>
           </div>

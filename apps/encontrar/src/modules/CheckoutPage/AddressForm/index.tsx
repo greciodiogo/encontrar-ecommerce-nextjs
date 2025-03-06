@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
 import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 
@@ -34,6 +35,8 @@ type AddressFormProps = {
 };
 
 export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setValue }) => {
+  const { t } = useTranslation('checkout');
+
   useEffect(() => {
     setValue('pais', 'Angola');
     setValue('cidade', 'Luanda');
@@ -43,10 +46,10 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
     <div className="row mt-4">
       {(
         [
-          { label: 'Nome Completo', name: 'name' },
-          { label: 'Email', name: 'email', type: 'email' },
-          { label: 'Confirmar Email', name: 'email_confirmation', type: 'email' },
-          { label: 'Número de Telemóvel', name: 'telefone' },
+          { label: t('form.full_name'), name: 'name' },
+          { label: t('form.email'), name: 'email', type: 'email' },
+          { label: t('form.confirm_email'), name: 'email_confirmation', type: 'email' },
+          { label: t('form.phone_number'), name: 'telefone' },
         ] as const
       ).map((field) => (
         <ControlledTextField
@@ -64,7 +67,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
         control={control}
         errors={errors}
         className="checkout_input col-md-4"
-        label="País"
+        label={t('form.country')}
         name="pais"
         disabled
       />
@@ -74,7 +77,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
         control={control}
         errors={errors}
         className="checkout_input col-md-4"
-        label="Cidade"
+        label={t('form.city')}
         name="cidade"
         disabled
       />
@@ -84,7 +87,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
         control={control}
         errors={errors}
         className="checkout_input col-md-8"
-        label="Município"
+        label={t('form.municipality')}
         name="municipio"
         options={municipiosLuanda}
       />
