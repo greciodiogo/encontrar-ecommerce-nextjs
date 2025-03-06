@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
@@ -9,6 +10,8 @@ import styles from 'styles/home/filter.module.css';
 import { FilterPrice } from '../FilterPrice';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
+  const { t } = useTranslation('home');
+  const filt = useTranslation('products');
   const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({ Categorias: true });
 
@@ -25,15 +28,15 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   };
 
   const filters = [
-    { name: 'Categorias', hasDropdown: true },
-    { name: 'Preços', hasDropdown: true },
+    { name: t('commom.categories'), key: 'Categorias', hasDropdown: true },
+    { name: t('commom.prices'), key: 'Preços', hasDropdown: true },
   ];
 
   return (
     <div className={`${styles.filterProducts} ${styles.container}`}>
       {/* Header */}
       <div className={styles.header}>
-        <h2>Filtro</h2>
+        <h2>{filt.t('products.filter')}</h2>
         <button onClick={onCloseFilter}>
           <FaTimes color="#191C1F" size={18} className={styles.closeIcon} />
         </button>
@@ -56,20 +59,20 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
 
       {/* Seções de Filtros */}
       {filters.map((filter) => (
-        <div key={filter.name} className={styles.filterSectionWrapper}>
-          <button className={styles.filterSection} onClick={() => filter.hasDropdown && toggleMenu(filter.name)}>
+        <div key={filter.key} className={styles.filterSectionWrapper}>
+          <button className={styles.filterSection} onClick={() => filter.hasDropdown && toggleMenu(filter.key)}>
             <span className={styles.filterTitle}>{filter.name}</span>
             {filter.hasDropdown && (
               <FaChevronRight
                 size={12}
                 color="#191C1F"
-                className={`${styles.chevron} ${menuOpen[filter.name] ? styles.open : ''}`}
+                className={`${styles.chevron} ${menuOpen[filter.key] ? styles.open : ''}`}
               />
             )}
           </button>
-          {menuOpen[filter.name] && (
+          {menuOpen[filter.key] && (
             <div className={styles.content}>
-              {filter.name === 'Categorias' && (
+              {filter.key === 'Categorias' && (
                 <div className={styles.brandsList}>
                   {new_categories.map((category) => (
                     <label key={category.name} className={styles.brandItem}>
@@ -88,7 +91,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                   ))}
                 </div>
               )}
-              {filter.name === 'Preços' && (
+              {filter.key === 'Preços' && (
                 <div className={styles.brandsList}>
                   <FilterPrice />
                 </div>

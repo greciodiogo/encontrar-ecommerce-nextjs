@@ -1,0 +1,18 @@
+{
+  "products": {
+    "add_to_cart": "Adicionar ao Carrinho",
+    "added_to_cart": "Adicionado",
+    "filter": "Filtro",
+    "sorted_by": "Escolher por:",
+    "min_price": "Preço mínimo:",
+    "max_price": "Preço Máximo:",
+    "most_recommended": "Os mais recomendados:",
+    "all_prices": "Todos os Preços",
+    "below_2000": "Abaixo de 2000 kz",
+    "between_2000_9999": "2000 Kz a 9,999 Kz",
+    "between_10000_49999": "10,000 Kz a 49,999 Kz",
+    "between_50000_199999": "50,000 Kz a 199,999 Kz",
+    "between_200000_499999": "200,000 Kz a 499,999 Kz",
+    "above_500000": "Acima de 500,000 kz"
+  }
+}
