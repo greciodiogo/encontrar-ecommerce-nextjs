@@ -33,45 +33,46 @@ export const categories = [
 //   { slug: 'health', image: `saude.png` },
 // ];
 export const new_categories = [
-  { name: 'Bebidas e Alimentação', image: `bebidas.png` },
-  { name: 'Brinquedos', image: `Brinquedos.png` },
-  { name: 'Eletrodomésticos', image: `Eletrodomésticos.png` },
-  { name: 'Escritorio', image: `Escritorio.png` },
-  { name: 'Itens para Casa', image: `Items para Casa.png` },
-  { name: 'Cuidados Pessoais', image: `Cuidados Pessoais.png` },
-  { name: 'Diversos', image: `box.png` },
+  { slug: 'drink_foods', name: 'Bebidas e Alimentação', image: `bebidas.png` },
+  { slug: 'toys', name: 'Brinquedos', image: `Brinquedos.png` },
+  { slug: 'electronics', name: 'Eletrodomésticos', image: `Eletrodomésticos.png` },
+  { slug: 'stationery', name: 'Escritorio', image: `Escritorio.png` },
+  { slug: 'home_items', name: 'Itens para Casa', image: `Items para Casa.png` },
+  { slug: 'personal_care', name: 'Cuidados Pessoais', image: `Cuidados Pessoais.png` },
+  { slug: 'various', name: 'Diversos', image: `box.png` },
 ];
 
-// export const footer = [
-//   {
-//     slug: 'orders_and_returns',
-//     title: 'Pedidos e Devoluções',
-//     data: [
-//       { slug: 'order_status', title: 'Status do Pedido' },
-//       { slug: 'store_pickup', title: 'Retirada na Loja' },
-//       { slug: 'return_policy', title: 'Política e Informações de Devolução' },
-//       { slug: 'shipping_info', title: 'Informações de Envio' },
-//     ],
-//   },
-//   {
-//     slug: 'shopping_tools',
-//     title: 'Ferramentas de Compras',
-//     data: [
-//       { slug: 'order_status', title: 'Status do Pedido' },
-//       { slug: 'store_pickup', title: 'Retirada na Loja' },
-//       { slug: 'member_number_lookup', title: 'Consulta de Número de Membro' },
-//       { slug: 'shipping_info', title: 'Informações de Envio' },
-//     ],
-//   },
-//   {
-//     slug: 'products',
-//     title: 'Produtos',
-//     data: [
-//       { slug: 'electronics', title: 'Eletrónicos' },
-//       { slug: 'food', title: 'Alimentação' },
-//     ],
-//   },
-// ];
+export const footer = [
+  {
+    slug: 'orders_and_returns',
+    title: 'Pedidos e Devoluções',
+    data: [
+      { slug: 'order_status', title: 'Status do Pedido' },
+      { slug: 'store_pickup', title: 'Retirada na Loja' },
+      { slug: 'return_policy', title: 'Política e Informações de Devolução' },
+      { slug: 'shipping_info', title: 'Informações de Envio' },
+    ],
+  },
+  {
+    slug: 'shopping_tools',
+    title: 'Ferramentas de Compras',
+    data: [
+      { slug: 'order_status', title: 'Status do Pedido' },
+      { slug: 'store_pickup', title: 'Retirada na Loja' },
+      { slug: 'member_number_lookup', title: 'Consulta de Número de Membro' },
+      { slug: 'shipping_info', title: 'Informações de Envio' },
+    ],
+  },
+  {
+    slug: 'products',
+    title: 'Produtos',
+    data: [
+      { slug: 'electronics', title: 'Eletrónicos' },
+      { slug: 'food', title: 'Alimentação' },
+    ],
+  },
+];
+
 export const municipiosLuanda = [
   'Belas',
   'Cacuaco',
@@ -83,20 +84,20 @@ export const municipiosLuanda = [
   'Viana',
 ];
 
-export const footer = [
-  {
-    title: 'Pedidos e Devoluções',
-    data: ['Status do Pedido', 'Retirada na Loja', 'Política e Informações de Devolução', 'Informações de Envio'],
-  },
-  {
-    title: 'Ferramentas de Compras',
-    data: ['Status do Pedido', 'Retirada na Loja', 'Consulta de Número de Membro', 'Informações de Envio'],
-  },
-  {
-    title: 'Produtos',
-    data: ['Eletrónicos', 'Alimentação'],
-  },
-];
+// export const footer = [
+//   {
+//     title: 'Pedidos e Devoluções',
+//     data: ['Status do Pedido', 'Retirada na Loja', 'Política e Informações de Devolução', 'Informações de Envio'],
+//   },
+//   {
+//     title: 'Ferramentas de Compras',
+//     data: ['Status do Pedido', 'Retirada na Loja', 'Consulta de Número de Membro', 'Informações de Envio'],
+//   },
+//   {
+//     title: 'Produtos',
+//     data: ['Eletrónicos', 'Alimentação'],
+//   },
+// ];
 
 export const products = [
   {

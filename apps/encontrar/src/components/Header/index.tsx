@@ -2,7 +2,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
@@ -27,16 +28,18 @@ const menuItems = [
 ];
 
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
+  const { lang } = useTranslation('home'); // Certifique-se de que o namespace está correto
+
   const productos = useSelector((state: RootState) => state.products.cart);
 
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const { isClient, isAuthenticated, user } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   // After mounting, we have access to the theme
-  useEffect(() => setMounted(true), []);
+  // useEffect(() => setMounted(true), []);
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
@@ -99,23 +102,22 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
           )}
           <nav className="options">
-            {/* <div> */}
-            {/* <i>
-                <img src="/assets_ecommerce/svg/location.png" alt="" />
-              </i>
-              <p>
-                <span>Viana</span>, Aberto 24/7
-              </p> */}
-            {/* </div> */}
-            <Link className="nav-item location" href="/" locale={mounted ? 'en' : 'pt'}>
-              <i>
-                <img src="/assets_ecommerce/svg/GlobeStand.png" alt="" />
-              </i>
-              <p>
-                <span>Português</span>
-              </p>
-            </Link>
-            {/* <ToastContainer /> */}
+            <div className={styles.dropdown}>
+              <div className="nav-item location">
+                <i>
+                  <img src="/assets_ecommerce/svg/GlobeStand.png" alt="" />
+                </i>
+                <p>
+                  <span>{lang === 'pt' ? 'Português' : 'Inglês'}</span>
+                </p>
+              </div>
+
+              <div className={styles.dropdown_menu_lang}>
+                <Link href="/" locale={lang === 'en' ? 'pt' : 'en'} className={styles.dropdown_option}>
+                  <p>{lang === 'en' ? 'Português' : 'Inglês'}</p>
+                </Link>
+              </div>
+            </div>
             {isAuthenticated ? (
               <div className={styles.dropdown}>
                 <button className={styles.dropdown_button}>Olá, {user ? user.name.split(' ')[0] : 'Guess'}</button>

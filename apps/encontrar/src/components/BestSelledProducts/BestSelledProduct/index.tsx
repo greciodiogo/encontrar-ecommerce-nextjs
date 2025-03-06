@@ -1,6 +1,6 @@
 import StarIcon from '@mui/icons-material/Star';
 import Image from 'next/image';
-// import useTranslation from 'next-translate/useTranslation';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { LuShoppingCart } from 'react-icons/lu';
 
@@ -15,7 +15,7 @@ export const BestSelledProduct = ({
   hasButtons = true,
   hasDescription = false,
 }: ProductTypeProps) => {
-  // const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
+  const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, about } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
@@ -66,9 +66,9 @@ export const BestSelledProduct = ({
           onClick={(event) => handleAddToCartClick(event, id ?? 0)}
         >
           <i>
-            <LuShoppingCart size={20} />
+            <LuShoppingCart fill={isProductInCart ? 'white' : ''} size={20} />
           </i>
-          {!isProductInCart ? 'Adicionar ao Carrinho' : 'Adicionado'}
+          {!isProductInCart ? t('products.add_to_cart') : t('products.added_to_cart')}
         </a>
       )}
     </button>

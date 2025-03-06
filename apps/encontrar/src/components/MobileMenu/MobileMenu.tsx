@@ -55,6 +55,7 @@ export const MobileMenu = ({
   const router = useRouter();
 
   const goToCategories = (category: string) => {
+    setSelectedCategories([]);
     toggleSelection(selectedCategories, setSelectedCategories, category);
     void router.push('products');
     setMenuOpen(false);

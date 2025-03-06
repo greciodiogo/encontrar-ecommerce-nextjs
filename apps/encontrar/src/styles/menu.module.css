@@ -35,15 +35,32 @@
   right: 0;
   top: 100%;
   background: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12);
+
   border-radius: 8px;
   padding: 10px 0;
   min-width: 220px;
   z-index: 1000;
 }
 
+.dropdown_menu_lang {
+  display: none; /* Esconde o menu inicialmente */
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.12);
+  border-radius: 8px;
+  min-width: 150px;
+  z-index: 1000;
+}
+
 /* Exibe o dropdown ao passar o mouse */
 .dropdown:hover .dropdown_menu {
+  display: block;
+}
+
+.dropdown:hover .dropdown_menu_lang {
   display: block;
 }
 
@@ -53,6 +70,15 @@
   font-weight: 500;
   color: #666;
   padding: 10px 30px;
+  margin: 0;
+}
+
+.dropdown_option > p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  padding: 10px 30px !important;
+  width: 100%;
   margin: 0;
 }
 

@@ -9,17 +9,16 @@ const categories = [
   { title: 'Sumo', items: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'] },
 ];
 
-export const Dropdown = ({ goToCategories }: { goToCategories: (categorySlug: string) => void }) => {
-  const CATEGORY_TITLE = 'Bebidas e Alimentação';
-
-  const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
+export const Dropdown = ({
+  CATEGORY_TITLE,
+  onClick,
+}: {
+  CATEGORY_TITLE: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  const { getCategoryCount } = useProductContext();
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleClick = () => {
-    toggleSelection(selectedCategories, setSelectedCategories, CATEGORY_TITLE);
-    goToCategories(CATEGORY_TITLE);
-  };
 
   return (
     <div
@@ -27,7 +26,7 @@ export const Dropdown = ({ goToCategories }: { goToCategories: (categorySlug: st
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button className="dropdown-trigger" onClick={handleClick}>
+      <button className="dropdown-trigger" onClick={onClick}>
         {CATEGORY_TITLE}
       </button>
 

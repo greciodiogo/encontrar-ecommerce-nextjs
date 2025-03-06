@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
@@ -20,6 +21,7 @@ export const CheapestProducts = ({
   hasButtons?: boolean;
   products: Array<ProductDTO>;
 }) => {
+  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -45,7 +47,8 @@ export const CheapestProducts = ({
         <div className="products_container_top">
           <h4>{bannerText}</h4>
           <button className="more_categories" onClick={handleSeeMoreBtnClick}>
-            Ver Produtos
+            {t('products.search_products')}
+
             <i>
               <EastIcon fontSize="small" fill="#BD7B2D" />
             </i>
@@ -67,7 +70,7 @@ export const CheapestProducts = ({
                 ))}
               </ul>
             ) : (
-              <p>Carregando produtos...</p> // ou um spinner de loading
+              <p>{t('products.loading_products')}</p> // ou um spinner de loading
             )}
           </div>
         </div>

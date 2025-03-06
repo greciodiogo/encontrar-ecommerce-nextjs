@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const nextTranslate = require('next-translate-plugin');
 
 const nextConfig = {
   swcMinify: true,
@@ -16,4 +18,6 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+module.exports = nextTranslate(nextConfig);
+// module.exports = nextConfig;
