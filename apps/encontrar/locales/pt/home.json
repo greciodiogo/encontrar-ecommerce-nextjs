@@ -79,5 +79,22 @@
     "products": "Produtos",
     "electronics": "Eletrónicos",
     "food": "Alimentação"
+  },
+  "language": "Português",
+  "searchPlaceholder": "Procure por ótimos equipamentos e comidas",
+  "signIn": "Entrar",
+  "hi": "Olá",
+  "cart": "Carrinho",
+  "helloUser": "Olá, {{name}}, seja bem-vindo ao Encontrar",
+  "menu": {
+    "dashboard": "Painel de Controle",
+    "orderHistory": "Histórico de Encomendas",
+    "trackOrder": "Rastrear Encomenda",
+    "shoppingCart": "Carrinho de Compras",
+    "wishList": "Lista de Desejos",
+    "cardsAddress": "Cartões e Endereço",
+    "browsingHistory": "Histórico de Navegação",
+    "settings": "Configuração",
+    "logout": "Terminar Sessão"
   }
 }

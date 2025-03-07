@@ -15,21 +15,20 @@ import { RootState } from 'types/product';
 
 import styles from '../../styles/menu.module.css'; // Estilo separado em um arquivo CSS
 
-const menuItems = [
-  { label: 'Painel de Controle', path: '', icon: 'MStack' },
-  { label: 'Histórico de Encomendas', path: 'order-history', icon: 'MStorefront' },
-  { label: 'Rastrear Encomenda', path: 'wish-list', icon: 'MMapPinLine' },
-  { label: 'Carrinho de Compras', path: 'address', icon: 'MShoppingCartSimple' },
-  { label: 'Lista de Desejos', path: 'wish-list', icon: 'MHeart' },
-  { label: 'Cartões e Endereço', path: '', icon: 'MNotebook' },
-  { label: 'Histórico de Navegação', path: '', icon: 'MClockClockwise' },
-  { label: 'Configuração', path: '', icon: 'MGear' },
-  { label: 'Terminar Sessão', path: '', icon: 'MSignOut' },
-];
-
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
-  const { lang } = useTranslation('home'); // Certifique-se de que o namespace está correto
+  const { t, lang } = useTranslation('home'); // Certifique-se de que o namespace está correto
 
+  const menuItems = [
+    { label: t('menu.dashboard'), path: '', icon: 'MStack' },
+    { label: t('menu.orderHistory'), path: 'order-history', icon: 'MStorefront' },
+    { label: t('menu.trackOrder'), path: 'wish-list', icon: 'MMapPinLine' },
+    { label: t('menu.shoppingCart'), path: 'address', icon: 'MShoppingCartSimple' },
+    { label: t('menu.wishList'), path: 'wish-list', icon: 'MHeart' },
+    { label: t('menu.cardsAddress'), path: '', icon: 'MNotebook' },
+    { label: t('menu.browsingHistory'), path: '', icon: 'MClockClockwise' },
+    { label: t('menu.settings'), path: '', icon: 'MGear' },
+    { label: t('menu.logout'), path: '', icon: 'MSignOut' },
+  ];
   const productos = useSelector((state: RootState) => state.products.cart);
 
   const router = useRouter();
@@ -95,7 +94,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
           </button>
           {!isControlPanelRoute && (
             <div className="search_container">
-              <input type="text" placeholder="Procure por ótimos equipamentos e comidas" />
+              <input type="text" placeholder={t('searchPlaceholder')} />
+
               <i>
                 <img src="/assets_ecommerce/svg/gnav-search.png" alt="" />
               </i>
@@ -120,11 +120,13 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
             {isAuthenticated ? (
               <div className={styles.dropdown}>
-                <button className={styles.dropdown_button}>Olá, {user ? user.name.split(' ')[0] : 'Guess'}</button>
+                <button className={styles.dropdown_button}>
+                  {t('hi')}, {user ? user.name.split(' ')[0] : 'Guess'}
+                </button>
 
                 <div className={styles.dropdown_menu}>
                   <p className={styles.dropdown_header}>
-                    Olá {user ? user.name.split(' ')[0] : 'Guess'}, seja bem-vindo ao Encontrar
+                    {t('helloUser', { name: user ? user.name.split(' ')[0] : 'Guest' })}
                   </p>
                   <hr className={styles.divider} />
                   <ul>
@@ -143,7 +145,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                   <img src="/assets_ecommerce/svg/user.png" alt="" />
                 </i> */}
                 <AccountCircleOutlinedIcon />
-                <span>Sign in</span>
+                <span>{t('signIn')}</span>
               </button>
             )}
             <a
@@ -157,7 +159,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 <img src="/assets_ecommerce/svg/cart.png" alt="" />
                 {isClient && productos.length !== 0 && <span>{productos.length}</span>}
               </i>
-              <span>Carrinho</span>
+              <span>{t('cart')}</span>
             </a>
             <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={toggleMenu}>
               {menuOpen ? <CrossIcon /> : <MenuIcon />}
@@ -167,7 +169,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
         {(isProductsRoute || isHomeRoute) && (
           <div className="searchInput__mobile">
             <div className="search_container">
-              <input type="text" placeholder="Procure por ótimos equipamentos e comidas" />
+              <input type="text" placeholder={t('searchPlaceholder')} />
               <i>
                 <img src="/assets_ecommerce/svg/gnav-search.png" alt="" />
               </i>
