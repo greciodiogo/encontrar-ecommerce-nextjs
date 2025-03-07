@@ -2,5 +2,17 @@
   "products": {
     "add_to_cart": "Add to cart",
     "added_to_cart": "Added"
+  },
+  "UNVAILABLE_PAYMENT_METHOD": {
+    "title": "Unavailable Payment Method",
+    "message": "The payment method you selected is in the process of being updated. Please wait while we work to make it available."
+  },
+  "INVALID_FORM": {
+    "title": "Please fill in the required fields",
+    "message": "You must fill in the required fields to continue."
+  },
+  "SUCCESS_FORM": {
+    "title": "Order Successfully Placed!",
+    "message": ""
   }
 }

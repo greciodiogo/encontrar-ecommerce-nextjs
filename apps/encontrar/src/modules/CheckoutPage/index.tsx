@@ -5,14 +5,13 @@ import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import { setAddress, setPaymentMethod, setOrder } from 'actions/products';
 import { Container } from 'components/Container';
 import { CustomStepIcon } from 'components/icon/CheckIcon';
 import { useAuth } from 'hooks/useAuth';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
-import { INVALID_FORM, UNVAILABLE_PAYMENT_METHOD } from 'shared/constants';
 import { showToast } from 'shared/hooks/showToast';
 import { validationSchema } from 'utils/validationSchema';
 
@@ -24,9 +23,10 @@ import { ReviewStep } from './Review';
 
 export const CheckoutPage = () => {
   const { t } = useTranslation('checkout');
+  const common = useTranslation('common');
   const router = useRouter();
   const { selectedPrice } = useAuth();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState<number>(0);
   const formRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -52,7 +52,11 @@ export const CheckoutPage = () => {
         estado: 'ANDAMENTO',
       }),
     );
-    toast.success(t('orderSuccess'));
+    showToast({
+      title: common.t('SUCCESS_FORM.title'),
+      message: common.t('SUCCESS_FORM.message'),
+      isSuccessType: true,
+    });
     void router.push('/sucessful-order');
   };
 
@@ -60,10 +64,16 @@ export const CheckoutPage = () => {
     const isValid = await trigger();
 
     if (activeStep === 0 && !isValid) {
-      showToast({ ...INVALID_FORM });
+      showToast({
+        title: common.t('INVALID_FORM.title'),
+        message: common.t('INVALID_FORM.message'),
+      });
       return;
     } else if (activeStep === 1 && selectedPrice !== 'CASH') {
-      showToast({ ...UNVAILABLE_PAYMENT_METHOD });
+      showToast({
+        title: common.t('UNVAILABLE_PAYMENT_METHOD.title'),
+        message: common.t('UNVAILABLE_PAYMENT_METHOD.message'),
+      });
       return;
     } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
@@ -106,8 +116,8 @@ export const CheckoutPage = () => {
 
                 <div className="form__container">
                   <div className="content">
-                    <h4>{t(`titles.step${activeStep}`)}</h4>
-                    <p>{t(`descriptions.step${activeStep}`)}</p>
+                    <h4>{t(`titles.step${String(activeStep)}`)}</h4>
+                    <p>{t(`descriptions.step${String(activeStep)}`)}</p>
                   </div>
                   <Box sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
