@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 
 import { useAuth } from 'hooks/useAuth';
@@ -11,6 +12,7 @@ type ReviewModalProps = {
 };
 
 export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = false, onClose }) => {
+  const { t } = useTranslation('common');
   const { isClient } = useAuth();
   const [ratings, setRatings] = useState<Record<number, number>>({});
   const [storeRating, setStoreRating] = useState({ advertisement: 0, delivery: 0 });
@@ -29,8 +31,8 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
   return (
     <div className={`reviewForm modal-overlay ${isOpen ? 'active' : ''}`}>
       <div className="modal">
-        <h2>Avaliação de Compra</h2>
-        <p>Abaixo, deixe a sua avaliação sobre a compra efetuada.</p>
+        <h2>{t('reviewTitle')}</h2>
+        <p>{t('reviewDescription')}</p>
 
         {products.map((product) => (
           <div key={product.id} className="product-review">
@@ -40,12 +42,8 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
                   src={`/assets_ecommerce/products/${product.image ?? 'sem-foto.webp'}`}
                   className="product-image"
                   alt={product.name ?? 'sem-nome'}
-                  // priority={true}
-                  blurDataURL="www.google.com"
-                  placeholder="blur"
                   height={80}
                   width={80}
-                  // objectFit="contain"
                 />
                 <div className="product-info">
                   <h4>{product.name}</h4>
@@ -53,7 +51,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
                 </div>
               </div>
             )}
-            <p>O produto entregue segue a descrição?</p>
+            <p>{t('productFollowsDescription')}</p>
             <div className="stars">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -69,7 +67,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
         ))}
 
         <div className="store-review">
-          <p>Você gostou do atendimento da loja?</p>
+          <p>{t('storeService')}</p>
           <div className="stars">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -82,7 +80,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
             ))}
           </div>
 
-          <p>A loja foi rápida ao enviar seu produto?</p>
+          <p>{t('storeShipping')}</p>
           <div className="stars">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -98,16 +96,16 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
 
         <textarea
           className="feedback"
-          placeholder="Adicione seu feedback..."
+          placeholder={t('addFeedback')}
           value={feedback}
           onChange={(event) => setFeedback(event.target.value)}
         />
 
         <div className="buttons">
           <button className="cancel" onClick={onClose}>
-            Cancelar
+            {t('cancel')}
           </button>
-          <button className="submit">Salvar</button>
+          <button className="submit">{t('submit')}</button>
         </div>
       </div>
     </div>

@@ -14,5 +14,37 @@
   "SUCCESS_FORM": {
     "title": "Pedido Realizado com Sucesso!",
     "message": ""
+  },
+  "reviewTitle": "Avaliação de Compra",
+  "reviewDescription": "Abaixo, deixe a sua avaliação sobre a compra efetuada.",
+  "productFollowsDescription": "O produto entregue segue a descrição?",
+  "storeService": "Você gostou do atendimento da loja?",
+  "storeShipping": "A loja foi rápida ao enviar seu produto?",
+  "addFeedback": "Adicione seu feedback...",
+  "cancel": "Cancelar",
+  "submit": "Salvar",
+  "feature_list": {
+    "featuresTitle": "Recursos",
+    "featureWarranty": "Garantia gratuita de 1 ano",
+    "featureShipping": "Envio gratuito e entrega rápida",
+    "featureMoneyBack": "Garantia de devolução do dinheiro de 100%",
+    "featureSupport": "Suporte ao cliente 24/7",
+    "featureSecurePayment": "Método de pagamento seguro"
+  },
+  "checkoutGuarantee": "Checkout 100% Seguro Garantido",
+  "reviewsTitle": "Avaliações",
+  "reviewsForItem": "Avaliações para este item",
+  "openReview": "Abrir Avaliação",
+  "description": "Descrição",
+  "shippingInfo": {
+    "shippingTitle": "Informações de Envio",
+    "courier": "Mensageiro:",
+    "courierDescription": "2 - 4 dias, envio gratuito",
+    "localShipping": "Envio Local:",
+    "localShippingDescription": "até uma semana, 1200Kz",
+    "findService": "Encontrar Serviço:",
+    "findServiceDescription": "4 - 6 dias, 2500Kz",
+    "otherMethods": "Outros Métodos:",
+    "otherMethodsDescription": "3 - 4 dias, 3000Kz"
   }
 }

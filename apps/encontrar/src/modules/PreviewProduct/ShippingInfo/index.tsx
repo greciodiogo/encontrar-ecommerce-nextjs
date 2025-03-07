@@ -1,15 +1,19 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const ShippingInfo = () => {
+  const { t } = useTranslation('common');
+
   const shippingInfoList = [
-    { title: 'Mensageiro:', description: '2 - 4 dias, envio gratuito' },
-    { title: 'Envio Local:', description: 'até uma semana, 1200Kz' },
-    { title: 'Encontrar Serviço:', description: '4 - 6 dias, 2500Kz' },
-    { title: 'Outros Métodos:', description: '3 - 4 dias, 3000Kz' },
+    { title: t('shippingInfo.courier'), description: t('shippingInfo.courierDescription') },
+    { title: t('shippingInfo.localShipping'), description: t('shippingInfo.localShippingDescription') },
+    { title: t('shippingInfo.findService'), description: t('shippingInfo.findServiceDescription') },
+    { title: t('shippingInfo.otherMethods'), description: t('shippingInfo.otherMethodsDescription') },
   ];
+
   return (
     <div className="shippingInfo">
-      <h4>Shipping Information</h4>
+      <h4>{t('shippingInfo.shippingTitle')}</h4>
       {shippingInfoList.map((item, index) => (
         <p key={index}>
           <span>{item.title}</span>

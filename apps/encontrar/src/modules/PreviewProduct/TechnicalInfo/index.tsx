@@ -1,9 +1,12 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const TechnicalInfo = () => {
+  const { t } = useTranslation('common');
+
   return (
     <div className="technicalInfo">
-      <h4>Description</h4>
+      <h4>{t('description')}</h4>
       <p>
         O MacBook Pro mais poderoso de sempre está aqui. Com o chip M1 Pro ou M1 Max, incrivelmente rápido — o primeiro
         silício da Apple projetado para profissionais — você obtém um desempenho inovador e uma autonomia de bateria

@@ -5,11 +5,13 @@ export const SubmitButton = ({
   title,
   svg,
   outlined = false,
+  isProductInCart = false,
   onClick,
 }: {
   title: string;
   svg?: string;
   outlined?: boolean;
+  isProductInCart?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }) => {
   return (
@@ -22,7 +24,7 @@ export const SubmitButton = ({
       {title}
       {svg && (
         <i>
-          <LuShoppingCart size={20} />
+          <LuShoppingCart fill={isProductInCart ? 'white' : ''} size={20} />
         </i>
       )}
     </button>

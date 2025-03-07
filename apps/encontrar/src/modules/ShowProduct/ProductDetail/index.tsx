@@ -1,5 +1,6 @@
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 
 import { addToCart } from 'actions/products';
@@ -13,10 +14,12 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 export const ProductDetail = () => {
   const fnService = new FnService();
-  const product = useAppSelector((state: RootState) => state.products.currentItem);
+  const product = useAppSelector((state: RootState) => state.products);
 
   const [quantity, setQuantity] = useState(1);
-  const { name, availability, category, price, brand, id = 0, qty } = product ?? {};
+  const { name, availability, category, price, brand, id = 0, qty } = product.currentItem ?? {};
+  const isProductInCart = product.cart.some((item) => item.id === id);
+  const { t } = useTranslation('cart');
   const { isClient } = useAuth();
 
   const router = useRouter();
@@ -53,16 +56,16 @@ export const ProductDetail = () => {
       <h3>{name}</h3>
       <div className="wrap">
         <p>
-          Sku: <span>{id}</span>
+          {t('cart_item.sku')}: <span>{id}</span>
         </p>
         <p>
-          Disponibilidade: <span>{availability}</span>
+          {t('cart_item.availability')}: <span>{availability}</span>
         </p>
         <p>
-          Marca: <span>{brand}</span>
+          {t('cart_item.brand')}: <span>{brand}</span>
         </p>
         <p>
-          Categoria: <span>{category}</span>
+          {t('cart_item.category')}: <span>{category}</span>
         </p>
       </div>
       <div className="product_price">
@@ -71,8 +74,13 @@ export const ProductDetail = () => {
       <div className="cart-item-btn">
         <div className="change_quantity">
           <ChangeQuantity id={id} qty={qty ?? quantity} onAdjustQty={handleAdjustQtyCart} />
-          {product?.id !== undefined && (
-            <SubmitButton onClick={() => handleAddToCart(product.id ?? 0)} title="Adicionar ao Carrinho" svg="cart-2" />
+          {product.currentItem?.id !== undefined && (
+            <SubmitButton
+              onClick={() => handleAddToCart(product.currentItem?.id ?? 0)}
+              title={!isProductInCart ? t('cart.add_to_cart') : t('cart.added_to_cart')}
+              svg="cart-2"
+              isProductInCart={isProductInCart}
+            />
           )}
           <SubmitButton onClick={handleCheckoutBtnClick} title="Comprar agora" outlined={true} />
         </div>

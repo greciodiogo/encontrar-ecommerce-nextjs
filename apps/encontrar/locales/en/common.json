@@ -14,5 +14,36 @@
   "SUCCESS_FORM": {
     "title": "Order Successfully Placed!",
     "message": ""
+  },
+  "reviewTitle": "Purchase Review",
+  "reviewDescription": "Below, leave your review about the purchase made.",
+  "productFollowsDescription": "Did the delivered product match the description?",
+  "storeService": "Did you like the store's service?",
+  "storeShipping": "Was the store quick to ship your product?",
+  "addFeedback": "Add your feedback...",
+  "cancel": "Cancel",
+  "submit": "Save",
+  "feature_list": {
+    "featuresTitle": "Features",
+    "featureWarranty": "1-year free warranty",
+    "featureShipping": "Free shipping & fast delivery",
+    "featureMoneyBack": "100% money-back guarantee",
+    "featureSupport": "24/7 customer support",
+    "featureSecurePayment": "Secure payment method"
+  },
+  "reviewsTitle": "Reviews",
+  "reviewsForItem": "Reviews for this item",
+  "openReview": "Open Review",
+  "description": "Description",
+  "shippingInfo": {
+    "shippingTitle": "Shipping Information",
+    "courier": "Courier:",
+    "courierDescription": "2 - 4 days, free shipping",
+    "localShipping": "Local Shipping:",
+    "localShippingDescription": "up to a week, 1200Kz",
+    "findService": "Find Service:",
+    "findServiceDescription": "4 - 6 days, 2500Kz",
+    "otherMethods": "Other Methods:",
+    "otherMethodsDescription": "3 - 4 days, 3000Kz"
   }
 }

@@ -3,7 +3,9 @@
     "your_cart": "Your Cart",
     "total_items": "Total items",
     "empty_cart": "CART IS EMPTY",
-    "payment_method": "Payment Method"
+    "payment_method": "Payment Method",
+    "add_to_cart": "Add to cart",
+    "added_to_cart": "Added"
   },
   "empty_cart": {
     "title": "EMPTY CART",

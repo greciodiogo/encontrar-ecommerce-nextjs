@@ -2,7 +2,9 @@
   "cart": {
     "your_cart": "Seu Carrinho",
     "total_items": "Total de itens",
-    "payment_method": "Formas de Pagamento"
+    "payment_method": "Formas de Pagamento",
+    "add_to_cart": "Adicionar ao Carrinho",
+    "added_to_cart": "Adicionado"
   },
   "empty_cart": {
     "title": "CARRINHO ESTÁ VAZIO",

@@ -1,16 +1,20 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 export const FeatureInfo = () => {
+  const { t } = useTranslation('common');
+
   const featuresList = [
-    { title: 'Garantia gratuita de 1 ano', icon: 'Medal.png' },
-    { title: 'Envio gratuito e entrega rápida', icon: 'Truck.png' },
-    { title: 'Garantia de devolução do dinheiro de 100%', icon: 'Handshake.png' },
-    { title: 'Suporte ao cliente 24/7', icon: 'Headphones.png' },
-    { title: 'Método de pagamento seguro', icon: 'CreditCard.png' },
+    { title: t('feature_list.featureWarranty'), icon: 'Medal.png' },
+    { title: t('feature_list.featureShipping'), icon: 'Truck.png' },
+    { title: t('feature_list.featureMoneyBack'), icon: 'Handshake.png' },
+    { title: t('feature_list.featureSupport'), icon: 'Headphones.png' },
+    { title: t('feature_list.featureSecurePayment'), icon: 'CreditCard.png' },
   ];
+
   return (
     <div className="featureInfo">
-      <h4>Feature</h4>
+      <h4>{t('feature_list.featuresTitle')}</h4>
       {featuresList.map((item, index) => (
         <p key={index}>
           <i>

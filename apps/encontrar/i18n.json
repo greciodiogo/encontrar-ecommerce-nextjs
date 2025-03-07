@@ -8,7 +8,7 @@
     "/cart": ["auth", "home", "cart", "common"],
     "/checkout": ["auth", "home", "checkout", "common"],
     "/sucessful-order": ["auth", "home", "checkout", "common"],
-    "/preview-product": ["auth", "home", "common"],
+    "/preview-product": ["auth", "cart", "home", "common"],
     "/auth": ["auth", "home", "common"]
   }
 }
