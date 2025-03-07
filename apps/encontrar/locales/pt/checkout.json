@@ -1,0 +1,48 @@
+{
+  "form": {
+    "full_name": "Nome Completo",
+    "email": "Email",
+    "confirm_email": "Confirmar Email",
+    "phone_number": "Número de Telemóvel",
+    "country": "País",
+    "city": "Cidade",
+    "municipality": "Município"
+  },
+  "success": {
+    "title": "O seu pedido foi realizado com sucesso",
+    "description": "O seu pedido já foi encaminhado para a entrega. Será contactado para confirmar a solicitação",
+    "back_home": "Voltar à Página Principal",
+    "view_order": "Ver Pedido"
+  },
+  "review": {
+    "transaction_date": "Data da Transação",
+    "payment_method": "Método de Pagamento",
+    "order_history": "Histórico do Pedido",
+    "shipping_method": "Método de Envio",
+    "subtotal": "Subtotal",
+    "service_fee": "Taxa de Serviço",
+    "discount": "Desconto",
+    "shipping_cost": "Preço de Envio",
+    "total": "Total",
+    "cancel": "Cancelar",
+    "complete_purchase": "Finalizar Compra"
+  },
+  "steps": {
+    "address": "Endereço",
+    "payment": "Pagamento",
+    "review": "Resumo"
+  },
+  "titles": {
+    "step0": "Adicione seu endereço",
+    "step1": "Formas de Pagamento",
+    "step2": "Revise seu pedido"
+  },
+  "descriptions": {
+    "step0": "Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias",
+    "step1": "Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria",
+    "step2": "Abaixo, uma visão revisão geral da sua compra"
+  },
+  "orderSuccess": "Pedido realizado com sucesso!",
+  "finish": "Finalizar",
+  "next": "Próximo"
+}

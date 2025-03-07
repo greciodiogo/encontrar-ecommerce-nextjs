@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
-// import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa';
 
 import styles from 'styles/home/auth.module.css';
@@ -15,6 +15,7 @@ type AuthProps = {
 const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
 
 export const RecouverPassword: React.FC<AuthProps> = () => {
+  const { t } = useTranslation('auth');
   const [formData, setFormData] = useState(INITIALSTATE);
   const router = useRouter();
 
@@ -32,25 +33,25 @@ export const RecouverPassword: React.FC<AuthProps> = () => {
       <div className={styles.container}>
         <div className={styles.main}>
           <div className={styles.authInfo}>
-            <h4>Reset Password</h4>
-            <p>Redefina a sua palavra passe</p>
+            <h4>{t('recouverPassword.reset_password')}</h4>
+            <p>{t('recouverPassword.reset_password_description')}</p>
           </div>
           <form className={styles.authForm} onSubmit={handleSumit} autoComplete="off" noValidate>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('recouverPassword.password')}</label>
             <input
               className={styles.field}
               type="password"
-              placeholder="8+ characters"
+              placeholder={t('recouverPassword.password_placeholder')}
               name="password"
               value={formData.password}
               onChange={(event) => setFormData({ ...formData, password: event.target.value })}
             />
 
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword">{t('recouverPassword.confirm_password')}</label>
             <input
               className={styles.field}
               type="password"
-              placeholder="8+ characters"
+              placeholder={t('recouverPassword.password_placeholder')}
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={(event) => setFormData({ ...formData, confirmPassword: event.target.value })}
@@ -58,7 +59,7 @@ export const RecouverPassword: React.FC<AuthProps> = () => {
 
             <button className={styles.btn}>
               <p className="btn__center">
-                Send Code
+                {t('recouverPassword.send_code')}
                 <i>
                   <FaArrowRight size={12} fill="white" />
                 </i>

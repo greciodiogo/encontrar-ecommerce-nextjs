@@ -1,9 +1,10 @@
-// import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { useAuth } from 'hooks/useAuth';
 import { SubmitButton } from 'shared/components/SubmitButton';
 import { FnService } from 'shared/utils/FnService';
+
 export const CartResume = ({
   total = 0,
   totalProduct = 0,
@@ -14,38 +15,47 @@ export const CartResume = ({
   totalProduct: number;
   handleGoToCheckout?: () => void;
 }) => {
+  const { t } = useTranslation('cart');
   const fnService = new FnService();
   const DELIVERY_COST = 2000;
   const { isClient, selectedPrice } = useAuth();
 
   if (!isClient) {
-    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+    return null;
   }
+
+  const payButtonText =
+    selectedPrice === 'CASH'
+      ? t('cart_resume.pay_button_cash')
+      : t('cart_resume.pay_button_other', { method: selectedPrice });
 
   return (
     <div className="box">
       <div className="price">
         <ul>
-          <li className="priceTitle">Subtotal</li>
+          <li className="priceTitle">{t('cart_resume.subtotal')}</li>
           <li>{fnService.numberFormat(total)}kz</li>
         </ul>
         <ul>
-          <li className="priceTitle">Entrega:</li>
+          <li className="priceTitle">{t('cart_resume.delivery')}</li>
           <li>{fnService.numberFormat(DELIVERY_COST)}kz</li>
         </ul>
       </div>
       <div className="price">
         <ul>
-          <li>Total ({totalProduct} items)</li>
+          <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
+          <li>{fnService.numberFormat(total + DELIVERY_COST)}kz</li>
+        </ul>
+      </div>
+      <div className="price">
+        <ul>
+          <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
           <li>{fnService.numberFormat(total + DELIVERY_COST)}kz</li>
         </ul>
       </div>
       <div className="price">
         <div className="cartButtons">
-          <SubmitButton
-            title={`PAGAR ${selectedPrice === 'CASH' ? 'em' : 'com'} ${selectedPrice}`}
-            onClick={handleGoToCheckout}
-          />
+          <SubmitButton title={payButtonText} onClick={handleGoToCheckout} />
         </div>
       </div>
     </div>

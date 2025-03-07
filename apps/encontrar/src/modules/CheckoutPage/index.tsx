@@ -2,16 +2,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import { setAddress, setPaymentMethod, setOrder } from 'actions/products';
 import { Container } from 'components/Container';
 import { CustomStepIcon } from 'components/icon/CheckIcon';
 import { useAuth } from 'hooks/useAuth';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
-import { INVALID_FORM, UNVAILABLE_PAYMENT_METHOD } from 'shared/constants';
 import { showToast } from 'shared/hooks/showToast';
 import { validationSchema } from 'utils/validationSchema';
 
@@ -21,15 +21,16 @@ import { AddressForm } from './AddressForm';
 import { PaymentStep } from './PaymentStep';
 import { ReviewStep } from './Review';
 
-// Passos do checkout
-const steps = ['Endereço', 'Pagamento', 'Revisão'];
-
 export const CheckoutPage = () => {
+  const { t } = useTranslation('checkout');
+  const common = useTranslation('common');
   const router = useRouter();
   const { selectedPrice } = useAuth();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const formRef = useRef<HTMLDivElement>(null); // Referência correta para o formulário
+  const [activeStep, setActiveStep] = React.useState<number>(0);
+  const formRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+
+  const steps = [t('steps.address'), t('steps.payment'), t('steps.review')];
 
   const {
     control,
@@ -40,7 +41,7 @@ export const CheckoutPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema.step_user),
-    mode: 'all', // Validação ao sair do campo
+    mode: 'all',
   });
 
   const saveOrder = () => {
@@ -51,27 +52,36 @@ export const CheckoutPage = () => {
         estado: 'ANDAMENTO',
       }),
     );
-    toast.success('Pedido Realizado com Sucesso!');
-    void router.push('/sucessful-order'); // Redireciona ao finalizar
+    showToast({
+      title: common.t('SUCCESS_FORM.title'),
+      message: common.t('SUCCESS_FORM.message'),
+      isSuccessType: true,
+    });
+    void router.push('/sucessful-order');
   };
 
   const handleNextStep = async () => {
-    // Valida o formulário antes de avançar
-    const isValid = await trigger(); // Valida todos os campos do formulário
+    const isValid = await trigger();
 
     if (activeStep === 0 && !isValid) {
-      showToast({ ...INVALID_FORM });
+      showToast({
+        title: common.t('INVALID_FORM.title'),
+        message: common.t('INVALID_FORM.message'),
+      });
       return;
     } else if (activeStep === 1 && selectedPrice !== 'CASH') {
-      showToast({ ...UNVAILABLE_PAYMENT_METHOD });
+      showToast({
+        title: common.t('UNVAILABLE_PAYMENT_METHOD.title'),
+        message: common.t('UNVAILABLE_PAYMENT_METHOD.message'),
+      });
       return;
     } else if (activeStep === steps.length - 1) {
       dispatch(setPaymentMethod(selectedPrice));
       saveOrder();
+      return; // Impede de avançar para um passo extra
     }
 
     setActiveStep((prev) => prev + 1);
-    // Scroll para o topo do formulário após avançar
     setTimeout(() => {
       document.getElementById('checkout-container')?.scrollIntoView({
         behavior: 'smooth',
@@ -82,7 +92,6 @@ export const CheckoutPage = () => {
 
   const handleFormSubmit = () => {
     const checkoutData = getValues();
-
     try {
       dispatch(setAddress(checkoutData));
     } catch (err) {
@@ -93,8 +102,6 @@ export const CheckoutPage = () => {
   return (
     <Container useStyle={false}>
       <div className="checkoutPage" id="checkout-container">
-        {' '}
-        {/* ID adicionado para rolagem correta */}
         <div className="checkoutPage__container">
           <div ref={formRef}>
             <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
@@ -109,28 +116,20 @@ export const CheckoutPage = () => {
 
                 <div className="form__container">
                   <div className="content">
-                    <h4>
-                      {activeStep === 0 && 'Adicione seu endereço'}
-                      {activeStep === 1 && 'Formas de Pagamento'}
-                      {activeStep === 2 && 'Resumo'}
-                    </h4>
-                    <p>
-                      {activeStep === 0 && 'Abaixo, coloque o seu endereço para que possamos enviar suas mercadorias'}
-                      {activeStep === 1 && 'Escolha um dos métodos abaixo e conclua o pagamento da sua mercadoria'}
-                      {activeStep === 2 && 'Abaixo, uma visão revisão geral da sua compra '}
-                    </p>
+                    <h4>{t(`titles.step${String(activeStep)}`)}</h4>
+                    <p>{t(`descriptions.step${String(activeStep)}`)}</p>
                   </div>
                   <Box sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
                     {activeStep === 1 && <PaymentStep />}
                     {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
                   </Box>
-                  {activeStep != steps.length - 1 && (
+                  {activeStep !== steps.length - 1 && (
                     <div className="col-md-12">
                       <div className="btn-group" role="group" aria-label="Basic example">
                         <button onClick={handleNextStep} type="button" className="btn btn-primary">
                           <i className="fa fa-arrow-left"></i>{' '}
-                          {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
+                          {activeStep === steps.length - 1 ? t('finish') : t('next')}
                         </button>
                         <ToastContainer {...toastProps} />
                       </div>

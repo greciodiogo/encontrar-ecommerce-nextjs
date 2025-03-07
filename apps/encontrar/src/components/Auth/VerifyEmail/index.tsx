@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 // import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa';
@@ -12,10 +13,11 @@ type AuthProps = {
   isSignIn?: boolean;
 };
 
-const INITIALSTATE = { code: '' };
+const INITIALSTATE_VERIFY = { code: '' };
 
 export const VerifyEmail: React.FC<AuthProps> = () => {
-  const [formData, setFormData] = useState(INITIALSTATE);
+  const { t } = useTranslation('auth');
+  const [formData, setFormData] = useState(INITIALSTATE_VERIFY);
   const router = useRouter();
 
   const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +25,7 @@ export const VerifyEmail: React.FC<AuthProps> = () => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
-    setFormData(INITIALSTATE);
+    setFormData(INITIALSTATE_VERIFY);
     void router.push('/checkoutPage');
   };
 
@@ -32,18 +34,18 @@ export const VerifyEmail: React.FC<AuthProps> = () => {
       <div className={styles.container}>
         <div className={styles.main}>
           <div className={styles.authInfo}>
-            <h4>Verify Your Email Address</h4>
-            <p>Nam ultricies lectus a risus blandit elementum. Quisque arcu arcu, tristique a eu in diam.</p>
+            <h4>{t('verify_email')}</h4>
+            <p>{t('verify_email_description')}</p>
           </div>
           <form className={styles.authForm} onSubmit={handleSumit} autoComplete="off" noValidate>
             <div className={styles.row}>
-              <label htmlFor="code">Verification Code</label>
-              <button>Resend Code</button>
+              <label htmlFor="code">{t('verification_code')}</label>
+              <button>{t('resend_code')}</button>
             </div>
             <input
               className={styles.field}
               type="text"
-              placeholder="Verification code"
+              placeholder={t('verification_code_placeholder')}
               name="code"
               value={formData.code}
               onChange={(event) => setFormData({ ...formData, code: event.target.value })}
@@ -51,7 +53,7 @@ export const VerifyEmail: React.FC<AuthProps> = () => {
 
             <button className={styles.btn}>
               <p className="btn__center">
-                Send Code
+                {t('send_code')}
                 <i>
                   <FaArrowRight size={12} fill="white" />
                 </i>

@@ -2,6 +2,10 @@
   "banner": {
     "text": "Encontre os melhores produtos aqui"
   },
+  "commom": {
+    "categories": "Categorias",
+    "prices": "Preços"
+  },
   "categories": {
     "drink_foods": "Bebidas e Alimentação",
     "toys": "Brinquedos",

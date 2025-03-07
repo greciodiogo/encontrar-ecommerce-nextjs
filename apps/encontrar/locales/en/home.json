@@ -2,6 +2,10 @@
   "banner": {
     "text": "Find the best products here"
   },
+  "commom": {
+    "categories": "Categories",
+    "prices": "Prices"
+  },
   "categories": {
     "drink_foods": "Drinks and Foods",
     "home_items": "Home Items",

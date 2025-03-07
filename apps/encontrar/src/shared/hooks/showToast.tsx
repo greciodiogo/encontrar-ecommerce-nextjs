@@ -4,6 +4,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CustomToast } from 'shared/components/CustomToast';
 import { toastProps } from 'shared/components/Toast/ToastContainer';
 
-export const showToast = ({ title, message }: { title: string; message: string }) => {
-  toast.info(<CustomToast title={title} message={message} />, { ...toastProps });
+export const showToast = ({
+  title,
+  message,
+  isSuccessType = false,
+}: {
+  title: string;
+  message: string;
+  isSuccessType?: boolean;
+}) => {
+  isSuccessType
+    ? toast.success(<CustomToast title={title} message={message} isSuccessType={isSuccessType} />, { ...toastProps })
+    : toast.info(<CustomToast title={title} message={message} isSuccessType={isSuccessType} />, { ...toastProps });
 };

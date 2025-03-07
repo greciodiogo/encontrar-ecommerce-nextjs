@@ -2,5 +2,17 @@
   "products": {
     "add_to_cart": "Adicionar ao Carrinho",
     "added_to_cart": "Adicionado"
+  },
+  "UNVAILABLE_PAYMENT_METHOD": {
+    "title": "Método de Pagamento Indisponível",
+    "message": "O método de pagamento selecionado está em processo de atualização. Por favor, aguarde enquanto trabalhamos para disponibilizá-lo."
+  },
+  "INVALID_FORM": {
+    "title": "Preencha os Campos Obrigatórios",
+    "message": "Para prosseguir, é necessário preencher os campos obrigatórios."
+  },
+  "SUCCESS_FORM": {
+    "title": "Pedido Realizado com Sucesso!",
+    "message": ""
   }
 }

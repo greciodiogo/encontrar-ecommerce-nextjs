@@ -1,0 +1,48 @@
+{
+  "form": {
+    "full_name": "Full Name",
+    "email": "Email",
+    "confirm_email": "Confirm Email",
+    "phone_number": "Phone Number",
+    "country": "Country",
+    "city": "City",
+    "municipality": "Municipality"
+  },
+  "success": {
+    "title": "Your order has been placed successfully",
+    "description": "Your order has been sent for delivery. You will be contacted to confirm the request",
+    "back_home": "Back to Home Page",
+    "view_order": "View Order"
+  },
+  "review": {
+    "transaction_date": "Transaction Date",
+    "payment_method": "Payment Method",
+    "order_history": "Order History",
+    "shipping_method": "Shipping Method",
+    "subtotal": "Subtotal",
+    "service_fee": "Service Fee",
+    "discount": "Discount",
+    "shipping_cost": "Shipping Cost",
+    "total": "Total",
+    "cancel": "Cancel",
+    "complete_purchase": "Complete Purchase"
+  },
+  "steps": {
+    "address": "Address",
+    "payment": "Payment",
+    "review": "Review"
+  },
+  "titles": {
+    "step0": "Enter your address",
+    "step1": "Choose a payment method",
+    "step2": "Review your order"
+  },
+  "descriptions": {
+    "step0": "Fill in your delivery address details.",
+    "step1": "Select an available payment method.",
+    "step2": "Check your order details before finalizing."
+  },
+  "orderSuccess": "Order placed successfully!",
+  "finish": "Finish",
+  "next": "Next"
+}

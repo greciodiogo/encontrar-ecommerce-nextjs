@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
 import { adjustQty, removeFromCart } from 'actions/products';
@@ -11,12 +12,12 @@ import { useAppDispatch } from '../../../hooks';
 export const CartItem = (props: CartItemProps) => {
   const dispatch = useAppDispatch();
   const fnService = new FnService();
+  const { t } = useTranslation('cart');
 
   const { name, image, id = 0, availability, category, brand, qty = 1, price = 0 } = props.cart;
   const { setTotal, setSubtotal } = props;
   const { isClient } = useAuth();
 
-  // Estado local para armazenar a quantidade do item
   const [localQty, setLocalQty] = useState(qty);
 
   useEffect(() => {
@@ -36,15 +37,14 @@ export const CartItem = (props: CartItemProps) => {
 
     dispatch(removeFromCart(id));
 
-    // Remove o subtotal do item ao removê-lo do carrinho
     setTotal((prevTotal) => Math.max(0, prevTotal - itemSubtotal));
     setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal - itemSubtotal));
 
-    setLocalQty(0); // Evita valores inconsistentes ao remover o item
+    setLocalQty(0);
   };
 
   const handleAdjustQtyCart = (id: number, newQty: number) => {
-    if (newQty < 1) return; // Evita valores negativos ou zero
+    if (newQty < 1) return;
 
     const prevQty = localQty;
     const diff = newQty - prevQty;
@@ -52,7 +52,6 @@ export const CartItem = (props: CartItemProps) => {
     setLocalQty(newQty);
     dispatch(adjustQty(id, newQty));
 
-    // Ajusta o total com base na diferença de quantidade
     setTotal((prevTotal) => Math.max(0, prevTotal + diff * price));
     setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal + diff * price));
   };
@@ -70,21 +69,21 @@ export const CartItem = (props: CartItemProps) => {
         <h3>{name}</h3>
         <div className="wrap">
           <p>
-            Sku: <span>{id}</span>
+            {t('cart_item.sku')}: <span>{id}</span>
           </p>
           <p className="wrapItemRight">
-            Disponibilidade: <span>{availability}</span>
+            {t('cart_item.availability')}: <span>{availability}</span>
           </p>
           <p>
-            Marca: <span>{brand}</span>
+            {t('cart_item.brand')}: <span>{brand}</span>
           </p>
           <p className="wrapItemRight">
-            Categoria: <span>{category}</span>
+            {t('cart_item.category')}: <span>{category}</span>
           </p>
         </div>
         <div className="wrapPrice">
           <p className="priceContainer">
-            Preço Total: <span className="priceItem">{fnService.numberFormat(price)}kz</span>
+            {t('cart_item.total_price')}: <span className="priceItem">{fnService.numberFormat(price)}kz</span>
           </p>
         </div>
         <div className="cart-item-btn">
@@ -92,7 +91,7 @@ export const CartItem = (props: CartItemProps) => {
             <ChangeQuantity id={id} qty={localQty} onAdjustQty={handleAdjustQtyCart} />
           </div>
           <button className="remove_item" onClick={handleRemoveFromCart}>
-            Remover do carrinho
+            {t('cart_item.remove_button')}
           </button>
         </div>
       </div>
