@@ -3,12 +3,12 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["home", "common"],
-    "/products": ["home", "products", "common"],
-    "/cart": ["home", "cart", "common"],
-    "/checkout": ["home", "checkout", "common"],
-    "/sucessful-order": ["home", "checkout", "common"],
-    "/preview-product": ["home", "common"],
-    "/auth": ["home", "common"]
+    "/": ["auth", "home", "common"],
+    "/products": ["auth", "home", "products", "common"],
+    "/cart": ["auth", "home", "cart", "common"],
+    "/checkout": ["auth", "home", "checkout", "common"],
+    "/sucessful-order": ["auth", "home", "checkout", "common"],
+    "/preview-product": ["auth", "home", "common"],
+    "/auth": ["auth", "home", "common"]
   }
 }
