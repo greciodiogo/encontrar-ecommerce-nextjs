@@ -1,12 +1,16 @@
+import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
 import { Container } from 'components/Container';
+import { useProductContext } from 'hooks/useProductContext';
 
 import { FilterComponent } from './FilterComponent';
 import { ProductsList } from './ProductsList';
 
 export const ProductsPage = () => {
+  const { t } = useTranslation('common');
   const [showFilter, setShowFilter] = useState(false);
+  const { selectedCategories } = useProductContext();
 
   const handleShowFilterPainel = () => {
     setShowFilter(true);
@@ -41,8 +45,12 @@ export const ProductsPage = () => {
         <div className="productsPage__container">
           <div className="productsPage__top">
             <div className="productsPage__btnContainer">
-              <button onClick={handleShowFilterPainel}>Filtro ({2})</button>
-              <button onClick={handleShowFilterPainel}>Escolher por: Recomendado</button>
+              <button onClick={handleShowFilterPainel}>
+                {t('filter')} ({selectedCategories.length})
+              </button>
+              <button onClick={handleShowFilterPainel}>
+                {t('chooseBy')}: {t('recommended')}
+              </button>
             </div>
           </div>
           <div className="row">

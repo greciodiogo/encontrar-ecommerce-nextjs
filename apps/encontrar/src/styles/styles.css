@@ -1159,6 +1159,7 @@ a:visited {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 }
 
 .bestselled_product .category_picture {

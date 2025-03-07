@@ -45,5 +45,12 @@
     "findServiceDescription": "4 - 6 days, 2500Kz",
     "otherMethods": "Other Methods:",
     "otherMethodsDescription": "3 - 4 days, 3000Kz"
-  }
+  },
+  "totalProducts": "Total Products",
+  "mostRecommended": "Most Recommended",
+  "noProducts": "No Products",
+  "noResults": "No results found",
+  "filter": "Filter",
+  "chooseBy": "Choose by",
+  "recommended": "Recommended"
 }

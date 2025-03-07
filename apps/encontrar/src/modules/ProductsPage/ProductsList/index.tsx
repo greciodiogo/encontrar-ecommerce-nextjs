@@ -1,5 +1,6 @@
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
@@ -11,6 +12,7 @@ import { ProductDTO } from 'types/product';
 import { useAppDispatch } from '../../../hooks';
 
 export const ProductsList = () => {
+  const { t } = useTranslation('common');
   const { filteredProducts, currentPage, itemsPerPage, totalPages, setCurrentPage } = useProductContext();
   const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const fnService = new FnService();
@@ -20,7 +22,6 @@ export const ProductsList = () => {
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
-    //
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {
@@ -32,8 +33,10 @@ export const ProductsList = () => {
     <>
       <div className="productsList">
         <div className="productsPage__top">
-          <h5>Total de Produtos ({fnService.formatarQuantidade(filteredProducts.length)})</h5>
-          <h5>Os mais recomendados</h5>
+          <h5>
+            {t('totalProducts')} ({fnService.formatarQuantidade(filteredProducts.length)})
+          </h5>
+          <h5>{t('mostRecommended')}</h5>
         </div>
         <>
           {displayedProducts.length < 1 ? (
@@ -52,7 +55,7 @@ export const ProductsList = () => {
           )}
         </>
         {displayedProducts.length > 1 && (
-          <div className="pagintation__container">
+          <div className="pagination__container">
             <Pagination
               count={totalPages}
               page={currentPage}
@@ -66,9 +69,12 @@ export const ProductsList = () => {
   );
 };
 
-const NotFound = () => (
-  <div className="notFound">
-    <h3>Sem produtos</h3>
-    <p>Não foram encontrados resultados</p>
-  </div>
-);
+const NotFound = () => {
+  const { t } = useTranslation('common');
+  return (
+    <div className="notFound">
+      <h3>{t('noProducts')}</h3>
+      <p>{t('noResults')}</p>
+    </div>
+  );
+};
