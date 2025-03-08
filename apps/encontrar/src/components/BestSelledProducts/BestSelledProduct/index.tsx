@@ -12,12 +12,13 @@ export const BestSelledProduct = ({
   product,
   handleAddToCart,
   handlepreviewProduct,
+  hasStars = true,
   hasButtons = true,
   hasDescription = false,
 }: ProductTypeProps) => {
   const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
-  const { id, image, name, price, about } = product;
+  const { id, image, name, price, promotional_price, about, is_promotion } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
 
@@ -27,6 +28,11 @@ export const BestSelledProduct = ({
     handleAddToCart?.(id);
   };
 
+  const calculate_promotion = (price: number, promotional_price: number) => {
+    const discount = ((price - promotional_price) / price) * 100;
+    return `${fnService.numberFormat(discount)}% OFF`;
+  };
+
   return (
     <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(product)}>
       {/* <a className="addCartBtn">
@@ -34,6 +40,9 @@ export const BestSelledProduct = ({
           <img src={`/assets_ecommerce/svg/Heart.png`} alt="Heart" />
         </i>
       </a> */}
+      {is_promotion === true && promotional_price !== undefined && promotional_price > 0 && (
+        <i className="promotion_badget">{calculate_promotion(price ?? 0, promotional_price)}</i>
+      )}
       <div className="category_picture bestselled">
         <Image
           src={`/assets_ecommerce/products/${image ?? 'sem-foto.webp'}`}
@@ -47,14 +56,19 @@ export const BestSelledProduct = ({
       </div>
       <div className="content">
         <a className="product_name product-description">{name}</a>
-        <div className="star_container">
-          {[1, 2, 3, 4].map((__, index) => (
-            <i key={index}>
-              <StarIcon fontSize="small" htmlColor="#EBC80C" />
-            </i>
-          ))}
-        </div>
-        <p>{fnService.numberFormat(price ?? 0)}Kz</p>
+        {hasStars && (
+          <div className="star_container">
+            {[1, 2, 3, 4].map((__, index) => (
+              <i key={index}>
+                <StarIcon fontSize="small" htmlColor="#EBC80C" />
+              </i>
+            ))}
+          </div>
+        )}
+        <p>
+          {is_promotion && <span>{fnService.numberFormat(price ?? 0)}Kz</span>}
+          {fnService.numberFormat(promotional_price ?? 0)}Kz
+        </p>
         {hasDescription && <span>{about}</span>}
       </div>
       {hasButtons && (

@@ -20,7 +20,9 @@ export type ProductDTO = {
   images?: Array<string>;
   about?: string;
   availability?: string;
+  is_promotion?: boolean;
   category?: string;
+  promotional_price?: number;
   price?: number;
   brand?: string;
   id?: number;
@@ -33,6 +35,7 @@ export type ProductTypeProps = {
   product: ProductDTO;
   hasButtons?: boolean;
   hasDescription?: boolean;
+  hasStars?: boolean;
   handleAddToCart?: (id: number) => void;
   handlepreviewProduct: (ProductDTO: ProductDTO) => void;
 };
