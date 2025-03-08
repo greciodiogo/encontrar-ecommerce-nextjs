@@ -35,9 +35,11 @@ export const Products = () => {
           </button>
         </div>
         <div className="wrap_item">
-          {new_categories.map((category, index) => (
-            <CategoryItem category={category} goToCategories={goToCategories} key={index} />
-          ))}
+          {new_categories
+            .filter((item) => item.slug !== 'promotions') // Filtra a categoria "promotions"
+            .map((category, index) => (
+              <CategoryItem category={category} goToCategories={goToCategories} key={index} />
+            ))}
         </div>
       </div>
     </div>

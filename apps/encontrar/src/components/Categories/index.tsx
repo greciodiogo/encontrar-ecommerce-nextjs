@@ -37,7 +37,7 @@ export const Categories = () => {
               {new_categories
                 .map((item) => (
                   <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">
-                    <a>{t(`categories.${item.slug}`)}</a>
+                    <a className={item.slug == 'promotions' ? 'activedCategory' : ''}>{t(`categories.${item.slug}`)}</a>
                   </button>
                 ))
                 .slice(1)}

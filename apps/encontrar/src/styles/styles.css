@@ -3632,3 +3632,93 @@ button > i {
   max-width: 90px;
   height: 23px;
 }
+
+.promotionBanner {
+  width: 100%;
+  border-bottom: 2px solid #d6d6d6;
+}
+
+.promotionBanner .promotionBanner__content {
+  border-radius: 8px;
+  background-color: #e6e6e6;
+  width: 100%;
+  padding: 1rem;
+  height: 150px;
+  margin-bottom: 2rem;
+}
+
+.promotionBanner .promotionBanner__content .promotionBanner__wrapper {
+  max-width: 680px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.promotionBanner .promotionBanner__content .promotionBanner__wrapper .promotion__item {
+  background-color: #efd33d;
+  padding: 10px;
+  height: 100%;
+  border-radius: 8px;
+  width: 248px;
+  color: #111;
+  border-right: 4px solid #000000;
+  position: relative;
+}
+
+.promotionBanner .promotionBanner__content .promotionBanner__wrapper .promotion__item > h3 {
+  font-weight: bold;
+  font-size: 38px;
+  margin-bottom: 5px;
+}
+
+.promotionBanner .promotionBanner__content .promotionBanner__wrapper .promotion__item > p {
+  font-weight: bold;
+  font-size: 16px;
+  max-width: 150px;
+  color: #2b2b2b;
+  text-transform: uppercase;
+}
+
+.promotion__desc {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.promotion__desc > h3 {
+  color: #191c1f;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.promotion__desc > p {
+  font-size: 18px;
+  color: #191c1f;
+}
+
+.promotion__item__desc {
+  position: absolute;
+  top: 25%;
+  right: -30%;
+  background-color: black;
+  border-radius: 8px;
+}
+
+.promotion__item__desc > p {
+  color: white;
+  max-width: 120px;
+  border-radius: 8px;
+  border-right: 4px solid #c7370f;
+  padding: 10px;
+}
+
+.activedCategory {
+  background-color: #efd33d;
+  color: #000000 !important;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 12px;
+}

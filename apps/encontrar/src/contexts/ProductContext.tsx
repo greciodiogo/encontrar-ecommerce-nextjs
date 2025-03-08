@@ -47,8 +47,10 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const expandedCategories = selectedCategories.flatMap((category) => categoryMappings[category] || category);
 
-    // Filtro por múltiplas categorias
-    if (expandedCategories.length > 0) {
+    // Verifica se a categoria selecionada é "promotions"
+    if (expandedCategories.includes('Promoções')) {
+      filtered = filtered.filter((prod) => prod.is_promotion && prod.promotional_price > 0);
+    } else if (expandedCategories.length > 0) {
       filtered = filtered.filter((prod) => expandedCategories.some((cat) => prod.categories.includes(cat)));
     }
 

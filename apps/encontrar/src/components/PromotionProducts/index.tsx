@@ -7,6 +7,7 @@ import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
+import { useProductContext } from 'hooks/useProductContext';
 import { ProductDTO } from 'types/product';
 
 import { useAppDispatch } from '../../hooks';
@@ -21,12 +22,19 @@ export const PromotionProducts = ({
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
+  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
 
   const router = useRouter();
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
     //
+  };
+
+  const goToCategories = (categorySlug: string) => {
+    setSelectedCategories([]);
+    toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
+    void router.push(`/products`);
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {
@@ -43,7 +51,7 @@ export const PromotionProducts = ({
             <h2>Promoções</h2>
             <p>Aproveita +10% desconto em talão nas tuas categorias favoritas!</p>
           </div>
-          <button className="more_categories">
+          <button className="more_categories" onClick={() => goToCategories('Promoções')}>
             {t('products.search_products')}
 
             <i>

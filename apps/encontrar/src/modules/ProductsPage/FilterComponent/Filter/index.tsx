@@ -74,21 +74,23 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
             <div className={styles.content}>
               {filter.key === 'Categorias' && (
                 <div className={styles.brandsList}>
-                  {new_categories.map((category) => (
-                    <label key={category.name} className={styles.brandItem}>
-                      <input
-                        type="checkbox"
-                        checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
-                          selectedCategories.includes(cat),
-                        )}
-                        onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
-                        className={styles.checkbox}
-                      />
-                      <span className={styles.brandName}>
-                        {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
-                      </span>
-                    </label>
-                  ))}
+                  {new_categories
+                    .filter((item) => item.slug !== 'promotions')
+                    .map((category) => (
+                      <label key={category.name} className={styles.brandItem}>
+                        <input
+                          type="checkbox"
+                          checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
+                            selectedCategories.includes(cat),
+                          )}
+                          onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
+                          className={styles.checkbox}
+                        />
+                        <span className={styles.brandName}>
+                          {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
+                        </span>
+                      </label>
+                    ))}
                 </div>
               )}
               {filter.key === 'Preços' && (
