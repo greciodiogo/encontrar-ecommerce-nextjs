@@ -1,25 +1,27 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
 import { EmptyPanelItem } from 'components/EmptyPanelItem';
 
 export const WishListPage = () => {
-  const title = 'Sua lista de Desejos encontra-se vazia';
   const router = useRouter();
+  const { t } = useTranslation('control-panel');
 
   const handleClick = () => {
     void router.push('/products');
   };
+
   return (
     <>
       <Panel>
         <Panel.Icon>Heart</Panel.Icon>
-        <Panel.Title>Lista de Desejos</Panel.Title>
-        <Panel.Description>Consulte a sua lista de Desejos</Panel.Description>
+        <Panel.Title>{t('wishList.title')}</Panel.Title>
+        <Panel.Description>{t('wishList.description')}</Panel.Description>
       </Panel>
       <div className="wishList">
-        <EmptyPanelItem title={title} type="wish-list" handleClick={handleClick} />
+        <EmptyPanelItem title={t('wishList.emptyMessage')} type="wish-list" handleClick={handleClick} />
       </div>
     </>
   );

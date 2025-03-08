@@ -1,65 +1,68 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { useAuth } from 'hooks/useAuth';
 
-const panelItems = [
-  {
-    icon: 'Stack.png',
-    routerLink: 'account-config',
-    title: 'Configurações da Conta',
-    description: 'Edite seu nome, endereço, email e password',
-  },
-  {
-    icon: 'Storefront.png',
-    routerLink: 'order-history',
-    title: 'Histórico de Pedidos',
-    description: 'Consulte o seu histórico de encomendas',
-  },
-  {
-    icon: 'Heart.png',
-    routerLink: 'wish-list',
-    title: 'Lista de Desejos',
-    description: 'Consulte a sua lista de Desejos',
-  },
-  {
-    icon: 'Icons - Location.png',
-    routerLink: 'address',
-    title: 'Endereço',
-    description: 'Altere detalhes do seu Endereço',
-  },
-  {
-    icon: 'CreditCard-dark.png',
-    routerLink: 'credit-card',
-    title: 'Cartões',
-    description: 'Adicione cartões a sua carteira',
-  },
-  {
-    icon: 'ShoppingCart.png',
-    routerLink: 'shopping-cart',
-    title: 'Carrinho de Compras',
-    description: 'Carrinho de Compras',
-  },
-];
 export const ControlPanelPage = () => {
   const router = useRouter();
   const { user } = useAuth();
-  const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest'; // Exibe "Guest" se o nome não estiver disponível
+  const { t } = useTranslation('control-panel'); // Carrega as traduções do namespace controlPanel
+  const USERNAME = user?.name ? user.name.split(' ')[0] : 'Guest';
 
   const handleClick = (routerLink: string) => {
     void router.push(`/control-panel/${routerLink}`);
   };
 
+  const panelItems = [
+    {
+      icon: 'Stack.png',
+      routerLink: 'account-config',
+      title: t('accountSettings.title'),
+      description: t('accountSettings.description'),
+    },
+    {
+      icon: 'Storefront.png',
+      routerLink: 'order-history',
+      title: t('orderHistory.title'),
+      description: t('orderHistory.description'),
+    },
+    {
+      icon: 'Heart.png',
+      routerLink: 'wish-list',
+      title: t('wishList.title'),
+      description: t('wishList.description'),
+    },
+    {
+      icon: 'Icons - Location.png',
+      routerLink: 'address',
+      title: t('address.title'),
+      description: t('address.description'),
+    },
+    {
+      icon: 'CreditCard-dark.png',
+      routerLink: 'credit-card',
+      title: t('creditCard.title'),
+      description: t('creditCard.description'),
+    },
+    {
+      icon: 'ShoppingCart.png',
+      routerLink: 'shopping-cart',
+      title: t('shoppingCart.title'),
+      description: t('shoppingCart.description'),
+    },
+  ];
+
   return (
     <div className="controlPanel">
-      <h1>Olá {USERNAME}, seja bem vindo ao Encontrar</h1>
+      <h1>{t('welcome', { name: USERNAME })}</h1>
       <div className="wrapper">
         {panelItems.map((item, index) => (
           <PanelItem
             icon={item.icon}
             title={item.title}
             description={item.description}
-            onClick={() => handleClick(item.routerLink)} // Corrigido aqui
+            onClick={() => handleClick(item.routerLink)}
             key={index}
           />
         ))}
@@ -81,7 +84,7 @@ export const PanelItem = ({
 }) => (
   <button className="panelItem" onClick={onClick}>
     <i className="fasmapay">
-      <img src={`/assets_ecommerce/svg/${icon}`} alt="" />
+      <img src={`/assets_ecommerce/svg/${icon}`} alt={title} />
     </i>
     <h5>{title}</h5>
     <p>{description}</p>

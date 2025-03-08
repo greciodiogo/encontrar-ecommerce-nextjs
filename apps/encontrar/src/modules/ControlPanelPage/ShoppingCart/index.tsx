@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
 import { EmptyPanelItem } from 'components/EmptyPanelItem';
 
 export const ShoppingCartPage = () => {
-  const title = 'Seu Carrinho de Compras encontra-se vazio';
   const router = useRouter();
+  const { t } = useTranslation('control-panel'); // 👈 Namespace para traduções
 
   const handleClick = () => {
     void router.push('/products');
@@ -16,11 +17,11 @@ export const ShoppingCartPage = () => {
     <>
       <Panel>
         <Panel.Icon>ShoppingCart</Panel.Icon>
-        <Panel.Title>Carrinho de Compras</Panel.Title>
-        <Panel.Description>Carrinho de Compras</Panel.Description>
+        <Panel.Title>{t('shoppingCart.title')}</Panel.Title>
+        <Panel.Description>{t('shoppingCart.description')}</Panel.Description>
       </Panel>
       <div className="shoppingCart">
-        <EmptyPanelItem title={title} type="shopping-cart" handleClick={handleClick} />
+        <EmptyPanelItem title={t('shoppingCart.emptyMessage')} type="shopping-cart" handleClick={handleClick} />
       </div>
     </>
   );

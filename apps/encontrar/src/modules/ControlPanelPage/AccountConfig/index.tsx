@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
@@ -6,29 +7,30 @@ import { useAuth } from 'hooks/useAuth';
 
 export const AccountConfigPage = () => {
   const { user } = useAuth();
+  const { t } = useTranslation('control-panel'); // 👈 Namespace para traduções
 
   return (
     <>
       <Panel>
         <Panel.Icon>Stack</Panel.Icon>
-        <Panel.Title>Configurações da Conta</Panel.Title>
-        <Panel.Description>Edite seu nome, endereço, email e password</Panel.Description>
+        <Panel.Title>{t('accountSettings.title')}</Panel.Title>
+        <Panel.Description>{t('accountSettings.description')}</Panel.Description>
       </Panel>
       <div className="accountConfig">
         <div className="group">
-          <h4>Nome</h4>
+          <h4>{t('accountSettings.name')}</h4>
           <p>{user?.name}</p>
         </div>
         <div className="group">
-          <h4>Email</h4>
+          <h4>{t('accountSettings.email')}</h4>
           <p>{user?.email}</p>
         </div>
         <div className="group">
-          <h4>Password</h4>
+          <h4>{t('accountSettings.password')}</h4>
           <p>***************</p>
         </div>
         <button>
-          Editar Detalhes da Conta
+          {t('accountSettings.editDetails')}
           <i>
             <FaArrowRight size={12} fill="black" />
           </i>

@@ -1,0 +1,36 @@
+{
+  "welcome": "Hello {{name}}, welcome to Encontrar",
+  "accountSettings": {
+    "title": "Account Settings",
+    "description": "Edit your name, address, email, and password",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "editDetails": "Edit Account Details"
+  },
+  "orderHistory": {
+    "title": "Order History",
+    "description": "Check your order history",
+    "emptyTitle": "Your order history is empty"
+  },
+  "wishList": {
+    "title": "Wish List",
+    "description": "Check your wish list",
+    "emptyMessage": "Your wish list is empty"
+  },
+  "address": {
+    "title": "Address",
+    "description": "Edit your address details",
+    "emptyMessage": "Your address history is empty"
+  },
+  "creditCard": {
+    "title": "Cards",
+    "description": "Add cards to your wallet",
+    "emptyMessage": "Your credit card history is empty"
+  },
+  "shoppingCart": {
+    "title": "Shopping Cart",
+    "description": "View your shopping cart",
+    "emptyMessage": "Your shopping cart is empty"
+  }
+}

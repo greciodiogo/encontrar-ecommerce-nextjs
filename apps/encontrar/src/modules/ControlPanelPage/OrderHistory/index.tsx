@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 import { Panel } from 'components/ControlPanel';
@@ -9,9 +10,8 @@ import { RootState } from 'types/product';
 import { OrderList } from './OrdersList';
 
 export const OrderHistoryPage = () => {
+  const { t } = useTranslation('control-panel'); // 👈 Namespace para traduções
   const order = useAppSelector((state: RootState) => state.products.order);
-
-  const title = 'Seu histórico de pedidos encontra-se vazio';
   const router = useRouter();
 
   const handleClick = () => {
@@ -22,14 +22,14 @@ export const OrderHistoryPage = () => {
     <>
       <Panel>
         <Panel.Icon>Storefront</Panel.Icon>
-        <Panel.Title>Histórico de Pedidos</Panel.Title>
-        <Panel.Description>Consulte o seu histórico de encomendas</Panel.Description>
+        <Panel.Title>{t('orderHistory.title')}</Panel.Title>
+        <Panel.Description>{t('orderHistory.description')}</Panel.Description>
       </Panel>
       <div className="orderHistory">
         {order?.estado === 'ANDAMENTO' ? (
           <OrderList />
         ) : (
-          <EmptyPanelItem title={title} type="order-history" handleClick={handleClick} />
+          <EmptyPanelItem title={t('orderHistory.emptyTitle')} type="order-history" handleClick={handleClick} />
         )}
       </div>
     </>

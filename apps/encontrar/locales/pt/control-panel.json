@@ -1,0 +1,36 @@
+{
+  "welcome": "Olá {{name}}, seja bem-vindo ao Encontrar",
+  "accountSettings": {
+    "title": "Configurações da Conta",
+    "description": "Edite seu nome, endereço, email e senha",
+    "name": "Nome",
+    "email": "Email",
+    "password": "Senha",
+    "editDetails": "Editar Detalhes da Conta"
+  },
+  "orderHistory": {
+    "title": "Histórico de Pedidos",
+    "description": "Consulte o seu histórico de encomendas",
+    "emptyTitle": "Seu histórico de pedidos encontra-se vazio"
+  },
+  "wishList": {
+    "title": "Lista de Desejos",
+    "description": "Consulte a sua lista de desejos",
+    "emptyMessage": "Sua lista de desejos encontra-se vazia"
+  },
+  "address": {
+    "title": "Endereço",
+    "description": "Altere detalhes do seu endereço",
+    "emptyMessage": "Seu histórico de Endereços encontra-se vazio"
+  },
+  "creditCard": {
+    "title": "Cartões",
+    "description": "Adicione cartões à sua carteira",
+    "emptyMessage": "Seu histórico de cartões encontra-se vazio"
+  },
+  "shoppingCart": {
+    "title": "Carrinho de Compras",
+    "description": "Veja seu carrinho de compras",
+    "emptyMessage": "Seu carrinho de compras encontra-se vazio"
+  }
+}

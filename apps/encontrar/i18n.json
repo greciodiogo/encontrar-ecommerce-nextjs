@@ -9,6 +9,13 @@
     "/checkout": ["auth", "home", "checkout", "common"],
     "/sucessful-order": ["auth", "home", "checkout", "common"],
     "/preview-product": ["auth", "cart", "home", "common"],
-    "/auth": ["auth", "home", "common"]
+    "/auth": ["auth", "home", "common"],
+    "/control-panel": ["auth", "control-panel", "home", "common"],
+    "/control-panel/wish-list": ["auth", "control-panel", "home", "common"],
+    "/control-panel/order-history": ["auth", "control-panel", "home", "common"],
+    "/control-panel/account-config": ["auth", "control-panel", "home", "common"],
+    "/control-panel/address": ["auth", "checkout", "control-panel", "home", "common"],
+    "/control-panel/credit-card": ["auth", "control-panel", "home", "common"],
+    "/control-panel/shopping-cart": ["auth", "control-panel", "home", "common"]
   }
 }
