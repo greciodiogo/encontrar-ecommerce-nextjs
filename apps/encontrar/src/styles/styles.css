@@ -717,6 +717,12 @@ a:visited {
   font-weight: 400;
   font-size: 14px;
   text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 20px; /* Ajuste conforme necessário */
 }
 
 .products .wrapper .title {
@@ -761,9 +767,11 @@ a:visited {
 }
 
 .category-item p {
-  font-size: 16px;
+  font-size: 18px;
   color: #d2593b;
   font-weight: 600;
+  display: flex;
+  gap: 5px;
 }
 
 .category-item span {
@@ -1160,6 +1168,7 @@ a:visited {
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
+  position: relative;
 }
 
 .bestselled_product .category_picture {
@@ -1184,8 +1193,16 @@ a:visited {
   object-fit: contain;
 }
 
-.bestselled_product.category-item .content span {
+.bestselled_product.category-item .content > span {
   color: #958e83;
+}
+
+.bestselled_product.category-item .content > P > span {
+  color: #929fa5;
+  font-size: 13px;
+  font-size: normal;
+  font-weight: normal;
+  text-decoration: line-through;
 }
 
 .addCartBtn {
@@ -3552,4 +3569,66 @@ button > i {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.promotion_products .products_container {
+  background-color: #f5f3e9;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.promotion_products .products_container .wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.promotion_products .products_container .wrapper .bestselled_product {
+  width: 100%;
+  display: flex;
+  background-color: #f4f1ed;
+}
+
+.promotion_products .products_container .promotion_product_top {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.promotion_products .products_container .promotion_product_top .promotion_product_content {
+  max-width: 300px;
+  width: 100%;
+}
+
+.promotion_products .products_container .promotion_product_top .promotion_product_content h2 {
+  font-weight: 600;
+  font-size: 32px;
+  color: #191c1f;
+}
+
+.promotion_products .products_container .promotion_product_top > .promotion_product_content > p {
+  font-weight: normal;
+  font-size: 18px;
+  color: #191c1f;
+}
+
+.promotion_products .products_container .wrapper .bestselled_product .category_picture {
+  height: 163px;
+}
+
+.promotion_badget {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #efd33d;
+  color: #191c1f;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 90px;
+  height: 23px;
 }
