@@ -1198,10 +1198,13 @@ a:visited {
 }
 
 .bestselled_product.category-item .content > P > span {
-  color: #929fa5;
-  font-size: 13px;
   font-size: normal;
   font-weight: normal;
+}
+
+.bestselled_product.category-item .content > P > span.promo {
+  color: #929fa5;
+  font-size: 13px;
   text-decoration: line-through;
 }
 
@@ -3581,6 +3584,12 @@ button > i {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .promotion_products .products_container .wrapper {
+    overflow-x: auto;
+  }
 }
 
 .promotion_products .products_container .wrapper .bestselled_product {

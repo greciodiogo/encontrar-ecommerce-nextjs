@@ -66,8 +66,14 @@ export const BestSelledProduct = ({
           </div>
         )}
         <p>
-          {is_promotion && <span>{fnService.numberFormat(price ?? 0)}Kz</span>}
-          {fnService.numberFormat(promotional_price ?? 0)}Kz
+          {is_promotion && promotional_price !== undefined && promotional_price > 0 ? (
+            <>
+              <span className="promo">{fnService.numberFormat(price ?? 0)}Kz</span>
+              <span>{fnService.numberFormat(promotional_price)}Kz</span>
+            </>
+          ) : (
+            <span>{fnService.numberFormat(price ?? 0)}Kz</span>
+          )}
         </p>
         {hasDescription && <span>{about}</span>}
       </div>
