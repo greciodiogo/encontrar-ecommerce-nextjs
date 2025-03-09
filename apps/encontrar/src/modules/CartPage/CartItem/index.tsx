@@ -33,27 +33,14 @@ export const CartItem = (props: CartItemProps) => {
   }, [price, localQty, setTotal, setSubtotal]);
 
   const handleRemoveFromCart = () => {
-    const itemSubtotal = price * localQty;
-
     dispatch(removeFromCart(id));
-
-    setTotal((prevTotal) => Math.max(0, prevTotal - itemSubtotal));
-    setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal - itemSubtotal));
-
-    setLocalQty(0);
   };
 
   const handleAdjustQtyCart = (id: number, newQty: number) => {
     if (newQty < 1) return;
 
-    const prevQty = localQty;
-    const diff = newQty - prevQty;
-
     setLocalQty(newQty);
     dispatch(adjustQty(id, newQty));
-
-    setTotal((prevTotal) => Math.max(0, prevTotal + diff * price));
-    setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal + diff * price));
   };
 
   if (!isClient) {

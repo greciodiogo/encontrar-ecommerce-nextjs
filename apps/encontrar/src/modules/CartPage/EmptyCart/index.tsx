@@ -3,20 +3,23 @@ import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
-import { useAuth } from 'hooks/useAuth';
+import { useProductContext } from 'hooks/useProductContext';
 
 export const EmptyCart = () => {
-  const { isClient } = useAuth();
   const router = useRouter();
   const { t } = useTranslation('cart');
 
+  const { setSelectedCategories } = useProductContext();
+
   const handleStartBuying = () => {
+    setSelectedCategories([]);
+
     void router.push('/products');
   };
 
-  if (!isClient) {
-    return null;
-  }
+  // if (!isClient) {
+  //   return null;
+  // }
 
   return (
     <div className="emptyCart">

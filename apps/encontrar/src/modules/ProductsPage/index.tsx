@@ -1,8 +1,9 @@
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
-import { PromotionBanner } from 'components';
+// import { PromotionBanner } from 'components';
 import { Container } from 'components/Container';
+import { PromotionBanner } from 'components/PromotionBanner';
 import { useProductContext } from 'hooks/useProductContext';
 
 import { FilterComponent } from './FilterComponent';
@@ -12,7 +13,6 @@ export const ProductsPage = () => {
   const { t } = useTranslation('common');
   const [showFilter, setShowFilter] = useState(false);
   const { selectedCategories } = useProductContext();
-  console.log(selectedCategories);
 
   const handleShowFilterPainel = () => {
     setShowFilter(true);
