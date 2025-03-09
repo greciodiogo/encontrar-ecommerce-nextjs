@@ -43,6 +43,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
   const isProductsRoute = router.pathname.startsWith('/products');
+  const isAboutRoute = router.pathname.startsWith('/about');
   const isHomeRoute = router.pathname === '/';
   const isAuthRoute = router.pathname.startsWith('/auth');
 
@@ -78,6 +79,21 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
           <button className="logo_container" onClick={redirectHome}>
             <img src="/assets_ecommerce/logo.png" alt="" />
           </button>
+
+          <span></span>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAboutRoute) {
+    return (
+      <div className={`header headerAbout ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
+        <div className="header_container">
+          <button className="logo_container" onClick={redirectHome}>
+            <img src="/assets_ecommerce/logo.png" alt="" />
+          </button>
+          <h2>| Política de Privacidade </h2>
 
           <span></span>
         </div>

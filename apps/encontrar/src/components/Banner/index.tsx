@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import Slider from 'react-slick';
 
@@ -8,6 +9,11 @@ import 'slick-carousel/slick/slick-theme.css';
 export const Banner = () => {
   const { t } = useTranslation('home'); // 'common' se refere ao nome do JSON
   const information = [t('banner.text'), t('banner.text'), t('banner.text'), t('banner.text')];
+  const router = useRouter();
+
+  const isAboutRoute = router.pathname.startsWith('/about');
+
+  if (isAboutRoute) return;
 
   const settings = {
     dots: false,

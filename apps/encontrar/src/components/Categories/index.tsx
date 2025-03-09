@@ -14,6 +14,7 @@ export const Categories = () => {
 
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
+  const isAboutRoute = router.pathname.startsWith('/about');
   const isHomeRoute = router.pathname === '/';
 
   const goToCategories = (categorySlug: string) => {
@@ -23,6 +24,8 @@ export const Categories = () => {
   };
 
   if (isControlPanelRoute || isCheckoutRoute) return null;
+
+  if (isAboutRoute) return;
 
   return (
     <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>

@@ -132,6 +132,19 @@ a:visited {
   padding: 1rem 1.8rem 1rem 1rem;
 }
 
+.headerAbout {
+  background-color: #ebba0c;
+}
+
+.headerAbout .header_container {
+  height: 80px;
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .header .logo_container {
   height: 45px;
   width: 135px;
