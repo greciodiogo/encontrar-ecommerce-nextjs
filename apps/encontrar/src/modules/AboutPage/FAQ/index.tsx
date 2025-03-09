@@ -35,7 +35,6 @@ export const FAQ = () => {
 
   return (
     <div className="faq-container">
-      <h2>Perguntas Frequentes</h2>
       <div className="faq-list">
         {faqData.map((item, index) => (
           <div key={index} className={`faq-item ${openIndex === index ? 'open' : ''}`}>
@@ -43,7 +42,9 @@ export const FAQ = () => {
               {item.question}
               <span>{openIndex === index ? '−' : '+'}</span>
             </button>
-            <div className="faq-answer">{item.answer}</div>
+            <div className="faq-answer">
+              <p>{item.answer}</p>
+            </div>
           </div>
         ))}
       </div>
