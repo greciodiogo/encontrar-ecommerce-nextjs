@@ -15,6 +15,8 @@ import './../styles/dropdown.css';
 import './../styles/CookieBanner.css';
 import './../styles/menu-categories.css';
 import './../styles/product-detail/slide.css';
+import './../styles/faq.css';
+
 // import './../styles/review.module.css';
 import { Banner, Footer, Header } from 'components';
 import { ProductProvider } from 'contexts/ProductContext';
