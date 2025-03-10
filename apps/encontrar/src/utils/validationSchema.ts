@@ -22,4 +22,10 @@ export const validationSchema = {
       .required('O campo Email é obrigatório'),
     // paymentMethod: yup.string().required('O nome é obrigatório'),
   }),
+
+  contactSupport: yup.object().shape({
+    email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
+    subject: yup.string().required('O campo Assunto é obrigatório'),
+    body: yup.string().required('O Corpo da mensagem é obrigatório'),
+  }),
 };

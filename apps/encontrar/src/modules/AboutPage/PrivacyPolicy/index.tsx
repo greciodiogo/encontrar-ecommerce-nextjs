@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './../../../styles/about/privacyPolicy.module.css';
 
-export const PrivacyPolicy = () => {
+export const PrivacyPolicies = () => {
   return (
     <div className={styles.privacyPolicy}>
       <div className={`${styles.privacyPolicy} ${styles.container}`}>

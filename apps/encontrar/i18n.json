@@ -11,6 +11,7 @@
     "/preview-product": ["auth", "cart", "home", "common"],
     "/auth": ["auth", "home", "common"],
     "/about": ["auth", "home", "common"],
+    "/privacy-policy": ["auth", "home", "common"],
     "/control-panel": ["auth", "control-panel", "home", "common"],
     "/control-panel/wish-list": ["auth", "control-panel", "home", "common"],
     "/control-panel/order-history": ["auth", "control-panel", "home", "common"],

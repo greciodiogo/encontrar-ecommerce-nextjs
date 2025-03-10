@@ -129,7 +129,7 @@ a:visited {
   align-items: center;
   justify-content: space-between;
   gap: 5px;
-  /* padding: 1rem 1.8rem 1rem 1rem; */
+  padding: 1rem 1.8rem 1rem 1rem;
 }
 
 .headerAbout {
@@ -143,6 +143,7 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 0;
 }
 
 .header .logo_container {
@@ -1343,12 +1344,21 @@ a:visited {
   margin: 6px 0;
 }
 
+.footer .wrapper .col-1 .content {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer .wrapper .col-1 .content a,
 .footer .wrapper .col-1 .content p {
   color: #808080;
   text-decoration: underline;
   font-size: 14;
 }
 
+.footer .wrapper .col-1 .content a:hover,
 .footer .wrapper .col-1 .content p:hover {
   color: #ac7800;
   cursor: pointer;

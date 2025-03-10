@@ -2,15 +2,16 @@ import React from 'react';
 
 import { Container } from 'components/Container';
 
+// import { ContactSupport } from './ContactSupport';
 import { FAQ } from './FAQ';
-import { PrivacyPolicy } from './PrivacyPolicy';
+import { PrivacyPolicies } from './PrivacyPolicy';
 
-export const AboutPage = () => {
+export const PrivacyPolicyPage = () => {
   return (
     <Container useStyle={false}>
       <div className="about_policy">
         <div className="about_policy_container">
-          <PrivacyPolicy />
+          <PrivacyPolicies />
         </div>
       </div>
       <div className="about_faq">
@@ -24,6 +25,9 @@ export const AboutPage = () => {
           </div>
           <FAQ />
         </div>
+      </div>
+      <div className="about_policy">
+        <div className="about_policy_container">{/* <ContactSupport /> */}</div>
       </div>
     </Container>
   );
