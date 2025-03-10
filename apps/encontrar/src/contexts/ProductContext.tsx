@@ -15,7 +15,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [availability, setAvailability] = useState('');
   const [rating, setRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
   const categoryMappings: Record<string, Array<string>> = {
     'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],

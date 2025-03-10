@@ -1,8 +1,9 @@
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-import { CheapestProducts, Framer, OtherProducts, Products, Reviews, WhyUs } from 'components';
+import { CheapestProducts, OtherProducts, Products, Reviews, WhyUs } from 'components';
 import { Container } from 'components/Container';
+import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
 import { products } from 'fixture/ecommerceData';
 // import { useProductContext } from 'hooks/useProductContext';
@@ -28,7 +29,7 @@ export const Homepage = () => {
   const randomPopularProducts = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
   return (
     <Container useStyle={false}>
-      <Framer />
+      <PromoCarousel />
       <Products />
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}

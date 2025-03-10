@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './../styles/styles.css';
 import './../styles/reviewForm.css';
 import './../styles/dropdown.css';
+import './../styles/home/swiper.css';
 import './../styles/CookieBanner.css';
 import './../styles/menu-categories.css';
 import './../styles/product-detail/slide.css';
