@@ -12,8 +12,9 @@ export const Banner = () => {
   const router = useRouter();
 
   const isAboutRoute = router.pathname.startsWith('/about');
+  const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
 
-  if (isAboutRoute) return;
+  if (isAboutRoute || isPrivacyPolicyRoute) return;
 
   const settings = {
     dots: false,

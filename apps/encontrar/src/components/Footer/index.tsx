@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
@@ -21,9 +22,9 @@ export const Footer = () => {
                 <img src="/assets_ecommerce/logo2.png" alt="" />
               </i>
               <div className="content">
-                <p>{t('footer.terms')}</p>
-                <p>{t('footer.privacy')}</p>
-                <p>{t('footer.notice')}</p>
+                <Link href={''}>{t('footer.terms')}</Link>
+                <Link href={'/privacy-policy'}>{t('footer.privacy')}</Link>
+                <Link href={''}>{t('footer.notice')}</Link>
               </div>
             </div>
             <div className="col col-2">

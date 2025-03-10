@@ -140,3 +140,188 @@
     /* justify-content: center; */
   }
 }
+
+.contactSupport {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactSupport > h4 {
+  font-weight: 600;
+  font-size: 18px;
+  color: #191c1f;
+}
+
+.contactSupport > p {
+  font-weight: normal;
+  font-size: 18px;
+  color: #475156;
+}
+
+/* ********************************************* */
+
+/* Quem Somos */
+.quem-somos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  background: #fff;
+  gap: 10px;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .quem-somos {
+    flex-direction: column-reverse;
+  }
+}
+
+.quem-somos-texto {
+  max-width: 500px;
+}
+
+.quem-somos h4 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #958e83;
+}
+
+.quem-somos h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000000;
+  margin: 20px 0;
+}
+
+.quem-somos p {
+  font-size: 16px;
+  color: #000000;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.quem-somos .btn:hover {
+  opacity: 0.85;
+}
+
+.quem-somos .btn:visited {
+  color: white;
+}
+
+.quem-somos .btn {
+  display: flex;
+  background: black;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 24px;
+  margin-top: 15px;
+  align-items: baseline;
+  max-width: fit-content;
+  gap: 10px;
+}
+
+.quem-somos-imagem {
+  border-radius: 8px;
+  height: 300px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.quem-somos-imagem img {
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Equipe */
+.equipe {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: #f9f9f9;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.equipe > h4 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #958e83;
+  font-weight: 600;
+}
+
+.equipe > h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px auto;
+  max-width: 324px;
+  color: #191c1f;
+}
+
+.equipe-lista {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.equipe-card {
+  background: white;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  /* width: 180px; */
+}
+
+.equipe-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.cargo {
+  font-size: 14px;
+  color: #777;
+  margin: 5px 0;
+}
+
+.equipe-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (max-width: 850px) {
+  .equipe-lista {
+    overflow-x: auto;
+    padding-left: 2rem;
+  }
+}
+
+.aboutUs {
+  width: 100%;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutUs__container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}

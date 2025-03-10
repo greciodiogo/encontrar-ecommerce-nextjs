@@ -44,6 +44,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const isCartRoute = router.pathname.startsWith('/cart');
   const isProductsRoute = router.pathname.startsWith('/products');
   const isAboutRoute = router.pathname.startsWith('/about');
+  const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
   const isHomeRoute = router.pathname === '/';
   const isAuthRoute = router.pathname.startsWith('/auth');
 
@@ -86,15 +87,17 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
     );
   }
 
-  if (isAboutRoute) {
+  if (isAboutRoute || isPrivacyPolicyRoute) {
     return (
       <div className={`header headerAbout ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="logo_container" onClick={redirectHome}>
             <img src="/assets_ecommerce/logo.png" alt="" />
           </button>
-          <h2>| Política de Privacidade </h2>
-
+          <h2 style={{ fontWeight: '600', fontSize: '18px', color: '#04040B' }}>
+            {isAboutRoute && '| Quem Somos'}
+            {isPrivacyPolicyRoute && '| Política de Privacidade'}
+          </h2>
           <span></span>
         </div>
       </div>
