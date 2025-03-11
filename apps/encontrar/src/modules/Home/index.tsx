@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-import { CheapestProducts, OtherProducts, Products, WhyUs } from 'components';
+import { CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
@@ -36,6 +36,11 @@ export const Homepage = () => {
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={topExpensiveDrinks} bannerText={t('cheapest_products.best_beverage_deals')} />
       <CheapestProducts products={randomPopularProducts} bannerText={t('cheapest_products.best_food_deals')} />
+      <div className="productsPage">
+        <div className="productsPage__container">
+          <PromotionBanner />
+        </div>
+      </div>
       <PromotionProducts
         products={promotionProducts}
         bannerText={t('cheapest_products.other_products')}
