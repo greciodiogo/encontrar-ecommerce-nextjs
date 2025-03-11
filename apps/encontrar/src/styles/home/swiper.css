@@ -117,3 +117,42 @@
 .custom-next:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+@media (max-width: 890px) {
+  .carousel-container .slide-content {
+    flex-direction: column-reverse;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .carousel-container {
+    height: auto;
+  }
+
+  .slide-img {
+    height: 250px;
+    width: 100%;
+  }
+
+  .slide-img img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .carousel-container .text-content {
+    max-width: 450px;
+    width: 100%;
+  }
+
+  .carousel-container {
+    padding: 1rem;
+  }
+
+  .carousel-container .slide-content {
+    padding: 1rem;
+  }
+
+  .carousel-container .image-content img {
+    width: 100%;
+  }
+}

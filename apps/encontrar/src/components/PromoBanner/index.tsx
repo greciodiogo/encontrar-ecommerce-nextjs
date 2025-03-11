@@ -72,8 +72,22 @@ export const PromoCarousel = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="slide-img" />
+          <div className="slide-content">
+            <div className="text-content">
+              <h2>{slide.titulo}</h2>
+              <p>{slide.descricao}</p>
+              <Link href="/promocoes" className="btn" onClick={() => goToCategories('Promoções')}>
+                Ver produtos em promoção
+              </Link>
+            </div>
+            <div className="image-content">
+              <Image src={slide.imagem} alt="Promoção" width={410} height={240} objectFit="contain" />
+            </div>
+          </div>
         </SwiperSlide>
+        {/* <SwiperSlide>
+          <div className="slide-img" />
+        </SwiperSlide> */}
       </Swiper>
 
       <button
