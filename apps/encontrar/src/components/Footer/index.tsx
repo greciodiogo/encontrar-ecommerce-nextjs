@@ -1,4 +1,4 @@
-// import Link from 'next/link';
+import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
@@ -33,23 +33,42 @@ export const Footer = () => {
             <i className="footer_icon">
               <img src="/assets_ecommerce/logo.png" alt="Logo" />
             </i>
-            {footer.map((category, index) => (
-              <div className="wrapper_list" key={index}>
-                <h3 className="title">{category.title}</h3>
-                <ul className="subcategories">
-                  {category.data.map((item, itemIndex) => (
-                    <li className="category-item" key={itemIndex}>
-                      <a href="#">{item.title}</a>
-                    </li>
-                  ))}
-                </ul>
+            {footer
+              .map((category, index) => (
+                <div className="wrapper_list" key={index}>
+                  <h3 className="title">{category.title}</h3>
+                  <ul className="subcategories">
+                    {category.data.map((item, itemIndex) => (
+                      <li className="category-item" key={itemIndex}>
+                        <Link href={item.slug}>{item.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+              .slice(0, 1)}
+            <div className="wrapper_list">
+              {footer
+                .map((category, index) => (
+                  <div className="wrapper_list" key={index}>
+                    <h3 className={`${category.slug} title`}>{category.title}</h3>
+                    <ul className={`subcategories ${category.slug}`}>
+                      {category.data.map((item, itemIndex) => (
+                        <li className={`category-item ${item.slug}`} key={itemIndex}>
+                          <img src={`/assets_ecommerce/svg/${item?.slug !== 'location' && item?.imgUrl}`} alt="" />
+                          <Link href={item.slug}>{item.title}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+                .slice(1)}
+            </div>
+            <div className="about__content">
+              <div className="about__picture__content">
+                <img src="/assets_ecommerce/svg/PhoneCall2.png" alt="" />
+                <span>Para mais informações ou apoio técnico, ligue 933000000</span>
               </div>
-            ))}
-          </div>
-          <div className="row row-2">
-            <div className="contact_info">
-              <p>Para mais informações ou apoio técnico, ligue:</p>
-              <span>933 000 000</span>
             </div>
           </div>
         </div>

@@ -49,21 +49,21 @@ export const footer = [
     title: 'Informações',
     data: [
       { slug: 'about', title: 'Sobre Encontrar' },
-      { slug: 'ecommerce', title: 'Ir para o Ecommerce' },
-      { slug: 'privacy_policy', title: 'Políticas de Privacidade Encontrar' },
+      { slug: '', title: 'Ir para o Ecommerce' },
+      { slug: 'privacy-policy', title: 'Políticas de Privacidade Encontrar' },
     ],
   },
   {
     slug: 'location',
     title: 'Localização',
-    data: [{ slug: 'address', title: 'Luanda, Viana.' }],
+    data: [{ slug: 'address', title: 'Luanda, Viana.', imgUrl: '' }],
   },
   {
     slug: 'social_networks',
     title: 'Redes Sociais',
     data: [
-      { slug: 'facebook', title: 'Facebook' },
-      { slug: 'instagram', title: 'Instagram' },
+      { slug: 'facebook', title: 'Facebook', imgUrl: 'footer-facebook.png' },
+      { slug: 'instagram', title: 'Instagram', imgUrl: 'footer-instagram.png' },
     ],
   },
 ];

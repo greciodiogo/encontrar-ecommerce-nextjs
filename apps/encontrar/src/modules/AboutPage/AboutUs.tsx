@@ -3,6 +3,7 @@ import React from 'react';
 import { Container } from 'components/Container';
 
 import { About_Us } from './About_Us';
+import { ContactSupport } from './ContactSupport';
 import { FAQ } from './FAQ';
 import { Team } from './Team';
 
@@ -28,7 +29,9 @@ export const AboutUs = () => {
         </div>
       </div>
       <div className="about_policy">
-        <div className="about_policy_container">{/* <ContactSupport /> */}</div>
+        <div className="about_policy_container">
+          <ContactSupport />{' '}
+        </div>
       </div>
     </Container>
   );
