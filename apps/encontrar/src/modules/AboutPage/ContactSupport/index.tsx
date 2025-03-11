@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 // import { yupResolver } from '@hookform/resolvers/yup';
 import EastIcon from '@mui/icons-material/East';
-import useTranslation from 'next-translate/useTranslation';
+// import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 // import { useForm } from 'react-hook-form';
 // import { ToastContainer } from 'react-toastify';
 
-import { ControlledTextField } from 'hooks/useFormHandler';
+// import { ControlledTextField } from 'hooks/useFormHandler';
 // import { toastProps } from 'shared/components/Toast/ToastContainer';
 // import { showToast } from 'shared/hooks/showToast';
 // import { validationSchema } from 'utils/validationSchema';
 
 export const ContactSupport = () => {
-  const { t } = useTranslation('checkout');
-  const { t: commonT } = useTranslation('common'); // Renomeia para evitar conflitos
+  // const { t } = useTranslation('checkout');
+  // const { t: commonT } = useTranslation('common'); // Renomeia para evitar conflitos
 
   // const {
   //   control,
@@ -25,18 +24,18 @@ export const ContactSupport = () => {
   //   mode: 'all',
   // });
 
-  const handleFormSubmit = () => {
-    // const checkoutData = getValues();
-    try {
-      showToast({
-        title: commonT('SUCCESS_FORM.title'),
-        message: commonT('SUCCESS_FORM.message'),
-        isSuccessType: true,
-      });
-    } catch (err) {
-      console.error('Erro ao processar o formulário:', err);
-    }
-  };
+  // const handleFormSubmit = () => {
+  //   const checkoutData = getValues();
+  //   try {
+  //     showToast({
+  //       title: commonT('SUCCESS_FORM.title'),
+  //       message: commonT('SUCCESS_FORM.message'),
+  //       isSuccessType: true,
+  //     });
+  //   } catch (err) {
+  //     console.error('Erro ao processar o formulário:', err);
+  //   }
+  // };
 
   return (
     <div className="contactSupport">
