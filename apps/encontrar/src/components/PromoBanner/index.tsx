@@ -58,9 +58,9 @@ export const PromoCarousel = () => {
             <div className="text-content">
               <h2>{slide.titulo}</h2>
               <p>{slide.descricao}</p>
-              <Link href="/promocoes" className="btn" onClick={() => goToCategories('Promoções')}>
+              <button className="btn" onClick={() => goToCategories('Promoções')}>
                 Ver produtos em promoção
-              </Link>
+              </button>
             </div>
             <div className="image-content">
               <Image src={slide.imagem} alt="Promoção" width={410} height={240} objectFit="contain" />

@@ -58,6 +58,7 @@
   border-radius: 5px;
   font-weight: 600;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .carousel-container .image-content img {

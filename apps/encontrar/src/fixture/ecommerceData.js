@@ -45,31 +45,25 @@ export const new_categories = [
 
 export const footer = [
   {
-    slug: 'orders_and_returns',
-    title: 'Pedidos e Devoluções',
+    slug: 'information',
+    title: 'Informações',
     data: [
-      { slug: 'order_status', title: 'Status do Pedido' },
-      { slug: 'store_pickup', title: 'Retirada na Loja' },
-      { slug: 'return_policy', title: 'Política e Informações de Devolução' },
-      { slug: 'shipping_info', title: 'Informações de Envio' },
+      { slug: 'about', title: 'Sobre Encontrar' },
+      { slug: 'ecommerce', title: 'Ir para o Ecommerce' },
+      { slug: 'privacy_policy', title: 'Políticas de Privacidade Encontrar' },
     ],
   },
   {
-    slug: 'shopping_tools',
-    title: 'Ferramentas de Compras',
-    data: [
-      { slug: 'order_status', title: 'Status do Pedido' },
-      { slug: 'store_pickup', title: 'Retirada na Loja' },
-      { slug: 'member_number_lookup', title: 'Consulta de Número de Membro' },
-      { slug: 'shipping_info', title: 'Informações de Envio' },
-    ],
+    slug: 'location',
+    title: 'Localização',
+    data: [{ slug: 'address', title: 'Luanda, Viana.' }],
   },
   {
-    slug: 'products',
-    title: 'Produtos',
+    slug: 'social_networks',
+    title: 'Redes Sociais',
     data: [
-      { slug: 'electronics', title: 'Eletrónicos' },
-      { slug: 'food', title: 'Alimentação' },
+      { slug: 'facebook', title: 'Facebook' },
+      { slug: 'instagram', title: 'Instagram' },
     ],
   },
 ];

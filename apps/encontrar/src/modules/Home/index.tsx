@@ -1,11 +1,12 @@
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-import { CheapestProducts, OtherProducts, Products, Reviews, WhyUs } from 'components';
+import { CheapestProducts, OtherProducts, Products, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
 import { products } from 'fixture/ecommerceData';
+import { ContactSupport } from 'modules/AboutPage/ContactSupport';
 // import { useProductContext } from 'hooks/useProductContext';
 
 export const Homepage = () => {
@@ -45,7 +46,11 @@ export const Homepage = () => {
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
       />
-      <Reviews />
+      <div className="about_policy">
+        <div className="about_policy_container">
+          <ContactSupport />{' '}
+        </div>
+      </div>
     </Container>
   );
 };

@@ -1,69 +1,63 @@
-// import { yupResolver } from '@hookform/resolvers/yup';
-import EastIcon from '@mui/icons-material/East';
-// import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
-// import { useForm } from 'react-hook-form';
-// import { ToastContainer } from 'react-toastify';
-
-// import { ControlledTextField } from 'hooks/useFormHandler';
-// import { toastProps } from 'shared/components/Toast/ToastContainer';
-// import { showToast } from 'shared/hooks/showToast';
-// import { validationSchema } from 'utils/validationSchema';
+import React, { useState } from 'react';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 
 export const ContactSupport = () => {
-  // const { t } = useTranslation('checkout');
-  // const { t: commonT } = useTranslation('common'); // Renomeia para evitar conflitos
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
 
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   // getValues,
-  //   formState: { errors },
-  // } = useForm({
-  //   resolver: yupResolver(validationSchema.contactSupport), // Verifique se existe `contactSupport`
-  //   mode: 'all',
-  // });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  // const handleFormSubmit = () => {
-  //   const checkoutData = getValues();
-  //   try {
-  //     showToast({
-  //       title: commonT('SUCCESS_FORM.title'),
-  //       message: commonT('SUCCESS_FORM.message'),
-  //       isSuccessType: true,
-  //     });
-  //   } catch (err) {
-  //     console.error('Erro ao processar o formulário:', err);
-  //   }
-  // };
+    try {
+      const response = await fetch('http://localhost:3001/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, subject, message }),
+      });
+
+      if (response.ok) {
+        alert('Mensagem enviada com sucesso!');
+        setEmail('');
+        setSubject('');
+        setMessage('');
+      } else {
+        alert('Erro ao enviar mensagem. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Erro ao enviar mensagem. Tente novamente.');
+    }
+  };
 
   return (
-    <div className="contactSupport">
-      <form>
-        <h4>Não encontrou sua resposta? Peça apoio.</h4>
-        <p>Nossa linha de email está disponível para ajudá-lo.</p>
-        {/* {(
-          [
-            { label: t('form.email'), name: 'email', type: 'email' },
-            { label: t('form.confirm_email'), name: 'subject' },
-            { label: t('form.phone_number'), name: 'body' },
-          ] as const
-        ).map((field) => (
-          <ControlledTextField
-            key={field.name}
-            control={nil}
-            errors={nil}
-            className="checkout_input col-md-4"
-            label={field.label}
-            name={field.name}
+    <div className="contact-form">
+      <h2>Não procure a sua resposta, peça apoio.</h2>
+      <p>Nossa linha de email encontrar-se disponível para ajuda-lo.</p>
+      <form onSubmit={(event) => void handleSubmit(event)}>
+        <div className="form-group">
+          <label htmlFor="email">Endereço de email</label>
+          <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="subject">Assunto</label>
+          <input
+            type="text"
+            id="subject"
+            value={subject}
+            onChange={(event) => setSubject(event.target.value)}
+            required
           />
-        ))} */}
-
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Mensagem (Opcional)</label>
+          <textarea id="message" value={message} onChange={(event) => setMessage(event.target.value)} />
+        </div>
         <button type="submit">
-          Mandar Mensagem
-          <EastIcon fontSize="small" />
+          Mandar Mensagem <HiOutlineArrowRight size={18} color="white" />
         </button>
-        {/* <ToastContainer {...toastProps} /> */}
       </form>
     </div>
   );

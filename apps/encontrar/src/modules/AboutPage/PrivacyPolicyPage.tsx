@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from 'components/Container';
 
-// import { ContactSupport } from './ContactSupport';
+import { ContactSupport } from './ContactSupport';
 import { FAQ } from './FAQ';
 import { PrivacyPolicies } from './PrivacyPolicy';
 
@@ -27,7 +27,9 @@ export const PrivacyPolicyPage = () => {
         </div>
       </div>
       <div className="about_policy">
-        <div className="about_policy_container">{/* <ContactSupport /> */}</div>
+        <div className="about_policy_container">
+          <ContactSupport />{' '}
+        </div>
       </div>
     </Container>
   );
