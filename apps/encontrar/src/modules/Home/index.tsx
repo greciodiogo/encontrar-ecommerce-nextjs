@@ -36,7 +36,7 @@ export const Homepage = () => {
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={topExpensiveDrinks} bannerText={t('cheapest_products.best_beverage_deals')} />
       <CheapestProducts products={randomPopularProducts} bannerText={t('cheapest_products.best_food_deals')} />
-      <div className="productsPage">
+      <div className="productsPage noBorder">
         <div className="productsPage__container">
           <PromotionBanner />
         </div>
