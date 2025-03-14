@@ -15,9 +15,8 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 export const ProductDetail = () => {
   const fnService = new FnService();
   const product = useAppSelector((state: RootState) => state.products);
-
-  const [quantity, setQuantity] = useState(1);
   const { name, availability, category, price, brand, id = 0, qty } = product.currentItem ?? {};
+  const [localQty, setLocalQty] = useState(1);
   const isProductInCart = product.cart.some((item) => item.id === id);
   const { t } = useTranslation('cart');
   const { isClient } = useAuth();
@@ -30,14 +29,15 @@ export const ProductDetail = () => {
   };
 
   const handleAddToCart = (id: number) => {
-    dispatch(addToCart(id));
+    dispatch(addToCart(id, qty ?? localQty));
     // setShowCheckout(true);() => handleAddToCart(product.id)
   };
 
-  const handleAdjustQtyCart = (id: number, value: number) => {
-    if (value < 1) return; // Evita valores negativos ou zero
-    // dispatch(adjustQty(id, value));
-    setQuantity(value);
+  const handleAdjustQtyCart = (id: number, newQty: number) => {
+    if (newQty < 1) return;
+
+    setLocalQty(newQty);
+    // dispatch(addToCart(id, newQty));
   };
 
   if (!isClient) return null;
@@ -73,7 +73,7 @@ export const ProductDetail = () => {
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">
-          <ChangeQuantity id={id} qty={qty ?? quantity} onAdjustQty={handleAdjustQtyCart} />
+          <ChangeQuantity id={id} qty={qty ?? localQty} onAdjustQty={handleAdjustQtyCart} />
           {product.currentItem?.id !== undefined && (
             <SubmitButton
               onClick={() => handleAddToCart(product.currentItem?.id ?? 0)}

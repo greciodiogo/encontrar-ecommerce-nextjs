@@ -35,7 +35,7 @@
     cursor: pointer;
   }
   .carousel-container .slide-mobile-img img {
-    object-fit: contain;
+    /* object-fit: contain; */
     width: 100%;
   }
 }

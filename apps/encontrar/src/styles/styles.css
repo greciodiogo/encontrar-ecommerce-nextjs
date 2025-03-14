@@ -3233,6 +3233,14 @@ a:visited {
   padding: 10px;
 }
 
+/* orderDetail section starts here */
+
+.tableColor {
+  background-color: #f2f4f5;
+}
+
+/* orderDetail section ends here */
+
 /* order_activity section ends here */
 
 .products .category_picture {
@@ -3783,3 +3791,8 @@ button > i {
   opacity: 0.95;
 }
 /* ###################################################### */
+
+.td-item {
+  display: flex !important;
+  flex-direction: row;
+}

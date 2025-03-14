@@ -1,0 +1,117 @@
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.price {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.progress {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.progress span {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 3px solid #ccc;
+}
+
+.completed {
+  color: green;
+  border-bottom: 3px solid green;
+}
+
+.active {
+  color: orange;
+  border-bottom: 3px solid orange;
+}
+
+.orderActivity ul {
+  list-style: none;
+  padding: 0;
+}
+
+.orderActivity ul i {
+  height: 48px;
+  width: 48px;
+  border-radius: 2px;
+  background-color: #eaf6fe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderActivity ul i img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.orderActivity li {
+  margin: 5px 0;
+  padding: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table tr {
+  width: 70%;
+}
+
+.table th {
+  background-color: #e4e7e9;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table td img {
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.addresses {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.address {
+  width: 48%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.container h4 {
+  margin-bottom: 10px;
+}

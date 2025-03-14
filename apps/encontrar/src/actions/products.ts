@@ -18,13 +18,15 @@ type CartAction = {
   payload: unknown;
 };
 
-export const addToCart = (id: number) => (dispatch: Dispatch<CartAction>) => {
-  try {
-    dispatch({ type: AddToCart, payload: { id } });
-  } catch (error) {
-    console.error("Can't add to Cart", error);
-  }
-};
+export const addToCart =
+  (id: number, qty = 1) =>
+  (dispatch: Dispatch<CartAction>) => {
+    try {
+      dispatch({ type: AddToCart, payload: { id, qty } });
+    } catch (error) {
+      console.error("Can't add to Cart", error);
+    }
+  };
 
 export const removeFromCart = (id: number) => (dispatch: Dispatch<CartAction>) => {
   try {
