@@ -1,6 +1,10 @@
 {
   "banner": {
-    "text": "Find the best products here"
+    "text": "Find the best products here",
+    "banner_1": "Banner_en_1.png",
+    "banner_2": "Banner_en_2.png",
+    "banner_mb_1": "Banner_mb_en_1.png",
+    "banner_mb_2": "Banner_mb_en_2.png"
   },
   "commom": {
     "categories": "Categories",
