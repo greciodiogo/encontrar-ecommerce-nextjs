@@ -14,7 +14,7 @@ export const About_Us = () => {
           com qualidade e variedade. Desde itens de supermercado até eletrônicos, você encontrará tudo o que precisa em
           um só lugar.
         </p>
-        <Link href="/products" className="btn">
+        <Link href="/" className="btn">
           Ir para o Ecommerce
           <FaArrowRight size={12} fill="white" />
         </Link>
