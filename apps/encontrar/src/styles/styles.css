@@ -2246,13 +2246,17 @@ a:visited {
 }
 
 .productsPage__container {
-  padding: 1rem 0;
+  padding: 1rem;
   max-width: 1100px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
+}
+
+.noBorder .productsPage__container {
+  padding: 1rem 0;
 }
 
 .productsPage .productsPage__top {
@@ -3229,6 +3233,14 @@ a:visited {
   padding: 10px;
 }
 
+/* orderDetail section starts here */
+
+.tableColor {
+  background-color: #f2f4f5;
+}
+
+/* orderDetail section ends here */
+
 /* order_activity section ends here */
 
 .products .category_picture {
@@ -3779,3 +3791,8 @@ button > i {
   opacity: 0.95;
 }
 /* ###################################################### */
+
+.td-item {
+  display: flex !important;
+  flex-direction: row;
+}

@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import type { Swiper as SwiperType } from 'swiper';
@@ -14,24 +14,16 @@ import { useProductContext } from 'hooks/useProductContext';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const slide = {
-  id: 1,
-  titulo: 'Descubra as promoções imperdíveis na Encontrar!',
-  descricao: 'Acesse os melhores dispositivos eletrodomésticos e eletrônicos!',
-  imagem: '/assets_ecommerce/banner__products.png',
-};
-
 export const PromoCarousel = () => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
-  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
+  const { setSelectedCategories } = useProductContext();
   const router = useRouter();
+  const { t } = useTranslation('home'); // 'common' corresponde ao JSON
 
-  const goToCategories = (categorySlug: string) => {
+  const redirectToProducts = () => {
     setSelectedCategories([]);
-    toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
-    void router.push(`/products`);
+    void router.push('/products');
   };
-
   return (
     <section className="carousel-container">
       <button
@@ -54,36 +46,45 @@ export const PromoCarousel = () => {
         }}
       >
         <SwiperSlide>
-          <div className="slide-content">
-            <div className="text-content">
-              <h2>{slide.titulo}</h2>
-              <p>{slide.descricao}</p>
-              <button className="btn" onClick={() => goToCategories('Promoções')}>
-                Ver produtos em promoção
-              </button>
-            </div>
-            <div className="image-content">
-              <Image src={slide.imagem} alt="Promoção" width={410} height={240} objectFit="contain" />
-            </div>
-          </div>
+          <button className="slide-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_1')}`}
+              alt="Promoção"
+              width={1100}
+              height={426}
+              objectFit="contain"
+            />
+          </button>
+          <button className="slide-mobile-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_mb_1')}`}
+              alt="Promoção"
+              width={650}
+              height={302}
+              objectFit="contain"
+            />
+          </button>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="slide-content">
-            <div className="text-content">
-              <h2>{slide.titulo}</h2>
-              <p>{slide.descricao}</p>
-              <Link href="/promocoes" className="btn" onClick={() => goToCategories('Promoções')}>
-                Ver produtos em promoção
-              </Link>
-            </div>
-            <div className="image-content">
-              <Image src={slide.imagem} alt="Promoção" width={410} height={240} objectFit="contain" />
-            </div>
-          </div>
+          <button className="slide-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_2')}`}
+              alt="Promoção"
+              width={1100}
+              height={426}
+              objectFit="contain"
+            />
+          </button>
+          <button className="slide-mobile-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_mb_2')}`}
+              alt="Promoção"
+              width={650}
+              height={302}
+              objectFit="contain"
+            />
+          </button>
         </SwiperSlide>
-        {/* <SwiperSlide>
-          <div className="slide-img" />
-        </SwiperSlide> */}
       </Swiper>
 
       <button

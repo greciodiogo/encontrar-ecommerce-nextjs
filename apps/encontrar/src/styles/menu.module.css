@@ -73,6 +73,11 @@
   margin: 0;
 }
 
+.dropdown_option {
+  cursor: pointer;
+  width: 100%;
+}
+
 .dropdown_option > p {
   font-size: 14px;
   font-weight: 500;

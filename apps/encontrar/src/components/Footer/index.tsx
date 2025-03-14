@@ -55,7 +55,11 @@ export const Footer = () => {
                     <ul className={`subcategories ${category.slug}`}>
                       {category.data.map((item, itemIndex) => (
                         <li className={`category-item ${item.slug}`} key={itemIndex}>
-                          <img src={`/assets_ecommerce/svg/${item?.slug !== 'location' && item?.imgUrl}`} alt="" />
+                          <img
+                            src={item.slug !== 'location' && item.imgUrl ? `/assets_ecommerce/svg/${item.imgUrl}` : ''}
+                            alt=""
+                          />
+
                           <Link href={item.slug}>{item.title}</Link>
                         </li>
                       ))}

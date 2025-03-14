@@ -70,7 +70,7 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ? state.cart.map((cartItem) =>
             cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + 1 } : cartItem,
           )
-        : [...state.cart, { ...item, qty: 1 }];
+        : [...state.cart, { ...item, qty: action.payload.qty }];
 
       const newState = { ...state, cart: updatedCart };
       saveStateToLocalStorage(newState);
