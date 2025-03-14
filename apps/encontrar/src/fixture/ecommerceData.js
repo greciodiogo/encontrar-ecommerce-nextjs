@@ -48,9 +48,9 @@ export const footer = [
     slug: 'information',
     title: 'Informações',
     data: [
-      { slug: 'about', title: 'Sobre Encontrar' },
-      { slug: '', title: 'Ir para o Ecommerce' },
-      { slug: 'privacy-policy', title: 'Políticas de Privacidade Encontrar' },
+      { slug: 'about', title: 'Sobre Encontrar', imgUrl: '' },
+      { slug: '', title: 'Ir para o Ecommerce', imgUrl: '' },
+      { slug: 'privacy-policy', title: 'Políticas de Privacidade Encontrar', imgUrl: '' },
     ],
   },
   {
