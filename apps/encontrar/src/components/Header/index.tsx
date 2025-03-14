@@ -4,18 +4,22 @@ import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
 // import { MenuIcon } from 'components/icon/MenuIcon';
 import { MobileMenu } from 'components/MobileMenu/MobileMenu';
 import { useAuth } from 'hooks/useAuth';
 // import { ToastContainer } from 'shared/components/Toast/ToastContainer';
+import { toastProps } from 'shared/components/Toast/ToastContainer';
+import { showToast } from 'shared/hooks/showToast';
 import { RootState } from 'types/product';
 
 import styles from '../../styles/menu.module.css'; // Estilo separado em um arquivo CSS
 
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
   const { t, lang } = useTranslation('home'); // Certifique-se de que o namespace está correto
+  const common = useTranslation('common');
 
   const menuItems = [
     { label: t('menu.dashboard'), path: '', icon: 'MStack' },
@@ -68,6 +72,11 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   const toggleLanguage = () => {
     void router.push({ pathname, query }, asPath, { locale: locale === 'en' ? 'pt' : 'en' });
+    showToast({
+      title: common.t('IDIOM_CHANGED.title'),
+      message: common.t('IDIOM_CHANGED.message'),
+      isSuccessType: true,
+    });
   };
 
   if (hideItemsHeader) {
@@ -139,6 +148,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 <button onClick={toggleLanguage} className={styles.dropdown_option}>
                   <p>{lang === 'en' ? 'Português' : 'Inglês'}</p>
                 </button>
+                <ToastContainer {...toastProps} />
               </div>
             </div>
             {isAuthenticated ? (

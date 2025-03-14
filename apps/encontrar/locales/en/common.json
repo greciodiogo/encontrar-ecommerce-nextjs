@@ -15,6 +15,10 @@
     "title": "Order Successfully Placed!",
     "message": ""
   },
+  "IDIOM_CHANGED": {
+    "title": "Language changed!",
+    "message": ""
+  },
   "reviewTitle": "Purchase Review",
   "reviewDescription": "Below, leave your review about the purchase made.",
   "productFollowsDescription": "Did the delivered product match the description?",

@@ -15,6 +15,10 @@
     "title": "Pedido Realizado com Sucesso!",
     "message": ""
   },
+  "IDIOM_CHANGED": {
+    "title": "Idioma Alterado!",
+    "message": ""
+  },
   "reviewTitle": "Avaliação de Compra",
   "reviewDescription": "Abaixo, deixe a sua avaliação sobre a compra efetuada.",
   "productFollowsDescription": "O produto entregue segue a descrição?",
