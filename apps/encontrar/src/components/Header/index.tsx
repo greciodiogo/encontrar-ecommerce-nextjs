@@ -1,6 +1,5 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
@@ -32,6 +31,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const productos = useSelector((state: RootState) => state.products.cart);
 
   const router = useRouter();
+  const { pathname, asPath, query, locale } = router;
   // const [mounted, setMounted] = useState(false);
   const { isClient, isAuthenticated, user } = useAuth();
 
@@ -64,6 +64,10 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
 
   const redirectHome = () => {
     void router.push('/');
+  };
+
+  const toggleLanguage = () => {
+    void router.push({ pathname, query }, asPath, { locale: locale === 'en' ? 'pt' : 'en' });
   };
 
   if (hideItemsHeader) {
@@ -132,9 +136,9 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
               </div>
 
               <div className={styles.dropdown_menu_lang}>
-                <Link href="/" locale={lang === 'en' ? 'pt' : 'en'} className={styles.dropdown_option}>
+                <button onClick={toggleLanguage} className={styles.dropdown_option}>
                   <p>{lang === 'en' ? 'Português' : 'Inglês'}</p>
-                </Link>
+                </button>
               </div>
             </div>
             {isAuthenticated ? (

@@ -2246,13 +2246,17 @@ a:visited {
 }
 
 .productsPage__container {
-  padding: 1rem 0;
+  padding: 1rem;
   max-width: 1100px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
+}
+
+.noBorder .productsPage__container {
+  padding: 1rem 0;
 }
 
 .productsPage .productsPage__top {
