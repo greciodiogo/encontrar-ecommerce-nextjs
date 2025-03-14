@@ -5,30 +5,33 @@ export const ContactSupport = () => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setStatus('Sending...');
 
     try {
-      const response = await fetch('http://localhost:3001/send-email', {
+      // Here you would integrate with an email service like SendGrid or Nodemailer
+      // For example, using fetch to call an API endpoint that sends the email
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, subject, message }),
+        body: JSON.stringify({ email, name, subject, message }),
       });
 
       if (response.ok) {
-        alert('Mensagem enviada com sucesso!');
+        setStatus('Email sent successfully!');
         setEmail('');
         setSubject('');
         setMessage('');
       } else {
-        alert('Erro ao enviar mensagem. Tente novamente.');
+        setStatus('Failed to send email. Please try again later.');
       }
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao enviar mensagem. Tente novamente.');
+      setStatus('An error occurred. Please try again later.');
     }
   };
 
@@ -57,6 +60,7 @@ export const ContactSupport = () => {
         </div>
         <button type="submit">
           Mandar Mensagem <HiOutlineArrowRight size={18} color="white" />
+          <p>{status}</p>
         </button>
       </form>
     </div>

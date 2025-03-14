@@ -155,7 +155,7 @@ a:visited {
 .header .logo_container img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .header .search_container {
@@ -287,6 +287,7 @@ a:visited {
   .header .logo_container img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   .header_container .search_container {
     display: none;
@@ -1325,7 +1326,7 @@ a:visited {
 .footer .footer_icon img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   margin-top: -2px;
 }
 
@@ -2245,7 +2246,7 @@ a:visited {
 }
 
 .productsPage__container {
-  padding: 1rem;
+  padding: 1rem 0;
   max-width: 1100px;
   width: 100%;
   display: flex;
@@ -3578,9 +3579,18 @@ button > i {
   border-bottom: 2px solid #d6d6d6;
 }
 
+.noBorder .promotionBanner {
+  width: 100%;
+  border-bottom: none;
+}
+
+.noBorder .promotionBanner__content {
+  margin-bottom: 1rem !important;
+}
+
 .promotionBanner .promotionBanner__content {
   border-radius: 8px;
-  background-color: #e6e6e6;
+  background-color: #ebba0c;
   width: 100%;
   padding: 1rem;
   margin-bottom: 2rem;
@@ -3595,7 +3605,7 @@ button > i {
 }
 
 .promotionBanner .promotionBanner__content .promotionBanner__wrapper .promotion__item {
-  background-color: #efd33d;
+  background-color: white;
   padding: 10px;
   height: 100%;
   border-radius: 8px;
@@ -3650,7 +3660,7 @@ button > i {
   color: white;
   max-width: 120px;
   border-radius: 8px;
-  border-right: 4px solid #c7370f;
+  border-right: 4px solid white;
   padding: 10px;
 }
 

@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-import { CheapestProducts, OtherProducts, Products, WhyUs } from 'components';
+import { CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
@@ -27,7 +27,11 @@ export const Homepage = () => {
     .sort((a_, b_) => b_.price - a_.price)
     .slice(0, 8);
 
-  const randomPopularProducts = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
+  const topExpensiveFoods = [...products]
+    .filter((prod) => prod.categories.some(() => prod.categories.includes('Alimentação')))
+    .sort((a_, b_) => b_.price - a_.price)
+    .slice(0, 8);
+  // const randomPopularProducts = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
   return (
     <Container useStyle={false}>
       <PromoCarousel />
@@ -35,7 +39,12 @@ export const Homepage = () => {
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={topExpensiveDrinks} bannerText={t('cheapest_products.best_beverage_deals')} />
-      <CheapestProducts products={randomPopularProducts} bannerText={t('cheapest_products.best_food_deals')} />
+      <CheapestProducts products={topExpensiveFoods} bannerText={t('cheapest_products.best_food_deals')} />
+      <div className="productsPage noBorder">
+        <div className="productsPage__container">
+          <PromotionBanner />
+        </div>
+      </div>
       <PromotionProducts
         products={promotionProducts}
         bannerText={t('cheapest_products.other_products')}
