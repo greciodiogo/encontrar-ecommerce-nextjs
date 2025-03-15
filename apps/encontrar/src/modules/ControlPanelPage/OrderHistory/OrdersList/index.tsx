@@ -3,8 +3,12 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
+import { useAppSelector } from 'hooks';
+import { RootState } from 'types/product';
+
 export const OrderList = () => {
   const router = useRouter();
+  const order = useAppSelector((state: RootState) => state.products.order);
 
   const handleViewDetails = (id: string) => {
     void router.push(`/control-panel/order-history/${id}`);
@@ -25,9 +29,9 @@ export const OrderList = () => {
         <tbody>
           <tr>
             <td>#96459761</td>
-            <td className="coloured">EM ANDAMENTO</td>
-            <td>11 de Fev, 2025 07:52</td>
-            <td>2999KZS (5 Produtos)</td>
+            <td className="coloured">{order?.estado}</td>
+            <td>{order?.created_at.toLocaleString()}</td>
+            <td>2999 Kz (5 Produtos)</td>
             <td className="coloured-2" onClick={() => handleViewDetails('96459761')}>
               Ver Detalhes
               <i>
