@@ -48,9 +48,15 @@ export const footer = [
     slug: 'information',
     title: 'Informações',
     data: [
-      { slug: 'about', title: 'Sobre Encontrar', imgUrl: '', href: '' },
-      { slug: '', title: 'Ir para o Ecommerce', imgUrl: '', href: '' },
-      { slug: 'privacy-policy', title: 'Políticas de Privacidade Encontrar', imgUrl: '', href: '' },
+      { name: 'about', slug: 'about', title: 'Sobre Encontrar', imgUrl: '', href: '' },
+      { name: 'go_to_ecommerce', slug: '', title: 'Ir para o Ecommerce', imgUrl: '', href: '' },
+      {
+        name: 'privacy_policy',
+        slug: 'privacy-policy',
+        title: 'Políticas de Privacidade Encontrar',
+        imgUrl: '',
+        href: '',
+      },
     ],
   },
   {

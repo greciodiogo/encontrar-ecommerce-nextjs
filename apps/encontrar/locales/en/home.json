@@ -64,26 +64,25 @@
     "testimonial": "Encontrar is one of the few platforms we use to buy worthwhile products"
   },
   "footer": {
-    "terms": "Terms of Use",
-    "privacy": "Privacy and Policy",
-    "notice": "Notice",
-    "payment_methods": "Payment Methods",
-    "social_networks": "Social Networks",
-    "live_chat": "Live Chat",
-    "business_hours": "Mon–Fri, 6am–8pm PT",
-    "help_center": "Help Center",
-    "contact_us": "Contact us for support",
+    "information": "Information",
+    "about": "About Encontrar",
+    "": "Go to Ecommerce",
+    "privacy-policy": "Privacy and Policies",
+
     "location": "Location",
-    "orders_and_returns": "Orders and Returns",
-    "order_status": "Order Status",
-    "store_pickup": "Store Pickup",
-    "return_policy": "Return Policy and Information",
-    "shipping_info": "Shipping Information",
-    "shopping_tools": "Shopping Tools",
-    "member_number_lookup": "Member Number Lookup",
-    "products": "Products",
-    "electronics": "Electronics",
-    "food": "Food"
+    "address": "Luanda, Viana.",
+
+    "social_networks": "Social Media",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+
+    "payment_methods": "Payment Methods",
+    "fasmapay": "Fasmapay",
+    "multicaixa": "Multicaixa",
+    "cash": "Dinheiro",
+
+    "support": "Contact Support",
+    "more_info": "For more information ou technical support, call 933000000"
   },
   "language": "English",
   "searchPlaceholder": "Search for great equipment and food",
@@ -91,6 +90,9 @@
   "hi": "Hi",
   "cart": "Cart",
   "helloUser": "Hello, {{name}}, welcome to Encontrar",
+  "logoAlt": "Find Logo",
+  "about": "Who We Are",
+  "privacyPolicy": "Privacy Policy",
   "menu": {
     "dashboard": "Dashboard",
     "orderHistory": "Order History",

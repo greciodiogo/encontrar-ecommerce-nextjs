@@ -105,11 +105,11 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
       <div className={`header headerAbout ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="logo_container" onClick={redirectHome}>
-            <img src="/assets_ecommerce/logo.png" alt="" />
+            <img src="/assets_ecommerce/logo.png" alt={t('logoAlt')} />
           </button>
           <h2 style={{ fontWeight: '600', fontSize: '18px', color: '#04040B' }}>
-            {isAboutRoute && '| Quem Somos'}
-            {isPrivacyPolicyRoute && '| Política de Privacidade'}
+            {isAboutRoute && `| ${t('about')}`}
+            {isPrivacyPolicyRoute && `| ${t('privacyPolicy')}`}
           </h2>
           <span></span>
         </div>
