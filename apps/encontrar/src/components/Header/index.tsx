@@ -2,7 +2,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
@@ -71,13 +71,24 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   };
 
   const toggleLanguage = () => {
-    void router.push({ pathname, query }, asPath, { locale: locale === 'en' ? 'pt' : 'en' });
+    const newLocale = locale === 'en' ? 'pt' : 'en';
+    localStorage.setItem('lng', newLocale);
+
+    void router.push({ pathname, query }, asPath, { locale: newLocale });
     showToast({
       title: common.t('IDIOM_CHANGED.title'),
       message: common.t('IDIOM_CHANGED.message'),
       isSuccessType: true,
     });
   };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('lng');
+
+    if (storedLanguage && storedLanguage !== locale) {
+      void router.push({ pathname, query }, asPath, { locale: storedLanguage });
+    }
+  }, []);
 
   if (hideItemsHeader) {
     return (
