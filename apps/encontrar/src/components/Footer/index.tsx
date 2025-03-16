@@ -60,7 +60,7 @@ export const Footer = () => {
                             alt=""
                           />
 
-                          <Link href={item.slug}>{item.title}</Link>
+                          <Link href={item.href}>{item.title}</Link>
                         </li>
                       ))}
                     </ul>

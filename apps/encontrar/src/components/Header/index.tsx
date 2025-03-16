@@ -148,8 +148,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 <button onClick={toggleLanguage} className={styles.dropdown_option}>
                   <p>{lang === 'en' ? 'Português' : 'Inglês'}</p>
                 </button>
-                <ToastContainer {...toastProps} />
               </div>
+              <ToastContainer {...toastProps} />
             </div>
             {isAuthenticated ? (
               <div className={styles.dropdown}>
