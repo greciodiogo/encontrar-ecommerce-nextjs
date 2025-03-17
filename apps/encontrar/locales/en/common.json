@@ -15,6 +15,18 @@
     "title": "Order Successfully Placed!",
     "message": ""
   },
+  "AUTHENTICATION_PENDING": {
+    "title": "Authenticating user...",
+    "message": ""
+  },
+  "AUTHENTICATION_INVALID": {
+    "title": "Invalid credentials!",
+    "message": ""
+  },
+  "AUTHENTICATION_SUCCESS": {
+    "title": "Login successful! 🎉",
+    "message": ""
+  },
   "IDIOM_CHANGED": {
     "title": "Language changed!",
     "message": ""

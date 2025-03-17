@@ -15,6 +15,18 @@
     "title": "Pedido Realizado com Sucesso!",
     "message": ""
   },
+  "AUTHENTICATION_PENDING": {
+    "title": "Autenticando usuário...",
+    "message": ""
+  },
+  "AUTHENTICATION_INVALID": {
+    "title": "Credenciais inválidas!",
+    "message": ""
+  },
+  "AUTHENTICATION_SUCCESS": {
+    "title": "Login realizado com sucesso! 🎉",
+    "message": ""
+  },
   "IDIOM_CHANGED": {
     "title": "Idioma Alterado!",
     "message": ""
