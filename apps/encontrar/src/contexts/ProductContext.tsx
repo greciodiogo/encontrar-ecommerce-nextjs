@@ -104,6 +104,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         updateQueryParams,
         toggleSelection,
         getCategoryCount,

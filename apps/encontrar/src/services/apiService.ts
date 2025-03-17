@@ -3,10 +3,11 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { formatErrors } from 'utils/formatErrors';
 import { getToken } from 'utils/getToken';
 
-export const BASE_URL = 'http://localhost:3381/api';
+export const BASE_URL = 'http://localhost';
 
 const api = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true, // Permite que os cookies sejam enviados e armazenados
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

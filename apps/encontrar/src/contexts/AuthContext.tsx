@@ -1,6 +1,8 @@
+import Router from 'next/router';
 import { parseCookies, setCookie } from 'nookies';
 import { createContext, ReactNode, useState, useEffect } from 'react';
 
+import { AuthService } from 'lib/login';
 import { AuthContextType, DecodedPayload } from 'types/context';
 
 type TokenProps = DecodedPayload | null;
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
   // const [username, setUsername] = useState('Guest');
+  const authService = new AuthService();
 
   useEffect(() => {
     setIsClient(true);
@@ -49,6 +52,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const interval = setInterval(updateUserFromCookies, 1000); // Verifica os cookies a cada 1s
 
     return () => clearInterval(interval); // Limpa ao desmontar
+  }, []);
+
+  useEffect(() => {
+    // Verifica se o token está presente no localStorage
+    const { accessToken: token } = parseCookies();
+
+    if (token) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   const isDecodedPayload = (payload: unknown): payload is DecodedPayload => {
@@ -99,6 +111,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // await Router.push('/dashboard'); // Aguarda a navegação antes de continuar
   };
 
+  const login = async (data: { email: string; password: string }): Promise<boolean> => {
+    const token = await authService.login({
+      email: data.email,
+      password: data.password,
+    });
+
+    setCookie(null, 'accessToken', JSON.stringify(token), {
+      maxAge: 60 * 60 * 1, // 1 hora
+    });
+
+    setIsAuthenticated(true);
+
+    await Router.push('/products'); // Aguarde a navegação antes de retornar
+
+    return true;
+  };
+
   const logout = () => {
     localStorage.removeItem('accessToken');
     setIsAuthenticated(false);
@@ -106,7 +135,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, loginGoogle, logout }}
+      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, login, loginGoogle, logout }}
     >
       {children}
     </AuthContext.Provider>
