@@ -34,7 +34,7 @@ export const PromotionProducts = ({
   const goToCategories = (categorySlug: string) => {
     setSelectedCategories([]);
     toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
-    void router.push(`/products`);
+    // void router.push(`/products`);
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {

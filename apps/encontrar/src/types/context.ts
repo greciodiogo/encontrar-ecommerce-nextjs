@@ -32,6 +32,7 @@ export type ProductContextType = {
   currentPage: number;
   itemsPerPage: number;
   totalPages: number;
+  updateQueryParams: (categories: Array<string>) => void;
   toggleSelection: (list: Array<string>, setList: (value: Array<string>) => void, item: string) => void;
   setSelectedCategories: Dispatch<SetStateAction<Array<string>>>;
   getCategoryCount: (categoryName: string) => number;

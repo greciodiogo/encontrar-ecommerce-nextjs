@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
 import { products } from 'fixture/ecommerceData';
@@ -37,6 +38,22 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       setList([...new Set([...list, ...mappedCategories])]);
     }
   };
+  const router = useRouter();
+
+  const updateQueryParams = async (categories: Array<string>) => {
+    try {
+      const query = categories.length ? { categories: categories.join(',') } : {};
+      await router.push({ pathname: '/products', query }, undefined, { shallow: true });
+    } catch (err) {
+      console.error('Erro ao atualizar a URL:', err);
+    }
+  };
+
+  // Atualizar a URL sempre que os filtros mudarem
+  useEffect(() => {
+    void updateQueryParams(selectedCategories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategories]);
 
   useEffect(() => {
     let filtered = products;
@@ -87,6 +104,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
+        updateQueryParams,
         toggleSelection,
         getCategoryCount,
         setSelectedCategories, // Atualizado para múltiplas categorias

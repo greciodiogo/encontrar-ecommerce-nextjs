@@ -19,9 +19,9 @@ export const Categories = () => {
   const isHomeRoute = router.pathname === '/';
 
   const goToCategories = (categorySlug: string) => {
-    setSelectedCategories([]);
+    // setSelectedCategories([]);
     toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
-    void router.push(`/products`);
+    // void router.push(`/products`);
   };
 
   if (isControlPanelRoute || isCheckoutRoute) return null;
