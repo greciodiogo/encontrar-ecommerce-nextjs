@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
@@ -13,8 +13,8 @@ import { ProductsList } from './ProductsList';
 export const ProductsPage = () => {
   const { t } = useTranslation('common');
   const [showFilter, setShowFilter] = useState(false);
-  const { selectedCategories, setSelectedCategories } = useProductContext();
-  const router = useRouter();
+  const { selectedCategories } = useProductContext();
+  // const router = useRouter();
 
   const handleShowFilterPainel = () => {
     setShowFilter(true);
@@ -43,12 +43,12 @@ export const ProductsPage = () => {
     };
   }, [showFilter]);
 
-  useEffect(() => {
-    const { categories } = router.query;
-    if (categories) {
-      setSelectedCategories(categories.toString().split(','));
-    }
-  }, [router.query, setSelectedCategories]);
+  // useEffect(() => {
+  //   const { categories } = router.query;
+  //   if (categories) {
+  //     setSelectedCategories(categories.toString().split(','));
+  //   }
+  // }, [router.query, setSelectedCategories]);
 
   return (
     <Container useStyle={false}>
