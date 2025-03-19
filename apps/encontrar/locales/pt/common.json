@@ -15,6 +15,18 @@
     "title": "Pedido Realizado com Sucesso!",
     "message": ""
   },
+  "AUTHENTICATION_PENDING": {
+    "title": "Autenticando usuário...",
+    "message": ""
+  },
+  "AUTHENTICATION_INVALID": {
+    "title": "Credenciais inválidas!",
+    "message": ""
+  },
+  "AUTHENTICATION_SUCCESS": {
+    "title": "Login realizado com sucesso! 🎉",
+    "message": ""
+  },
   "IDIOM_CHANGED": {
     "title": "Idioma Alterado!",
     "message": ""
@@ -57,5 +69,88 @@
   "noResults": "Não foram encontrados resultados",
   "filter": "Filtro",
   "chooseBy": "Escolher por",
-  "recommended": "Recomendado"
+  "recommended": "Recomendado",
+  "contact_support": {
+    "title": "Não procure a sua resposta, peça apoio.",
+    "description": "Nossa linha de email encontrar-se disponível para ajudá-lo.",
+    "email_label": "Endereço de email",
+    "subject_label": "Assunto",
+    "message_label": "Mensagem (Opcional)",
+    "send_message": "Mandar Mensagem",
+    "sending": "Enviando...",
+    "success": "Email enviado com sucesso!",
+    "error": "Falha ao enviar email. Por favor, tente novamente mais tarde.",
+    "general_error": "Ocorreu um erro. Por favor, tente novamente mais tarde."
+  },
+  "faq": {
+    "questions": {
+      "how_to_buy": "Como comprar na encontrar?",
+      "technical_support": "Como obter apoio técnico?",
+      "deliveries": "Como funcionam as entregas?",
+      "payment_methods": "Quais são os métodos de pagamento disponíveis?",
+      "ecommerce_experience": "Como as empresas podem melhorar a experiência de compra no ecommerce?"
+    },
+    "answers": {
+      "how_to_buy": "Para comprar, basta acessar nosso site, escolher seus produtos e finalizar a compra pelo carrinho.",
+      "technical_support": "Você pode entrar em contato com nosso suporte através do telefone 933000000 ou e-mail suporte@encontrar.com.",
+      "deliveries": "As entregas são feitas via transportadora, com prazos variando conforme a região.",
+      "payment_methods": "Aceitamos cartões de crédito, débito, boleto bancário e PIX.",
+      "ecommerce_experience": "Oferecendo personalização, avaliações, preços competitivos e um checkout ágil para maior satisfação do usuário."
+    },
+    "title": "Perguntas Frequentes",
+    "imageAlt": "Ícone de chamada telefônica",
+    "supportMessage": "Para mais informações ou apoio técnico, ligue 933000000"
+  },
+  "about_us": {
+    "title": "Quem somos",
+    "headline": "Encontrar é uma plataforma que oferece produtos essenciais para o seu dia a dia.",
+    "description": "A Encontrar é um e-commerce dinâmico localizado em Viana, Luanda Sul, Angola. Oferecendo uma ampla gama de produtos essenciais para o dia a dia, a Encontrar se dedica a atender as necessidades dos clientes angolanos com qualidade e variedade. Desde itens de supermercado até eletrônicos, você encontrará tudo o que precisa em um só lugar.",
+    "button_text": "Ir para o Ecommerce"
+  },
+  "team": {
+    "title": "Nossa Equipa",
+    "description": "Os membros que fazem parte da nossa equipa",
+    "manager": "Gerente"
+  },
+  "privacy_policy": {
+    "title": "Política de Privacidade | Encontrar",
+    "sections": {
+      "introduction": {
+        "title": "1. INTRODUÇÃO",
+        "content": "1.1 Bem-vindo à Encontrar, administrada pela SHPS Tecnologia e Serviços Ltda. A Encontrar respeita as leis de privacidade e os direitos dos Usuários da Plataforma..."
+      },
+      "data_collection": {
+        "title": "2. QUANDO RECOLHEMOS DADOS PESSOAIS?",
+        "content": "2.1 Coletamos dados quando você se registra, envia formulários, interage conosco ou usa nossos serviços..."
+      },
+      "data_types": {
+        "title": "3. QUE DADOS COLETAMOS?",
+        "content": "3.1 Dados pessoais incluem nome, e-mail, data de nascimento, informações de pagamento e localização..."
+      },
+      "other_data": {
+        "title": "4. COLETA DE OUTROS DADOS",
+        "content": "4.1 Coletamos informações do seu dispositivo, como endereço IP e tipo de navegador..."
+      },
+      "usage": {
+        "title": "5. COMO USAMOS AS INFORMAÇÕES?",
+        "content": "5.1 Usamos seus dados para processar transações, gerenciar sua conta, responder a solicitações e melhorar nossos serviços..."
+      },
+      "protection": {
+        "title": "6. COMO PROTEGEMOS SEUS DADOS?",
+        "content": "6.1 Implementamos medidas de segurança para proteger seus dados..."
+      },
+      "disclosure": {
+        "title": "7. DIVULGAÇÃO DE INFORMAÇÕES",
+        "content": "7.1 Podemos compartilhar seus dados com fornecedores de serviços e autoridades, conforme necessário..."
+      },
+      "children_info": {
+        "title": "8. INFORMAÇÕES SOBRE CRIANÇAS",
+        "content": "8.1 Nossos serviços não são destinados a crianças menores de 13 anos..."
+      },
+      "consent_withdrawal": {
+        "title": "9. COMO RETIRAR O CONSENTIMENTO?",
+        "content": "9.1 Você pode retirar seu consentimento a qualquer momento, enviando um e-mail para {{email}}."
+      }
+    }
+  }
 }

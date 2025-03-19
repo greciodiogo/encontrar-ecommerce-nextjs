@@ -2,7 +2,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
@@ -71,13 +71,24 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   };
 
   const toggleLanguage = () => {
-    void router.push({ pathname, query }, asPath, { locale: locale === 'en' ? 'pt' : 'en' });
+    const newLocale = locale === 'en' ? 'pt' : 'en';
+    localStorage.setItem('lng', newLocale);
+
+    void router.push({ pathname, query }, asPath, { locale: newLocale });
     showToast({
       title: common.t('IDIOM_CHANGED.title'),
       message: common.t('IDIOM_CHANGED.message'),
       isSuccessType: true,
     });
   };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('lng');
+
+    if (storedLanguage && storedLanguage !== locale) {
+      void router.push({ pathname, query }, asPath, { locale: storedLanguage });
+    }
+  }, []);
 
   if (hideItemsHeader) {
     return (
@@ -105,11 +116,11 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
       <div className={`header headerAbout ${!isHomeRoute ? 'borderActive' : ''}`} id="header">
         <div className="header_container">
           <button className="logo_container" onClick={redirectHome}>
-            <img src="/assets_ecommerce/logo.png" alt="" />
+            <img src="/assets_ecommerce/logo.png" alt={t('logoAlt')} />
           </button>
           <h2 style={{ fontWeight: '600', fontSize: '18px', color: '#04040B' }}>
-            {isAboutRoute && '| Quem Somos'}
-            {isPrivacyPolicyRoute && '| Política de Privacidade'}
+            {isAboutRoute && `| ${t('about')}`}
+            {isPrivacyPolicyRoute && `| ${t('privacyPolicy')}`}
           </h2>
           <span></span>
         </div>
@@ -148,8 +159,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
                 <button onClick={toggleLanguage} className={styles.dropdown_option}>
                   <p>{lang === 'en' ? 'Português' : 'Inglês'}</p>
                 </button>
-                <ToastContainer {...toastProps} />
               </div>
+              <ToastContainer {...toastProps} />
             </div>
             {isAuthenticated ? (
               <div className={styles.dropdown}>

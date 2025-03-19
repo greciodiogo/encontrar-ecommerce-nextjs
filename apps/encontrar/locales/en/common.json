@@ -15,6 +15,18 @@
     "title": "Order Successfully Placed!",
     "message": ""
   },
+  "AUTHENTICATION_PENDING": {
+    "title": "Authenticating user...",
+    "message": ""
+  },
+  "AUTHENTICATION_INVALID": {
+    "title": "Invalid credentials!",
+    "message": ""
+  },
+  "AUTHENTICATION_SUCCESS": {
+    "title": "Login successful! 🎉",
+    "message": ""
+  },
   "IDIOM_CHANGED": {
     "title": "Language changed!",
     "message": ""
@@ -56,5 +68,88 @@
   "noResults": "No results found",
   "filter": "Filter",
   "chooseBy": "Choose by",
-  "recommended": "Recommended"
+  "recommended": "Recommended",
+  "contact_support": {
+    "title": "Don't look for your answer, ask for support.",
+    "description": "Our email line is available to help you.",
+    "email_label": "Email Address",
+    "subject_label": "Subject",
+    "message_label": "Message (Optional)",
+    "send_message": "Send Message",
+    "sending": "Sending...",
+    "success": "Email sent successfully!",
+    "error": "Email sending failed. Please try again later.",
+    "general_error": "An error occurred. Please try again later."
+  },
+  "faq": {
+    "questions": {
+      "how_to_buy": "How to buy from encontrar?",
+      "technical_support": "How to get technical support?",
+      "deliveries": "How do deliveries work?",
+      "payment_methods": "What payment methods are available?",
+      "ecommerce_experience": "How can companies improve the shopping experience in ecommerce?"
+    },
+    "answers": {
+      "how_to_buy": "To buy, simply access our website, choose your products and complete the purchase through the shopping cart.",
+      "technical_support": "You can contact our support team by phone at 933000000 or by email at suporte@encontrar.com.",
+      "deliveries": "Deliveries are made via carrier, with delivery times varying according to the region.",
+      "payment_methods": "We accept credit cards, debit cards, bank slips and PIX.",
+      "ecommerce_experience": "Offering customization, reviews, competitive prices and a fast checkout for greater user satisfaction."
+    },
+    "title": "Frequently Asked Questions",
+    "imageAlt": "Phone call icon",
+    "supportMessage": "For more information or technical support, call 933000000"
+  },
+  "about_us": {
+    "title": "Who we are",
+    "headline": "Find is a platform that offers essential products for your daily life.",
+    "description": "Find is a dynamic e-commerce located in Viana, Luanda Sul, Angola. Offering a wide range of essential products for daily life, Find is dedicated to meeting the needs of Angolan customers with quality and variety. From supermarket items to electronics, you will find everything you need in one place.",
+    "button_text": "Go to Ecommerce"
+  },
+  "team": {
+    "title": "Our Team",
+    "description": "The members who are part of our team",
+    "manager": "Manager"
+  },
+  "privacy_policy": {
+    "title": "Privacy Policy | Find",
+    "sections": {
+      "introduction": {
+        "title": "1. INTRODUCTION",
+        "content": "1.1 Welcome to Find, managed by SHPS Tecnologia e Serviços Ltda. Find respects privacy laws and the rights of Platform Users..."
+      },
+      "data_collection": {
+        "title": "2. WHEN DO WE COLLECT PERSONAL DATA?",
+        "content": "2.1 We collect data when you register, submit forms, interact with us or use our services..."
+      },
+      "data_types": {
+        "title": "3. WHAT DATA DO WE COLLECT?",
+        "content": "3.1 Personal data includes name, email, date of birth, payment information and location..."
+      },
+      "other_data": {
+        "title": "4. COLLECTION OF OTHER DATA",
+        "content": "4.1 We collect information from your device, such as your IP address and browser type..."
+      },
+      "usage": {
+        "title": "5. HOW DO WE USE INFORMATION?",
+        "content": "5.1 We use your data to process transactions, manage your account, respond to requests and improve our services..."
+      },
+      "protection": {
+        "title": "6. HOW DO WE PROTECT YOUR DATA?",
+        "content": "6.1 We implement security measures to protect your data..."
+      },
+      "disclosure": {
+        "title": "7. DISCLOSURE OF INFORMATION",
+        "content": "7.1 We may share your data with service providers and authorities as necessary..."
+      },
+      "children_info": {
+        "title": "8. INFORMATION ABOUT CHILDREN",
+        "content": "8.1 Our services are not intended for children under the age of 13..."
+      },
+      "consent_withdrawal": {
+        "title": "9. HOW TO WITHDRAW CONSENT?",
+        "content": "9.1 You may withdraw your consent at any time by sending an email to {{email}}."
+      }
+    }
+  }
 }

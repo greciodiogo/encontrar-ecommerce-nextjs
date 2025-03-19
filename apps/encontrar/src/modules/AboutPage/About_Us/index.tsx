@@ -1,21 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 import { FaArrowRight } from 'react-icons/fa';
 
 export const About_Us = () => {
+  const { t } = useTranslation('common');
+
   return (
     <section className="quem-somos">
       <div className="quem-somos-texto">
-        <h4>Quem somos</h4>
-        <h2>Encontrar é uma plataforma que oferece produtos essenciais para o seu dia a dia.</h2>
-        <p>
-          A Encontrar é um e-commerce dinâmico localizado em Viana, Luanda Sul, Angola. Oferecendo uma ampla gama de
-          produtos essenciais para o dia a dia, a Encontrar se dedica a atender as necessidades dos clientes angolanos
-          com qualidade e variedade. Desde itens de supermercado até eletrônicos, você encontrará tudo o que precisa em
-          um só lugar.
-        </p>
+        <h4>{t('about_us.title')}</h4>
+        <h2>{t('about_us.headline')}</h2>
+        <p>{t('about_us.description')}</p>
         <Link href="/" className="btn">
-          Ir para o Ecommerce
+          {t('about_us.button_text')}
           <FaArrowRight size={12} fill="white" />
         </Link>
       </div>

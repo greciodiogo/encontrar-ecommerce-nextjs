@@ -48,22 +48,38 @@ export const footer = [
     slug: 'information',
     title: 'Informações',
     data: [
-      { slug: 'about', title: 'Sobre Encontrar', imgUrl: '' },
-      { slug: '', title: 'Ir para o Ecommerce', imgUrl: '' },
-      { slug: 'privacy-policy', title: 'Políticas de Privacidade Encontrar', imgUrl: '' },
+      { name: 'about', slug: 'about', title: 'Sobre Encontrar', imgUrl: '', href: '' },
+      { name: 'go_to_ecommerce', slug: '', title: 'Ir para o Ecommerce', imgUrl: '', href: '' },
+      {
+        name: 'privacy_policy',
+        slug: 'privacy-policy',
+        title: 'Políticas de Privacidade Encontrar',
+        imgUrl: '',
+        href: '',
+      },
     ],
   },
   {
     slug: 'location',
     title: 'Localização',
-    data: [{ slug: 'address', title: 'Luanda, Viana.', imgUrl: '' }],
+    data: [{ slug: 'address', title: 'Luanda, Viana.', imgUrl: '', href: '' }],
   },
   {
     slug: 'social_networks',
     title: 'Redes Sociais',
     data: [
-      { slug: 'facebook', title: 'Facebook', imgUrl: 'footer-facebook.png' },
-      { slug: 'instagram', title: 'Instagram', imgUrl: 'footer-instagram.png' },
+      {
+        slug: 'facebook',
+        href: '',
+        title: 'Facebook',
+        imgUrl: 'footer-facebook.png',
+      },
+      {
+        slug: 'instagram',
+        href: 'https://www.instagram.com/encontrar.marketing',
+        title: 'Instagram',
+        imgUrl: 'footer-instagram.png',
+      },
     ],
   },
 ];

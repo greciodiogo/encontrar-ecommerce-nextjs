@@ -34,7 +34,10 @@ export const BestSelledProduct = ({
   };
 
   return (
-    <button className="bestselled_product category-item" onClick={() => handlepreviewProduct(product)}>
+    <button
+      className={`bestselled_product category-item ${hasButtons ? 'main-hover' : 'secondary-hover'}`}
+      onClick={() => handlepreviewProduct(product)}
+    >
       {/* <a className="addCartBtn">
         <i>
           <img src={`/assets_ecommerce/svg/Heart.png`} alt="Heart" />
@@ -55,7 +58,6 @@ export const BestSelledProduct = ({
         />
       </div>
       <div className="content">
-        <a className="product_name product-description">{name}</a>
         {hasStars && (
           <div className="star_container">
             {[1, 2, 3, 4].map((__, index) => (
@@ -65,6 +67,7 @@ export const BestSelledProduct = ({
             ))}
           </div>
         )}
+        <a className="product_name product-description">{name}</a>
         <p>
           {is_promotion && promotional_price !== undefined && promotional_price > 0 ? (
             <>

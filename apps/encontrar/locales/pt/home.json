@@ -64,26 +64,25 @@
     "testimonial": "Encontrar é uma das poucas plataformas que usamos para comprar produtos que valem a pena"
   },
   "footer": {
-    "terms": "Termos de Uso",
-    "privacy": "Privacidade e Política",
-    "notice": "Aviso",
-    "payment_methods": "Formas de Pagamento",
-    "social_networks": "Redes Sociais",
-    "live_chat": "Live Chat",
-    "business_hours": "Seg–Sex, 6h–20h PT",
-    "help_center": "Centro de Ajuda",
-    "contact_us": "Entre em contato conosco para suporte",
+    "information": "Informações",
+    "about": "Sobre Encontrar",
+    "": "Ir para o Ecommerce",
+    "privacy-policy": "Políticas de Privacidade Encontrar",
+
     "location": "Localização",
-    "orders_and_returns": "Pedidos e Devoluções",
-    "order_status": "Status do Pedido",
-    "store_pickup": "Retirada na Loja",
-    "return_policy": "Política e Informações de Devolução",
-    "shipping_info": "Informações de Envio",
-    "shopping_tools": "Ferramentas de Compras",
-    "member_number_lookup": "Consulta de Número de Membro",
-    "products": "Produtos",
-    "electronics": "Eletrónicos",
-    "food": "Alimentação"
+    "address": "Luanda, Viana.",
+
+    "social_networks": "Redes Sociais",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+
+    "payment_methods": "Métodos de Pagamento",
+    "fasmapay": "Fasmapay",
+    "multicaixa": "Multicaixa",
+    "cash": "Dinheiro",
+
+    "support": "Apoio ao Cliente",
+    "more_info": "Para mais informações ou apoio técnico, ligue 933000000"
   },
   "language": "Português",
   "searchPlaceholder": "Procure por ótimos equipamentos e comidas",
@@ -91,6 +90,9 @@
   "hi": "Olá",
   "cart": "Carrinho",
   "helloUser": "Olá, {{name}}, seja bem-vindo ao Encontrar",
+  "logoAlt": "Logo da Encontrar",
+  "about": "Quem Somos",
+  "privacyPolicy": "Política de Privacidade",
   "menu": {
     "dashboard": "Painel de Controle",
     "orderHistory": "Histórico de Encomendas",
