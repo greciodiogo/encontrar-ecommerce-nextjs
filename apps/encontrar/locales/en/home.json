@@ -3,8 +3,10 @@
     "text": "Find the best products here",
     "banner_1": "Banner_en_1.png",
     "banner_2": "Banner_en_2.png",
+    "banner_3": "Banner_en_3.png",
     "banner_mb_1": "Banner_mb_en_1.png",
-    "banner_mb_2": "Banner_mb_en_2.png"
+    "banner_mb_2": "Banner_mb_en_2.png",
+    "banner_mb_3": "Banner_mb_en_3.png"
   },
   "commom": {
     "categories": "Categories",

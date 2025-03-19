@@ -94,6 +94,30 @@ export const PromoCarousel = () => {
             />
           </button>
         </SwiperSlide>
+        <SwiperSlide>
+          <button className="slide-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_3')}`}
+              alt="Promoção"
+              width={1100}
+              height={426}
+              objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
+            />
+          </button>
+          <button className="slide-mobile-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_mb_3')}`}
+              alt="Promoção"
+              width={650}
+              height={302}
+              objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
+            />
+          </button>
+        </SwiperSlide>
       </Swiper>
 
       <button
