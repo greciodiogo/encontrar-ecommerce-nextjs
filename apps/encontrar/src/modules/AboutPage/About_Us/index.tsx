@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
+import { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 export const About_Us = () => {
   const { t } = useTranslation('common');
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <section className="quem-somos">
@@ -24,6 +26,8 @@ export const About_Us = () => {
           width={400}
           height={300}
           objectFit="contain"
+          className={`image ${loaded ? 'loaded' : ''}`}
+          onLoadingComplete={() => setLoaded(true)}
         />
       </div>
     </section>

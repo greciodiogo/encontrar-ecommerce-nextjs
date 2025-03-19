@@ -3291,9 +3291,10 @@ a:visited {
 }
 
 .products.simple .wrap_item .category-item .category_picture img {
-  width: 58px;
-  height: 58px;
+  width: 105px;
+  height: 95px;
   border-radius: 4px;
+  object-fit: contain;
 }
 
 .category_label {
@@ -3830,4 +3831,17 @@ button > i {
 .products.simple .category-item:hover .category_label {
   text-decoration: underline;
   transition: all 350ms ease-in;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.image {
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.image.loaded {
+  opacity: 1;
 }

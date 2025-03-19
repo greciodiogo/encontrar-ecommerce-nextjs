@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
+import { useState } from 'react';
 
 const membros = [
   { nome: 'Surafid Surafid', cargo: 'manager', imagem: '/assets_ecommerce/products/sem-foto.webp' },
@@ -10,6 +11,7 @@ const membros = [
 
 export const Team = () => {
   const { t } = useTranslation('common');
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <section className="equipe">
@@ -18,7 +20,14 @@ export const Team = () => {
       <div className="equipe-lista">
         {membros.map((membro, index) => (
           <div className="equipe-card" key={index}>
-            <Image src={membro.imagem} alt={`${membro.nome} - ${t(`team.${membro.cargo}`)}`} width={150} height={150} />
+            <Image
+              src={membro.imagem}
+              alt={`${membro.nome} - ${t(`team.${membro.cargo}`)}`}
+              width={150}
+              height={150}
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
+            />
             <p className="cargo">{t(`team.${membro.cargo}`)}</p>
             <h3>{membro.nome}</h3>
           </div>

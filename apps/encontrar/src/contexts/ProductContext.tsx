@@ -17,7 +17,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [rating, setRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
-
+  const [userInteracted, setUserInteracted] = useState(false);
   const categoryMappings: Record<string, Array<string>> = {
     'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
   };
@@ -31,6 +31,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const mappedCategories = categoryMappings[item] || [item];
+    setUserInteracted(true);
 
     if (mappedCategories.every((cat) => list.includes(cat))) {
       setList(list.filter((cat) => !mappedCategories.includes(cat)));
@@ -49,11 +50,12 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Atualizar a URL sempre que os filtros mudarem
   useEffect(() => {
-    void updateQueryParams(selectedCategories);
+    if (userInteracted) {
+      void updateQueryParams(selectedCategories);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategories]);
+  }, [selectedCategories, userInteracted]);
 
   useEffect(() => {
     let filtered = products;

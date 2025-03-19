@@ -10,6 +10,7 @@ export const ShowProductBanner = () => {
   const product = useAppSelector((state: RootState) => state.products.currentItem);
   const { name, image = '', images = [] } = product ?? {};
   const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
+  const [loaded, setLoaded] = useState(false);
 
   if (!isClient) return null;
   return (
@@ -25,6 +26,8 @@ export const ShowProductBanner = () => {
               placeholder="blur"
               height={300}
               width={100}
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
               // objectFit="contain"
             />
           </div>
@@ -40,6 +43,8 @@ export const ShowProductBanner = () => {
                   placeholder="blur"
                   height={70}
                   width={70}
+                  className={`image ${loaded ? 'loaded' : ''}`}
+                  onLoadingComplete={() => setLoaded(true)}
                   // objectFit="contain"
                 />
               </button>

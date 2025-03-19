@@ -19,6 +19,7 @@ export const PromoCarousel = () => {
   const { setSelectedCategories } = useProductContext();
   const router = useRouter();
   const { t } = useTranslation('home'); // 'common' corresponde ao JSON
+  const [loaded, setLoaded] = useState(false);
 
   const redirectToProducts = () => {
     setSelectedCategories([]);
@@ -53,6 +54,8 @@ export const PromoCarousel = () => {
               width={1100}
               height={426}
               objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
             />
           </button>
           <button className="slide-mobile-img" onClick={redirectToProducts}>
@@ -62,6 +65,8 @@ export const PromoCarousel = () => {
               width={650}
               height={302}
               objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
             />
           </button>
         </SwiperSlide>
@@ -73,6 +78,8 @@ export const PromoCarousel = () => {
               width={1100}
               height={426}
               objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
             />
           </button>
           <button className="slide-mobile-img" onClick={redirectToProducts}>
@@ -82,6 +89,32 @@ export const PromoCarousel = () => {
               width={650}
               height={302}
               objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
+            />
+          </button>
+        </SwiperSlide>
+        <SwiperSlide>
+          <button className="slide-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_3')}`}
+              alt="Promoção"
+              width={1100}
+              height={426}
+              objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
+            />
+          </button>
+          <button className="slide-mobile-img" onClick={redirectToProducts}>
+            <Image
+              src={`/assets_ecommerce/${t('banner.banner_mb_3')}`}
+              alt="Promoção"
+              width={650}
+              height={302}
+              objectFit="contain"
+              className={`image ${loaded ? 'loaded' : ''}`}
+              onLoadingComplete={() => setLoaded(true)}
             />
           </button>
         </SwiperSlide>

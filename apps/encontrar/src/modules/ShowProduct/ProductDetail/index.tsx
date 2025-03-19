@@ -15,11 +15,23 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 export const ProductDetail = () => {
   const fnService = new FnService();
   const product = useAppSelector((state: RootState) => state.products);
-  const { name, availability, category, price, brand, id = 0, qty } = product.currentItem ?? {};
+  const {
+    name,
+    availability,
+    category,
+    price,
+    brand,
+    is_promotion,
+    promotional_price,
+    id = 0,
+    qty,
+  } = product.currentItem ?? {};
   const [localQty, setLocalQty] = useState(1);
   const isProductInCart = product.cart.some((item) => item.id === id);
   const { t } = useTranslation('cart');
   const { isClient } = useAuth();
+  const validatePromotion = is_promotion && promotional_price !== undefined && promotional_price > 0;
+  const activePrice = validatePromotion ? promotional_price : price;
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -69,7 +81,7 @@ export const ProductDetail = () => {
         </p>
       </div>
       <div className="product_price">
-        {fnService.numberFormat(price ?? 0)} <span>Kz</span>
+        {fnService.numberFormat(activePrice ?? 0)} <span>Kz</span>
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">

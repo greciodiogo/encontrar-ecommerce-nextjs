@@ -33,10 +33,17 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   };
 
   useEffect(() => {
-    const total_ = cartItems.reduce((acc, item) => acc + (item.price ?? 0) * (item.qty ?? 0), 0);
+    const total_ = cartItems.reduce((acc, item) => {
+      // Verifica se o produto está em promoção e tem um preço promocional válido
+      const validatePromotion = item.is_promotion && item.promotional_price !== undefined && item.promotional_price > 0;
+      const activePrice = validatePromotion ? item.promotional_price : item.price;
+
+      return acc + (activePrice ?? 0) * (item.qty ?? 0);
+    }, 0);
+
     setSubtotal(total_);
     setATotal(total_ + serviceCost + discount + shippingCost);
-  }, [cartItems]); // Corrigido para evitar dependência errada
+  }, [cartItems, serviceCost, discount, shippingCost]); // Inclui dependências corretamente
 
   const onFinish = () => {
     handleNextStep();

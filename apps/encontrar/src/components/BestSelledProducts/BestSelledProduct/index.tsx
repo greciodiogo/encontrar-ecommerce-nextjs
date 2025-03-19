@@ -1,7 +1,7 @@
 import StarIcon from '@mui/icons-material/Star';
 import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useState } from 'react';
 import { LuShoppingCart } from 'react-icons/lu';
 
 import { useAppSelector } from 'hooks';
@@ -19,6 +19,7 @@ export const BestSelledProduct = ({
   const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const { id, image, name, price, promotional_price, about, is_promotion } = product;
+  const [loaded, setLoaded] = useState(false);
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
 
@@ -55,6 +56,8 @@ export const BestSelledProduct = ({
           placeholder="blur"
           height={160}
           width={100}
+          className={`image ${loaded ? 'loaded' : ''}`}
+          onLoadingComplete={() => setLoaded(true)}
         />
       </div>
       <div className="content">
