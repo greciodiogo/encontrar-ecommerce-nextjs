@@ -17,6 +17,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
   const [ratings, setRatings] = useState<Record<number, number>>({});
   const [storeRating, setStoreRating] = useState({ advertisement: 0, delivery: 0 });
   const [feedback, setFeedback] = useState('');
+  const [loaded, setLoaded] = useState(false);
 
   const handleRating = (productId: number, rating: number) => {
     setRatings((prev) => ({ ...prev, [productId]: rating }));
@@ -44,6 +45,8 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
                   alt={product.name ?? 'sem-nome'}
                   height={80}
                   width={80}
+                  className={`image ${loaded ? 'loaded' : ''}`}
+                  onLoadingComplete={() => setLoaded(true)}
                 />
                 <div className="product-info">
                   <h4>{product.name}</h4>
