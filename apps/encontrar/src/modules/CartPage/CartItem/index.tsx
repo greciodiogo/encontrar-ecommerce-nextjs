@@ -14,14 +14,26 @@ export const CartItem = (props: CartItemProps) => {
   const fnService = new FnService();
   const { t } = useTranslation('cart');
 
-  const { name, image, id = 0, availability, category, brand, qty = 1, price = 0 } = props.cart;
+  const {
+    name,
+    image,
+    id = 0,
+    availability,
+    category,
+    brand,
+    is_promotion,
+    promotional_price,
+    qty = 1,
+    price = 0,
+  } = props.cart;
   const { setTotal, setSubtotal } = props;
   const { isClient } = useAuth();
-
+  const validatePromotion = is_promotion && promotional_price !== undefined && promotional_price > 0;
+  const activePrice = validatePromotion ? promotional_price : price;
   const [localQty, setLocalQty] = useState(qty);
 
   useEffect(() => {
-    const itemSubtotal = price * localQty;
+    const itemSubtotal = activePrice * localQty;
 
     setTotal((prevTotal) => Math.max(0, prevTotal + itemSubtotal));
     setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal + itemSubtotal));
@@ -30,7 +42,7 @@ export const CartItem = (props: CartItemProps) => {
       setTotal((prevTotal) => Math.max(0, prevTotal - itemSubtotal));
       setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal - itemSubtotal));
     };
-  }, [price, localQty, setTotal, setSubtotal]);
+  }, [activePrice, localQty, setTotal, setSubtotal]);
 
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(id));
@@ -70,7 +82,7 @@ export const CartItem = (props: CartItemProps) => {
         </div>
         <div className="wrapPrice">
           <p className="priceContainer">
-            {t('cart_item.total_price')}: <span className="priceItem">{fnService.numberFormat(price)}kz</span>
+            {t('cart_item.total_price')}: <span className="priceItem">{fnService.numberFormat(activePrice)}kz</span>
           </p>
         </div>
         <div className="cart-item-btn">

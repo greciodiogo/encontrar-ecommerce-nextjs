@@ -41,11 +41,10 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
               <div className="content">
                 <Image
                   src={`/assets_ecommerce/products/${product.image ?? 'sem-foto.webp'}`}
-                  className="product-image"
                   alt={product.name ?? 'sem-nome'}
                   height={80}
                   width={80}
-                  className={`image ${loaded ? 'loaded' : ''}`}
+                  className={`product-image image ${loaded ? 'loaded' : ''}`}
                   onLoadingComplete={() => setLoaded(true)}
                 />
                 <div className="product-info">
