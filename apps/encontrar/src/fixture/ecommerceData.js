@@ -39,7 +39,7 @@ export const new_categories = [
   { slug: 'stationery', name: 'Escritorio', image: `Escritorio.png` },
   { slug: 'home_items', name: 'Itens para Casa', image: `Items para Casa.png` },
   { slug: 'personal_care', name: 'Cuidados Pessoais', image: `Cuidados Pessoais.png` },
-  { slug: 'various', name: 'Diversos', image: `box.png` },
+  { slug: 'various', name: 'Diversos', image: `Box.png` },
   { slug: 'promotions', name: 'Promoções', image: `bebidas.png` },
 ];
 

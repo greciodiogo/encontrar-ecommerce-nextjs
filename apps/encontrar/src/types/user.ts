@@ -43,7 +43,12 @@ export type GetUserResponse = {
 };
 
 export type ApiResponse = {
-  data: DataResponse;
+  data: {
+    email: string;
+    firstName: string;
+    id: number;
+    role: string;
+  };
 };
 
 export type SignInResponseDTO = ApiResponse;

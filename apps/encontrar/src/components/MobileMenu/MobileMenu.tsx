@@ -11,25 +11,36 @@ type MenuItem = {
   subItems?: Array<MenuItem>;
 };
 
+// const categories = [
+//   { title: 'Vinho', items: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'] },
+//   { title: 'Uísques', items: ['Jack Daniels', 'Ballantine’s', 'Chivas Regal', 'Johnnie Walker', 'Old Parr'] },
+//   { title: 'Águas', items: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'] },
+//   { title: 'Sumo', items: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'] },
+// ];
+
+// const categories_foods = [
+//   { title: 'Arroz', items: ['Arroz Negro'] },
+//   { title: 'Frango', items: ['Buffalo wings', 'Grilled Chicken'] },
+// ];
 const menuData: Array<MenuItem> = [
   {
     title: 'Bebidas e Alimentação',
-    // subItems: [
-    //   {
-    //     title: 'Vinho',
-    //     subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
-    //       title,
-    //     })),
-    //   },
-    //   {
-    //     title: 'Uísques',
-    //     subItems: ['Johnnie Walker', 'Jack Daniel’s', 'Chivas Regal', 'Ballantine’s', 'Old Parr'].map((title) => ({
-    //       title,
-    //     })),
-    //   },
-    //   { title: 'Águas', subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })) },
-    //   { title: 'Sumo', subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })) },
-    // ],
+    subItems: [
+      {
+        title: 'Vinho',
+        subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
+          title,
+        })),
+      },
+      {
+        title: 'Uísques',
+        subItems: ['Johnnie Walker', 'Jack Daniel’s', 'Chivas Regal', 'Ballantine’s', 'Old Parr'].map((title) => ({
+          title,
+        })),
+      },
+      { title: 'Águas', subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })) },
+      { title: 'Sumo', subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })) },
+    ],
   },
   { title: 'Brinquedos' },
   { title: 'Eletrodomésticos' },

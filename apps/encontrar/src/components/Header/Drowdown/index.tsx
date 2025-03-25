@@ -9,6 +9,11 @@ const categories = [
   { title: 'Sumo', items: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'] },
 ];
 
+const categories_foods = [
+  { title: 'Arroz', items: ['Arroz Negro'] },
+  { title: 'Frango', items: ['Buffalo wings', 'Grilled Chicken'] },
+];
+
 export const Dropdown = ({
   CATEGORY_TITLE,
   onClick,
@@ -33,17 +38,33 @@ export const Dropdown = ({
       {isOpen && (
         <div className="dropdown-menu">
           <h3 className="dropdown-title">Todas as Bebidas</h3>
-          <div className="dropdown-content">
-            {categories.map((category) => (
-              <div key={category.title} className="dropdown-column">
-                <strong>
-                  {category.title} <span className="itemCount">({getCategoryCount(category.title)})</span>
-                </strong>
-                {category.items.map((item) => (
-                  <p key={item}>{item}</p>
-                ))}
-              </div>
-            ))}
+          <div className="dropdown-content" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex' }}>
+              {categories.map((category) => (
+                <div key={category.title} className="dropdown-column">
+                  <strong>
+                    {category.title} <span className="itemCount">({getCategoryCount(category.title)})</span>
+                  </strong>
+                  {category.items.map((item) => (
+                    <p key={item}>{item}</p>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <h3 className="dropdown-title">Todos os produtos de Alimentação</h3>
+            <div style={{ display: 'flex' }}>
+              {categories_foods.map((category) => (
+                <div key={category.title} className="dropdown-column">
+                  <strong>
+                    {category.title} <span className="itemCount">({getCategoryCount(category.title)})</span>
+                  </strong>
+                  {category.items.map((item) => (
+                    <p key={item}>{item}</p>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
