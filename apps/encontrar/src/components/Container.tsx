@@ -41,8 +41,8 @@ export const Container: React.FC<ContainerProps> = (props) => {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://econtrar.vercel.app${router.asPath}`} />
-        <link rel="canonical" href={`https://econtrar.vercel.app${router.asPath}`} />
+        <meta property="og:url" content={`https://encontrarshopping.com${router.asPath}`} />
+        <link rel="canonical" href={`https://encontrarshopping.com${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Encontrar" />
         <meta property="og:description" content={meta.description} />
