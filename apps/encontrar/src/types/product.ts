@@ -21,7 +21,7 @@ export type ProductDTO = {
   about?: string;
   availability?: string;
   is_promotion?: boolean;
-  category?: string;
+  categories?: Array<string>;
   promotional_price?: number;
   price?: number;
   brand?: string;
