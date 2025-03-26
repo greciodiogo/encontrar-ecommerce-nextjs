@@ -24,12 +24,12 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const menuItems = [
     { label: t('menu.dashboard'), path: '', icon: 'MStack' },
     { label: t('menu.orderHistory'), path: 'order-history', icon: 'MStorefront' },
-    { label: t('menu.trackOrder'), path: 'wish-list', icon: 'MMapPinLine' },
-    { label: t('menu.shoppingCart'), path: 'address', icon: 'MShoppingCartSimple' },
+    // { label: t('menu.trackOrder'), path: 'wish-list', icon: 'MMapPinLine' },
+    { label: t('menu.shoppingCart'), path: 'shopping-cart', icon: 'MShoppingCartSimple' },
     { label: t('menu.wishList'), path: 'wish-list', icon: 'MHeart' },
-    { label: t('menu.cardsAddress'), path: '', icon: 'MNotebook' },
-    { label: t('menu.browsingHistory'), path: '', icon: 'MClockClockwise' },
-    { label: t('menu.settings'), path: '', icon: 'MGear' },
+    { label: t('menu.cardsAddress'), path: 'address', icon: 'MNotebook' },
+    // { label: t('menu.browsingHistory'), path: '', icon: 'MClockClockwise' },
+    // { label: t('menu.settings'), path: '', icon: 'MGear' },
     { label: t('menu.logout'), path: '', icon: 'MSignOut' },
   ];
   const productos = useSelector((state: RootState) => state.products.cart);
