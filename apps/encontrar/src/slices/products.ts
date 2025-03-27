@@ -8,7 +8,7 @@ import {
   SetPaymentMethod,
   SetOrder,
 } from 'constants/products';
-import { products } from 'fixture/ecommerceData';
+// import { products } from 'fixture/ecommerceData';
 import { ProductState } from 'types/product';
 import { ProductAction } from 'types/store';
 
@@ -22,7 +22,7 @@ const saveStateToLocalStorage = (state: ProductState) => {
 const loadStateFromLocalStorage = (): ProductState => {
   if (typeof window === 'undefined') {
     return {
-      products: products,
+      products: [],
       cart: [],
       currentItem: {},
       address: null,
@@ -36,7 +36,7 @@ const loadStateFromLocalStorage = (): ProductState => {
   return savedState
     ? JSON.parse(savedState)
     : {
-        products: products,
+        products: [],
         cart: [],
         currentItem: {},
         address: null,
