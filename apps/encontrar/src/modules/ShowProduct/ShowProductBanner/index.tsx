@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import { ProductImage } from 'components/PhotoView';
 import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { RootState } from 'types/product';
@@ -8,7 +10,7 @@ import { RootState } from 'types/product';
 export const ShowProductBanner = () => {
   const { isClient } = useAuth();
   const product = useAppSelector((state: RootState) => state.products.currentItem);
-  const { name, image = '', images = [] } = product ?? {};
+  const { name, photos, image = '', images = [] } = product ?? {};
   const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
   const [loaded, setLoaded] = useState(false);
 
@@ -18,7 +20,7 @@ export const ShowProductBanner = () => {
       {name && (
         <div className="showProductBanner">
           <div className="item-picture">
-            <Image
+            {/* <Image
               src={`/assets_ecommerce/products/${selectedImage}`}
               alt={name}
               // priority={true}
@@ -29,14 +31,15 @@ export const ShowProductBanner = () => {
               className={`image ${loaded ? 'loaded' : ''}`}
               onLoadingComplete={() => setLoaded(true)}
               // objectFit="contain"
-            />
+            /> */}
+            <ProductImage product={product!} />
           </div>
 
           {/* Thumbnails */}
           <div className="thumbnail-container">
-            {images.map((im, index: number) => (
+            {photos?.map((im, index: number) => (
               <button onClick={() => setSelectedImage(im)} key={index} className={selectedImage === im ? 'active' : ''}>
-                <Image
+                {/* <Image
                   src={`/assets_ecommerce/products/${im}`}
                   alt={im}
                   blurDataURL="www.google.com"
@@ -46,7 +49,8 @@ export const ShowProductBanner = () => {
                   className={`image ${loaded ? 'loaded' : ''}`}
                   onLoadingComplete={() => setLoaded(true)}
                   // objectFit="contain"
-                />
+                /> */}
+                <ProductImage product={product!} photoItem={im} />
               </button>
             ))}
           </div>

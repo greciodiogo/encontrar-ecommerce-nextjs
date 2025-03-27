@@ -758,6 +758,8 @@ a:visited {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .products .wrapper .subcategories .category_picture {
