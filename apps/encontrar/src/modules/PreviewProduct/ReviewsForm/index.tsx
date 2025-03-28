@@ -49,7 +49,7 @@ export const ReviewForm: React.FC<ReviewModalProps> = ({ products, isOpen = fals
                 />
                 <div className="product-info">
                   <h4>{product.name}</h4>
-                  <p>{product.about}</p>
+                  <p>{product.description}</p>
                 </div>
               </div>
             )}

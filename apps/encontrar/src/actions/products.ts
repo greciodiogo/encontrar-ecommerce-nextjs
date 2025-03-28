@@ -9,13 +9,33 @@ import {
   SetOrder,
   SetPaymentMethod,
 } from 'constants/products';
+import { CatalogService } from 'lib/catalog';
 import { CheckoutDTO } from 'types/checkout';
 import { OrderType, ProductDTO } from 'types/product';
 import { SetAddressAction, SetOrderAction, SetPaymentMethodAction } from 'types/store';
 
+import { GetAllProducts } from './../constants/products';
+
 type CartAction = {
   type: string;
   payload: unknown;
+};
+const catalog = new CatalogService();
+
+export const fetchAllProducts = () => async (dispatch: Dispatch<CartAction>) => {
+  try {
+    const params = new URLSearchParams({
+      page: String(0), // Conversão para string
+      perPage: String(6),
+    });
+
+    const productsResponse = await catalog.getProducts(params);
+    const products_ = productsResponse as Array<ProductDTO>;
+
+    dispatch({ type: GetAllProducts, payload: { products: products_ } });
+  } catch (error) {
+    console.error("Can't add to Cart", error);
+  }
 };
 
 export const addToCart =
