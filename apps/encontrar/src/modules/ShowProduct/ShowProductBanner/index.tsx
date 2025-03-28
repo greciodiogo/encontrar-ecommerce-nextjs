@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { ProductImage } from 'components/PhotoView';
 import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
-import { RootState } from 'types/product';
+import { PhotoProps, RootState } from 'types/product';
 
 export const ShowProductBanner = () => {
   const { isClient } = useAuth();
   const product = useAppSelector((state: RootState) => state.products.currentItem);
-  const { name, photos, image = '', images = [] } = product ?? {};
-  const [selectedImage, setSelectedImage] = useState(image || 'sem-foto.webp');
-  const [loaded, setLoaded] = useState(false);
+  const { name, photos } = product ?? {};
+  const [selectedImage, setSelectedImage] = useState<PhotoProps | undefined>(photos?.[0]); // Começa com a primeira imagem
 
   if (!isClient) return null;
   return (
@@ -20,36 +18,17 @@ export const ShowProductBanner = () => {
       {name && (
         <div className="showProductBanner">
           <div className="item-picture">
-            {/* <Image
-              src={`/assets_ecommerce/products/${selectedImage}`}
-              alt={name}
-              // priority={true}
-              blurDataURL="www.google.com"
-              placeholder="blur"
-              height={300}
-              width={100}
-              className={`image ${loaded ? 'loaded' : ''}`}
-              onLoadingComplete={() => setLoaded(true)}
-              // objectFit="contain"
-            /> */}
-            <ProductImage product={product!} />
+            <ProductImage product={product!} photoItem={selectedImage} />
           </div>
 
           {/* Thumbnails */}
           <div className="thumbnail-container">
             {photos?.map((im, index: number) => (
-              <button onClick={() => setSelectedImage(im)} key={index} className={selectedImage === im ? 'active' : ''}>
-                {/* <Image
-                  src={`/assets_ecommerce/products/${im}`}
-                  alt={im}
-                  blurDataURL="www.google.com"
-                  placeholder="blur"
-                  height={70}
-                  width={70}
-                  className={`image ${loaded ? 'loaded' : ''}`}
-                  onLoadingComplete={() => setLoaded(true)}
-                  // objectFit="contain"
-                /> */}
+              <button
+                key={index}
+                onClick={() => setSelectedImage(im)} // Atualiza a imagem ao clicar
+                className={selectedImage === im ? 'active' : ''}
+              >
                 <ProductImage product={product!} photoItem={im} />
               </button>
             ))}
