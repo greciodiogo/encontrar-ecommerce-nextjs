@@ -29,7 +29,7 @@ export type ProductDTO = {
   id?: number;
   qty?: number;
   banner?: string;
-  photosOrder: string;
+  photosOrder?: string;
   picture?: string;
 };
 
