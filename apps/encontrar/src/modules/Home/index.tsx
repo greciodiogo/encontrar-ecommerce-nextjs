@@ -57,22 +57,18 @@ export const Homepage = () => {
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_beverage_deals')} />
-      <CheapestProducts products={topExpensiveFoods} bannerText={t('cheapest_products.best_food_deals')} />
+      <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_food_deals')} />
       <div className="productsPage noBorder">
         <div className="productsPage__container">
           <PromotionBanner />
         </div>
       </div>
       <PromotionProducts
-        products={promotionProducts}
+        products={productsList}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
       />
-      <OtherProducts
-        products={topExpensiveElectrics}
-        bannerText={t('cheapest_products.other_products')}
-        hasButtons={false}
-      />
+      <OtherProducts products={productsList} bannerText={t('cheapest_products.other_products')} hasButtons={false} />
       <div className="about_policy">
         <div className="about_policy_container">
           <ContactSupport />{' '}

@@ -20,7 +20,7 @@ export const ProductImage = ({ product, photoItem }: { product: ProductDTO; phot
 
   // Construção segura da URL
   const photoUrl = selectedPhoto
-    ? `http://localhost/products/${String(id)}/photos/${String(selectedPhoto.id)}?thumbnail=true`
+    ? `https://encontrarshopping-api.up.railway.app/products/${String(id)}/photos/${String(selectedPhoto.id)}?thumbnail=true`
     : '/assets_ecommerce/products/sem-foto.webp';
 
   return (
