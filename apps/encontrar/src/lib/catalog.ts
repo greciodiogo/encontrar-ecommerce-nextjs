@@ -7,7 +7,8 @@ export class CatalogService {
   catalog = new StorageService();
 
   async fetchProducts(queryString: string) {
-    const response = await ApiService.get(`/products?${queryString}`);
+    // const response = await ApiService.get(`/products?${queryString}`);
+    const response = await ApiService.get(`/products`);
 
     return response.data;
   }
