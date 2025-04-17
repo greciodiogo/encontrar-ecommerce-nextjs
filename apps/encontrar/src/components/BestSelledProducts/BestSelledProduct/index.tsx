@@ -1,9 +1,9 @@
 import StarIcon from '@mui/icons-material/Star';
-import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React from 'react';
 import { LuShoppingCart } from 'react-icons/lu';
 
+import { ProductImage } from 'components/PhotoView';
 import { useAppSelector } from 'hooks';
 import { FnService } from 'shared/utils/FnService';
 import { ProductTypeProps, RootState } from 'types/product';
@@ -18,8 +18,7 @@ export const BestSelledProduct = ({
 }: ProductTypeProps) => {
   const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
-  const { id, image, name, price, promotional_price, about, is_promotion } = product;
-  const [loaded, setLoaded] = useState(false);
+  const { id, name, price, promotional_price, description, is_promotion } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
 
@@ -48,17 +47,7 @@ export const BestSelledProduct = ({
         <i className="promotion_badget">{calculate_promotion(price ?? 0, promotional_price)}</i>
       )}
       <div className="category_picture bestselled">
-        <Image
-          src={`/assets_ecommerce/products/${image ?? 'sem-foto.webp'}`}
-          alt={name ?? 'sem-nome'}
-          // priority={true}
-          blurDataURL="www.google.com"
-          placeholder="blur"
-          height={160}
-          width={100}
-          className={`image ${loaded ? 'loaded' : ''}`}
-          onLoadingComplete={() => setLoaded(true)}
-        />
+        <ProductImage product={product} />
       </div>
       <div className="content">
         {hasStars && (
@@ -81,7 +70,7 @@ export const BestSelledProduct = ({
             <span>{fnService.numberFormat(price ?? 0)}Kz</span>
           )}
         </p>
-        {hasDescription && <span>{about}</span>}
+        {hasDescription && <span>{description}</span>}
       </div>
       {hasButtons && (
         <a

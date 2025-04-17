@@ -18,17 +18,27 @@ export type ProductDTO = {
   name?: string;
   image?: string;
   images?: Array<string>;
-  about?: string;
+  description?: string;
   availability?: string;
   is_promotion?: boolean;
   categories?: Array<string>;
   promotional_price?: number;
   price?: number;
   brand?: string;
+  photos?: Array<PhotoProps>;
   id?: number;
   qty?: number;
   banner?: string;
+  photosOrder?: string;
   picture?: string;
+};
+
+export type PhotoProps = {
+  id: number;
+  path: string;
+  mimeType: string;
+  thumbnailPath: string;
+  placeholderBase64: string;
 };
 
 export type ProductTypeProps = {

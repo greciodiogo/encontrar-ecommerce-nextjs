@@ -2,6 +2,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
 import { adjustQty, removeFromCart } from 'actions/products';
+import { ProductImage } from 'components/PhotoView';
 import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { FnService } from 'shared/utils/FnService';
@@ -16,10 +17,9 @@ export const CartItem = (props: CartItemProps) => {
 
   const {
     name,
-    image,
     id = 0,
     availability,
-    category,
+    categories,
     brand,
     is_promotion,
     promotional_price,
@@ -62,7 +62,7 @@ export const CartItem = (props: CartItemProps) => {
   return (
     <div className="cart-item">
       <div className="cart-item-picture">
-        <img src={`/assets_ecommerce/products/${image ?? 'sem-foto.webp'}`} alt={name} />
+        <ProductImage product={props.cart} />
       </div>
       <div className="cart-item-content">
         <h3>{name}</h3>
@@ -77,7 +77,7 @@ export const CartItem = (props: CartItemProps) => {
             {t('cart_item.brand')}: <span>{brand}</span>
           </p>
           <p className="wrapItemRight">
-            {t('cart_item.category')}: <span>{category}</span>
+            {t('cart_item.category')}: <span>{categories?.[0]}</span>
           </p>
         </div>
         <div className="wrapPrice">

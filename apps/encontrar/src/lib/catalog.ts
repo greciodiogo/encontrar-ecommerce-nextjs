@@ -17,6 +17,26 @@ export class CatalogService {
     return await this.fetchProducts(queryString);
   }
 
+  async fetchOtherProducts(queryString: string) {
+    const response = await ApiService.get(`/products/list/others?limit=10?${queryString}`);
+    return response.data;
+  }
+
+  async getOtherProducts(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchOtherProducts(queryString);
+  }
+
+  async fetchExpensiveProducts(queryString: string) {
+    const response = await ApiService.get(`/products/list/expensive?limit=10?${queryString}`);
+    return response.data;
+  }
+
+  async getExpensiveProducts(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchExpensiveProducts(queryString);
+  }
+
   async fetchFaqs(queryString: string) {
     const response = await ApiService.get(`/faqs?${queryString}`);
     return response.data;
