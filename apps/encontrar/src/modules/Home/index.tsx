@@ -22,20 +22,20 @@ export const Homepage = () => {
   const productsList = useAppSelector((state: RootState) => state.products.products);
   const dispatch = useAppDispatch();
 
-  const promotionProducts = [...products]
-    .filter((prod) => prod.categories.some(() => prod.is_promotion && prod.promotional_price > 0))
-    .sort((a_, b_) => b_.price - a_.price)
-    .slice(0, 10);
+  // const promotionProducts = [...products]
+  //   .filter((prod) => prod.categories.some(() => prod.is_promotion && prod.promotional_price > 0))
+  //   .sort((a_, b_) => b_.price - a_.price)
+  //   .slice(0, 10);
 
-  const topExpensiveElectrics = [...products]
-    .filter((prod) => prod.categories.some(() => prod.categories.includes('Eletrodomésticos')))
-    .sort((a_, b_) => b_.price - a_.price)
-    .slice(0, 8);
+  // const topExpensiveElectrics = [...products]
+  //   .filter((prod) => prod.categories.some(() => prod.categories.includes('Eletrodomésticos')))
+  //   .sort((a_, b_) => b_.price - a_.price)
+  //   .slice(0, 8);
 
-  const topExpensiveFoods = [...products]
-    .filter((prod) => prod.categories.some(() => prod.categories.includes('Alimentação')))
-    .sort((a_, b_) => b_.price - a_.price)
-    .slice(0, 8);
+  // const topExpensiveFoods = [...products]
+  //   .filter((prod) => prod.categories.some(() => prod.categories.includes('Alimentação')))
+  //   .sort((a_, b_) => b_.price - a_.price)
+  //   .slice(0, 8);
   // const randomPopularProducts = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
 
   useEffect(() => {

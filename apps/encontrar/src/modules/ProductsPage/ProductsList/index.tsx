@@ -6,17 +6,21 @@ import React from 'react';
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
 import { useProductContext } from 'hooks/useProductContext';
+import { useAppSelector } from 'hooks';
 import { FnService } from 'shared/utils/FnService';
 import { ProductDTO } from 'types/product';
+import { RootState } from 'types/product';
 
 import { useAppDispatch } from '../../../hooks';
 
 export const ProductsList = () => {
   const { t } = useTranslation('common');
   const { filteredProducts, currentPage, itemsPerPage, totalPages, setCurrentPage } = useProductContext();
+  const productsList = useAppSelector((state: RootState) => state.products.products);
+
   const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const fnService = new FnService();
-
+  console.log(displayedProducts);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -39,11 +43,11 @@ export const ProductsList = () => {
           <h5>{t('mostRecommended')}</h5>
         </div>
         <>
-          {displayedProducts.length < 1 ? (
+          {productsList.length < 1 ? (
             <NotFound />
           ) : (
             <div className="wrapper bestselled">
-              {displayedProducts.map((item, itemIndex) => (
+              {productsList.map((item, itemIndex) => (
                 <BestSelledProduct
                   product={item}
                   key={itemIndex}
@@ -54,7 +58,7 @@ export const ProductsList = () => {
             </div>
           )}
         </>
-        {displayedProducts.length > 1 && (
+        {productsList.length > 1 && (
           <div className="pagination__container">
             <Pagination
               count={totalPages}
