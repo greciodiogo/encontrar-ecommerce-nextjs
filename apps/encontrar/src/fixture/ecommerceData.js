@@ -1,4 +1,3 @@
-
 export const new_categories = [
   { slug: 'drink_foods', name: 'Bebidas e Alimentação', image: `bebidas.png` },
   { slug: 'toys', name: 'Brinquedos', image: `Brinquedos.png` },
@@ -78,36 +77,6 @@ export const municipiosLuanda = [
 // ];
 
 export const products = [];
-
-export const cheapestProducts = [
-  {
-    title: 'Dispositivos Eletrodomésticos e Elétricos',
-    bestselled_product: {
-      name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
-      image: `videogame.png`,
-      price: 44554,
-      about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
-    },
-    data: products,
-  },
-];
-
-export const bestSelledProduct = {
-  category: 'Dispositivos Eletrodomésticos e Elétricos',
-  data: {
-    id: 1,
-    name: 'Xbox Series S - Consola SSD de 512GB com Controlo Sem Fios - Versão UE...',
-    image: `videogame.png`,
-    price: 44554,
-    about: 'Os jogos desenvolvidos com o kit de desenvolvimento do Xbox Series X|S apresentam tempos',
-    picture: 'macbook.png',
-    banner: 'videogame.png',
-    availability: 'Em Stock',
-    sku: 'A264671',
-    images: ['whiskey.png', 'wine_green.png'],
-    brand: 'Apple',
-  },
-};
 
 export const populartTags = [
   {
