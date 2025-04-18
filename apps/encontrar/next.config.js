@@ -27,7 +27,7 @@ const nextConfig = {
         hostname: parsedUrl.hostname,
       },
     ],
-    domains: ['localhost', 'https://encontrarshopping-api.up.railway.app', 'https://encontrarshopping.com'], // Permite imagens locais
+    domains: ['localhost', process.env.NEXT_PUBLIC_API_PATH], // Permite imagens locais
   },
 };
 
