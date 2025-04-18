@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { formatErrors } from 'utils/formatErrors';
 import { getToken } from 'utils/getToken';
 
-export const BASE_URL = 'http://localhost';
+export const BASE_URL = 'https://encontrarshopping-api.up.railway.app';
 
 const api = axios.create({
   baseURL: BASE_URL,
