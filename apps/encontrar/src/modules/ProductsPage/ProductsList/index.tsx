@@ -38,7 +38,7 @@ export const ProductsList = () => {
       <div className="productsList">
         <div className="productsPage__top">
           <h5>
-            {t('totalProducts')} ({fnService.formatarQuantidade(filteredProducts.length)})
+            {t('totalProducts')} ({fnService.formatarQuantidade(productsList.length)})
           </h5>
           <h5>{t('mostRecommended')}</h5>
         </div>
