@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { PhotoProps, ProductDTO } from 'types/product';
+import { BASE_URL } from './../../services/apiService';
 export const ProductImage = ({ product, photoItem }: { product: ProductDTO; photoItem?: PhotoProps }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -20,7 +21,7 @@ export const ProductImage = ({ product, photoItem }: { product: ProductDTO; phot
 
   // Construção segura da URL
   const photoUrl = selectedPhoto
-    ? `https://encontrarshopping-api.up.railway.app/products/${String(id)}/photos/${String(selectedPhoto.id)}?thumbnail=true`
+    ? `${BASE_URL}/products/${String(id)}/photos/${String(selectedPhoto.id)}?thumbnail=true`
     : '/assets_ecommerce/products/sem-foto.webp';
 
   return (

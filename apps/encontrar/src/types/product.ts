@@ -24,6 +24,7 @@ export type ProductDTO = {
   categories?: Array<string>;
   promotional_price?: number;
   price?: number;
+  stock?: number;
   brand?: string;
   photos?: Array<PhotoProps>;
   id?: number;
