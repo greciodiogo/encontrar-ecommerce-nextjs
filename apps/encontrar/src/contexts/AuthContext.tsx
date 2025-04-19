@@ -117,10 +117,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password: data.password,
     });
 
-    setCookie(null, 'accessToken', JSON.stringify(token), {
-      maxAge: 60 * 60 * 1, // 1 hora
-    });
+    // setCookie(null, 'accessToken', JSON.stringify(token), {
+    //   maxAge: 60 * 60 * 1, // 1 hora
+    // });
 
+    setUser(token);
     setIsAuthenticated(true);
 
     await Router.push('/products'); // Aguarde a navegação antes de retornar

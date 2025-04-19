@@ -39,11 +39,16 @@ export const AuthPage: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema.login),
+    resolver: yupResolver(!isSignIn ? validationSchema.signup : validationSchema.login),
     mode: 'all', // Validação ocorre ao sair do campo
   });
 
-  const onHandleSubmit = async (data: { email: string; password: string }): Promise<void> => {
+  const onHandleSubmit = async (data: {
+    nome?: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }): Promise<void> => {
     try {
       const isCredentializedUser = await toast.promise(
         login({
@@ -78,7 +83,12 @@ export const AuthPage: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = async (data: { email: string; password: string }) => {
+  const handleFormSubmit = async (data: {
+    nome?: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
     try {
       await onHandleSubmit(data); // Chama a função assíncrona diretamente
     } catch (err) {
@@ -163,7 +173,9 @@ export const AuthPage: React.FC = () => {
                 />
               </>
             )}
-            <button className={styles.btn}>{isSignIn ? t('login') : t('create_account')}</button>
+            <button type="submit" className={styles.btn}>
+              {isSignIn ? t('login') : t('create_account')}
+            </button>
             <span className={styles.divisor}>{t('or')}</span>
             <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
             <button className={`${styles.btn} ${styles.outlinedBtn}`}>

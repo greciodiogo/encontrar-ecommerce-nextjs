@@ -18,7 +18,7 @@ export const ProductDetail = () => {
   const {
     name,
     availability,
-    category,
+    stock,
     price,
     brand,
     is_promotion,
@@ -41,6 +41,15 @@ export const ProductDetail = () => {
   };
 
   const handleAddToCart = (id: number) => {
+    const productInCart = product.cart.find((item) => item.id === id);
+    const currentCartQty = productInCart?.qty ?? 0;
+    const totalDesiredQty = currentCartQty + (qty ?? localQty);
+
+    if (totalDesiredQty > (stock ?? 0)) {
+      alert(t('cart_item.stock_limit_reached') ?? 'Quantidade excede o stock disponível!');
+      return;
+    }
+
     dispatch(addToCart(id, qty ?? localQty));
     // setShowCheckout(true);() => handleAddToCart(product.id)
   };
@@ -76,9 +85,9 @@ export const ProductDetail = () => {
         <p>
           {t('cart_item.brand')}: <span>{brand}</span>
         </p>
-        <p>
+        {/* <p>
           {t('cart_item.category')}: <span>{category}</span>
-        </p>
+        </p> */}
       </div>
       <div className="product_price">
         {fnService.numberFormat(activePrice ?? 0)} <span>Kz</span>
