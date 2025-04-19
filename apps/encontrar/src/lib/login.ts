@@ -9,10 +9,7 @@ export class AuthService {
 
   async login(credentials: SignInRequestDTO): Promise<string> {
     const response = (await ApiService.post('/auth/login', credentials)) as { data: SignInResponseDTO };
-    console.log(response);
-    const token = response;
-
-    // return token;
+    return response;
   }
 
   async fetchUsers(queryString: string) {

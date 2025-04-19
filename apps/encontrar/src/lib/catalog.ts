@@ -67,4 +67,11 @@ export class CatalogService {
     const queryString = buildQueryString(params);
     return await this.fetchOrders(queryString);
   }
+
+  async placeOrder(order: any): Promise<any> {
+    const data = await ApiService.post('/orders', order);
+    return data;
+
+    // return token;
+  }
 }
