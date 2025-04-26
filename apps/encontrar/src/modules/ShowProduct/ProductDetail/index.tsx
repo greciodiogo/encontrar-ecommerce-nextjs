@@ -18,11 +18,11 @@ export const ProductDetail = () => {
   const {
     name,
     availability,
-    stock,
     price,
     brand,
     is_promotion,
     promotional_price,
+    stock = 1,
     id = 0,
     qty,
   } = product.currentItem ?? {};
@@ -41,12 +41,12 @@ export const ProductDetail = () => {
   };
 
   const handleAddToCart = (id: number) => {
-    const productInCart = product.cart.find((item) => item.id === id);
-    const currentCartQty = productInCart?.qty ?? 0;
-    const totalDesiredQty = currentCartQty + (qty ?? localQty);
+    const cartItem = product.cart.find((item) => item.id === id);
+    const currentQtyInCart = cartItem?.qty ?? 0;
+    const desiredQty = (qty ?? localQty) + currentQtyInCart;
 
-    if (totalDesiredQty > (stock ?? 0)) {
-      alert(t('cart_item.stock_limit_reached') ?? 'Quantidade excede o stock disponível!');
+    if (desiredQty > stock) {
+      alert('Quantidade indisponível em estoque.');
       return;
     }
 
@@ -57,8 +57,14 @@ export const ProductDetail = () => {
   const handleAdjustQtyCart = (id: number, newQty: number) => {
     if (newQty < 1) return;
 
+    if (newQty > stock) {
+      console.log('Quantidade indisponível em estoque.');
+      alert('Quantidade indisponível em estoque.');
+      return;
+    }
+
     setLocalQty(newQty);
-    // dispatch(addToCart(id, newQty));
+    // dispatch(adjustQty(id, newQty));
   };
 
   if (!isClient) return null;

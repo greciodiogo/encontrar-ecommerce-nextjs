@@ -18,13 +18,22 @@ export const BestSelledProduct = ({
 }: ProductTypeProps) => {
   const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
   const productCart = useAppSelector((state: RootState) => state.products.cart);
-  const { id, name, price, promotional_price, description, is_promotion } = product;
+  const { id, name, price, promotional_price, stock = 1, description, is_promotion } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
 
   const handleAddToCartClick = (event: React.MouseEvent<HTMLAnchorElement>, id = 0) => {
     event.preventDefault();
     event.stopPropagation();
+    const cartItem = productCart.find((item) => item.id === id);
+    const currentQtyInCart = cartItem?.qty ?? 0;
+    const productStock = stock ?? 0; // garante que existe stock
+
+    if (currentQtyInCart >= productStock) {
+      alert('Quantidade indisponível em estoque.');
+      return;
+    }
+
     handleAddToCart?.(id);
   };
 

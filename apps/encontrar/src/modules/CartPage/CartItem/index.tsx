@@ -23,6 +23,7 @@ export const CartItem = (props: CartItemProps) => {
     brand,
     is_promotion,
     promotional_price,
+    stock = 1,
     qty = 1,
     price = 0,
   } = props.cart;
@@ -50,6 +51,12 @@ export const CartItem = (props: CartItemProps) => {
 
   const handleAdjustQtyCart = (id: number, newQty: number) => {
     if (newQty < 1) return;
+
+    if (newQty > stock) {
+      console.log('Quantidade indisponível em estoque.');
+      alert('Quantidade indisponível em estoque.');
+      return;
+    }
 
     setLocalQty(newQty);
     dispatch(adjustQty(id, newQty));
