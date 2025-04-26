@@ -8,10 +8,12 @@ import { FaArrowRight } from 'react-icons/fa';
 import { useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { FnService } from 'shared/utils/FnService';
+import { CatalogService } from 'lib/catalog';
 import { RootState } from 'types/product';
 
 export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
   const fnService = new FnService();
+  const catalog = new CatalogService();
   const { t } = useTranslation('checkout');
   const [subtotal, setSubtotal] = useState(0);
   const [atotal, setATotal] = useState(0);
@@ -46,6 +48,9 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   }, [cartItems, serviceCost, discount, shippingCost]); // Inclui dependências corretamente
 
   const onFinish = () => {
+    // catalog.placeOrder({
+    //   1
+    // })
     handleNextStep();
   };
 
