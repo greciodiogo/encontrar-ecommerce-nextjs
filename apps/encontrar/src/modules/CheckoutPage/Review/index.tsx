@@ -47,10 +47,32 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
     setATotal(total_ + serviceCost + discount + shippingCost);
   }, [cartItems, serviceCost, discount, shippingCost]); // Inclui dependências corretamente
 
-  const onFinish = () => {
-    // catalog.placeOrder({
-    //   1
-    // })
+  const onFinish = async () => {
+    let itemsList: Array<{ productId?: number; quantity?: number }> = [];
+    repo.cart.forEach((item) =>
+      itemsList.push({
+        productId: item.id,
+        quantity: item.qty,
+      }),
+    );
+
+    await catalog.placeOrder({
+      contactEmail: repo.address?.email,
+      contactPhone: '+244' + repo.address?.telefone,
+      delivery: {
+        methodId: 1,
+        address: repo.address?.municipio,
+        city: repo.address?.cidade,
+        country: 'AO',
+        postalCode: '0000',
+      },
+      fullName: repo.address?.name,
+      items: itemsList,
+      message: '',
+      payment: {
+        methodId: 1,
+      },
+    });
     handleNextStep();
   };
 
