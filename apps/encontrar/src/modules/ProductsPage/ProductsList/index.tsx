@@ -20,7 +20,6 @@ export const ProductsList = () => {
 
   const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const fnService = new FnService();
-  console.log(displayedProducts);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
