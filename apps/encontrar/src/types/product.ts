@@ -34,6 +34,15 @@ export type ProductDTO = {
   picture?: string;
 };
 
+export type CategoriesDTO = {  
+  description?: string,
+  groups?: Array<String>,
+  id?: number,
+  name?: string,
+  parentCategory?:null,
+  slug?: string,
+}
+
 export type PhotoProps = {
   id: number;
   path: string;
@@ -67,6 +76,7 @@ export type ReviewDataProps = {
 
 export type ProductState = {
   products: Array<ProductDTO>;
+  categories: Array<CategoriesDTO>;
   cart: Array<ProductDTO>;
   currentItem: ProductDTO | null;
   address: RegisterAddressDTO | null; // Novo campo para endereço

@@ -11,10 +11,10 @@ import {
 } from 'constants/products';
 import { CatalogService } from 'lib/catalog';
 import { CheckoutDTO } from 'types/checkout';
-import { OrderType, ProductDTO } from 'types/product';
+import { CategoriesDTO, OrderType, ProductDTO } from 'types/product';
 import { SetAddressAction, SetOrderAction, SetPaymentMethodAction } from 'types/store';
 
-import { GetAllProducts } from './../constants/products';
+import { GetAllProducts, GetAllCategories } from './../constants/products';
 
 type CartAction = {
   type: string;
@@ -33,6 +33,22 @@ export const fetchAllProducts = () => async (dispatch: Dispatch<CartAction>) => 
     const products_ = productsResponse as Array<ProductDTO>;
 
     dispatch({ type: GetAllProducts, payload: { products: products_ } });
+  } catch (error) {
+    console.error("Can't add to Cart", error);
+  }
+};
+
+export const fetchAllCategories = () => async (dispatch: Dispatch<CartAction>) => {
+  try {
+    const params = new URLSearchParams({
+      // page: String(0), 
+      // perPage: String(6),
+    });
+
+    const categoriesResponse = await catalog.getCategories(params);
+    const categories_ = categoriesResponse as Array<CategoriesDTO>;
+
+    dispatch({ type: GetAllCategories, payload: { categories: categories_ } });
   } catch (error) {
     console.error("Can't add to Cart", error);
   }
