@@ -64,7 +64,7 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       return {
         ...state,
 
-        products: action.payload?.categories ?? [],
+        categories: action.payload?.categories ?? [],
       };
     }
 

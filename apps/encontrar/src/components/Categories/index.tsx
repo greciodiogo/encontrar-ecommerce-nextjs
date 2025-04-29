@@ -1,14 +1,20 @@
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Dropdown } from 'components/Header/Drowdown';
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { RootState } from 'types/product';
+import { fetchAllCategories } from 'actions/products';
 
 export const Categories = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
   const router = useRouter();
+
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
+  const dispatch = useAppDispatch();
 
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
 
@@ -23,6 +29,18 @@ export const Categories = () => {
     toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
     // void router.push(`/products`);
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        await dispatch(fetchAllCategories());
+      } catch (error) {
+        console.error('Error fetching Categories:', error);
+      }
+    };
+
+    void fetchCategories();
+  }, []);
 
   if (isControlPanelRoute || isCheckoutRoute) return null;
 
