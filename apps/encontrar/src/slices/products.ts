@@ -7,6 +7,7 @@ import {
   SetAddress,
   SetPaymentMethod,
   SetOrder,
+  GetAllCategories,
 } from 'constants/products';
 // import { products } from 'fixture/ecommerceData';
 import { ProductState } from 'types/product';
@@ -23,6 +24,7 @@ const loadStateFromLocalStorage = (): ProductState => {
   if (typeof window === 'undefined') {
     return {
       products: [],
+      categories: [],
       cart: [],
       currentItem: {},
       address: null,
@@ -37,6 +39,7 @@ const loadStateFromLocalStorage = (): ProductState => {
     ? JSON.parse(savedState)
     : {
         products: [],
+        categories: [],
         cart: [],
         currentItem: {},
         address: null,
@@ -54,6 +57,14 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ...state,
 
         products: action.payload?.products ?? [],
+      };
+    }
+
+    case GetAllCategories: {
+      return {
+        ...state,
+
+        categories: action.payload?.categories ?? [],
       };
     }
 

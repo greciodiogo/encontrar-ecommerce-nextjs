@@ -7,8 +7,9 @@ import {
   SetAddress,
   SetPaymentMethod,
   SetOrder,
+  GetAllCategories,
 } from 'constants/products';
-import { OrderType, ProductDTO } from 'types/product';
+import { CategoriesDTO, OrderType, ProductDTO } from 'types/product';
 
 import { RegisterAddressDTO } from './checkout';
 
@@ -21,6 +22,10 @@ export type Action<T> = {
 export type GetAllProductsAction = {
   type: typeof GetAllProducts;
 } & Action<{ products: Array<ProductDTO> }>;
+
+export type GetAllCategoriesAction = {
+  type: typeof GetAllCategories;
+} & Action<{ categories: Array<CategoriesDTO> }>;
 
 export type AddToCartAction = {
   type: typeof AddToCart;
@@ -67,6 +72,7 @@ export type SetOrderAction = {
 
 export type ProductAction =
   | GetAllProductsAction
+  | GetAllCategoriesAction
   | AddToCartAction
   | RemoveFromCartAction
   | AdjustQtyAction

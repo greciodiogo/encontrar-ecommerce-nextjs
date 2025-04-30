@@ -6,12 +6,18 @@ import React from 'react';
 
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
+import { RootState } from 'types/product';
+import { useAppSelector } from 'hooks';
 
 export const Products = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
 
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
+
+  const promotionsCategory = categoriesList.find((item) => item.slug === 'promotions');
+  const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
 
   const goToCategories = (category: string) => {
     toggleSelection(selectedCategories, setSelectedCategories, category);
@@ -35,11 +41,27 @@ export const Products = () => {
           </button>
         </div>
         <div className="wrap_item">
-          {new_categories
-            .filter((item) => item.slug !== 'promotions') // Filtra a categoria "promotions"
-            .map((category, index) => (
-              <CategoryItem category={category} goToCategories={goToCategories} key={index} />
-            ))}
+          {[...otherCategories]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((category, index) => {
+              const staticCategory = new_categories.find((c) => c.slug === category.slug);
+              const image = staticCategory?.image || 'default.png';
+
+              return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
+            })}
+
+          {/* Categoria "promotions" separada no final */}
+          {promotionsCategory && (
+            <div className="promotions-highlight">
+              <CategoryItem
+                category={{
+                  ...promotionsCategory,
+                  image: new_categories.find((c) => c.slug === promotionsCategory.slug)?.image || 'default.png',
+                }}
+                goToCategories={goToCategories}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

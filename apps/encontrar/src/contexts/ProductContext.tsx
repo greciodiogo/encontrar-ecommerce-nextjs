@@ -1,15 +1,12 @@
 import { useRouter } from 'next/router';
 import { createContext, useState, useEffect, ReactNode } from 'react';
-
-import { products } from 'fixture/ecommerceData';
 import { ProductContextType } from 'types/context';
+import { ProductDTO } from 'types/product';
 
-// Criando o contexto
 export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-// Criando o Provider
 export function ProductProvider({ children }: { children: ReactNode }) {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState<Array<ProductDTO>>([]);
   const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(9999999);
@@ -18,27 +15,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [userInteracted, setUserInteracted] = useState(false);
-  const categoryMappings: Record<string, Array<string>> = {
-    'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
-  };
-  const getCategoryCount = (categoryName: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const mappedCategories = categoryMappings[categoryName] || [categoryName];
 
-    return products.filter((product) => product.categories.some((cat) => mappedCategories.includes(cat))).length;
-  };
-
-  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const mappedCategories = categoryMappings[item] || [item];
-    setUserInteracted(true);
-
-    if (mappedCategories.every((cat) => list.includes(cat))) {
-      setList(list.filter((cat) => !mappedCategories.includes(cat)));
-    } else {
-      setList([...new Set([...list, ...mappedCategories])]);
-    }
-  };
   const router = useRouter();
 
   const updateQueryParams = async (categories: Array<string>) => {
@@ -50,49 +27,69 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const fetchProductsByCategories = async (categoryIds: Array<string>) => {
+    try {
+      const allProducts = await Promise.all(
+        categoryIds.map(async (categoryId) => {
+          const res = await fetch(`https://api.encontrarshopping.com/categories/${categoryId}/products`);
+          const data = await res.json();
+          return data;
+        }),
+      );
+
+      // Concatenar e remover duplicatas (caso produtos se repitam em mais de uma categoria)
+      const merged = allProducts.flat();
+      const unique = Array.from(new Map(merged.map((p) => [p.id, p])).values());
+
+      return unique;
+    } catch (err) {
+      console.error('Erro ao buscar produtos:', err);
+      return [];
+    }
+  };
+
   useEffect(() => {
     if (userInteracted) {
       void updateQueryParams(selectedCategories);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategories, userInteracted]);
 
   useEffect(() => {
-    let filtered = products;
+    const loadProducts = async () => {
+      if (selectedCategories.length === 0) {
+        setFilteredProducts([]);
+        return;
+      }
 
-    filtered = filtered.filter((prod) => prod.price >= minPrice && prod.price <= maxPrice);
+      const products = await fetchProductsByCategories(selectedCategories);
 
-    // Expandir categorias antes do filtro
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const expandedCategories = selectedCategories.flatMap((category) => categoryMappings[category] || category);
+      let filtered = products.filter((prod) => prod.price >= (minPrice || 0) && prod.price <= (maxPrice || 9999999));
 
-    // Verifica se a categoria selecionada é "promotions"
-    if (expandedCategories.includes('Promoções')) {
-      filtered = filtered.filter((prod) => prod.is_promotion && prod.promotional_price > 0);
-    } else if (expandedCategories.length > 0) {
-      filtered = filtered.filter((prod) => expandedCategories.some((cat) => prod.categories.includes(cat)));
-    }
+      if (availability) {
+        filtered = filtered.filter((prod) => prod.availability === availability);
+      }
 
-    if (availability) {
-      filtered = filtered.filter((prod) => prod.availability === availability);
-    }
+      if (rating > 0) {
+        filtered = filtered.filter((prod) => prod.rating >= rating);
+      }
 
-    if (rating > 0) {
-      filtered = filtered.filter((prod) => prod.rating >= rating);
-    }
+      setFilteredProducts(filtered);
+      setCurrentPage(1);
+    };
 
-    // Ajuste para evitar valores NaN ou undefined nos preços
-    const min = minPrice || 0;
-    const max = maxPrice || 500000;
-
-    filtered = filtered.filter((prod) => prod.price >= min && prod.price <= max);
-
-    setFilteredProducts(filtered);
-    setCurrentPage(1); // Resetar para a primeira página quando os filtros mudarem
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    void loadProducts();
   }, [selectedCategories, minPrice, maxPrice, availability, rating]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  const toggleSelection = (list: Array<string>, setList: (value: Array<string>) => void, item: string) => {
+    setUserInteracted(true);
+    if (list.includes(item)) {
+      setList(list.filter((cat) => cat !== item));
+    } else {
+      setList([...list, item]);
+    }
+  };
 
   return (
     <ProductContext.Provider
@@ -106,11 +103,10 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         currentPage,
         itemsPerPage,
         totalPages,
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         updateQueryParams,
         toggleSelection,
-        getCategoryCount,
-        setSelectedCategories, // Atualizado para múltiplas categorias
+        getCategoryCount: () => 0, // opcional, já que isso dependeria de outro endpoint
+        setSelectedCategories,
         setMinPrice,
         setMaxPrice,
         setAvailability,
