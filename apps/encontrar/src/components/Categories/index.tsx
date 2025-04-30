@@ -52,17 +52,18 @@ export const Categories = () => {
         <div className="wrapper">
           <div className="wrapper_list">
             <ul className="subcategories">
-              <Dropdown
+              {/* <Dropdown
                 CATEGORY_TITLE={t(`categories.${new_categories[0].slug}`)}
                 onClick={() => goToCategories(new_categories[0].name)}
-              />
-              {new_categories
+              /> */}
+              {[...categoriesList]
+                .sort((a, b) => a.name.localeCompare(b.name)) // ou por slug: a.slug.localeCompare(b.slug)
                 .map((item) => (
                   <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">
                     <a className={item.slug == 'promotions' ? 'activedCategory' : ''}>{t(`categories.${item.slug}`)}</a>
                   </button>
                 ))
-                .slice(1)}
+                .slice(0)}
             </ul>
           </div>
         </div>
