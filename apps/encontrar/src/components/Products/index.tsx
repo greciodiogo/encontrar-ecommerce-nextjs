@@ -21,7 +21,7 @@ export const Products = () => {
 
   const goToCategories = (category: string) => {
     toggleSelection(selectedCategories, setSelectedCategories, category);
-    void router.push(`products`);
+    // void router.push(`products`);
   };
 
   const goToProducts = () => {
