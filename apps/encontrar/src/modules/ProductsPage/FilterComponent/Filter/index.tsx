@@ -80,9 +80,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                       <label key={category.name} className={styles.brandItem}>
                         <input
                           type="checkbox"
-                          checked={(categoryMappings[category.name] || [category.name]).every((cat) =>
-                            selectedCategories.includes(cat),
-                          )}
+                          checked={[category.name].every((cat) => selectedCategories.includes(cat))}
                           onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
                           className={styles.checkbox}
                         />
