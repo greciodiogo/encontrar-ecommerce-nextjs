@@ -37,16 +37,16 @@ export const ProductsList = () => {
       <div className="productsList">
         <div className="productsPage__top">
           <h5>
-            {t('totalProducts')} ({fnService.formatarQuantidade(productsList.length)})
+            {t('totalProducts')} ({fnService.formatarQuantidade(displayedProducts.length)})
           </h5>
           <h5>{t('mostRecommended')}</h5>
         </div>
         <>
-          {productsList.length < 1 ? (
+          {displayedProducts.length < 1 ? (
             <NotFound />
           ) : (
             <div className="wrapper bestselled">
-              {productsList.map((item, itemIndex) => (
+              {displayedProducts.map((item, itemIndex) => (
                 <BestSelledProduct
                   product={item}
                   key={itemIndex}
@@ -57,7 +57,7 @@ export const ProductsList = () => {
             </div>
           )}
         </>
-        {productsList.length > 1 && (
+        {displayedProducts.length > 1 && (
           <div className="pagination__container">
             <Pagination
               count={totalPages}

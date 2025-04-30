@@ -1,3 +1,4 @@
+import { new_categories } from 'fixture/ecommerceData';
 import { useRouter } from 'next/router';
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { ProductContextType } from 'types/context';
@@ -5,6 +6,7 @@ import { ProductDTO } from 'types/product';
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 export function ProductProvider({ children }: { children: ReactNode }) {
   const [filteredProducts, setFilteredProducts] = useState<Array<ProductDTO>>([]);
   const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
@@ -27,17 +29,24 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const fetchProductsByCategories = async (categoryIds: Array<string>) => {
+  const fetchProductsByCategories = async (categoryNames: Array<string>) => {
     try {
+      // Mapear os nomes para os slugs correspondentes
+      const categorySlugs = categoryNames
+        .map((name) => {
+          const match = new_categories.find((cat) => cat.name === name);
+          return match?.slug;
+        })
+        .filter(Boolean); // remove valores undefined
+
       const allProducts = await Promise.all(
-        categoryIds.map(async (categoryId) => {
-          const res = await fetch(`https://api.encontrarshopping.com/categories/${categoryId}/products`);
+        categorySlugs.map(async (categorySlug) => {
+          const res = await fetch(`${BASE_URL}/categories/slug/${categorySlug}/products`);
           const data = await res.json();
           return data;
         }),
       );
 
-      // Concatenar e remover duplicatas (caso produtos se repitam em mais de uma categoria)
       const merged = allProducts.flat();
       const unique = Array.from(new Map(merged.map((p) => [p.id, p])).values());
 
@@ -62,7 +71,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       }
 
       const products = await fetchProductsByCategories(selectedCategories);
-
+      console.log(products);
       let filtered = products.filter((prod) => prod.price >= (minPrice || 0) && prod.price <= (maxPrice || 9999999));
 
       if (availability) {

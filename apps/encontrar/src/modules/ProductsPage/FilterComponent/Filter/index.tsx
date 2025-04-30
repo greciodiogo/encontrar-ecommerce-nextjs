@@ -87,7 +87,8 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                           className={styles.checkbox}
                         />
                         <span className={styles.brandName}>
-                          {category.name} <span className={styles.itemCount}>({getCategoryCount(category.name)})</span>
+                          {category.name}
+                          {/* <span className={styles.itemCount}>({getCategoryCount(category.name)})</span> */}
                         </span>
                       </label>
                     ))}
