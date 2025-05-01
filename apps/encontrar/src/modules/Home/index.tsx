@@ -53,7 +53,7 @@ export const Homepage = () => {
   return (
     <Container useStyle={false}>
       <PromoCarousel />
-      <Products />
+      {/* <Products /> */}
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_beverage_deals')} />

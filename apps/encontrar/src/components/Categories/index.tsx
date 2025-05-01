@@ -56,7 +56,7 @@ export const Categories = () => {
                 CATEGORY_TITLE={t(`categories.${new_categories[0].slug}`)}
                 onClick={() => goToCategories(new_categories[0].name)}
               /> */}
-              {[...categoriesList]
+              {[...(categoriesList || [])]
                 .sort((a, b) => a.name.localeCompare(b.name)) // ou por slug: a.slug.localeCompare(b.slug)
                 .map((item) => (
                   <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">

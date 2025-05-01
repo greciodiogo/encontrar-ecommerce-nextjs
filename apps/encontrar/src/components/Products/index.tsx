@@ -41,7 +41,7 @@ export const Products = () => {
           </button>
         </div>
         <div className="wrap_item">
-          {[...otherCategories]
+          {[...(otherCategories || [])]
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((category, index) => {
               const staticCategory = new_categories.find((c) => c.slug === category.slug);
