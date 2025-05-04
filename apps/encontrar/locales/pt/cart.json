@@ -21,6 +21,7 @@
   },
   "cart_resume": {
     "subtotal": "Subtotal",
+    "serviceFee": "Taxa/Serviço",
     "delivery": "Entrega",
     "total_items": "Total ({{count}} items)",
     "pay_button_cash": "PAGAR em dinheiro",
