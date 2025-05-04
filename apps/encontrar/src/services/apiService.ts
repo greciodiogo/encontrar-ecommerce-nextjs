@@ -14,23 +14,23 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use(
-  async (config) => {
-    const token = await getToken();
+// api.interceptors.request.use(
+//   async (config) => {
+//     // const token = await getToken();
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    if (error instanceof AxiosError || error instanceof Error) {
-      formatErrors(error);
-      return Promise.reject(error);
-    }
-    return Promise.reject(new Error('Erro desconhecido na requisição.'));
-  },
-);
+//     // if (token) {
+//     //   config.headers.Authorization = `Bearer ${token}`;
+//     // }
+//     return config;
+//   },
+//   (error) => {
+//     if (error instanceof AxiosError || error instanceof Error) {
+//       formatErrors(error);
+//       return Promise.reject(error);
+//     }
+//     return Promise.reject(new Error('Erro desconhecido na requisição.'));
+//   },
+// );
 
 // Ajuste o ApiService para aceitar tipos genéricos
 export const ApiService = {
