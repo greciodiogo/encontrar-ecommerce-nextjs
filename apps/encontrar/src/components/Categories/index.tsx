@@ -1,12 +1,14 @@
+'use client';
+
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Dropdown } from 'components/Header/Drowdown';
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { RootState } from 'types/product';
+import { CategoriesDTO, RootState } from 'types/product';
 import { fetchAllCategories } from 'actions/products';
 
 export const Categories = () => {
@@ -17,7 +19,7 @@ export const Categories = () => {
   const dispatch = useAppDispatch();
 
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
-
+  const [categoriesList_, setCategoriesList_] = useState<Array<CategoriesDTO>>(categoriesList);
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
@@ -46,6 +48,8 @@ export const Categories = () => {
 
   if (isAboutRoute || isPrivacyPolicyRoute) return;
 
+  if (!categoriesList_) return;
+
   return (
     <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>
       <div className="categories_container">
@@ -56,7 +60,7 @@ export const Categories = () => {
                 CATEGORY_TITLE={t(`categories.${new_categories[0].slug}`)}
                 onClick={() => goToCategories(new_categories[0].name)}
               /> */}
-              {[...(categoriesList || [])]
+              {[...(categoriesList_ || [])]
                 .sort((a, b) => a.name.localeCompare(b.name)) // ou por slug: a.slug.localeCompare(b.slug)
                 .map((item) => (
                   <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">

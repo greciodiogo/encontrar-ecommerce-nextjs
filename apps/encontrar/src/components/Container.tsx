@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react';
 import { useAuth } from 'hooks/useAuth';
 
 import { Breadcrumb } from './Breadcrumb';
-// import { Categories } from './Categories';
+import { Categories } from './Categories';
 import { CookieBanner } from './CookieBanner';
 
 type ContainerProps = {
@@ -53,7 +53,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
       </Head>
       <main>
         <CookieBanner />
-        {/* <Categories /> */}
+        <Categories />
         {useStyle && <Breadcrumb />}
         {children}
       </main>
