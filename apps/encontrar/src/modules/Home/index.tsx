@@ -2,7 +2,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
 
 import { fetchAllProducts } from 'actions/products';
-import { CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
+import { Categories, CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
@@ -52,8 +52,9 @@ export const Homepage = () => {
 
   return (
     <Container useStyle={false}>
+      <Categories />
       <PromoCarousel />
-      {/* <Products /> */}
+      <Products />
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_beverage_deals')} />

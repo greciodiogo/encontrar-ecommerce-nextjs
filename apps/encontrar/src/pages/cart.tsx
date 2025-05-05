@@ -1,9 +1,15 @@
 import React from 'react';
 
 import { CartPage } from 'modules/CartPage';
+import { Categories } from 'components';
 
 const Cart = () => {
-  return <CartPage />;
+  return (
+    <>
+      <Categories />
+      <CartPage />
+    </>
+  );
 };
 
 // Cart.getLayout = (page: ReactElement) => <>{page}</>;

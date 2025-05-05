@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import { useAuth } from 'hooks/useAuth';
 
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
@@ -12,7 +13,7 @@ import { useAppSelector } from 'hooks';
 export const Products = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
-
+  const { isClient } = useAuth();
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
 
@@ -28,6 +29,9 @@ export const Products = () => {
     void router.push(`products`);
   };
 
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
   return (
     <div className="products simple">
       <div className="products_container">

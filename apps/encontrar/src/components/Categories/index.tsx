@@ -1,9 +1,10 @@
+'use client';
+
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
+import { useAuth } from 'hooks/useAuth';
 
-import { Dropdown } from 'components/Header/Drowdown';
-import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { RootState } from 'types/product';
@@ -12,12 +13,12 @@ import { fetchAllCategories } from 'actions/products';
 export const Categories = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
   const router = useRouter();
+  const { isClient } = useAuth();
 
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
 
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
-
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
@@ -45,6 +46,10 @@ export const Categories = () => {
   if (isControlPanelRoute || isCheckoutRoute) return null;
 
   if (isAboutRoute || isPrivacyPolicyRoute) return;
+
+  if (!isClient) {
+    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  }
 
   return (
     <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>
