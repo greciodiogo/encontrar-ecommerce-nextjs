@@ -54,7 +54,7 @@ export const Homepage = () => {
     <Container useStyle={false}>
       <Categories />
       <PromoCarousel />
-      {/* <Products /> */}
+      <Products />
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_beverage_deals')} />
