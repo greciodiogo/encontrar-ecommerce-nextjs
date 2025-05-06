@@ -2875,6 +2875,7 @@ a:visited {
   }
 
   .successfulOrder .content .btn__container {
+    align-items: center;
     flex-direction: column;
     gap: 10px;
   }
