@@ -4,6 +4,8 @@ import React from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { SubmitButton } from 'shared/components/SubmitButton';
 import { FnService } from 'shared/utils/FnService';
+import { useAppSelector } from 'hooks';
+import { RootState } from 'types/product';
 
 export const CartResume = ({
   total = 0,
@@ -16,6 +18,8 @@ export const CartResume = ({
   handleGoToCheckout?: () => void;
 }) => {
   const { t } = useTranslation('cart');
+  const productCart = useAppSelector((state: RootState) => state.products.cart);
+
   const fnService = new FnService();
   const DELIVERY_COST = 2000;
   const { isClient, selectedPrice } = useAuth();
@@ -35,6 +39,10 @@ export const CartResume = ({
         <ul>
           <li className="priceTitle">{t('cart_resume.subtotal')}</li>
           <li>{fnService.numberFormat(total)}kz</li>
+        </ul>
+        <ul>
+          <li className="priceTitle">{t('cart_resume.serviceFee')}</li>
+          {/* <li>{fnService.numberFormat(service_fee )}kz</li> */}
         </ul>
         <ul>
           <li className="priceTitle">{t('cart_resume.delivery')}</li>

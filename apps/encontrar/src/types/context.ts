@@ -9,6 +9,7 @@ export type AuthContextType = {
   setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
   user: DecodedPayload | null;
   login: (data: { email: string; password: string }) => Promise<boolean>;
+  signup: (data: { firstName: string; email: string; password: string }) => Promise<boolean>;
   loginGoogle: (idToken: string) => void;
   // login: (data: { username: string; password: string }) => Promise<boolean>;
   logout: () => void;

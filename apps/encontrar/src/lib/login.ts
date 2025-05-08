@@ -1,5 +1,5 @@
 import { ApiService } from 'services/apiService';
-import { SignInRequestDTO, SignInResponseDTO, RegisterUserDTO } from 'types/user';
+import { SignInRequestDTO, SignInResponseDTO, RegisterUserDTO, SignUpRequestDTO } from 'types/user';
 import { buildQueryString } from 'utils/buildQueryString';
 
 import { StorageService } from './storage';
@@ -9,6 +9,11 @@ export class AuthService {
 
   async login(credentials: SignInRequestDTO): Promise<string> {
     const response = (await ApiService.post('/auth/login', credentials)) as { data: SignInResponseDTO };
+    return response;
+  }
+
+  async signup(credentials: SignUpRequestDTO): Promise<string> {
+    const response = (await ApiService.post('/auth/register', credentials)) as { data: SignInResponseDTO };
     return response;
   }
 
