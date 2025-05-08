@@ -129,6 +129,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true;
   };
 
+  const signup = async (data: { firstName: string; email: string; password: string }): Promise<boolean> => {
+    const token = await authService.signup({
+      firstName: data.firstName,
+      lastName: '',
+      email: data.email,
+      password: data.password,
+    });
+
+    // setCookie(null, 'accessToken', JSON.stringify(token), {
+    //   maxAge: 60 * 60 * 1, // 1 hora
+    // });
+
+    setUser(token);
+    setIsAuthenticated(true);
+
+    await Router.push('/products'); // Aguarde a navegação antes de retornar
+
+    return true;
+  };
+
   const logout = () => {
     localStorage.removeItem('accessToken');
     setIsAuthenticated(false);
@@ -136,7 +156,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, login, loginGoogle, logout }}
+      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, login, signup, loginGoogle, logout }}
     >
       {children}
     </AuthContext.Provider>

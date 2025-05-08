@@ -32,9 +32,9 @@ export const SuccessfulOrder = () => {
             <span>{t('success.description')}</span>
             <div className="btn__container">
               <button onClick={handleStartBuying}>{t('success.back_home')}</button>
-              <button className="outlined" onClick={handleSeeOrder}>
+              {/* <button className="outlined" onClick={handleSeeOrder}>
                 {t('success.view_order')}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

@@ -21,40 +21,53 @@ type CredentialResponse = {
   credential?: string;
 } & GoogleCredentialResponse;
 
-const INITIALSTATE = { nome: '', email: '', password: '', confirmPassword: '' };
+type FormValues = {
+  firstName?: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+};
+
+const INITIALSTATE = { firstName: '', email: '', password: '', confirmPassword: '' };
 
 export const AuthPage: React.FC = () => {
   const { t } = useTranslation('auth');
   const common = useTranslation('common');
-  const [isSignIn, setIsSignIn] = useState<boolean>(true);
+  const [isSignup, setIsSignup] = useState<boolean>(true);
   const router = useRouter();
-  const { login, loginGoogle } = useAuth();
+  const { login, loginGoogle, signup } = useAuth();
 
   const handleSignInClick = () => {
-    setIsSignIn((state) => !state);
+    setIsSignup((state) => !state);
   };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(!isSignIn ? validationSchema.signup : validationSchema.login),
+  } = useForm<FormValues>({
+    resolver: yupResolver(isSignup ? validationSchema.signup : validationSchema.login),
     mode: 'all', // Validação ocorre ao sair do campo
   });
 
   const onHandleSubmit = async (data: {
-    nome?: string;
+    firstName: string;
     email: string;
     password: string;
     confirmPassword: string;
   }): Promise<void> => {
     try {
       const isCredentializedUser = await toast.promise(
-        login({
-          email: data.email,
-          password: data.password,
-        }),
+        isSignup
+          ? login({
+              email: data.email,
+              password: data.password,
+            })
+          : signup({
+              firstName: data.firstName,
+              email: data.email,
+              password: data.password,
+            }),
         {
           pending: common.t('AUTHENTICATION_PENDING.title'),
         },
@@ -84,7 +97,7 @@ export const AuthPage: React.FC = () => {
   };
 
   const handleFormSubmit = async (data: {
-    nome?: string;
+    firstName: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -116,21 +129,21 @@ export const AuthPage: React.FC = () => {
     <div className={styles.authPage}>
       <div className={styles.authContainer}>
         <div className={styles.top}>
-          <button className={isSignIn ? styles.active : ''} onClick={handleSignInClick}>
+          <button className={isSignup ? styles.active : ''} onClick={handleSignInClick}>
             {t('sign_in')}
           </button>
-          <button className={!isSignIn ? styles.active : ''} onClick={handleSignInClick}>
+          <button className={!isSignup ? styles.active : ''} onClick={handleSignInClick}>
             {t('sign_up')}
           </button>
         </div>
         <ToastContainer {...toastProps} />
         <div className={styles.main}>
           <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
-            {!isSignIn && (
+            {!isSignup && (
               <>
-                <label htmlFor="nome">{t('name')}</label>
+                <label htmlFor="firstName">{t('name')}</label>
                 <ControlledTextField
-                  name="nome"
+                  name="firstName"
                   placeholder={t('name')}
                   className={styles.field}
                   type="text"
@@ -150,7 +163,7 @@ export const AuthPage: React.FC = () => {
             />
             <div className={styles.row}>
               <label htmlFor="password">{t('password')}</label>
-              {isSignIn && <button>{t('forgot_password')}</button>}
+              {isSignup && <button>{t('forgot_password')}</button>}
             </div>
             <ControlledTextField
               name="password"
@@ -160,7 +173,7 @@ export const AuthPage: React.FC = () => {
               control={control}
               errors={errors}
             />
-            {!isSignIn && (
+            {!isSignup && (
               <>
                 <label htmlFor="confirmPassword">{t('confirm_password')}</label>
                 <ControlledTextField
@@ -174,7 +187,7 @@ export const AuthPage: React.FC = () => {
               </>
             )}
             <button type="submit" className={styles.btn}>
-              {isSignIn ? t('login') : t('create_account')}
+              {isSignup ? t('login') : t('create_account')}
             </button>
             <span className={styles.divisor}>{t('or')}</span>
             <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />

@@ -1,3 +1,5 @@
+'use client';
+
 import EastIcon from '@mui/icons-material/East';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
