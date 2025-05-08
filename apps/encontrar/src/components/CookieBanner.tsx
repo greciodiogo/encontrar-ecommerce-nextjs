@@ -5,43 +5,44 @@ import { useEffect, useState } from 'react';
 import { useAuth } from 'hooks/useAuth';
 
 export const CookieBanner = () => {
-  // 🔥 Inicializamos com base no localStorage para evitar atraso!
-  const [showBanner, setShowBanner] = useState(() => {
-    return typeof window !== 'undefined' && !localStorage.getItem('cookieConsent');
-  });
+  const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    if (showBanner) {
-      setTimeout(() => setShowBanner(true), 3000); // Pequeno delay para ativar animação
-      document.body.style.overflow = 'hidden';
-    } else {
-      setTimeout(() => setShowBanner(false), 400); // Aguarda a animação antes de remover do DOM
-      document.body.style.overflow = 'auto';
-    }
+    if (typeof window === 'undefined') return;
 
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [showBanner]);
+    const cookieConsent = localStorage.getItem('cookieConsent');
 
-  useEffect(() => {
-    // Garantia extra para SSR (caso Next.js faça pre-renderização)
-    if (typeof window !== 'undefined') {
-      const cookieConsent = localStorage.getItem('cookieConsent');
-      if (!cookieConsent) {
-        setShowBanner(true);
-      }
+    if (!cookieConsent) {
+      const timeout = setTimeout(() => {
+        // Só mostra se ainda não foi aceito
+        if (!localStorage.getItem('cookieConsent')) {
+          setShowBanner(true);
+          document.body.style.overflow = 'hidden';
+        }
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeout);
+        document.body.style.overflow = 'auto';
+      };
     }
   }, []);
+
+  useEffect(() => {
+    if (!showBanner) {
+      document.body.style.overflow = 'auto';
+    }
+  }, [showBanner]);
+
+  const acceptCookies = () => {
+    localStorage.setItem('cookieConsent', 'true');
+    setShowBanner(false);
+  };
 
   const { isClient } = useAuth();
   if (!isClient) {
     return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
   }
-  const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'true');
-    setShowBanner(false);
-  };
 
   if (!showBanner) return null;
 
