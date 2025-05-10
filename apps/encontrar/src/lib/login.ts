@@ -1,5 +1,13 @@
 import { ApiService } from 'services/apiService';
-import { SignInRequestDTO, SignInResponseDTO, RegisterUserDTO, SignUpRequestDTO } from 'types/user';
+import {
+  SignInRequestDTO,
+  SignInResponseDTO,
+  RegisterUserDTO,
+  SignUpRequestDTO,
+  ApiResponse,
+  SendCodeRequestDTO,
+  VerifyCodeDTO,
+} from 'types/user';
 import { buildQueryString } from 'utils/buildQueryString';
 
 import { StorageService } from './storage';
@@ -7,13 +15,24 @@ import { StorageService } from './storage';
 export class AuthService {
   auth = new StorageService();
 
-  async login(credentials: SignInRequestDTO): Promise<string> {
+  async login(credentials: SignInRequestDTO): Promise<SignInResponseDTO> {
     const response = (await ApiService.post('/auth/login', credentials)) as { data: SignInResponseDTO };
     return response;
   }
 
   async signup(credentials: SignUpRequestDTO): Promise<string> {
     const response = (await ApiService.post('/auth/register', credentials)) as { data: SignInResponseDTO };
+    return response;
+  }
+
+  async sendCode(credentials: SendCodeRequestDTO): Promise<string> {
+    const response = (await ApiService.post('/auth/send-verification-code', credentials)) as {
+      data: SignInResponseDTO;
+    };
+    return response;
+  }
+  async verifyCode(credentials: VerifyCodeDTO): Promise<string> {
+    const response = (await ApiService.post('/auth/verify-code', credentials)) as { data: SignInResponseDTO };
     return response;
   }
 

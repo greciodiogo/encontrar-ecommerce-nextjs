@@ -259,7 +259,7 @@
   opacity: 0.8;
 }
 
-.authContainer .btn .btn__center {
+.btn__center {
   display: flex;
   align-items: center;
   gap: 10px;

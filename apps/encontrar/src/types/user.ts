@@ -15,11 +15,20 @@ export type SignInRequestDTO = {
   password: string;
 };
 
+export type SendCodeRequestDTO = {
+  email: string;
+};
+
+export type VerifyCodeDTO = {
+  email: string;
+  code: string;
+};
+
 export type SignUpRequestDTO = {
   firstName: string;
   lastName?: string;
   email: string;
-  password: string;
+  password?: string;
 };
 
 export type GetUsersParams = Record<string, string | number | boolean>;

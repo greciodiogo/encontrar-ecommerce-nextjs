@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
 import { FaArrowRight, FaTimes } from 'react-icons/fa';
 
 import styles from 'styles/home/auth.module.css';
+import { AuthService } from 'lib/login';
 
 type AuthProps = {
   showAuthPainel?: boolean;
@@ -19,9 +20,15 @@ export const VerifyEmail: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) 
   const { t } = useTranslation('auth');
   const [formData, setFormData] = useState(INITIALSTATE_VERIFY);
   const router = useRouter();
+  const authService = new AuthService();
 
-  const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSumit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    await authService.verifyCode({
+      email: 'fonebahia8@gmail.com',
+      code: '585337',
+    });
+    alert('código correcto');
     if (typeof window !== 'undefined') {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
@@ -42,7 +49,7 @@ export const VerifyEmail: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) 
             <h4>{t('verify_email')}</h4>
             <p>{t('verify_email_description')}</p>
           </div>
-          <form className={styles.authForm} onSubmit={handleSumit} autoComplete="off" noValidate>
+          <form className={styles.authForm} onSubmit={(event) => void handleSumit(event)} autoComplete="off" noValidate>
             <div className={styles.row}>
               <label htmlFor="code">{t('verification_code')}</label>
               {/* <button>{t('resend_code')}</button> */}

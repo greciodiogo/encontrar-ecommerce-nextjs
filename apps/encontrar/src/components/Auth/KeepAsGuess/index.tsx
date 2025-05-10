@@ -4,7 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { CredentialResponse as GoogleCredentialResponse } from '@react-oauth/google';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Control, FieldErrors, FieldValues, Path, useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
@@ -16,6 +16,8 @@ import { toastProps } from 'shared/components/Toast/ToastContainer';
 import { showToast } from 'shared/hooks/showToast';
 import styles from 'styles/home/auth.module.css';
 import { validationSchema } from 'utils/validationSchema';
+import { VerifyEmail } from '../VerifyEmail';
+import { AuthService } from 'lib/login';
 
 type CredentialResponse = {
   credential?: string;
@@ -36,9 +38,27 @@ export const AuthPage: React.FC = () => {
   const [isSignup, setIsSignup] = useState<boolean>(true);
   const router = useRouter();
   const { login, loginGoogle, signup } = useAuth();
+  const authService = new AuthService();
 
   const handleSignInClick = () => {
     setIsSignup((state) => !state);
+  };
+
+  const [showAuth, setShowAuth] = useState(false);
+
+  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // if (!isAuthenticated) {
+    await authService.sendCode({
+      email: 'fonebahia8@gmail.com',
+    });
+    setShowAuth(true);
+  };
+
+  const onCloseVerifyCode = () => {
+    // if (!isAuthenticated) {
+    // setShowAuth(false);
   };
 
   const {
@@ -125,83 +145,93 @@ export const AuthPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    document.getElementById('verify-email')?.scrollIntoView({
+      behavior: 'smooth',
+      // block: 'start',
+    });
+  }, []);
+
   return (
-    <div className={styles.authPage}>
-      <div className={styles.authContainer}>
-        <div className={styles.top}>
-          <button className={isSignup ? styles.active : ''} onClick={handleSignInClick}>
-            {t('sign_in')}
-          </button>
-          <button className={!isSignup ? styles.active : ''} onClick={handleSignInClick}>
-            {t('sign_up')}
-          </button>
-        </div>
-        <ToastContainer {...toastProps} />
-        <div className={styles.main}>
-          <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
-            {!isSignup && (
-              <>
-                <label htmlFor="firstName">{t('name')}</label>
-                <ControlledTextField
-                  name="firstName"
-                  placeholder={t('name')}
-                  className={styles.field}
-                  type="text"
-                  control={control}
-                  errors={errors}
-                />
-              </>
-            )}
-            <label htmlFor="email">{t('email')}</label>
-            <ControlledTextField
-              name="email"
-              placeholder={t('email')}
-              className={styles.field}
-              type="email"
-              control={control}
-              errors={errors}
-            />
-            <div className={styles.row}>
-              <label htmlFor="password">{t('password')}</label>
-              {isSignup && <button>{t('forgot_password')}</button>}
-            </div>
-            <ControlledTextField
-              name="password"
-              placeholder={t('password_placeholder')}
-              className={styles.field}
-              type="password"
-              control={control}
-              errors={errors}
-            />
-            {!isSignup && (
-              <>
-                <label htmlFor="confirmPassword">{t('confirm_password')}</label>
-                <ControlledTextField
-                  name="confirmPassword"
-                  placeholder={t('confirm_password')}
-                  className={styles.field}
-                  type="password"
-                  control={control}
-                  errors={errors}
-                />
-              </>
-            )}
-            <button type="submit" className={styles.btn}>
-              {isSignup ? t('login') : t('create_account')}
+    <>
+      <div className={styles.authPage} id="verify-email">
+        <div className={styles.authContainer}>
+          <div className={styles.top}>
+            <button className={isSignup ? styles.active : ''} onClick={handleSignInClick}>
+              {t('sign_in')}
             </button>
-            <span className={styles.divisor}>{t('or')}</span>
-            <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
-            <button className={`${styles.btn} ${styles.outlinedBtn}`}>
-              <i>
-                <img src={`/assets_ecommerce/svg/Apple.png`} alt="star" />
-              </i>
-              {t('login_with_apple')}
-              <span></span>
+            <button className={!isSignup ? styles.active : ''} onClick={handleSignInClick}>
+              {t('sign_up')}
             </button>
-          </form>
+          </div>
+          <ToastContainer {...toastProps} />
+          <div className={styles.main}>
+            <form className={styles.authForm} onSubmit={(event) => void handleSignup(event)}>
+              {!isSignup && (
+                <>
+                  <label htmlFor="firstName">{t('name')}</label>
+                  <ControlledTextField
+                    name="firstName"
+                    placeholder={t('name')}
+                    className={styles.field}
+                    type="text"
+                    control={control}
+                    errors={errors}
+                  />
+                </>
+              )}
+              <label htmlFor="email">{t('email')}</label>
+              <ControlledTextField
+                name="email"
+                placeholder={t('email')}
+                className={styles.field}
+                type="email"
+                control={control}
+                errors={errors}
+              />
+              <div className={styles.row}>
+                <label htmlFor="password">{t('password')}</label>
+                {isSignup && <button>{t('forgot_password')}</button>}
+              </div>
+              <ControlledTextField
+                name="password"
+                placeholder={t('password_placeholder')}
+                className={styles.field}
+                type="password"
+                control={control}
+                errors={errors}
+              />
+              {!isSignup && (
+                <>
+                  <label htmlFor="confirmPassword">{t('confirm_password')}</label>
+                  <ControlledTextField
+                    name="confirmPassword"
+                    placeholder={t('confirm_password')}
+                    className={styles.field}
+                    type="password"
+                    control={control}
+                    errors={errors}
+                  />
+                </>
+              )}
+              <button type="submit" className={styles.btn}>
+                {isSignup ? t('login') : t('create_account')}
+              </button>
+              <span className={styles.divisor}>{t('or')}</span>
+              <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
+              <button className={`${styles.btn} ${styles.outlinedBtn}`}>
+                <i>
+                  <img src={`/assets_ecommerce/svg/Apple.png`} alt="star" />
+                </i>
+                {t('login_with_apple')}
+                <span></span>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <VerifyEmail showAuthPainel={showAuth} closeAuth={onCloseVerifyCode} />
+    </>
   );
 };
 
