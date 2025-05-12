@@ -7,6 +7,7 @@ import {
   SetAddress,
   SetPaymentMethod,
   SetOrder,
+  ClearCart,
   GetAllCategories,
 } from 'constants/products';
 // import { products } from 'fixture/ecommerceData';
@@ -127,6 +128,12 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
 
     case SetOrder: {
       const newState = { ...state, order: action.payload };
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case ClearCart: {
+      const newState = { ...state, cart: [] };
       saveStateToLocalStorage(newState);
       return newState;
     }
