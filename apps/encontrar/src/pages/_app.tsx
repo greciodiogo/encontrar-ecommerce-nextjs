@@ -24,6 +24,7 @@ import { ProductProvider } from 'contexts/ProductContext';
 import { store } from 'slices/store';
 
 import { AuthProvider } from '../contexts/AuthContext';
+import ChatBot from 'components/Whatsapp';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -54,6 +55,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
               <CacheProvider value={clientSideEmotionCache}>
                 {!isCheckoutRoute && <Banner />}
                 <Header hideItemsHeader={isCheckoutRoute} />
+                <ChatBot />
                 {page}
                 <Footer />
               </CacheProvider>

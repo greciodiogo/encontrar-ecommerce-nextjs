@@ -5,12 +5,12 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { FnService } from 'shared/utils/FnService';
 import { CatalogService } from 'lib/catalog';
 import { RootState } from 'types/product';
-
+import { clearCart } from 'actions/products';
 export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) => {
   const fnService = new FnService();
   const catalog = new CatalogService();
@@ -19,6 +19,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const [atotal, setATotal] = useState(0);
   const repo = useAppSelector((state: RootState) => state.products);
   const cartItems = useAppSelector((state: RootState) => state.products.cart);
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
   const { selectedPrice } = useAuth();
@@ -32,6 +33,10 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
 
   const onCancel = () => {
     void router.push('/');
+  };
+
+  const setClearCart = async () => {
+    await dispatch(clearCart());
   };
 
   useEffect(() => {
@@ -73,6 +78,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
         methodId: 1,
       },
     });
+    setClearCart();
     handleNextStep();
   };
 

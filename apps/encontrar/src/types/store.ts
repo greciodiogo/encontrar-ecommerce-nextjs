@@ -7,6 +7,7 @@ import {
   SetAddress,
   SetPaymentMethod,
   SetOrder,
+  ClearCart,
   GetAllCategories,
 } from 'constants/products';
 import { CategoriesDTO, OrderType, ProductDTO } from 'types/product';
@@ -70,11 +71,16 @@ export type SetOrderAction = {
   payload: OrderType; // Endereço como string
 };
 
+export type ClearCartAction = {
+  type: typeof ClearCart;
+};
+
 export type ProductAction =
   | GetAllProductsAction
   | GetAllCategoriesAction
   | AddToCartAction
   | RemoveFromCartAction
+  | ClearCartAction
   | AdjustQtyAction
   | LoadCurrentItemAction
   | SetAddressAction

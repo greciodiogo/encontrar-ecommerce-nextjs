@@ -7,6 +7,7 @@ import {
   RemoveFromCart,
   SetAddress,
   SetOrder,
+  ClearCart,
   SetPaymentMethod,
 } from 'constants/products';
 import { CatalogService } from 'lib/catalog';
@@ -18,7 +19,7 @@ import { GetAllProducts, GetAllCategories } from './../constants/products';
 
 type CartAction = {
   type: string;
-  payload: unknown;
+  payload?: unknown;
 };
 const catalog = new CatalogService();
 
@@ -41,7 +42,7 @@ export const fetchAllProducts = () => async (dispatch: Dispatch<CartAction>) => 
 export const fetchAllCategories = () => async (dispatch: Dispatch<CartAction>) => {
   try {
     const params = new URLSearchParams({
-      // page: String(0), 
+      // page: String(0),
       // perPage: String(6),
     });
 
@@ -110,5 +111,13 @@ export const setOrder = (order: OrderType) => (dispatch: Dispatch<SetOrderAction
     dispatch({ type: SetOrder, payload: order });
   } catch (error) {
     console.error("Can't Set Payment Method", error);
+  }
+};
+
+export const clearCart = () => (dispatch: Dispatch<CartAction>) => {
+  try {
+    dispatch({ type: ClearCart });
+  } catch (error) {
+    console.error("Can't Clear Cart", error);
   }
 };

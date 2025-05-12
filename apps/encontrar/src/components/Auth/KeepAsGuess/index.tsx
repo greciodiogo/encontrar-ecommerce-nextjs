@@ -39,6 +39,7 @@ export const AuthPage: React.FC = () => {
   const router = useRouter();
   const { login, loginGoogle, signup } = useAuth();
   const authService = new AuthService();
+  const [pendingSignupData, setPendingSignupData] = useState<FormValues | null>(null);
 
   const handleSignInClick = () => {
     setIsSignup((state) => !state);
