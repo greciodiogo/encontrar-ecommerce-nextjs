@@ -70,6 +70,17 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       return newState;
     }
 
+    case GetAllCategories: {
+      const newState = {
+        ...state,
+
+        categories: action.payload?.categories ?? [],
+      };
+
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
     case AddToCart: {
       // Cat the items data from the products array
 
