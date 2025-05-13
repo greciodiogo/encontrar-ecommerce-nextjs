@@ -14,39 +14,40 @@ import {
 import { ProductState } from 'types/product';
 import { ProductAction } from 'types/store';
 
-// Funções de persistência no localStorage
+const STORAGE_KEY = 'ecommerceState';
+const STORAGE_VERSION_KEY = 'ecommerceStateVersion';
+const STORAGE_VERSION = 'v2';
+
+const defaultState: ProductState = {
+  products: [],
+  categories: [],
+  cart: [],
+  currentItem: {},
+  address: null,
+  paymentMethod: null,
+  order: null,
+};
+
 const saveStateToLocalStorage = (state: ProductState) => {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('ecommerceState', JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_VERSION_KEY, STORAGE_VERSION);
   }
 };
 
+// Função para carregar o estado do localStorage
 const loadStateFromLocalStorage = (): ProductState => {
-  if (typeof window === 'undefined') {
-    return {
-      products: [],
-      categories: [],
-      cart: [],
-      currentItem: {},
-      address: null,
-      paymentMethod: null,
-      order: null,
-    }; // Estado padrão para o lado do servidor
+  if (typeof window === 'undefined') return defaultState;
+
+  const savedVersion = localStorage.getItem(STORAGE_VERSION_KEY);
+  if (savedVersion !== STORAGE_VERSION) {
+    localStorage.clear();
+    localStorage.setItem(STORAGE_VERSION_KEY, STORAGE_VERSION);
+    return defaultState;
   }
 
-  const savedState = localStorage.getItem('ecommerceState');
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return savedState
-    ? JSON.parse(savedState)
-    : {
-        products: [],
-        categories: [],
-        cart: [],
-        currentItem: {},
-        address: null,
-        paymentMethod: null,
-        order: null,
-      };
+  const savedState = localStorage.getItem(STORAGE_KEY);
+  return savedState ? JSON.parse(savedState) : defaultState;
 };
 
 const INITIALSTATE: ProductState = loadStateFromLocalStorage();
@@ -54,19 +55,19 @@ const INITIALSTATE: ProductState = loadStateFromLocalStorage();
 function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductAction): ProductState {
   switch (action.type) {
     case GetAllProducts: {
-      return {
+      const productsFromServer = action.payload?.products ?? [];
+
+      // Verifica se há itens no carrinho que não existem mais no servidor
+      const filteredCart = state.cart.filter((cartItem) => productsFromServer.some((prod) => prod.id === cartItem.id));
+
+      const newState = {
         ...state,
-
-        products: action.payload?.products ?? [],
+        products: productsFromServer,
+        cart: filteredCart, // limpa os itens inválidos
       };
-    }
 
-    case GetAllCategories: {
-      return {
-        ...state,
-
-        categories: action.payload?.categories ?? [],
-      };
+      saveStateToLocalStorage(newState);
+      return newState;
     }
 
     case AddToCart: {
