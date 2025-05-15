@@ -24,7 +24,7 @@ type CredentialResponse = {
 } & GoogleCredentialResponse;
 
 type FormValues = {
-  firstName?: string;
+  nome: string;
   email: string;
   password: string;
   confirmPassword?: string;
@@ -32,101 +32,110 @@ type FormValues = {
 
 const INITIALSTATE = { firstName: '', email: '', password: '', confirmPassword: '' };
 
+// IMPORTS (iguais aos seus)
+
 export const AuthPage: React.FC = () => {
   const { t } = useTranslation('auth');
   const common = useTranslation('common');
-  const [isSignup, setIsSignup] = useState<boolean>(true);
+  const [isSignup, setIsSignup] = useState<boolean>(false); // Começa com login
   const router = useRouter();
   const { login, loginGoogle, signup } = useAuth();
   const authService = new AuthService();
-  const [pendingSignupData, setPendingSignupData] = useState<FormValues | null>(null);
-
-  const handleSignInClick = () => {
-    setIsSignup((state) => !state);
-  };
-
   const [showAuth, setShowAuth] = useState(false);
-
-  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // if (!isAuthenticated) {
-    await authService.sendCode({
-      email: 'fonebahia8@gmail.com',
-    });
-    setShowAuth(true);
-  };
-
-  const onCloseVerifyCode = () => {
-    // if (!isAuthenticated) {
-    // setShowAuth(false);
-  };
-
+  const [pendingSignupData, setPendingSignupData] = useState<FormValues | null>(null);
+  const [email, setEmail] = useState('');
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(isSignup ? validationSchema.signup : validationSchema.login),
-    mode: 'all', // Validação ocorre ao sair do campo
+    mode: 'all',
   });
 
-  const onHandleSubmit = async (data: {
-    firstName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }): Promise<void> => {
+  const handleFormSubmit = async () => {
+    const data = getValues();
+    setEmail(data.email);
+    if (isSignup) {
+      // Armazena os dados e envia o código de verificação
+      setPendingSignupData(data);
+      try {
+        await authService.sendCode({ email: data.email });
+        setShowAuth(true);
+      } catch (error) {
+        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+      }
+    } else {
+      // Processo de login direto
+      try {
+        const result = await toast.promise(
+          login({ email: data.email, password: data.password }),
+          {
+            pending: common.t('AUTHENTICATION_PENDING.title'),
+          },
+          {
+            position: 'top-right',
+            autoClose: 1000,
+          },
+        );
+
+        if (result) {
+          toast.success(common.t('AUTHENTICATION_SUCCESS.title'), {
+            position: 'top-right',
+            autoClose: 1000,
+          });
+          void router.push('/');
+        } else {
+          toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+            position: 'top-right',
+            autoClose: 3000,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const onVerifyCodeSuccess = async () => {
+    if (!pendingSignupData) return;
+
     try {
-      const isCredentializedUser = await toast.promise(
-        isSignup
-          ? login({
-              email: data.email,
-              password: data.password,
-            })
-          : signup({
-              firstName: data.firstName,
-              email: data.email,
-              password: data.password,
-            }),
+      const result = await toast.promise(
+        signup({
+          firstName: pendingSignupData.nome!,
+          email: pendingSignupData.email,
+          password: pendingSignupData.password,
+        }),
         {
           pending: common.t('AUTHENTICATION_PENDING.title'),
         },
         {
           position: 'top-right',
-          hideProgressBar: false,
           autoClose: 1000,
         },
       );
 
-      if (isCredentializedUser) {
-        const success_str: string = common.t('AUTHENTICATION_SUCCESS.title');
-        toast.success(success_str, {
+      if (result) {
+        toast.success(common.t('AUTHENTICATION_SUCCESS.title'), {
           position: 'top-right',
           autoClose: 1000,
         });
+        setShowAuth(false);
+        setPendingSignupData(null);
+        void router.push('/');
       } else {
-        const error_str: string = common.t('AUTHENTICATION_INVALID.title');
-        toast.error(error_str, {
+        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
           position: 'top-right',
           autoClose: 3000,
         });
       }
     } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleFormSubmit = async (data: {
-    firstName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    try {
-      await onHandleSubmit(data); // Chama a função assíncrona diretamente
-    } catch (err) {
-      console.error('Erro ao processar o formulário:', err);
+      console.error('Erro no signup:', error);
     }
   };
 
@@ -136,43 +145,36 @@ export const AuthPage: React.FC = () => {
       return;
     }
 
-    const tokenId: string = credentialResponse.credential;
-
     try {
-      loginGoogle(tokenId);
+      loginGoogle(credentialResponse.credential);
       void router.push('/');
     } catch (error) {
       console.error('Login failed:', error);
     }
   };
 
-  useEffect(() => {
-    document.getElementById('verify-email')?.scrollIntoView({
-      behavior: 'smooth',
-      // block: 'start',
-    });
-  }, []);
-
   return (
     <>
       <div className={styles.authPage} id="verify-email">
         <div className={styles.authContainer}>
           <div className={styles.top}>
-            <button className={isSignup ? styles.active : ''} onClick={handleSignInClick}>
+            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
               {t('sign_in')}
             </button>
-            <button className={!isSignup ? styles.active : ''} onClick={handleSignInClick}>
+            <button className={isSignup ? styles.active : ''} onClick={() => setIsSignup(true)}>
               {t('sign_up')}
             </button>
           </div>
+
           <ToastContainer {...toastProps} />
+
           <div className={styles.main}>
-            <form className={styles.authForm} onSubmit={(event) => void handleSignup(event)}>
-              {!isSignup && (
+            <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
+              {isSignup && (
                 <>
-                  <label htmlFor="firstName">{t('name')}</label>
+                  <label htmlFor="nome">{t('name')}</label>
                   <ControlledTextField
-                    name="firstName"
+                    name="nome"
                     placeholder={t('name')}
                     className={styles.field}
                     type="text"
@@ -181,6 +183,7 @@ export const AuthPage: React.FC = () => {
                   />
                 </>
               )}
+
               <label htmlFor="email">{t('email')}</label>
               <ControlledTextField
                 name="email"
@@ -190,10 +193,12 @@ export const AuthPage: React.FC = () => {
                 control={control}
                 errors={errors}
               />
+
               <div className={styles.row}>
                 <label htmlFor="password">{t('password')}</label>
-                {isSignup && <button>{t('forgot_password')}</button>}
+                {!isSignup && <button>{t('forgot_password')}</button>}
               </div>
+
               <ControlledTextField
                 name="password"
                 placeholder={t('password_placeholder')}
@@ -202,7 +207,8 @@ export const AuthPage: React.FC = () => {
                 control={control}
                 errors={errors}
               />
-              {!isSignup && (
+
+              {isSignup && (
                 <>
                   <label htmlFor="confirmPassword">{t('confirm_password')}</label>
                   <ControlledTextField
@@ -215,14 +221,18 @@ export const AuthPage: React.FC = () => {
                   />
                 </>
               )}
+
               <button type="submit" className={styles.btn}>
-                {isSignup ? t('login') : t('create_account')}
+                {isSignup ? t('create_account') : t('login')}
               </button>
+
               <span className={styles.divisor}>{t('or')}</span>
+
               <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
+
               <button className={`${styles.btn} ${styles.outlinedBtn}`}>
                 <i>
-                  <img src={`/assets_ecommerce/svg/Apple.png`} alt="star" />
+                  <img src={`/assets_ecommerce/svg/Apple.png`} alt="apple" />
                 </i>
                 {t('login_with_apple')}
                 <span></span>
@@ -231,7 +241,13 @@ export const AuthPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <VerifyEmail showAuthPainel={showAuth} closeAuth={onCloseVerifyCode} />
+
+      <VerifyEmail
+        showAuthPainel={showAuth}
+        closeAuth={() => setShowAuth(false)}
+        email={email}
+        onVerified={onVerifyCodeSuccess}
+      />
     </>
   );
 };

@@ -7,13 +7,17 @@ export const validationSchema = {
   }),
 
   signup: yup.object().shape({
-    nome: yup.string().email('Insira um e-mail válido').required('O nome é obrigatório'),
+    nome: yup.string().required('O nome é obrigatório'),
     email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
     password: yup.string().required('É obrigatório informar a senha').min(6, 'A senha deve ter no mínimo 6 caracteres'),
     confirmPassword: yup
       .string()
       .required('As senhas devem ser iguais')
       .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+  }),
+
+  verifyCode: yup.object().shape({
+    code: yup.string().required('É obrigatório informar o código').min(4, 'O código deve ter 6 digitos').max(6),
   }),
 
   step_user: yup.object().shape({

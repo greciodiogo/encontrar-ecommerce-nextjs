@@ -3872,7 +3872,7 @@ button > i {
   bottom: 30px;
   background-color: #25d366;
   border-radius: 12px; /* Aproxima-se de rounded-xl do Tailwind */
-  z-index: 1000; /* Opcional: garantir que fica visível */
+  z-index: 2; /* Opcional: garantir que fica visível */
   cursor: pointer;
 }
 

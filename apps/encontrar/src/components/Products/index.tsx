@@ -23,6 +23,8 @@ export const Products = () => {
   const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
 
   const goToCategories = (category: string) => {
+    setSelectedCategories([]);
+
     toggleSelection(selectedCategories, setSelectedCategories, category);
     // void router.push(`products`);
   };
