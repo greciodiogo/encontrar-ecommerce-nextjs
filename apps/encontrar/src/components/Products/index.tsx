@@ -9,7 +9,7 @@ import { useAuth } from 'hooks/useAuth';
 
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
-import { RootState } from 'types/product';
+import { CategoriesDTO, RootState } from 'types/product';
 import { useAppSelector } from 'hooks';
 
 export const Products = () => {
@@ -22,9 +22,7 @@ export const Products = () => {
   const promotionsCategory = categoriesList.find((item) => item.slug === 'promotions');
   const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
 
-  const goToCategories = (category: string) => {
-    setSelectedCategories([]);
-
+  const goToCategories = (category: CategoriesDTO) => {
     toggleSelection(selectedCategories, setSelectedCategories, category);
     // void router.push(`products`);
   };
@@ -56,10 +54,11 @@ export const Products = () => {
               const image = staticCategory?.image || 'default.png';
 
               return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
-            })}
+            })
+            .slice(0, 5)}
 
           {/* Categoria "promotions" separada no final */}
-          {promotionsCategory && (
+          {/* {promotionsCategory && (
             <div className="promotions-highlight">
               <CategoryItem
                 category={{
@@ -69,23 +68,27 @@ export const Products = () => {
                 goToCategories={goToCategories}
               />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
   );
 };
 
+interface CategoryWithImage extends CategoriesDTO {
+  image: string;
+}
+
 const CategoryItem = ({
   category,
   goToCategories,
 }: {
-  category: { name: string; slug: string; image: string };
-  goToCategories: (category: string) => void;
+  category: CategoryWithImage;
+  goToCategories: (category: CategoriesDTO) => void;
 }) => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
   return (
-    <button className="category-item" onClick={() => goToCategories(category.name)}>
+    <button className="category-item" onClick={() => goToCategories(category)}>
       <div className="category_picture">
         <Image
           src={`/assets_ecommerce/svg/${category.image}`}

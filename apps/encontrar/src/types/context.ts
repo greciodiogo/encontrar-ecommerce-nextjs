@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { ProductDTO } from './product';
+import { CategoriesDTO, ProductDTO } from './product';
 
 export type AuthContextType = {
   isClient: boolean;
@@ -26,7 +26,7 @@ export type DecodedPayload = {
 
 export type ProductContextType = {
   filteredProducts: Array<ProductDTO>;
-  selectedCategories: Array<string>;
+  selectedCategories: Array<CategoriesDTO>;
   minPrice: number;
   maxPrice: number;
   availability: string;
@@ -34,9 +34,13 @@ export type ProductContextType = {
   currentPage: number;
   itemsPerPage: number;
   totalPages: number;
-  updateQueryParams: (categories: Array<string>) => void;
-  toggleSelection: (list: Array<string>, setList: (value: Array<string>) => void, item: string) => void;
-  setSelectedCategories: Dispatch<SetStateAction<Array<string>>>;
+  updateQueryParams: (categories: Array<CategoriesDTO>) => void;
+  toggleSelection: (
+    list: Array<CategoriesDTO>,
+    setList: (value: Array<CategoriesDTO>) => void,
+    item: CategoriesDTO,
+  ) => void;
+  setSelectedCategories: Dispatch<SetStateAction<Array<CategoriesDTO>>>;
   getCategoryCount: (categoryName: string) => number;
   setMinPrice: (price: number) => void;
   setMaxPrice: (price: number) => void;

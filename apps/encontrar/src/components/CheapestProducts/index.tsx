@@ -58,7 +58,7 @@ export const CheapestProducts = ({
           <div className="wrapper_list">
             {products && products.length > 0 ? (
               <ul className="subcategories cheapest">
-                {products.map((product, itemIndex) => (
+                {products?.map((product, itemIndex) => (
                   <BestSelledProduct
                     product={product}
                     hasButtons={hasButtons}

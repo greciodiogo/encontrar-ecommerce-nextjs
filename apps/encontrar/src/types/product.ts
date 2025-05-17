@@ -36,11 +36,12 @@ export type ProductDTO = {
 };
 
 export type CategoriesDTO = {
-  description?: string;
-  groups?: Array<String>;
   id: number;
   name: string;
-  parentCategory?: null;
+  description?: string;
+  groups?: Array<String>;
+  parentCategory?: CategoriesDTO | null;
+  childCategories: CategoriesDTO[];
   slug: string;
 };
 
