@@ -3894,11 +3894,28 @@ button > i {
   z-index: 998 !important;
 }
 
+.mini.categories .MuiSimpleTreeView-root {
+  display: flex !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 10px !important;
+  background: white !important;
+  height: max-content !important;
+  z-index: 998 !important;
+}
+
+.mini.categories .MuiTreeItem-content {
+  padding: 0 !important;
+}
+
+.mini.categories .MuiTreeItem-content:hover {
+  background: transparent !important;
+}
 .mini.categories .css-do267h-MuiTreeItem-content {
   padding: 0 !important;
 }
 
-.css-do267h-MuiTreeItem-content:hover {
+.mini.categories .css-do267h-MuiTreeItem-content:hover {
   background: transparent;
 }
 
