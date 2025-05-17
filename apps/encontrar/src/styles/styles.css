@@ -3894,15 +3894,15 @@ button > i {
   z-index: 998 !important;
 }
 
-/* .mini.categories .MuiSimpleTreeView-root {
-    display: flex !important;
-    padding: 0 !important;
-    position: absolute !important;
-    top: 10px !important;
-    background: white !important;
-    height: max-content !important;
-    z-index: 998 !important;
-  } */
+.mini.categories .MuiSimpleTreeView-root.css-z2w8mv {
+  display: flex !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 10px !important;
+  background: white !important;
+  height: max-content !important;
+  z-index: 998 !important;
+}
 
 .mini.categories .MuiTreeItem-content {
   padding: 0 !important;
