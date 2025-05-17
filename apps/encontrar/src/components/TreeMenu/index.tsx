@@ -68,7 +68,7 @@ export const CategoriesTree = () => {
 
   return (
     <div className="mini categories">
-      <SimpleTreeView>{renderTree(treeData)}</SimpleTreeView>
+      <SimpleTreeView style={{ display: 'flex !important' }}>{renderTree(treeData)}</SimpleTreeView>
     </div>
   );
 };

@@ -3884,21 +3884,38 @@ button > i {
   height: auto;
 }
 
-.css-rejl51-MuiSimpleTreeView-root {
-  display: flex;
-  padding: 0;
-  position: absolute;
-  top: 10px;
-  background: white;
-  height: max-content;
-  z-index: 998;
+.mini.categories .css-rejl51-MuiSimpleTreeView-root {
+  display: flex !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 10px !important;
+  background: white !important;
+  height: max-content !important;
+  z-index: 998 !important;
 }
 
-.css-do267h-MuiTreeItem-content {
-  padding: 0;
+.mini.categories .MuiSimpleTreeView-root.css-z2w8mv {
+  display: flex !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 10px !important;
+  background: white !important;
+  height: max-content !important;
+  z-index: 998 !important;
 }
 
-.css-do267h-MuiTreeItem-content:hover {
+.mini.categories .MuiTreeItem-content {
+  padding: 0 !important;
+}
+
+.mini.categories .MuiTreeItem-content:hover {
+  background: transparent !important;
+}
+.mini.categories .css-do267h-MuiTreeItem-content {
+  padding: 0 !important;
+}
+
+.mini.categories .css-do267h-MuiTreeItem-content:hover {
   background: transparent;
 }
 
