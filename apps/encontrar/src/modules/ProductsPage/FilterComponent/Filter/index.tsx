@@ -8,6 +8,7 @@ import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
 import { FilterPrice } from '../FilterPrice';
+import { CategoriesDTO } from 'types/product';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { t } = useTranslation('home');
@@ -23,8 +24,12 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
     'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
   };
 
-  const removeFilter = (item: string, list: Array<string>, setList: (value: Array<string>) => void) => {
-    setList(list.filter((cat) => cat !== item));
+  const removeFilter = (
+    item: CategoriesDTO,
+    list: Array<CategoriesDTO>,
+    setList: (value: Array<CategoriesDTO>) => void,
+  ) => {
+    setList(list.filter((cat) => cat.id !== item.id));
   };
 
   const filters = [
@@ -47,11 +52,11 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
         <div className={styles.tags}>
           {selectedCategories.map((category) => (
             <button
-              key={category}
+              key={category.id}
               className={styles.tag}
               onClick={() => removeFilter(category, selectedCategories, setSelectedCategories)}
             >
-              {category} <FaTimes size={12} />
+              {category.name} <FaTimes size={12} />
             </button>
           ))}
         </div>
@@ -81,7 +86,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                         <input
                           type="checkbox"
                           checked={[category.name].every((cat) => selectedCategories.includes(cat))}
-                          onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category.name)}
+                          onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category)}
                           className={styles.checkbox}
                         />
                         <span className={styles.brandName}>

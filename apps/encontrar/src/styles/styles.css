@@ -3224,11 +3224,14 @@ a:visited {
 }
 
 .Mui-selected {
-  background: #bd7b2d !important;
-  color: #ffffff;
+  background: transparent !important;
+  color: #bd7b2d;
   font-size: 14px;
 }
 
+.Mui-selected:hover {
+  background: transparent !important;
+}
 /* orderList section ends here */
 
 /* order_activity section starts here */
@@ -3879,4 +3882,29 @@ button > i {
 .chatBot .avatar {
   width: 100%;
   height: auto;
+}
+
+.css-rejl51-MuiSimpleTreeView-root {
+  display: flex;
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  background: white;
+  height: max-content;
+  z-index: 998;
+}
+
+.css-do267h-MuiTreeItem-content {
+  padding: 0;
+}
+
+.css-do267h-MuiTreeItem-content:hover {
+  background: transparent;
+}
+
+.menu_tree_container {
+  position: relative;
+  width: 100%;
+  /* padding-top: 60px; */
+  margin-bottom: 60px;
 }

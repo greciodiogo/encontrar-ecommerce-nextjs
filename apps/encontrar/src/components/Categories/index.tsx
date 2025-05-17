@@ -9,6 +9,7 @@ import { useProductContext } from 'hooks/useProductContext';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { RootState } from 'types/product';
 import { fetchAllCategories } from 'actions/products';
+import { CategoriesTree } from 'components/TreeMenu';
 
 export const Categories = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
@@ -24,12 +25,6 @@ export const Categories = () => {
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
   const isAboutRoute = router.pathname.startsWith('/about');
   const isHomeRoute = router.pathname === '/';
-
-  const goToCategories = (categorySlug: string) => {
-    // setSelectedCategories([]);
-    toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
-    // void router.push(`/products`);
-  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -53,25 +48,8 @@ export const Categories = () => {
 
   return (
     <div className={`mini categories ${!isHomeRoute ? 'border' : ''}`}>
-      <div className="categories_container">
-        <div className="wrapper">
-          <div className="wrapper_list">
-            <ul className="subcategories">
-              {/* <Dropdown
-                CATEGORY_TITLE={t(`categories.${new_categories[0].slug}`)}
-                onClick={() => goToCategories(new_categories[0].name)}
-              /> */}
-              {[...(categoriesList || [])]
-                .sort((a, b) => a.name.localeCompare(b.name)) // ou por slug: a.slug.localeCompare(b.slug)
-                .map((item) => (
-                  <button onClick={() => goToCategories(item.name)} key={item.name} className="category-item">
-                    <a className={item.slug == 'promotions' ? 'activedCategory' : ''}>{t(`categories.${item.slug}`)}</a>
-                  </button>
-                ))
-                .slice(0)}
-            </ul>
-          </div>
-        </div>
+      <div className="menu_tree_container">
+        <CategoriesTree />
       </div>
     </div>
   );

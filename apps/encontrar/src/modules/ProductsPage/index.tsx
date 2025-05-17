@@ -13,7 +13,7 @@ import { ProductsList } from './ProductsList';
 export const ProductsPage = () => {
   const { t } = useTranslation('common');
   const [showFilter, setShowFilter] = useState(false);
-  const { selectedCategories } = useProductContext();
+  const { selectedCategories, setSelectedCategories } = useProductContext();
   // const router = useRouter();
 
   const handleShowFilterPainel = () => {
@@ -43,18 +43,15 @@ export const ProductsPage = () => {
     };
   }, [showFilter]);
 
-  // useEffect(() => {
-  //   const { categories } = router.query;
-  //   if (categories) {
-  //     setSelectedCategories(categories.toString().split(','));
-  //   }
-  // }, [router.query, setSelectedCategories]);
+  useEffect(() => {
+    //  setSelectedCategories([])
+  }, []);
 
   return (
     <Container useStyle={false}>
       <div className="productsPage">
         <div className="productsPage__container">
-          {selectedCategories.includes('Promoções') && <PromotionBanner />}
+          {/* {selectedCategories.includes('Promoções') && <PromotionBanner />} */}
           <div className="productsPage__top">
             <div className="productsPage__btnContainer">
               <button onClick={handleShowFilterPainel}>
