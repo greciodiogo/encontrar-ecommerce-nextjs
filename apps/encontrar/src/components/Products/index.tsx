@@ -55,7 +55,7 @@ export const Products = () => {
 
               return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
             })
-            .slice(0, 5)}
+            .slice(2, 9)}
 
           {/* Categoria "promotions" separada no final */}
           {/* {promotionsCategory && (
