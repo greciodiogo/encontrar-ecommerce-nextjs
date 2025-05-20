@@ -44,7 +44,7 @@ export const ProductsPage = () => {
   }, [showFilter]);
 
   useEffect(() => {
-    //  setSelectedCategories([])
+    setSelectedCategories([]);
   }, []);
 
   return (
