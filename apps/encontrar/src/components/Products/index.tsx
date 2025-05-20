@@ -18,6 +18,7 @@ export const Products = () => {
   const { isClient } = useAuth();
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
+  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
 
   const promotionsCategory = categoriesList.find((item) => item.slug === 'promotions');
   const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
@@ -47,28 +48,18 @@ export const Products = () => {
           </button>
         </div>
         <div className="wrap_item">
-          {[...(otherCategories || [])]
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((category, index) => {
-              const staticCategory = new_categories.find((c) => c.slug === category.slug);
-              const image = staticCategory?.image || 'default.png';
+          {
+            [...(otherCategories || [])]
+              .filter((category) => allowedSlugs.includes(category.slug)) // Filtra pelas slugs desejadas
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((category, index) => {
+                const staticCategory = new_categories.find((c) => c.slug === category.slug);
+                const image = staticCategory?.image || 'default.png';
 
-              return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
-            })
-            .slice(2, 8)}
-
-          {/* Categoria "promotions" separada no final */}
-          {/* {promotionsCategory && (
-            <div className="promotions-highlight">
-              <CategoryItem
-                category={{
-                  ...promotionsCategory,
-                  image: new_categories.find((c) => c.slug === promotionsCategory.slug)?.image || 'default.png',
-                }}
-                goToCategories={goToCategories}
-              />
-            </div>
-          )} */}
+                return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
+              })
+              .slice(0, 7) // Ajuste o slice se quiser limitar a quantidade
+          }
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ export const Footer = () => {
 
   return (
     <div className="footer">
+      f
       <div className="footer_container">
         <div className="wrapper">
           <div className="col col-2">
