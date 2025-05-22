@@ -92,7 +92,8 @@ const ProductsPageHeader = ({ totalProducts = '0' }) => {
   return (
     <div className="productsPage__top">
       <h5>
-        {t('totalProducts')} {totalProducts}
+        {t('totalProducts')}
+        {/* {totalProducts} */}
       </h5>
       <h5>{t('mostRecommended')}</h5>
     </div>

@@ -27,6 +27,7 @@ export type ProductDTO = {
   service_fee?: number;
   stock?: number;
   brand?: string;
+  comission?: string;
   photos?: Array<PhotoProps>;
   id?: number;
   qty?: number;

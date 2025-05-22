@@ -1,6 +1,6 @@
 export const new_categories = [
   {
-    id: 1,
+    id: 13,
     groups: [],
     childCategories: null,
     slug: 'drink_foods',
@@ -18,7 +18,7 @@ export const new_categories = [
     image: `Brinquedos.png`,
   },
   {
-    id: 3,
+    id: 15,
     groups: [],
     childCategories: null,
     slug: 'electronics',
@@ -27,7 +27,7 @@ export const new_categories = [
     image: `Eletrodomésticos.png`,
   },
   {
-    id: 4,
+    id: 16,
     groups: [],
     childCategories: null,
     slug: 'stationery',
@@ -36,7 +36,7 @@ export const new_categories = [
     image: `Escritorio.png`,
   },
   {
-    id: 5,
+    id: 17,
     groups: [],
     childCategories: null,
     slug: 'home_items',
@@ -45,7 +45,7 @@ export const new_categories = [
     image: `Items para Casa.png`,
   },
   {
-    id: 6,
+    id: 18,
     groups: [],
     childCategories: null,
     slug: 'personal_care',
@@ -53,7 +53,15 @@ export const new_categories = [
     name: 'Cuidados Pessoais',
     image: `Cuidados Pessoais.png`,
   },
-  { id: 7, groups: [], childCategories: null, slug: 'various', parentCategory: [], name: 'Diversos', image: `Box.png` },
+  {
+    id: 19,
+    groups: [],
+    childCategories: null,
+    slug: 'various',
+    parentCategory: [],
+    name: 'Diversos',
+    image: `Box.png`,
+  },
   {
     id: 8,
     groups: [],
@@ -92,13 +100,13 @@ export const footer = [
     data: [
       {
         slug: 'facebook',
-        href: '',
+        href: 'https://www.facebook.com/encontrar.shopping2',
         title: 'Facebook',
         imgUrl: 'footer-facebook.png',
       },
       {
         slug: 'instagram',
-        href: 'https://www.instagram.com/encontrar.marketing',
+        href: 'https://www.instagram.com/encontrar.shopping/',
         title: 'Instagram',
         imgUrl: 'footer-instagram.png',
       },
