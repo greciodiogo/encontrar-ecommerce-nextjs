@@ -56,7 +56,9 @@ export const Footer = () => {
                     <ul className="subcategories">
                       {category.data.map((item, itemIndex) => (
                         <li className="category-item" key={itemIndex}>
-                          <Link href={item.href}>{t(`footer.${item.slug}`)}</Link>
+                          <Link href={item.href} target={item.href && 'blank'}>
+                            {t(`footer.${item.slug}`)}
+                          </Link>
                         </li>
                       ))}
                     </ul>
