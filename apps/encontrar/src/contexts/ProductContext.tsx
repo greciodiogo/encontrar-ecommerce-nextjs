@@ -94,7 +94,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     if (alreadySelected) {
       setList(list.filter((cat) => cat.id !== item.id));
     } else {
-      setList([...list, item]);
+      setList([item]);
     }
   };
 

@@ -84,6 +84,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                     .map((category) => (
                       <label key={category.name} className={styles.brandItem}>
                         <input
+                          style={{ visibility: 'hidden' }}
                           type="checkbox"
                           checked={[category.name].every((cat) => selectedCategories.includes(cat))}
                           onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category)}
