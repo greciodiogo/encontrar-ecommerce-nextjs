@@ -4,7 +4,7 @@ import React from 'react';
 
 const ChatBot = () => {
   return (
-    <Link className="chatBot" href="https://api.whatsapp.com/send?phone=244935016838">
+    <Link target="_blank" className="chatBot" href="https://api.whatsapp.com/send?phone=244935016838">
       <Image
         alt="whatsapp"
         height={150}

@@ -8,13 +8,17 @@ import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
 import { FilterPrice } from '../FilterPrice';
-import { CategoriesDTO } from 'types/product';
+import { CategoriesDTO, RootState } from 'types/product';
+import { useAppSelector } from 'hooks';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { t } = useTranslation('home');
   const filt = useTranslation('products');
   const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({ Categorias: true });
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
+  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
+  const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -79,11 +83,13 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
             <div className={styles.content}>
               {filter.key === 'Categorias' && (
                 <div className={styles.brandsList}>
-                  {new_categories
-                    .filter((item) => item.slug !== 'promotions')
+                  {[...(otherCategories || [])]
+                    .filter((category) => allowedSlugs.includes(category.slug)) // Filtra pelas slugs desejadas
+                    .sort((a, b) => a.name.localeCompare(b.name))
                     .map((category) => (
                       <label key={category.name} className={styles.brandItem}>
                         <input
+                          style={{ visibility: 'hidden' }}
                           type="checkbox"
                           checked={[category.name].every((cat) => selectedCategories.includes(cat))}
                           onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category)}

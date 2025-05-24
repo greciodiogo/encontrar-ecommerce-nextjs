@@ -4,7 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { CredentialResponse as GoogleCredentialResponse } from '@react-oauth/google';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Control, FieldErrors, FieldValues, Path, useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 

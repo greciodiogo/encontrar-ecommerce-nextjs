@@ -87,6 +87,10 @@
   border-radius: 8px;
 }
 
+.filterProducts .brandItem:hover {
+  cursor: pointer;
+}
+
 .filterProducts .brandItem {
   border-bottom: 2px solid #dddddd;
   display: flex;

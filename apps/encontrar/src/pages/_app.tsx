@@ -2,11 +2,10 @@ import { CacheProvider } from '@emotion/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { createEmotionCache } from 'utils-mui';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../styles/styles.css';
@@ -18,13 +17,12 @@ import './../styles/menu-categories.css';
 import './../styles/product-detail/slide.css';
 import './../styles/faq.css';
 
-// import './../styles/review.module.css';
 import { Banner, Footer, Header } from 'components';
 import { ProductProvider } from 'contexts/ProductContext';
 import { store } from 'slices/store';
-
 import { AuthProvider } from '../contexts/AuthContext';
 import ChatBot from 'components/Whatsapp';
+import { Loading } from 'components/Loading';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -38,13 +36,29 @@ type AppPropsWithLayout = AppProps & {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  // Verifica se a rota atual começa com "control-panel/"
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   if (!clientId) {
     throw new Error('A variável de ambiente NEXT_PUBLIC_GOOGLE_CLIENT_ID não está definida.');
   }
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleStop = () => setLoading(false);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
+
   const getLayout =
     Component.getLayout ??
     ((page) => (
@@ -56,6 +70,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
                 {!isCheckoutRoute && <Banner />}
                 <Header hideItemsHeader={isCheckoutRoute} />
                 <ChatBot />
+
+                {loading && <Loading />}
+
                 {page}
                 <Footer />
               </CacheProvider>
