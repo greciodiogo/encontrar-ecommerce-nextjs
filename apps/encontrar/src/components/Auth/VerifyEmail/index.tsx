@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import { FaFacebook, FaShoppingCart, FaTimes, FaUser } from 'react-icons/fa';
 import { FaArrowRight, FaTimes } from 'react-icons/fa';
 
