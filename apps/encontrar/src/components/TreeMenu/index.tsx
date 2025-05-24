@@ -47,15 +47,21 @@ export const CategoriesTree = () => {
 
   const renderTree = (nodes: CategoriesDTO[]) => {
     return nodes
-      .sort((a, b) => a.name.localeCompare(b.name)) // ou por slug: a.slug.localeCompare(b.slug)
+      .sort((a, b) => a.name.localeCompare(b.name))
       .map((node) => (
         <TreeItem
-          key={node.id ?? Math.random()} // fallback para evitar chave indefinida
+          key={node.id ?? Math.random()}
           itemId={(node.id ?? Math.random()).toString()}
-          onClick={() => goToCategories(node)}
           label={
             <Box display="flex" alignItems="center" gap={1}>
-              <button className="category-item" style={{ background: 'transparent !important' }}>
+              <button
+                className="category-item"
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                onClick={(e) => {
+                  e.stopPropagation(); // não interfere com a expansão
+                  goToCategories(node); // sempre filtra, mesmo que seja pai ou filho
+                }}
+              >
                 {node.name}
               </button>
             </Box>
