@@ -36,7 +36,7 @@ export const Homepage = () => {
   //   .filter((prod) => prod.categories.some(() => prod.categories.includes('Alimentação')))
   //   .sort((a_, b_) => b_.price - a_.price)
   //   .slice(0, 8);
-  // const randomPopularProducts = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
+  const randomPopularProducts = [...productsList].sort(() => Math.random() - 0.5).slice(0, 8);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,12 +64,16 @@ export const Homepage = () => {
           <PromotionBanner />
         </div>
       </div>
-      <PromotionProducts
+      {/* <PromotionProducts
         products={productsList}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
+      /> */}
+      <OtherProducts
+        products={randomPopularProducts}
+        bannerText={t('cheapest_products.other_products')}
+        hasButtons={false}
       />
-      <OtherProducts products={productsList} bannerText={t('cheapest_products.other_products')} hasButtons={false} />
       <div className="about_policy">
         <div className="about_policy_container">
           <ContactSupport />{' '}
