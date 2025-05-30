@@ -111,10 +111,28 @@ export const MobileMenu = ({
             <div className="menu-container">
               <ul className="menu-list">
                 {currentMenu.map((cat) => (
-                  <button key={cat.id} className="menu-item" onClick={() => handleClick(cat)}>
-                    <span>{cat.name}</span>
-                    {cat.childCategories?.length > 0 && <FaChevronRight size={14} />}
-                  </button>
+                  <div className="menu-item" key={cat.id}>
+                    <button
+                      onClick={() => goToCategories(cat)}
+                      style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', flex: 1 }}
+                    >
+                      {cat.name}
+                    </button>
+                    {cat.childCategories?.length > 0 && (
+                      <button
+                        onClick={() => handleClick(cat)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          padding: 0,
+                          marginLeft: '0.5rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <FaChevronRight size={14} />
+                      </button>
+                    )}
+                  </div>
                 ))}
               </ul>
             </div>
