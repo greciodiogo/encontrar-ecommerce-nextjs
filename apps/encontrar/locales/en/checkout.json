@@ -25,6 +25,7 @@
     "shipping_cost": "Shipping Cost",
     "total": "Total",
     "cancel": "Cancel",
+    "processing": "Processing...",
     "complete_purchase": "Complete Purchase"
   },
   "steps": {
