@@ -1,57 +1,12 @@
 import WestIcon from '@mui/icons-material/West';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 
 import { CrossIcon } from 'components/icon/CrossIcon';
 import { useProductContext } from 'hooks/useProductContext';
-
-type MenuItem = {
-  title: string;
-  subItems?: Array<MenuItem>;
-};
-
-// const categories = [
-//   { title: 'Vinho', items: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'] },
-//   { title: 'Uísques', items: ['Jack Daniels', 'Ballantine’s', 'Chivas Regal', 'Johnnie Walker', 'Old Parr'] },
-//   { title: 'Águas', items: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'] },
-//   { title: 'Sumo', items: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'] },
-// ];
-
-// const categories_foods = [
-//   { title: 'Arroz', items: ['Arroz Negro'] },
-//   { title: 'Frango', items: ['Buffalo wings', 'Grilled Chicken'] },
-// ];
-const menuData: Array<MenuItem> = [
-  {
-    title: 'Bebidas e Alimentação',
-    subItems: [
-      {
-        title: 'Vinho',
-        subItems: ['Casillero del Diablo', 'Concha y Toro', 'Santa Carolina', 'Gato Negro', 'Almadén'].map((title) => ({
-          title,
-        })),
-      },
-      {
-        title: 'Uísques',
-        subItems: ['Johnnie Walker', 'Jack Daniel’s', 'Chivas Regal', 'Ballantine’s', 'Old Parr'].map((title) => ({
-          title,
-        })),
-      },
-      { title: 'Águas', subItems: ['Água Chela', 'Pura', 'Levita', 'Perrier', 'Evian'].map((title) => ({ title })) },
-      { title: 'Sumo', subItems: ['Compal', 'Sumol', 'Nutry', 'Del Valle', 'Minute Maid'].map((title) => ({ title })) },
-    ],
-  },
-  { title: 'Brinquedos' },
-  { title: 'Eletrodomésticos' },
-  { title: 'Escritório' },
-  { title: 'Itens para Casa' },
-  {
-    title: 'Cuidados Pessoais',
-    // subItems: ['Creme', 'Perfume', 'Gel'].map((title) => ({ title })),
-  },
-  { title: 'Diversos' },
-];
+import { useAppSelector } from 'hooks';
+import { CategoriesDTO, RootState } from 'types/product';
 
 export const MobileMenu = ({
   menuOpen,
@@ -60,22 +15,40 @@ export const MobileMenu = ({
   menuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [history, setHistory] = useState<Array<MenuItem>>([]);
-  const [activeCategory, setActiveCategory] = useState<string>('');
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
-  const router = useRouter();
+  const [history, setHistory] = useState<CategoriesDTO[][]>([]);
+  const [activeCategory, setActiveCategory] = useState<CategoriesDTO | null>(null);
 
-  const goToCategories = (category: string) => {
-    setSelectedCategories([]);
+  const buildTree = (categories: CategoriesDTO[]): CategoriesDTO[] => {
+    const map: Record<number, CategoriesDTO> = {};
+    categories.forEach((cat) => {
+      map[cat.id] = { ...cat, childCategories: [] };
+    });
+    const tree: CategoriesDTO[] = [];
+    categories.forEach((cat) => {
+      if (cat.parentCategory?.id) {
+        map[cat.parentCategory.id]?.childCategories.push(map[cat.id]);
+      } else {
+        tree.push(map[cat.id]);
+      }
+    });
+    return tree;
+  };
+
+  const treeData = useMemo(() => buildTree(categoriesList), [categoriesList]);
+
+  const currentMenu = history.length > 0 ? history[history.length - 1] : treeData;
+
+  const goToCategories = (category: CategoriesDTO) => {
     toggleSelection(selectedCategories, setSelectedCategories, category);
-    void router.push('products');
     setMenuOpen(false);
   };
 
   const closeMenu = () => {
     setMenuOpen(false);
-    setActiveCategory('');
-    setHistory([]); // Resetar histórico ao fechar
+    setActiveCategory(null);
+    setHistory([]);
   };
 
   useEffect(() => {
@@ -85,18 +58,20 @@ export const MobileMenu = ({
     };
   }, [menuOpen]);
 
-  const currentMenu = history.length > 0 ? history[history.length - 1].subItems ?? [] : menuData;
-
-  const handleClick = (item: MenuItem) => {
-    if (item.subItems) {
-      setHistory([...history, item]);
-      goToCategories(item.title);
-      setActiveCategory(item.title);
+  const handleClick = (category: CategoriesDTO) => {
+    if (category.childCategories && category.childCategories.length > 0) {
+      setHistory([...history, category.childCategories]);
+      setActiveCategory(category);
+    } else {
+      goToCategories(category);
     }
   };
 
   const handleBack = () => {
-    setHistory(history.slice(0, -1));
+    const newHistory = [...history];
+    newHistory.pop();
+    setHistory(newHistory);
+    setActiveCategory(null);
   };
 
   return (
@@ -122,7 +97,7 @@ export const MobileMenu = ({
                   <button onClick={handleBack}>
                     <WestIcon />
                   </button>
-                  <h5>{activeCategory}</h5>
+                  <h5>{activeCategory?.name}</h5>
                 </>
               ) : (
                 <>
@@ -135,10 +110,10 @@ export const MobileMenu = ({
             </div>
             <div className="menu-container">
               <ul className="menu-list">
-                {currentMenu.map((item, index) => (
-                  <button key={index} className="menu-item" onClick={() => handleClick(item)}>
-                    <button onClick={() => goToCategories(item.title)}>{item.title}</button>{' '}
-                    {item.subItems && <FaChevronRight size={14} />}
+                {currentMenu.map((cat) => (
+                  <button key={cat.id} className="menu-item" onClick={() => handleClick(cat)}>
+                    <span>{cat.name}</span>
+                    {cat.childCategories?.length > 0 && <FaChevronRight size={14} />}
                   </button>
                 ))}
               </ul>
