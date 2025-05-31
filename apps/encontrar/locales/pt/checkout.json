@@ -25,6 +25,7 @@
     "shipping_cost": "Preço de Envio",
     "total": "Total",
     "cancel": "Cancelar",
+    "processing": "Processando...",
     "complete_purchase": "Finalizar Compra"
   },
   "steps": {

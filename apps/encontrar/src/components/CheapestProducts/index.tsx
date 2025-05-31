@@ -58,16 +58,18 @@ export const CheapestProducts = ({
           <div className="wrapper_list">
             {products && products.length > 0 ? (
               <ul className="subcategories cheapest">
-                {products?.map((product, itemIndex) => (
-                  <BestSelledProduct
-                    product={product}
-                    hasButtons={hasButtons}
-                    hasDescription={hasDescription}
-                    handleAddToCart={handleAddToCart}
-                    handlepreviewProduct={handlepreviewProduct}
-                    key={itemIndex}
-                  />
-                ))}
+                {products
+                  ?.map((product, itemIndex) => (
+                    <BestSelledProduct
+                      product={product}
+                      hasButtons={hasButtons}
+                      hasDescription={hasDescription}
+                      handleAddToCart={handleAddToCart}
+                      handlepreviewProduct={handlepreviewProduct}
+                      key={itemIndex}
+                    />
+                  ))
+                  .slice(0, 8)}
               </ul>
             ) : (
               <p>{t('products.loading_products')}</p> // ou um spinner de loading

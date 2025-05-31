@@ -17,6 +17,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const { t } = useTranslation('checkout');
   const [subtotal, setSubtotal] = useState(0);
   const [atotal, setATotal] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
   const repo = useAppSelector((state: RootState) => state.products);
   const cartItems = useAppSelector((state: RootState) => state.products.cart);
   const dispatch = useAppDispatch();
@@ -53,6 +54,9 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   }, [cartItems, serviceCost, discount, shippingCost]); // Inclui dependências corretamente
 
   const onFinish = async () => {
+    // Desabilitar o botão enquanto a requisição está sendo processada
+    setIsProcessing(true);
+
     let itemsList: Array<{ productId?: number; quantity?: number }> = [];
     repo.cart.forEach((item) =>
       itemsList.push({
@@ -61,25 +65,36 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
       }),
     );
 
-    await catalog.placeOrder({
-      contactEmail: repo.address?.email,
-      contactPhone: '+244' + repo.address?.telefone,
-      delivery: {
-        methodId: 1,
-        address: repo.address?.municipio,
-        city: repo.address?.cidade,
-        country: 'AO',
-        postalCode: '0000',
-      },
-      fullName: repo.address?.name,
-      items: itemsList,
-      message: '',
-      payment: {
-        methodId: 1,
-      },
-    });
-    setClearCart();
-    handleNextStep();
+    try {
+      // Esperar a resposta da requisição
+      await catalog.placeOrder({
+        contactEmail: repo.address?.email,
+        contactPhone: '+244' + repo.address?.telefone,
+        delivery: {
+          methodId: 1,
+          address: repo.address?.municipio,
+          city: repo.address?.cidade,
+          country: 'AO',
+          postalCode: '0000',
+        },
+        fullName: repo.address?.name,
+        items: itemsList,
+        message: '',
+        payment: {
+          methodId: 1,
+        },
+      });
+
+      // Após o pedido ser processado, limpar o carrinho
+      setClearCart();
+      handleNextStep();
+    } catch (error) {
+      console.error('Erro ao processar o pedido:', error);
+      // Trate o erro conforme necessário (ex: exibir mensagem de erro)
+    } finally {
+      // Reabilitar o botão após o pedido ser processado
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -130,8 +145,14 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
         <button onClick={onCancel} className="cancel-btn">
           {t('review.cancel')}
         </button>
-        <button onClick={onFinish} className="finish-btn">
-          {t('review.complete_purchase')} <FaArrowRight />
+        <button onClick={onFinish} disabled={isProcessing} className="finish-btn">
+          {isProcessing ? (
+            t('review.processing')
+          ) : (
+            <>
+              {t('review.complete_purchase')} <FaArrowRight />
+            </>
+          )}
         </button>
       </div>
     </div>
