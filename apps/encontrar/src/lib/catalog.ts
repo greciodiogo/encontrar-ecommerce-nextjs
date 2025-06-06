@@ -8,7 +8,7 @@ export class CatalogService {
 
   async fetchProducts(queryString: string) {
     // const response = await ApiService.get(`/products?${queryString}`);
-    const response = await ApiService.get(`/products`);
+    const response = await ApiService.get(`/products?withVisible=true`);
 
     return response.data;
   }
