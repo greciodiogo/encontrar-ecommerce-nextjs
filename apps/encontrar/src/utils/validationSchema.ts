@@ -10,10 +10,10 @@ export const validationSchema = {
     nome: yup.string().required('O nome é obrigatório'),
     email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
     password: yup.string().required('É obrigatório informar a senha').min(6, 'A senha deve ter no mínimo 6 caracteres'),
-    // confirmPassword: yup
-    //   .string()
-    //   .required('As senhas devem ser iguais')
-    //   .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+    confirmPassword: yup
+      .string()
+      .required('As senhas devem ser iguais')
+      .min(6, 'A senha deve ter no mínimo 6 caracteres'),
   }),
 
   verifyCode: yup.object().shape({
@@ -30,10 +30,10 @@ export const validationSchema = {
       .matches(/^\d{9,10}$/, 'O telefone deve conter 9 dígitos')
       .required('O telefone é obrigatório'),
     email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
-    email_confirmation: yup
-      .string()
-      .oneOf([yup.ref('email')], 'O email deve coincidir')
-      .required('O campo Email é obrigatório'),
+    // email_confirmation: yup
+    //   .string()
+    //   .oneOf([yup.ref('email')], 'O email deve coincidir')
+    //   .required('O campo Email é obrigatório'),
     // paymentMethod: yup.string().required('O nome é obrigatório'),
   }),
 

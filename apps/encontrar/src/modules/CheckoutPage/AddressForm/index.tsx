@@ -9,7 +9,6 @@ import { ControlledTextField } from 'hooks/useFormHandler';
 type AddressFormData = {
   name: string;
   email: string;
-  email_confirmation: string;
   pais: string;
   cidade: string;
   telefone: string;
