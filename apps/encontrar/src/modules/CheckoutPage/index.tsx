@@ -69,7 +69,7 @@ export const CheckoutPage = () => {
         message: common.t('INVALID_FORM.message'),
       });
       return;
-    } else if (activeStep === 1 && selectedPrice?.name !== 'CASH') {
+    } else if (activeStep === 1 && !(selectedPrice?.name === 'CASH' || selectedPrice?.name === 'TPA')) {
       showToast({
         title: common.t('UNVAILABLE_PAYMENT_METHOD.title'),
         message: common.t('UNVAILABLE_PAYMENT_METHOD.message'),

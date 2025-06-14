@@ -26,7 +26,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const { selectedPrice } = useAuth();
 
   const transactionDate = repo.order?.created_at;
-  const paymentMethod = selectedPrice;
+  const paymentMethod = selectedPrice?.name;
   const shippingMethod = 'Transporte - Motociclo';
   const discount = 0;
   const shippingCost = 2000;
@@ -81,7 +81,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
         items: itemsList,
         message: '',
         payment: {
-          methodId: 1,
+          methodId: repo.paymentMethod,
         },
       });
 
