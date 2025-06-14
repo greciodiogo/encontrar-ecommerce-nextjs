@@ -12,10 +12,10 @@ import {
 } from 'constants/products';
 import { CatalogService } from 'lib/catalog';
 import { CheckoutDTO } from 'types/checkout';
-import { CategoriesDTO, OrderType, ProductDTO } from 'types/product';
+import { CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
 import { SetAddressAction, SetOrderAction, SetPaymentMethodAction } from 'types/store';
 
-import { GetAllProducts, GetAllCategories } from './../constants/products';
+import { GetAllProducts, GetAllCategories, GetAllPaymentMethods } from './../constants/products';
 
 type CartAction = {
   type: string;
@@ -51,7 +51,22 @@ export const fetchAllCategories = () => async (dispatch: Dispatch<CartAction>) =
 
     dispatch({ type: GetAllCategories, payload: { categories: categories_ } });
   } catch (error) {
-    console.error("Can't add to Cart", error);
+    console.error("Can't fetch all categories to Cart", error);
+  }
+};
+
+export const getPaymentMethods = () => async (dispatch: Dispatch<CartAction>) => {
+  try {
+    const params = new URLSearchParams({
+      // page: String(0),
+      // perPage: String(6),
+    });
+
+    const paymentMethodsResponse = await catalog.getPaymentMethods(params);
+    const paymentMethods_ = paymentMethodsResponse as Array<PaymentMethodList>;
+    dispatch({ type: GetAllPaymentMethods, payload: { paymentMethodsList: paymentMethods_ } });
+  } catch (error) {
+    console.error("Can't fetch all payment methods", error);
   }
 };
 
@@ -98,7 +113,7 @@ export const setAddress = (checkoutData: CheckoutDTO) => (dispatch: Dispatch<Set
   }
 };
 
-export const setPaymentMethod = (method: string) => (dispatch: Dispatch<SetPaymentMethodAction>) => {
+export const setPaymentMethod = (method: number) => (dispatch: Dispatch<SetPaymentMethodAction>) => {
   try {
     dispatch({ type: SetPaymentMethod, payload: method });
   } catch (error) {

@@ -4,6 +4,7 @@ import { createContext, ReactNode, useState, useEffect } from 'react';
 
 import { AuthService } from 'lib/login';
 import { AuthContextType, DecodedPayload } from 'types/context';
+import { PaymentMethodList } from 'types/product';
 
 type TokenProps = DecodedPayload | null;
 
@@ -15,7 +16,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [selectedPrice, setSelectedPrice] = useState('CASH');
+  const [selectedPrice, setSelectedPrice] = useState<PaymentMethodList | null>(null);
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
   // const [username, setUsername] = useState('Guest');

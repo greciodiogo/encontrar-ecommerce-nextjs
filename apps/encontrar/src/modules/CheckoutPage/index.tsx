@@ -69,14 +69,14 @@ export const CheckoutPage = () => {
         message: common.t('INVALID_FORM.message'),
       });
       return;
-    } else if (activeStep === 1 && selectedPrice !== 'CASH') {
+    } else if (activeStep === 1 && selectedPrice?.name !== 'CASH') {
       showToast({
         title: common.t('UNVAILABLE_PAYMENT_METHOD.title'),
         message: common.t('UNVAILABLE_PAYMENT_METHOD.message'),
       });
       return;
     } else if (activeStep === steps.length - 1) {
-      dispatch(setPaymentMethod(selectedPrice));
+      selectedPrice && dispatch(setPaymentMethod(selectedPrice.id));
       saveOrder();
       return; // Impede de avançar para um passo extra
     }

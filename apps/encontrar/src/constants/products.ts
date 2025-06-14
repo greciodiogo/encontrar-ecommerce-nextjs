@@ -1,4 +1,5 @@
 export const GetAllProducts = 'GetAllProducts';
+export const GetAllPaymentMethods = 'GetAllPaymentMethods';
 export const GetAllCategories = 'GetAllCategories';
 export const AddToCart = 'AddToCart';
 export const AdjustQty = 'AdjustQty';

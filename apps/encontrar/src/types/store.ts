@@ -9,8 +9,9 @@ import {
   SetOrder,
   ClearCart,
   GetAllCategories,
+  GetAllPaymentMethods,
 } from 'constants/products';
-import { CategoriesDTO, OrderType, ProductDTO } from 'types/product';
+import { CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
 
 import { RegisterAddressDTO } from './checkout';
 
@@ -27,6 +28,10 @@ export type GetAllProductsAction = {
 export type GetAllCategoriesAction = {
   type: typeof GetAllCategories;
 } & Action<{ categories: Array<CategoriesDTO> }>;
+
+export type GetAllPaymentMethodsAction = {
+  type: typeof GetAllPaymentMethods;
+} & Action<{ paymentMethodsList: Array<PaymentMethodList> }>;
 
 export type AddToCartAction = {
   type: typeof AddToCart;
@@ -63,7 +68,7 @@ export type SetAddressAction = {
 
 export type SetPaymentMethodAction = {
   type: typeof SetPaymentMethod;
-  payload: string; // Método de pagamento como string
+  payload: number; // Método de pagamento como string
 };
 
 export type SetOrderAction = {
@@ -78,6 +83,7 @@ export type ClearCartAction = {
 export type ProductAction =
   | GetAllProductsAction
   | GetAllCategoriesAction
+  | GetAllPaymentMethodsAction
   | AddToCartAction
   | RemoveFromCartAction
   | ClearCartAction

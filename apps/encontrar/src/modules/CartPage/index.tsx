@@ -38,7 +38,7 @@ export const CartPage = () => {
     }
   };
   const TOTAL_ITEMS_CART: number = productCart.length;
-  if (!TOTAL_ITEMS_CART)
+  if (TOTAL_ITEMS_CART < 1)
     return (
       <>
         <EmptyCart />

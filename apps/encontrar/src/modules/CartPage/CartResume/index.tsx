@@ -29,9 +29,9 @@ export const CartResume = ({
   }
 
   const payButtonText =
-    selectedPrice === 'CASH'
+    selectedPrice?.name === 'CASH'
       ? t('cart_resume.pay_button_cash')
-      : t('cart_resume.pay_button_other', { method: selectedPrice });
+      : t('cart_resume.pay_button_other', { method: selectedPrice?.name });
 
   return (
     <div className="box">

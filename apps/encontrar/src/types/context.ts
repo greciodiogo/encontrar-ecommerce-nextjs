@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { CategoriesDTO, ProductDTO } from './product';
+import { CategoriesDTO, PaymentMethodList, ProductDTO } from './product';
 
 export type AuthContextType = {
   isClient: boolean;
   isAuthenticated: boolean;
-  selectedPrice: string;
-  setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
+  selectedPrice: PaymentMethodList | null;
+  setSelectedPrice: React.Dispatch<React.SetStateAction<PaymentMethodList | null>>;
   user: DecodedPayload | null;
   login: (data: { email: string; password: string }) => Promise<boolean>;
   signup: (data: { firstName: string; email: string; password: string }) => Promise<boolean>;
