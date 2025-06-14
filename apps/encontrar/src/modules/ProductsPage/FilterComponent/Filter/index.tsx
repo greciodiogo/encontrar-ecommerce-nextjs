@@ -3,7 +3,6 @@ import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
 
-import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
 
