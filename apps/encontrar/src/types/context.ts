@@ -15,12 +15,28 @@ export type AuthContextType = {
   logout: () => void;
 };
 
-export type DecodedPayload = {
-  name: string;
+export type LoggedUserDto = {
+  id: number;
+  firstName?: string;
+  lastName?: string;
   email: string;
-  picture: string;
+  role: string;
+  registered?: string;
+};
+
+export type DecodedPayload = {
+  // Comuns
+  id?: number; // para login local
+  email: string;
+  name?: string; // Google ou nome completo local
+  picture?: string; // Google
+  role?: string; // login local
+  registered?: string; // login local
+
+  // JWT padrão do Google
   exp?: number;
   iat?: number;
+
   [key: string]: string | number | boolean | undefined;
 };
 
