@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { CategoriesDTO, ProductDTO } from './product';
+import { CategoriesDTO, PaymentMethodList, ProductDTO } from './product';
 
 export type AuthContextType = {
   isClient: boolean;
   isAuthenticated: boolean;
-  selectedPrice: string;
-  setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
+  selectedPrice: PaymentMethodList | null;
+  setSelectedPrice: React.Dispatch<React.SetStateAction<PaymentMethodList | null>>;
   user: DecodedPayload | null;
   login: (data: { email: string; password: string }) => Promise<boolean>;
   signup: (data: { firstName: string; email: string; password: string }) => Promise<boolean>;
@@ -15,12 +15,28 @@ export type AuthContextType = {
   logout: () => void;
 };
 
-export type DecodedPayload = {
-  name: string;
+export type LoggedUserDto = {
+  id: number;
+  firstName?: string;
+  lastName?: string;
   email: string;
-  picture: string;
+  role: string;
+  registered?: string;
+};
+
+export type DecodedPayload = {
+  // Comuns
+  id?: number; // para login local
+  email: string;
+  name?: string; // Google ou nome completo local
+  picture?: string; // Google
+  role?: string; // login local
+  registered?: string; // login local
+
+  // JWT padrão do Google
   exp?: number;
   iat?: number;
+
   [key: string]: string | number | boolean | undefined;
 };
 

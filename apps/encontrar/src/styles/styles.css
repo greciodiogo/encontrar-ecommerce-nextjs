@@ -2750,6 +2750,16 @@ a:visited {
   border: none;
 }
 
+.payment-icon.TPA {
+  height: 50px;
+  width: 40px;
+  border: none;
+}
+
+.payment-icon.TPA img {
+  object-fit: contain !important;
+}
+
 /* checkout_payment section ends here */
 
 /* successfulOrder section ends here */

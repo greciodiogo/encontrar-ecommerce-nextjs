@@ -4,6 +4,7 @@ import { createContext, ReactNode, useState, useEffect } from 'react';
 
 import { AuthService } from 'lib/login';
 import { AuthContextType, DecodedPayload } from 'types/context';
+import { PaymentMethodList } from 'types/product';
 
 type TokenProps = DecodedPayload | null;
 
@@ -15,7 +16,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [selectedPrice, setSelectedPrice] = useState('CASH');
+  const [selectedPrice, setSelectedPrice] = useState<PaymentMethodList | null>(null);
   const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
   const [isClient, setIsClient] = useState(false);
   // const [username, setUsername] = useState('Guest');
@@ -26,41 +27,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const updateUserFromCookies = () => {
-      const cookies: CookiesProps = parseCookies();
-      const token = cookies.accessToken;
+    const fetchUser = async () => {
+      try {
+        const raw = await authService.getLoggedUser();
 
-      if (token) {
-        try {
-          const data = JSON.parse(token) as TokenProps;
-          setIsAuthenticated(true);
-          setUser(data);
-          // setUsername(data.name.split(' ')[0]); // Atualiza o nome
-        } catch (error) {
-          console.error('Token inválido:', error);
-        }
-      } else {
-        setIsAuthenticated(false);
+        const data: DecodedPayload = {
+          id: raw.id,
+          email: raw.email,
+          name: `${raw.firstName ?? ''} ${raw.lastName ?? ''}`.trim(),
+          role: raw.role,
+          registered: raw.registered,
+        };
+        setUser(data);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.warn('Usuário não autenticado:', error);
         setUser(null);
-        // setUsername('Guest');
+        setIsAuthenticated(false);
       }
     };
 
-    updateUserFromCookies();
-
-    // Reexecuta quando os cookies mudam
-    const interval = setInterval(updateUserFromCookies, 1000); // Verifica os cookies a cada 1s
-
-    return () => clearInterval(interval); // Limpa ao desmontar
-  }, []);
-
-  useEffect(() => {
-    // Verifica se o token está presente no localStorage
-    const { accessToken: token } = parseCookies();
-
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    fetchUser();
   }, []);
 
   const isDecodedPayload = (payload: unknown): payload is DecodedPayload => {

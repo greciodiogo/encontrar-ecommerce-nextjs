@@ -8,7 +8,7 @@ export class CatalogService {
 
   async fetchProducts(queryString: string) {
     // const response = await ApiService.get(`/products?${queryString}`);
-    const response = await ApiService.get(`/products`);
+    const response = await ApiService.get(`/products?withVisible=true`);
 
     return response.data;
   }
@@ -56,6 +56,15 @@ export class CatalogService {
   async getCategories(params: URLSearchParams) {
     const queryString = buildQueryString(params);
     return await this.fetchCategories(queryString);
+  }
+  async fetchPaymentMethods(queryString: string) {
+    const response = await ApiService.get(`/payment-methods`);
+    return response.data;
+  }
+
+  async getPaymentMethods(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchPaymentMethods(queryString);
   }
 
   async fetchOrders(queryString: string) {

@@ -2,12 +2,14 @@ import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
+import { useAuth } from 'hooks/useAuth';
 
 import { useProductContext } from 'hooks/useProductContext';
 
 export const EmptyCart = () => {
   const router = useRouter();
   const { t } = useTranslation('cart');
+  const { isAuthenticated, isClient } = useAuth();
 
   const { setSelectedCategories } = useProductContext();
 
@@ -17,9 +19,9 @@ export const EmptyCart = () => {
     void router.push('/products');
   };
 
-  // if (!isClient) {
-  //   return null;
-  // }
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className="emptyCart">

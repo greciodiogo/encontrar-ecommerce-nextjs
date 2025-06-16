@@ -1,6 +1,7 @@
 import {
   AddToCart,
   AdjustQty,
+  GetAllPaymentMethods,
   GetAllProducts,
   LoadCurrentItem,
   RemoveFromCart,
@@ -21,6 +22,7 @@ const STORAGE_VERSION = 'v2';
 const defaultState: ProductState = {
   products: [],
   categories: [],
+  paymentMethodsList: [],
   cart: [],
   currentItem: {},
   address: null,
@@ -75,6 +77,17 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ...state,
 
         categories: action.payload?.categories ?? [],
+      };
+
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case GetAllPaymentMethods: {
+      const newState = {
+        ...state,
+
+        paymentMethodsList: action.payload?.paymentMethodsList ?? [],
       };
 
       saveStateToLocalStorage(newState);

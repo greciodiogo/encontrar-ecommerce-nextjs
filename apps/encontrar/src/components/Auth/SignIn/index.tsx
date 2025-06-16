@@ -194,9 +194,9 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
             </div>
             <div className={styles.authInfo}>
               <h4>
-                {selectedPrice === 'CASH' ? t('pay_in') : t('pay_with')} {selectedPrice}
+                {selectedPrice?.name === 'CASH' ? t('pay_in') : t('pay_with')} {selectedPrice?.name}
               </h4>
-              <p>{selectedPrice === 'CASH' && t('cash_payment_description')}</p>
+              <p>{selectedPrice?.name === 'CASH' && t('cash_payment_description')}</p>
             </div>
             <ToastContainer {...toastProps} />
             <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>

@@ -9,7 +9,6 @@ import { ControlledTextField } from 'hooks/useFormHandler';
 type AddressFormData = {
   name: string;
   email: string;
-  email_confirmation: string;
   pais: string;
   cidade: string;
   telefone: string;
@@ -48,7 +47,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
         [
           { label: t('form.full_name'), name: 'name' },
           { label: t('form.email'), name: 'email', type: 'email' },
-          { label: t('form.confirm_email'), name: 'email_confirmation', type: 'email' },
+          // { label: t('form.confirm_email'), name: 'email_confirmation', type: 'email' },
           { label: t('form.phone_number'), name: 'telefone' },
         ] as const
       ).map((field) => (

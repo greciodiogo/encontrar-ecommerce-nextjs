@@ -11,6 +11,7 @@ import {
 import { buildQueryString } from 'utils/buildQueryString';
 
 import { StorageService } from './storage';
+import { LoggedUserDto } from 'types/context';
 
 export class AuthService {
   auth = new StorageService();
@@ -39,6 +40,16 @@ export class AuthService {
   async fetchUsers(queryString: string) {
     const response = await ApiService.get(`/users?${queryString}`);
 
+    return response.data;
+  }
+
+  async getLoggedUser(): Promise<LoggedUserDto> {
+    const response = (await ApiService.get(`/users/me`, { withCredentials: true })) as { data: LoggedUserDto };
+    return response.data;
+  }
+
+  async logout(): Promise<LoggedUserDto> {
+    const response = (await ApiService.post(`/auth/logout`, { withCredentials: true })) as { data: LoggedUserDto };
     return response.data;
   }
 

@@ -29,15 +29,15 @@ export const ProductDetailPage = () => {
             <ShowProductBanner />
             <Details />
           </div>
-          <CheckoutInfo />
-          <div className="wrapper-2">
-            <TechnicalInfo />
-            <div className="row-2">
+          {/* <CheckoutInfo /> */}
+          {/* <div className="wrapper-2"> */}
+          {/* <TechnicalInfo /> */}
+          {/* <div className="row-2">
               <FeatureInfo />
               <ShippingInfo />
-            </div>
-            <ReviewsInfo setIsOpen={setIsOpen} />
-          </div>
+            </div> */}
+          {/* <ReviewsInfo setIsOpen={setIsOpen} /> */}
+          {/* </div> */}
         </div>
       </div>
       {/* <CheapestProducts /> */}

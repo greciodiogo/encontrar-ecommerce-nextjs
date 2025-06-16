@@ -46,6 +46,13 @@ export type CategoriesDTO = {
   slug: string;
 };
 
+export type PaymentMethodList = {
+  id: number;
+  name: string;
+  description?: string;
+  price?: number;
+};
+
 export type PhotoProps = {
   id: number;
   path: string;
@@ -80,6 +87,7 @@ export type ReviewDataProps = {
 export type ProductState = {
   products: Array<ProductDTO> | [];
   categories: Array<CategoriesDTO>;
+  paymentMethodsList: Array<PaymentMethodList>;
   cart: Array<ProductDTO>;
   currentItem: ProductDTO | null;
   address: RegisterAddressDTO | null; // Novo campo para endereço

@@ -37,24 +37,16 @@ export const CartPage = () => {
       void router.push('/checkout');
     }
   };
-  const TOTAL_ITEMS_CART: number = productCart.length;
-  if (!TOTAL_ITEMS_CART)
-    return (
-      <>
-        <EmptyCart />
-        {/* <BestSelledProducts bannerText="Quer sugestões para o seu carrinho ? Escolha abaixo" /> */}
-      </>
-    );
 
-  if (!isClient) {
-    return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
+  if (productCart.length < 1) {
+    return <EmptyCart />;
   }
 
   return (
     <Container useStyle={false}>
       <div className="cart">
         <div className="cart_container">
-          <CartTitle qtdItems={TOTAL_ITEMS_CART} />
+          <CartTitle qtdItems={productCart.length} />
           <div className="row">
             <div className="wrapper">
               {productCart.map((cartItem, index: number) => (
@@ -65,7 +57,7 @@ export const CartPage = () => {
               <h3 style={{ fontWeight: 500, color: '#191C1F', fontSize: '20px' }}>{t('cart.payment_method')}</h3>
               <PaymentStep />
               <CartResume
-                totalProduct={TOTAL_ITEMS_CART}
+                totalProduct={productCart.length}
                 total={total}
                 subtotal={subtotal}
                 handleGoToCheckout={handleGoToCheckout}

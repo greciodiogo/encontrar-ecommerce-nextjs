@@ -30,10 +30,10 @@ export const validationSchema = {
       .matches(/^\d{9,10}$/, 'O telefone deve conter 9 dígitos')
       .required('O telefone é obrigatório'),
     email: yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
-    email_confirmation: yup
-      .string()
-      .oneOf([yup.ref('email')], 'O email deve coincidir')
-      .required('O campo Email é obrigatório'),
+    // email_confirmation: yup
+    //   .string()
+    //   .oneOf([yup.ref('email')], 'O email deve coincidir')
+    //   .required('O campo Email é obrigatório'),
     // paymentMethod: yup.string().required('O nome é obrigatório'),
   }),
 
