@@ -16,6 +16,9 @@ export const MobileMenu = ({
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
+  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
+  const otherCategories = categoriesList.filter((category) => allowedSlugs.includes(category.slug)); // Filtra pelas slugs desejadas
+
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const [history, setHistory] = useState<CategoriesDTO[][]>([]);
   const [activeCategory, setActiveCategory] = useState<CategoriesDTO | null>(null);
@@ -36,7 +39,7 @@ export const MobileMenu = ({
     return tree;
   };
 
-  const treeData = useMemo(() => buildTree(categoriesList), [categoriesList]);
+  const treeData = useMemo(() => buildTree(otherCategories), [otherCategories]);
 
   const currentMenu = history.length > 0 ? history[history.length - 1] : treeData;
 

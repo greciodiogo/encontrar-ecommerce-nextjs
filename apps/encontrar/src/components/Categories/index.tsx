@@ -16,10 +16,7 @@ export const Categories = () => {
   const router = useRouter();
   const { isClient } = useAuth();
 
-  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
-
-  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');

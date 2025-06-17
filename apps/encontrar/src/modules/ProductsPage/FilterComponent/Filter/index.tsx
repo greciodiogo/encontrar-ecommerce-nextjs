@@ -17,7 +17,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({ Categorias: true });
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
-  const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
+  const otherCategories = categoriesList.filter((item) => item.slug !== 'Trending');
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -90,7 +90,6 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
                         <input
                           style={{ visibility: 'hidden' }}
                           type="checkbox"
-                          checked={[category.name].every((cat) => selectedCategories.includes(cat))}
                           onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category)}
                           className={styles.checkbox}
                         />

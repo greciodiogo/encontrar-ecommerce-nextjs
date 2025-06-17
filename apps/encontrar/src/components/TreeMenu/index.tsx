@@ -9,6 +9,9 @@ import { CategoriesDTO, RootState } from 'types/product';
 
 export const CategoriesTree = () => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
+
+  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
+  const otherCategories = categoriesList.filter((category) => allowedSlugs.includes(category.slug)); // Filtra pelas slugs desejadas
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const [newNode, setNewNode] = useState<{ name: string; parentCategory: CategoriesDTO | null }>({
     name: '',
@@ -41,9 +44,9 @@ export const CategoriesTree = () => {
   };
 
   useEffect(() => {
-    const tree = buildTree(categoriesList);
+    const tree = buildTree(otherCategories);
     setTreeData([...tree, newNode as CategoriesDTO]);
-  }, [categoriesList, newNode]);
+  }, [otherCategories, newNode]);
 
   const renderTree = (nodes: CategoriesDTO[]) => {
     return nodes
