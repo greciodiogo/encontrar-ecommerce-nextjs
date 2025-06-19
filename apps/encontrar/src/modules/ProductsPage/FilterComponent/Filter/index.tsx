@@ -2,6 +2,8 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { FaTimes, FaChevronRight } from 'react-icons/fa';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
+import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 
 import { useProductContext } from 'hooks/useProductContext';
 import styles from 'styles/home/filter.module.css';
@@ -16,15 +18,10 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { selectedCategories, setSelectedCategories, toggleSelection, getCategoryCount } = useProductContext();
   const [menuOpen, setMenuOpen] = useState<Record<string, boolean>>({ Categorias: true });
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
-  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
-  const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
+  const otherCategories = categoriesList.filter((item) => item.slug !== 'Trending');
 
   const toggleMenu = (key: string) => {
     setMenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const categoryMappings: Record<string, Array<string>> = {
-    'Bebidas e Alimentação': ['Bebidas', 'Alimentação'],
   };
 
   const removeFilter = (
@@ -39,6 +36,53 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
     { name: t('commom.categories'), key: 'Categorias', hasDropdown: true },
     { name: t('commom.prices'), key: 'Preços', hasDropdown: true },
   ];
+
+  // Helper to build the tree structure from flat categories
+  const buildTree = (categories: CategoriesDTO[]): CategoriesDTO[] => {
+    const map: Record<number, CategoriesDTO> = {};
+    categories.forEach((cat) => {
+      map[cat.id] = { ...cat, childCategories: [] };
+    });
+    const tree: CategoriesDTO[] = [];
+    categories.forEach((cat) => {
+      if (cat.parentCategory?.id) {
+        map[cat.parentCategory.id]?.childCategories.push(map[cat.id]);
+      } else {
+        tree.push(map[cat.id]);
+      }
+    });
+    return tree;
+  };
+
+  // Only show allowed slugs
+  const filteredCategories = otherCategories;
+  const treeData = buildTree(filteredCategories);
+
+  // Render the tree recursively
+  const renderTree = (nodes: CategoriesDTO[]) => {
+    return nodes
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((node) => (
+        <TreeItem
+          key={node.id}
+          itemId={node.id.toString()}
+          label={
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <input
+                type="checkbox"
+                checked={selectedCategories.some((cat) => cat.id === node.id)}
+                onChange={() => toggleSelection(selectedCategories, setSelectedCategories, node)}
+                className={styles.checkbox}
+                style={{ marginRight: 8 }}
+              />
+              <span className={styles.brandName}>{node.name}</span>
+            </span>
+          }
+        >
+          {node.childCategories && node.childCategories.length > 0 && renderTree(node.childCategories)}
+        </TreeItem>
+      ));
+  };
 
   return (
     <div className={`${styles.filterProducts} ${styles.container}`}>
@@ -81,25 +125,8 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
           {menuOpen[filter.key] && (
             <div className={styles.content}>
               {filter.key === 'Categorias' && (
-                <div className={styles.brandsList}>
-                  {[...(otherCategories || [])]
-                    .filter((category) => allowedSlugs.includes(category.slug)) // Filtra pelas slugs desejadas
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((category) => (
-                      <label key={category.name} className={styles.brandItem}>
-                        <input
-                          style={{ visibility: 'hidden' }}
-                          type="checkbox"
-                          checked={[category.name].every((cat) => selectedCategories.includes(cat))}
-                          onChange={() => toggleSelection(selectedCategories, setSelectedCategories, category)}
-                          className={styles.checkbox}
-                        />
-                        <span className={styles.brandName}>
-                          {category.name}
-                          {/* <span className={styles.itemCount}>({getCategoryCount(category.name)})</span> */}
-                        </span>
-                      </label>
-                    ))}
+                <div className={styles.brandsList} style={{ padding: '8px 0' }}>
+                  <SimpleTreeView>{renderTree(treeData)}</SimpleTreeView>
                 </div>
               )}
               {filter.key === 'Preços' && (

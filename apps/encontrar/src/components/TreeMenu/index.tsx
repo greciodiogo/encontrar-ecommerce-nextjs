@@ -9,6 +9,7 @@ import { CategoriesDTO, RootState } from 'types/product';
 
 export const CategoriesTree = () => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
+  const otherCategories = categoriesList.filter((item) => item.name !== 'Trending');
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const [newNode, setNewNode] = useState<{ name: string; parentCategory: CategoriesDTO | null }>({
     name: '',
@@ -41,7 +42,7 @@ export const CategoriesTree = () => {
   };
 
   useEffect(() => {
-    const tree = buildTree(categoriesList);
+    const tree = buildTree(otherCategories);
     setTreeData([...tree, newNode as CategoriesDTO]);
   }, [categoriesList, newNode]);
 
