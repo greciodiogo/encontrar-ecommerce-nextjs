@@ -6,6 +6,8 @@ import { useAppSelector } from 'hooks';
 import { Box, Typography } from '@mui/material';
 import { useProductContext } from 'hooks/useProductContext';
 import { CategoriesDTO, RootState } from 'types/product';
+import { RichTreeView } from '@mui/x-tree-view';
+import { ChevronRight, ExpandMore } from '@mui/icons-material';
 
 export const CategoriesTree = () => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
@@ -43,39 +45,47 @@ export const CategoriesTree = () => {
 
   useEffect(() => {
     const tree = buildTree(otherCategories);
-    setTreeData([...tree, newNode as CategoriesDTO]);
+    setTreeData(tree);
   }, [categoriesList, newNode]);
 
-  const renderTree = (nodes: CategoriesDTO[]) => {
-    return nodes
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map((node) => (
-        <TreeItem
-          key={node.id ?? Math.random()}
-          itemId={(node.id ?? Math.random()).toString()}
-          label={
-            <Box display="flex" alignItems="center" gap={1}>
-              <button
-                className="category-item"
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-                onClick={(e) => {
-                  e.stopPropagation(); // não interfere com a expansão
-                  goToCategories(node); // sempre filtra, mesmo que seja pai ou filho
-                }}
-              >
-                {node.name}
-              </button>
-            </Box>
-          }
-        >
-          {node.childCategories && node.childCategories.length > 0 && renderTree(node.childCategories)}
-        </TreeItem>
-      ));
+  // Build tree data for RichTreeView (children property must be 'children')
+  const convertToRichTree = (nodes: CategoriesDTO[]): any[] => {
+    return nodes.map((node) => ({
+      id: node.id,
+      label: node.name,
+      children: node.childCategories ? convertToRichTree(node.childCategories) : [],
+      original: node,
+    }));
   };
+  const richTreeData = convertToRichTree(treeData);
 
   return (
     <div className="mini categories">
-      <SimpleTreeView style={{ display: 'flex !important' }}>{renderTree(treeData)}</SimpleTreeView>
+      <RichTreeView
+        items={richTreeData}
+        getItemId={(item: any) => item.id}
+        getItemLabel={(item: any) => item.label}
+        expansionTrigger="iconContainer"
+        slots={{
+          expandIcon: () => <ChevronRight fontSize="small" />,
+          collapseIcon: () => <ExpandMore fontSize="small" />,
+        }}
+        onItemClick={(_: any, itemId: any) => {
+          // Find the original node by id
+          const findNode = (nodes: any[]): CategoriesDTO | undefined => {
+            for (const n of nodes) {
+              if (n.id === itemId) return n.original;
+              if (n.children) {
+                const found = findNode(n.children);
+                if (found) return found;
+              }
+            }
+            return undefined;
+          };
+          const node = findNode(richTreeData);
+          if (node) goToCategories(node);
+        }}
+      />
     </div>
   );
 };

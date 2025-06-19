@@ -3936,3 +3936,46 @@ button > i {
   /* padding-top: 60px; */
   margin-bottom: 60px;
 }
+
+.mini.categories .MuiRichTreeView-itemContent {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini.categories .MuiRichTreeView-root > .MuiRichTreeView-itemGroup {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 16px;
+  padding-left: 0 !important;
+}
+
+.mini.categories .MuiRichTreeView-itemGroup {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px;
+  padding-left: 24px !important;
+}
+
+.mini.categories .MuiRichTreeView-root > .MuiRichTreeView-itemGroup > .MuiRichTreeView-item {
+  min-width: 120px;
+}
+
+.mini.categories .MuiRichTreeView-root > .MuiRichTreeView-itemGroup > .MuiRichTreeView-item {
+  padding-left: 0 !important;
+}
+
+#mui-tree-view-1 {
+  display: flex;
+  gap: 20px;
+  padding: 0 2rem !important;
+  padding-top: 1rem;
+  position: absolute;
+  display: flex !important;
+  position: absolute !important;
+  top: 20px !important;
+  background: white !important;
+  height: max-content !important;
+  z-index: 998 !important;
+}
