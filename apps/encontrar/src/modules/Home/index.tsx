@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { fetchAllProducts } from 'actions/products';
+import { fetchAllCategories, fetchAllProducts } from 'actions/products';
 import { Categories, CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
@@ -9,46 +9,56 @@ import { PromotionProducts } from 'components/PromotionProducts';
 import { products } from 'fixture/ecommerceData';
 import { useAppSelector } from 'hooks';
 import { ContactSupport } from 'modules/AboutPage/ContactSupport';
-import { RootState } from 'types/product';
+import { CategoriesDTO, ProductDTO, RootState } from 'types/product';
 // import { ProductDTO } from 'types/product';
 
-// import { useProductContext } from 'hooks/useProductContext';
+import { useProductContext } from 'hooks/useProductContext';
 
 import { useAppDispatch } from '../../hooks';
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
 export const Homepage = () => {
   const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
   // const [productsList, setProductsList] = useState<Array<ProductDTO>>([]);
   const productsList = useAppSelector((state: RootState) => state.products.products);
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
-
-  // const promotionProducts = [...products]
-  //   .filter((prod) => prod.categories.some(() => prod.is_promotion && prod.promotional_price > 0))
-  //   .sort((a_, b_) => b_.price - a_.price)
-  //   .slice(0, 10);
-
-  // const topExpensiveElectrics = [...products]
-  //   .filter((prod) => prod.categories.some(() => prod.categories.includes('Eletrodomésticos')))
-  //   .sort((a_, b_) => b_.price - a_.price)
-  //   .slice(0, 8);
-
-  // const topExpensiveFoods = [...products]
-  //   .filter((prod) => prod.categories.some(() => prod.categories.includes('Alimentação')))
-  //   .sort((a_, b_) => b_.price - a_.price)
-  //   .slice(0, 8);
-  const randomPopularProducts = [...productsList].sort(() => Math.random() - 0.5).slice(0, 8);
+  const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         await dispatch(fetchAllProducts());
+        await dispatch(fetchAllCategories());
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
 
     void fetchProducts();
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchTrendingProducts = async (categoryId: number) => {
+      try {
+        const res = await fetch(`${BASE_URL}/categories/${categoryId}/products`);
+        if (res.ok) {
+          const data = await res.json();
+          setTrendingProducts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching trending products:', error);
+      }
+    };
+
+    if (categoriesList.length > 0) {
+      const trendingCategory = categoriesList.find((category) => category.name === 'Trending');
+      if (trendingCategory) {
+        void fetchTrendingProducts(trendingCategory.id);
+      }
+    }
+  }, [categoriesList]);
 
   return (
     <Container useStyle={false}>
@@ -57,23 +67,23 @@ export const Homepage = () => {
       <Products />
       <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
-      <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_beverage_deals')} />
+      <CheapestProducts products={trendingProducts} bannerText="Trending Products" />
       <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_food_deals')} />
-      <div className="productsPage noBorder">
+      {/* <div className="productsPage noBorder">
         <div className="productsPage__container">
           <PromotionBanner />
         </div>
-      </div>
+      </div> */}
       {/* <PromotionProducts
         products={productsList}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
       /> */}
-      <OtherProducts
-        products={randomPopularProducts}
+      {/* <OtherProducts
+        products={filteredProducts}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
-      />
+      /> */}
       <div className="about_policy">
         <div className="about_policy_container">
           <ContactSupport />{' '}

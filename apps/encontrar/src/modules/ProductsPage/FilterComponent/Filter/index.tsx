@@ -67,7 +67,7 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
           key={node.id}
           itemId={node.id.toString()}
           label={
-            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
               <input
                 type="checkbox"
                 checked={selectedCategories.some((cat) => cat.id === node.id)}

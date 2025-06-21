@@ -3942,6 +3942,7 @@ button > i {
   flex-direction: row-reverse !important;
   align-items: center;
   gap: 4px;
+  max-width: max-content;
 }
 
 .mini.categories .MuiRichTreeView-root > .MuiRichTreeView-itemGroup {
@@ -3955,7 +3956,7 @@ button > i {
   display: flex !important;
   flex-direction: column !important;
   gap: 4px;
-  padding-left: 24px !important;
+  padding-left: 3rem !important;
 }
 
 .mini.categories .MuiRichTreeView-root > .MuiRichTreeView-itemGroup > .MuiRichTreeView-item {
@@ -3966,16 +3967,57 @@ button > i {
   padding-left: 0 !important;
 }
 
-#mui-tree-view-1 {
+#mui-tree-view-1:hover,
+.categories #mui-tree-view-2:hover,
+.categories #mui-tree-view-3:hover,
+.categories #mui-tree-view-4:hover,
+.categories #mui-tree-view-5:hover,
+.categories #mui-tree-view-6:hover,
+.categories #mui-tree-view-7:hover,
+.categories #mui-tree-view-8:hover,
+.categories #mui-tree-view-9:hover,
+.categories #mui-tree-view-10:hover,
+.categories #mui-tree-view-11:hover,
+.categories #mui-tree-view-12:hover,
+.categories #mui-tree-view-13:hover,
+.categories #mui-tree-view-14:hover,
+.categories #mui-tree-view-15:hover {
+  box-shadow: 0px 6px 8px rgb(0, 0, 0, 0.12);
+}
+
+.categories #mui-tree-view-1,
+.categories #mui-tree-view-2,
+.categories #mui-tree-view-3,
+.categories #mui-tree-view-4,
+.categories #mui-tree-view-5,
+.categories #mui-tree-view-6,
+.categories #mui-tree-view-7,
+.categories #mui-tree-view-8,
+.categories #mui-tree-view-8,
+.categories #mui-tree-view-9,
+.categories #mui-tree-view-10,
+.categories #mui-tree-view-11,
+.categories #mui-tree-view-12,
+.categories #mui-tree-view-13,
+.categories #mui-tree-view-14,
+.categories #mui-tree-view-15,
+.categories #mui-tree-view-16 {
+  border-radius: 6px;
   display: flex;
-  gap: 20px;
   padding: 0 2rem !important;
   padding-top: 1rem;
+  padding-bottom: 1rem;
   position: absolute;
   display: flex !important;
+  justify-content: center;
   position: absolute !important;
-  top: 20px !important;
+  top: 15px !important;
   background: white !important;
   height: max-content !important;
   z-index: 998 !important;
+}
+
+.css-16alkdk-MuiTreeItem-root {
+  padding: 5px;
+  padding-left: 1rem;
 }
