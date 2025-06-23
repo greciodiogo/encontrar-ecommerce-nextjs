@@ -5,6 +5,7 @@
     "*": ["common"],
     "/": ["auth", "home", "common"],
     "/products": ["auth", "home", "products", "common"],
+    "/search": ["auth", "home", "products", "common"],
     "/cart": ["auth", "home", "cart", "common"],
     "/checkout": ["auth", "home", "checkout", "common"],
     "/sucessful-order": ["auth", "home", "checkout", "common"],

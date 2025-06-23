@@ -11,12 +11,13 @@ import { FnService } from 'shared/utils/FnService';
 import { ProductDTO } from 'types/product';
 import { RootState } from 'types/product';
 
-export const ProductsList = () => {
+export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
   const { filteredProducts, currentPage, itemsPerPage, totalPages, setCurrentPage, selectedCategories } =
     useProductContext();
   const productsList = useAppSelector((state: RootState) => state.products.products);
 
   const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const productsToDisplay = products || displayedProducts;
   const fnService = new FnService();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -29,6 +30,23 @@ export const ProductsList = () => {
     dispatch(loadCurrentItem(productDTO));
     void router.push('/preview-product');
   };
+
+  if (products) {
+    return (
+      <div className="productsList">
+        <div className="wrapper bestselled">
+          {products.map((item, itemIndex) => (
+            <BestSelledProduct
+              product={item}
+              key={itemIndex}
+              handleAddToCart={handleAddToCart}
+              handlepreviewProduct={handlepreviewProduct}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (selectedCategories.length < 1 && productsList.length > 0) {
     return (
@@ -52,13 +70,13 @@ export const ProductsList = () => {
   return (
     <>
       <div className="productsList">
-        <ProductsPageHeader totalProducts={fnService.formatarQuantidade(displayedProducts.length)} />
+        <ProductsPageHeader totalProducts={fnService.formatarQuantidade(productsToDisplay.length)} />
         <>
-          {displayedProducts.length <= 0 ? (
+          {productsToDisplay.length <= 0 ? (
             <NotFound />
           ) : (
             <div className="wrapper bestselled">
-              {displayedProducts.map((item, itemIndex) => (
+              {productsToDisplay.map((item, itemIndex) => (
                 <BestSelledProduct
                   product={item}
                   key={itemIndex}
@@ -69,7 +87,7 @@ export const ProductsList = () => {
             </div>
           )}
         </>
-        {displayedProducts.length > 0 && (
+        {productsToDisplay.length > 0 && (
           <ProductsPagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         )}
       </div>

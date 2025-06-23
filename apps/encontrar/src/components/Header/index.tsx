@@ -40,7 +40,20 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   const { isClient, isAuthenticated, user } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleSearch = () => {
+    if (searchTerm.trim() !== '') {
+      void router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
   // After mounting, we have access to the theme
   // useEffect(() => setMounted(true), []);
   // Verifica se a rota atual começa com "control-panel/"
@@ -137,9 +150,15 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
           </button>
           {!isControlPanelRoute && (
             <div className="search_container">
-              <input type="text" placeholder={t('searchPlaceholder')} />
+              <input
+                type="text"
+                placeholder={t('searchPlaceholder')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
 
-              <i>
+              <i onClick={handleSearch} style={{ cursor: 'pointer' }}>
                 <img src="/assets_ecommerce/svg/gnav-search.png" alt="" />
               </i>
             </div>
@@ -213,8 +232,14 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
         {(isProductsRoute || isHomeRoute) && (
           <div className="searchInput__mobile">
             <div className="search_container">
-              <input type="text" placeholder={t('searchPlaceholder')} />
-              <i>
+              <input
+                type="text"
+                placeholder={t('searchPlaceholder')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <i onClick={handleSearch} style={{ cursor: 'pointer' }}>
                 <img src="/assets_ecommerce/svg/gnav-search.png" alt="" />
               </i>
             </div>
