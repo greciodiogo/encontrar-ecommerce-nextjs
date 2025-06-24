@@ -4,6 +4,7 @@ import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 
 import { ControlledSelectField } from 'hooks/ControlledSelectField';
 import { ControlledTextField } from 'hooks/useFormHandler';
+import { useAuth } from 'hooks/useAuth';
 
 // Define os campos do formulário
 type AddressFormData = {
@@ -35,11 +36,22 @@ type AddressFormProps = {
 
 export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setValue }) => {
   const { t } = useTranslation('checkout');
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     setValue('pais', 'Angola');
     setValue('cidade', 'Luanda');
-  }, [setValue]);
+
+    // Pre-fill name and email if user is authenticated
+    if (isAuthenticated && user) {
+      if (user.name) {
+        setValue('name', user.name);
+      }
+      if (user.email) {
+        setValue('email', user.email);
+      }
+    }
+  }, [setValue, isAuthenticated, user]);
 
   return (
     <div className="row mt-4">
@@ -58,6 +70,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
           className="checkout_input col-md-4"
           label={field.label}
           name={field.name}
+          disabled={isAuthenticated && (field.name === 'name' || field.name === 'email')}
         />
       ))}
 
