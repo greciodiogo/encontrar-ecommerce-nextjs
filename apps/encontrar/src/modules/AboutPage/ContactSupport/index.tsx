@@ -1,36 +1,38 @@
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import { CatalogService } from 'lib/catalog';
+import { showToast } from 'shared/hooks/showToast';
 
 export const ContactSupport = () => {
   const { t } = useTranslation('common');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
+  const [body, setBody] = useState('');
   const [status, setStatus] = useState('');
+  const catalogService = new CatalogService();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus(t('contact_support.sending'));
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, subject, message }),
+      await catalogService.placeFeedback({ email, subject, body });
+      showToast({
+        title: 'Sucesso',
+        message: 'Feedback enviado com sucesso',
+        isSuccessType: true,
       });
-
-      if (response.ok) {
-        setStatus(t('contact_support.success'));
-        setEmail('');
-        setSubject('');
-        setMessage('');
-      } else {
-        setStatus(t('contact_support.error'));
-      }
+      setStatus(t('contact_support.success'));
+      setEmail('');
+      setSubject('');
+      setBody('');
     } catch (error) {
+      showToast({
+        title: 'Erro',
+        message: 'Ocorreu um erro ao enviar o feedback',
+        isSuccessType: false,
+      });
       setStatus(t('contact_support.general_error'));
     }
   };
@@ -56,7 +58,7 @@ export const ContactSupport = () => {
         </div>
         <div className="form-group">
           <label htmlFor="message">{t('contact_support.message_label')}</label>
-          <textarea id="message" value={message} onChange={(event) => setMessage(event.target.value)} />
+          <textarea id="message" value={body} onChange={(event) => setBody(event.target.value)} />
         </div>
         <button type="submit">
           {t('contact_support.send_message')} <HiOutlineArrowRight size={18} color="white" />

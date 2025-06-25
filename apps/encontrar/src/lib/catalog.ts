@@ -1,5 +1,6 @@
 import { ApiService } from 'services/apiService';
 import { buildQueryString } from 'utils/buildQueryString';
+import { FeedbackDto } from 'types/feedback';
 
 import { StorageService } from './storage';
 
@@ -90,7 +91,12 @@ export class CatalogService {
   async placeOrder(order: any): Promise<any> {
     const data = await ApiService.post('/orders', order);
     return data;
+    // return token;
+  }
 
+  async placeFeedback(feedback: FeedbackDto): Promise<any> {
+    const data = await ApiService.post('/feedback', feedback);
+    return data;
     // return token;
   }
 }
