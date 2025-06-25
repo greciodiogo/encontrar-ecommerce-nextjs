@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Definição de rotas protegidas e públicas
-const protectedRoutes = ['/control-panel', '/users'];
+const protectedRoutes = ['/users'];
 
 const middleware = (req: NextRequest) => {
   const path = req.nextUrl.pathname;

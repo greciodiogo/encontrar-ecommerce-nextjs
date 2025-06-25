@@ -21,30 +21,30 @@ export const ControlPanelPage = () => {
       title: t('accountSettings.title'),
       description: t('accountSettings.description'),
     },
-    {
-      icon: 'Storefront.png',
-      routerLink: 'order-history',
-      title: t('orderHistory.title'),
-      description: t('orderHistory.description'),
-    },
-    {
-      icon: 'Heart.png',
-      routerLink: 'wish-list',
-      title: t('wishList.title'),
-      description: t('wishList.description'),
-    },
+    // {
+    //   icon: 'Storefront.png',
+    //   routerLink: 'order-history',
+    //   title: t('orderHistory.title'),
+    //   description: t('orderHistory.description'),
+    // },
+    // {
+    //   icon: 'Heart.png',
+    //   routerLink: 'wish-list',
+    //   title: t('wishList.title'),
+    //   description: t('wishList.description'),
+    // },
     {
       icon: 'Icons - Location.png',
       routerLink: 'address',
       title: t('address.title'),
       description: t('address.description'),
     },
-    {
-      icon: 'CreditCard-dark.png',
-      routerLink: 'credit-card',
-      title: t('creditCard.title'),
-      description: t('creditCard.description'),
-    },
+    // {
+    //   icon: 'CreditCard-dark.png',
+    //   routerLink: 'credit-card',
+    //   title: t('creditCard.title'),
+    //   description: t('creditCard.description'),
+    // },
     {
       icon: 'ShoppingCart.png',
       routerLink: 'shopping-cart',

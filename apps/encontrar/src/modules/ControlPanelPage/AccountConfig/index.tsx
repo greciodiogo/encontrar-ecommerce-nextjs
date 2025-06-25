@@ -29,12 +29,12 @@ export const AccountConfigPage = () => {
           <h4>{t('accountSettings.password')}</h4>
           <p>***************</p>
         </div>
-        <button>
-          {t('accountSettings.editDetails')}
-          <i>
-            <FaArrowRight size={12} fill="black" />
-          </i>
-        </button>
+        {/* <button>
+            {t('accountSettings.editDetails')}
+            <i>
+              <FaArrowRight size={12} fill="black" />
+            </i>
+          </button> */}
       </div>
     </>
   );
