@@ -4032,3 +4032,30 @@ button > i {
   flex-direction: row;
   width: 100%;
 }
+
+.productsPage .wrapper.bestselled {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1036px) {
+  .productsPage .wrapper.bestselled {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 890px) {
+  .productsPage .wrapper.bestselled {
+    padding: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 530px) {
+  .productsPage .wrapper.bestselled {
+    padding: 1rem;
+    grid-template-columns: repeat(1, 1fr);
+    align-items: flex-start;
+  }
+}
