@@ -30,14 +30,14 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
     { label: t('menu.cardsAddress'), path: 'address', icon: 'MNotebook' },
     // { label: t('menu.browsingHistory'), path: '', icon: 'MClockClockwise' },
     // { label: t('menu.settings'), path: '', icon: 'MGear' },
-    { label: t('menu.logout'), path: '', icon: 'MSignOut' },
+    { label: t('menu.logout'), path: 'logout', icon: 'MSignOut' },
   ];
   const productos = useSelector((state: RootState) => state.products.cart);
 
   const router = useRouter();
   const { pathname, asPath, query, locale } = router;
   // const [mounted, setMounted] = useState(false);
-  const { isClient, isAuthenticated, user } = useAuth();
+  const { isClient, isAuthenticated, user, logout } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,7 +76,12 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   };
 
   const redirectTo = (route: string) => {
-    void router.push(`/control-panel/${route}`);
+    if (route === 'logout') {
+      void logout();
+      void router.push('/');
+    } else {
+      void router.push(`/control-panel/${route}`);
+    }
   };
 
   const redirectHome = () => {
@@ -184,12 +189,12 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             {isAuthenticated ? (
               <div className={styles.dropdown}>
                 <button className={styles.dropdown_button}>
-                  {t('hi')}, {user ? user.name.split(' ')[0] : 'Guess'}
+                  {t('hi')}, {user?.name?.split(' ')[0] || 'Guest'}
                 </button>
 
                 <div className={styles.dropdown_menu}>
                   <p className={styles.dropdown_header}>
-                    {t('helloUser', { name: user ? user.name.split(' ')[0] : 'Guest' })}
+                    {t('helloUser', { name: user?.name?.split(' ')[0] || 'Guest' })}
                   </p>
                   <hr className={styles.divider} />
                   <ul>

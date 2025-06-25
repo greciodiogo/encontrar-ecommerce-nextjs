@@ -13,6 +13,7 @@ export type AuthContextType = {
   loginGoogle: (idToken: string) => void;
   // login: (data: { username: string; password: string }) => Promise<boolean>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 };
 
 export type LoggedUserDto = {

@@ -17,38 +17,50 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState<PaymentMethodList | null>(null);
-  const [user, setUser] = useState<DecodedPayload | null>(null); // const authService = new AuthService();
+  const [user, setUser] = useState<DecodedPayload | null>(null);
   const [isClient, setIsClient] = useState(false);
-  // const [username, setUsername] = useState('Guest');
+  const [isLoading, setIsLoading] = useState(false);
   const authService = new AuthService();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  const fetchUser = async () => {
+    if (isLoading) {
+      return; // Prevent multiple simultaneous calls
+    }
+
+    setIsLoading(true);
+    try {
+      const raw = await authService.getLoggedUser();
+
+      const data: DecodedPayload = {
+        id: raw.id,
+        email: raw.email,
+        name: `${raw.firstName ?? ''} ${raw.lastName ?? ''}`.trim(),
+        role: raw.role,
+        registered: raw.registered,
+      };
+      setUser(data);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.warn('Usuário não autenticado:', error);
+      setUser(null);
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Call fetchUser once on mount
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const raw = await authService.getLoggedUser();
-
-        const data: DecodedPayload = {
-          id: raw.id,
-          email: raw.email,
-          name: `${raw.firstName ?? ''} ${raw.lastName ?? ''}`.trim(),
-          role: raw.role,
-          registered: raw.registered,
-        };
-        setUser(data);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.warn('Usuário não autenticado:', error);
-        setUser(null);
-        setIsAuthenticated(false);
-      }
-    };
-
     fetchUser();
   }, []);
+
+  const refreshUser = async () => {
+    await fetchUser();
+  };
 
   const isDecodedPayload = (payload: unknown): payload is DecodedPayload => {
     return (
@@ -92,58 +104,94 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     setUser(token);
-    setIsAuthenticated(true); // Marca o usuário como autenticado
-    // setUsername(token.name.split(' ')[0]); // Atualiza o nome do usuário
-
-    // await Router.push('/dashboard'); // Aguarda a navegação antes de continuar
+    setIsAuthenticated(true);
   };
 
   const login = async (data: { email: string; password: string }): Promise<boolean> => {
-    const token = await authService.login({
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      const response = await authService.login({
+        email: data.email,
+        password: data.password,
+      });
 
-    // setCookie(null, 'accessToken', JSON.stringify(token), {
-    //   maxAge: 60 * 60 * 1, // 1 hora
-    // });
+      // The server sets the token as an HTTP-only cookie automatically
+      // We just need to fetch the user details to update the state
+      const userData = await authService.getLoggedUser();
+      const userInfo: DecodedPayload = {
+        id: userData.id,
+        email: userData.email,
+        name: `${userData.firstName ?? ''} ${userData.lastName ?? ''}`.trim(),
+        role: userData.role,
+        registered: userData.registered,
+      };
 
-    setUser(token);
-    setIsAuthenticated(true);
+      setUser(userInfo);
+      setIsAuthenticated(true);
 
-    await Router.push('/products'); // Aguarde a navegação antes de retornar
-
-    return true;
+      return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    }
   };
 
   const signup = async (data: { firstName: string; email: string; password: string }): Promise<boolean> => {
-    const token = await authService.signup({
-      firstName: data.firstName,
-      lastName: '',
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      const response = await authService.signup({
+        firstName: data.firstName,
+        lastName: '',
+        email: data.email,
+        password: data.password,
+      });
 
-    // setCookie(null, 'accessToken', JSON.stringify(token), {
-    //   maxAge: 60 * 60 * 1, // 1 hora
-    // });
+      // The server sets the token as an HTTP-only cookie automatically
+      // We just need to fetch the user details to update the state
+      const userData = await authService.getLoggedUser();
+      const userInfo: DecodedPayload = {
+        id: userData.id,
+        email: userData.email,
+        name: `${userData.firstName ?? ''} ${userData.lastName ?? ''}`.trim(),
+        role: userData.role,
+        registered: userData.registered,
+      };
 
-    setUser(token);
-    setIsAuthenticated(true);
+      setUser(userInfo);
+      setIsAuthenticated(true);
 
-    await Router.push('/products'); // Aguarde a navegação antes de retornar
-
-    return true;
+      return true;
+    } catch (error) {
+      console.error('Signup error:', error);
+      return false;
+    }
   };
 
-  const logout = () => {
-    localStorage.removeItem('accessToken');
+  const logout = async () => {
+    try {
+      // Call the logout endpoint to clear the server-side session
+      await authService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+
+    // Clear local state
+    setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, isClient, isAuthenticated, selectedPrice, setSelectedPrice, login, signup, loginGoogle, logout }}
+      value={{
+        user,
+        isClient,
+        isAuthenticated,
+        selectedPrice,
+        setSelectedPrice,
+        login,
+        signup,
+        loginGoogle,
+        logout,
+        refreshUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

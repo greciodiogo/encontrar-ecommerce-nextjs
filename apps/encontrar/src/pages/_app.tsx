@@ -86,9 +86,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <>
       {getLayout(
         <Provider store={store}>
-          <AuthProvider>
-            <Component {...pageProps} />
-          </AuthProvider>
+          <Component {...pageProps} />
         </Provider>,
       )}
     </>

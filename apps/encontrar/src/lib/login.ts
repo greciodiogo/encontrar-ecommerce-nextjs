@@ -18,23 +18,24 @@ export class AuthService {
 
   async login(credentials: SignInRequestDTO): Promise<SignInResponseDTO> {
     const response = (await ApiService.post('/auth/login', credentials)) as { data: SignInResponseDTO };
-    return response;
+    return response.data;
   }
 
-  async signup(credentials: SignUpRequestDTO): Promise<string> {
+  async signup(credentials: SignUpRequestDTO): Promise<SignInResponseDTO> {
     const response = (await ApiService.post('/auth/register', credentials)) as { data: SignInResponseDTO };
-    return response;
+    return response.data;
   }
 
   async sendCode(credentials: SendCodeRequestDTO): Promise<string> {
     const response = (await ApiService.post('/auth/send-verification-code', credentials)) as {
-      data: SignInResponseDTO;
+      data: string;
     };
-    return response;
+    return response.data;
   }
+
   async verifyCode(credentials: VerifyCodeDTO): Promise<string> {
-    const response = (await ApiService.post('/auth/verify-code', credentials)) as { data: SignInResponseDTO };
-    return response;
+    const response = (await ApiService.post('/auth/verify-code', credentials)) as { data: string };
+    return response.data;
   }
 
   async fetchUsers(queryString: string) {
@@ -48,9 +49,8 @@ export class AuthService {
     return response.data;
   }
 
-  async logout(): Promise<LoggedUserDto> {
-    const response = (await ApiService.post(`/auth/logout`, { withCredentials: true })) as { data: LoggedUserDto };
-    return response.data;
+  async logout(): Promise<void> {
+    await ApiService.post(`/auth/logout`, { withCredentials: true });
   }
 
   async getUsers(params: URLSearchParams) {
