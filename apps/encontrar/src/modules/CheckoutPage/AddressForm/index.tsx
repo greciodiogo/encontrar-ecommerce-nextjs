@@ -1,10 +1,13 @@
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 
 import { ControlledSelectField } from 'hooks/ControlledSelectField';
 import { ControlledTextField } from 'hooks/useFormHandler';
 import { useAuth } from 'hooks/useAuth';
+import { useAppSelector, useAppDispatch } from 'hooks';
+import { Address, RootState } from 'types/product';
+import { getAddresses } from 'actions/products';
 
 // Define os campos do formulário
 type AddressFormData = {
@@ -14,19 +17,8 @@ type AddressFormData = {
   cidade: string;
   telefone: string;
   municipio: string;
+  distrito: string;
 };
-
-// Define os municípios de Luanda
-const municipiosLuanda = [
-  'Belas',
-  'Cacuaco',
-  'Cazenga',
-  'Ícolo e Bengo',
-  'Kilamba Kiaxi',
-  'Quiçama',
-  'Talatona',
-  'Viana',
-];
 
 type AddressFormProps = {
   control: Control<AddressFormData>;
@@ -37,6 +29,39 @@ type AddressFormProps = {
 export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setValue }) => {
   const { t } = useTranslation('checkout');
   const { user, isAuthenticated } = useAuth();
+  const dispatch = useAppDispatch();
+  const addresses = useAppSelector((state: RootState) => state.products.addresses);
+  const [selectedMunicipio, setSelectedMunicipio] = useState<Address | null>(null);
+
+  const municipioValue = control._getWatch('municipio');
+
+  // Filter for top-level addresses (municipalities) where parentAddress is null
+  const municipioOptions = addresses
+    ? addresses.filter((address) => !address.parentAddress).map((address) => address.name)
+    : [];
+
+  // Find children of the selected municipality from the flat list
+  const distritoOptions =
+    selectedMunicipio && addresses
+      ? addresses
+          .filter((address) => address.parentAddress?.id === selectedMunicipio.id)
+          .map((distrito) => distrito.name)
+      : [];
+
+  useEffect(() => {
+    dispatch(getAddresses());
+  }, [dispatch]);
+
+  // When the 'municipio' form value changes, find the corresponding address object
+  useEffect(() => {
+    if (municipioValue && addresses) {
+      const selected = addresses.find((address) => address.name === municipioValue);
+      setSelectedMunicipio(selected || null);
+      setValue('distrito', ''); // Reset district when municipality changes
+    } else {
+      setSelectedMunicipio(null);
+    }
+  }, [municipioValue, addresses, setValue]);
 
   useEffect(() => {
     setValue('pais', 'Angola');
@@ -101,8 +126,20 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
         className="checkout_input col-md-8"
         label={t('form.municipality')}
         name="municipio"
-        options={municipiosLuanda}
+        options={municipioOptions}
       />
+
+      {/* Conditionally render the district select if there are districts */}
+      {selectedMunicipio && distritoOptions.length > 0 && (
+        <ControlledSelectField
+          control={control}
+          errors={errors}
+          className="checkout_input col-md-8"
+          label={t('form.district')}
+          name="distrito"
+          options={distritoOptions}
+        />
+      )}
     </div>
   );
 };

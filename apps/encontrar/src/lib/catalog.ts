@@ -48,6 +48,16 @@ export class CatalogService {
     return await this.fetchFaqs(queryString);
   }
 
+  async fetchAddress(queryString: string) {
+    const response = await ApiService.get(`/address?${queryString}`);
+    return response.data;
+  }
+
+  async getAddress(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchAddress(queryString);
+  }
+
   async fetchCategories(queryString: string) {
     const response = await ApiService.get(`/categories?${queryString}`);
     return response.data;

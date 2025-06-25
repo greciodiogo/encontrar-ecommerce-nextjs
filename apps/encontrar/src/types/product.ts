@@ -1,4 +1,4 @@
-import { RegisterAddressDTO, RegisterPaymentMethodDTO } from './checkout';
+import { RegisterAddressDTO, RegisterPaymentMethodDTO, CheckoutDTO } from './checkout';
 
 export type ProductProps = {
   cart: ProductDTO;
@@ -84,14 +84,24 @@ export type ReviewDataProps = {
   paymentMethod: string;
 };
 
+export interface Address {
+  id: number;
+  name: string;
+  slug?: string;
+  visible: boolean;
+  parentAddress?: Address;
+  childAddresses: Array<Address>;
+}
+
 export type ProductState = {
-  products: Array<ProductDTO> | [];
+  products: Array<ProductDTO>;
   categories: Array<CategoriesDTO>;
-  paymentMethodsList: Array<PaymentMethodList>;
   cart: Array<ProductDTO>;
-  currentItem: ProductDTO | null;
-  address: RegisterAddressDTO | null; // Novo campo para endereço
-  paymentMethod: RegisterPaymentMethodDTO | null; // Novo campo para método de pagamento
+  currentItem: ProductDTO | Record<string, unknown>;
+  paymentMethodsList: Array<PaymentMethodList>;
+  addresses: Array<Address>;
+  address: CheckoutDTO | null;
+  paymentMethod: number | null;
   order: OrderType | null;
 };
 

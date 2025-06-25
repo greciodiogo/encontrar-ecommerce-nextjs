@@ -10,8 +10,9 @@ import {
   ClearCart,
   GetAllCategories,
   GetAllPaymentMethods,
+  GetAllAddresses,
 } from 'constants/products';
-import { CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
+import { Address, CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
 
 import { RegisterAddressDTO } from './checkout';
 
@@ -32,6 +33,10 @@ export type GetAllCategoriesAction = {
 export type GetAllPaymentMethodsAction = {
   type: typeof GetAllPaymentMethods;
 } & Action<{ paymentMethodsList: Array<PaymentMethodList> }>;
+
+export type GetAllAddressesAction = {
+  type: typeof GetAllAddresses;
+} & Action<{ addresses: Array<Address> }>;
 
 export type AddToCartAction = {
   type: typeof AddToCart;
@@ -84,6 +89,7 @@ export type ProductAction =
   | GetAllProductsAction
   | GetAllCategoriesAction
   | GetAllPaymentMethodsAction
+  | GetAllAddressesAction
   | AddToCartAction
   | RemoveFromCartAction
   | ClearCartAction

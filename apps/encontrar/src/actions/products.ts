@@ -12,10 +12,10 @@ import {
 } from 'constants/products';
 import { CatalogService } from 'lib/catalog';
 import { CheckoutDTO } from 'types/checkout';
-import { CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
+import { Address, CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
 import { SetAddressAction, SetOrderAction, SetPaymentMethodAction } from 'types/store';
 
-import { GetAllProducts, GetAllCategories, GetAllPaymentMethods } from './../constants/products';
+import { GetAllProducts, GetAllCategories, GetAllPaymentMethods, GetAllAddresses } from './../constants/products';
 
 type CartAction = {
   type: string;
@@ -67,6 +67,17 @@ export const getPaymentMethods = () => async (dispatch: Dispatch<CartAction>) =>
     dispatch({ type: GetAllPaymentMethods, payload: { paymentMethodsList: paymentMethods_ } });
   } catch (error) {
     console.error("Can't fetch all payment methods", error);
+  }
+};
+
+export const getAddresses = () => async (dispatch: Dispatch<CartAction>) => {
+  try {
+    const params = new URLSearchParams();
+    const addressesResponse = await catalog.getAddress(params);
+    const addresses = addressesResponse as Array<Address>;
+    dispatch({ type: GetAllAddresses, payload: { addresses } });
+  } catch (error) {
+    console.error("Can't fetch all addresses", error);
   }
 };
 

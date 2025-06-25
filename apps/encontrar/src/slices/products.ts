@@ -10,6 +10,7 @@ import {
   SetOrder,
   ClearCart,
   GetAllCategories,
+  GetAllAddresses,
 } from 'constants/products';
 // import { products } from 'fixture/ecommerceData';
 import { ProductState } from 'types/product';
@@ -23,6 +24,7 @@ const defaultState: ProductState = {
   products: [],
   categories: [],
   paymentMethodsList: [],
+  addresses: [],
   cart: [],
   currentItem: {},
   address: null,
@@ -88,6 +90,16 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
         ...state,
 
         paymentMethodsList: action.payload?.paymentMethodsList ?? [],
+      };
+
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case GetAllAddresses: {
+      const newState = {
+        ...state,
+        addresses: action.payload?.addresses ?? [],
       };
 
       saveStateToLocalStorage(newState);

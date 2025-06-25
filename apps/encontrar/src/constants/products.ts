@@ -1,10 +1,11 @@
 export const GetAllProducts = 'GetAllProducts';
 export const GetAllPaymentMethods = 'GetAllPaymentMethods';
 export const GetAllCategories = 'GetAllCategories';
-export const AddToCart = 'AddToCart';
-export const AdjustQty = 'AdjustQty';
-export const RemoveFromCart = 'RemoveFromCart';
-export const LoadCurrentItem = 'LoadCurrentItem';
+export const GetAllAddresses = 'GetAllAddresses';
+export const AddToCart = 'ADD_TO_CART';
+export const AdjustQty = 'ADJUST_QTY';
+export const RemoveFromCart = 'REMOVE_FROM_CART';
+export const LoadCurrentItem = 'LOAD_CURRENT_ITEM';
 export const ClearCart = 'ClearCart';
 export const SetAddress = 'SetAddress';
 export const SetPaymentMethod = 'SetPaymentMethod';
