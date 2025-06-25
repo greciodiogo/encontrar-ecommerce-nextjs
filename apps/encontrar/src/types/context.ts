@@ -11,6 +11,7 @@ export type AuthContextType = {
   login: (data: { email: string; password: string }) => Promise<boolean>;
   signup: (data: { firstName: string; email: string; password: string }) => Promise<boolean>;
   loginGoogle: (idToken: string) => void;
+  loginFacebook: (profile: any) => void;
   // login: (data: { username: string; password: string }) => Promise<boolean>;
   logout: () => void;
   refreshUser: () => Promise<void>;

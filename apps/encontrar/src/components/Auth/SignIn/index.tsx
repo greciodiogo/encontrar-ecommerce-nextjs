@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { GoogleLogin } from '@react-oauth/google';
 import { CredentialResponse as GoogleCredentialResponse } from '@react-oauth/google';
 
+import FacebookLogin from '@greatsumini/react-facebook-login';
 import { validationSchema } from 'utils/validationSchema';
 import { VerifyEmail } from '../VerifyEmail';
 import { AuthService } from 'lib/login';
@@ -59,7 +60,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     mode: 'all',
   });
 
-  const { login, loginGoogle, signup, selectedPrice } = useAuth();
+  const { login, loginGoogle, loginFacebook, signup, selectedPrice } = useAuth();
 
   const paymentMethods = ['fasmapay', 'multicaixa', 'CASH'];
   const availableMethods = paymentMethods.filter((method) => method !== selectedPrice);
@@ -138,6 +139,11 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     } catch (error) {
       console.error('Login failed:', error);
     }
+  };
+
+  const authenticate = (response) => {
+    console.log(response);
+    // Api call to server so we can validate the token
   };
 
   const onVerifyCodeSuccess = async () => {
@@ -260,13 +266,40 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
 
               <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
 
-              <button className={`${styles.btn} ${styles.outlinedBtn}`}>
+              <FacebookLogin
+                appId="1081193060565835"
+                onSuccess={(response) => {
+                  // Save Facebook user details
+                  loginFacebook(response);
+                  // Optionally redirect or show a toast
+                  console.log('Login Success!', response);
+                }}
+                onFail={(error) => {
+                  console.error('Login Failed!', error);
+                }}
+                onProfileSuccess={(profile) => {
+                  console.log('Get Profile Success!', profile);
+                }}
+                style={{
+                  backgroundColor: '#4267b2',
+                  color: '#fff',
+                  fontSize: '16px',
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  width: '100%',
+                  marginTop: 8,
+                }}
+              >
+                Login Com Facebook
+              </FacebookLogin>
+              {/* <button className={`${styles.btn} ${styles.outlinedBtn}`}>
                 <i>
                   <img src={`/assets_ecommerce/svg/Apple.png`} alt="apple" />
                 </i>
                 {t('login_with_apple')}
                 <span></span>
-              </button>
+              </button> */}
             </form>
           </div>
         </div>

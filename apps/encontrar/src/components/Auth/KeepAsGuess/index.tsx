@@ -7,6 +7,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { Control, FieldErrors, FieldValues, Path, useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import FacebookLogin from '@greatsumini/react-facebook-login';
 
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
@@ -39,7 +40,7 @@ export const AuthPage: React.FC = () => {
   const common = useTranslation('common');
   const [isSignup, setIsSignup] = useState<boolean>(false); // Começa com login
   const router = useRouter();
-  const { login, loginGoogle, signup } = useAuth();
+  const { login, loginGoogle, signup, loginFacebook } = useAuth();
   const authService = new AuthService();
   const [showAuth, setShowAuth] = useState(false);
   const [pendingSignupData, setPendingSignupData] = useState<FormValues | null>(null);
@@ -153,6 +154,11 @@ export const AuthPage: React.FC = () => {
     }
   };
 
+  const authenticate = (response) => {
+    console.log(response);
+    // Api call to server so we can validate the token
+  };
+
   return (
     <>
       <div className={styles.authPage} id="verify-email">
@@ -230,13 +236,34 @@ export const AuthPage: React.FC = () => {
 
               <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.error(t('google_login_error'))} />
 
-              <button className={`${styles.btn} ${styles.outlinedBtn}`}>
-                <i>
-                  <img src={`/assets_ecommerce/svg/Apple.png`} alt="apple" />
-                </i>
-                {t('login_with_apple')}
-                <span></span>
-              </button>
+              {/* Facebook Login Button */}
+              <FacebookLogin
+                appId="1081193060565835"
+                onSuccess={(response) => {
+                  // Save Facebook user details
+                  loginFacebook(response);
+                  // Optionally redirect or show a toast
+                  console.log('Login Success!', response);
+                }}
+                onFail={(error) => {
+                  console.error('Login Failed!', error);
+                }}
+                onProfileSuccess={(profile) => {
+                  console.log('Get Profile Success!', profile);
+                }}
+                style={{
+                  backgroundColor: '#4267b2',
+                  color: '#fff',
+                  fontSize: '16px',
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  width: '100%',
+                  marginTop: 8,
+                }}
+              >
+                Login Com Facebook
+              </FacebookLogin>
             </form>
           </div>
         </div>

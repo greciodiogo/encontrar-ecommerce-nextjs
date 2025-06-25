@@ -107,6 +107,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthenticated(true);
   };
 
+  const loginFacebook = (profile: any) => {
+    // You may want to validate the profile object here
+    const token = {
+      id: profile.id,
+      email: profile.email,
+      name: profile.name,
+      picture: profile.picture?.data?.url || '',
+      // Add other fields as needed
+    };
+    setCookie(null, 'accessToken', JSON.stringify(token), {
+      maxAge: 60 * 60 * 1, // 1 hour
+    });
+    setUser(token);
+    setIsAuthenticated(true);
+  };
+
   const login = async (data: { email: string; password: string }): Promise<boolean> => {
     try {
       const response = await authService.login({
@@ -189,6 +205,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         signup,
         loginGoogle,
+        loginFacebook,
         logout,
         refreshUser,
       }}
