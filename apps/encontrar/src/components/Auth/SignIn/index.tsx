@@ -31,7 +31,7 @@ type CredentialResponse = {
 } & GoogleCredentialResponse;
 
 type FormValues = {
-  nome: string;
+  nome?: string;
   email: string;
   password: string;
   confirmPassword?: string;
@@ -63,7 +63,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
   const { login, loginGoogle, loginFacebook, signup, selectedPrice } = useAuth();
 
   const paymentMethods = ['fasmapay', 'multicaixa', 'CASH'];
-  const availableMethods = paymentMethods.filter((method) => method !== selectedPrice);
+  const availableMethods = paymentMethods.filter((method) => method !== selectedPrice?.name);
 
   const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -71,8 +71,8 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
       localStorage.setItem('profile', JSON.stringify(formData));
     }
     showToast({
-      title: common.t('UNVAILABLE_PAYMENT_METHOD.title'),
-      message: common.t('UNVAILABLE_PAYMENT_METHOD.message'),
+      title: String(common.t('UNVAILABLE_PAYMENT_METHOD.title')),
+      message: String(common.t('UNVAILABLE_PAYMENT_METHOD.message')),
     });
     setFormData(INITIALSTATE);
   };
@@ -91,7 +91,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         await authService.sendCode({ email: data.email });
         setShowAuth(true);
       } catch (error) {
-        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+        toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
           position: 'top-right',
           autoClose: 3000,
         });
@@ -102,7 +102,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         const result = await toast.promise(
           login({ email: data.email, password: data.password }),
           {
-            pending: common.t('AUTHENTICATION_PENDING.title'),
+            pending: String(common.t('AUTHENTICATION_PENDING.title')),
           },
           {
             position: 'top-right',
@@ -111,13 +111,13 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         );
 
         if (result) {
-          toast.success(common.t('AUTHENTICATION_SUCCESS.title'), {
+          toast.success(String(common.t('AUTHENTICATION_SUCCESS.title')), {
             position: 'top-right',
             autoClose: 1000,
           });
           void router.push('/');
         } else {
-          toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+          toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
             position: 'top-right',
             autoClose: 3000,
           });
@@ -141,7 +141,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
     }
   };
 
-  const authenticate = (response) => {
+  const authenticate = (response: any) => {
     console.log(response);
     // Api call to server so we can validate the token
   };
@@ -157,7 +157,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
           password: pendingSignupData.password,
         }),
         {
-          pending: common.t('AUTHENTICATION_PENDING.title'),
+          pending: String(common.t('AUTHENTICATION_PENDING.title')),
         },
         {
           position: 'top-right',
@@ -166,7 +166,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
       );
 
       if (result) {
-        toast.success(common.t('AUTHENTICATION_SUCCESS.title'), {
+        toast.success(String(common.t('AUTHENTICATION_SUCCESS.title')), {
           position: 'top-right',
           autoClose: 1000,
         });
@@ -174,7 +174,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         setPendingSignupData(null);
         void router.push('/');
       } else {
-        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+        toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
           position: 'top-right',
           autoClose: 3000,
         });

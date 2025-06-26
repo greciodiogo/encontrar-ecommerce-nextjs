@@ -200,6 +200,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         isClient,
         isAuthenticated,
+        isLoading,
         selectedPrice,
         setSelectedPrice,
         login,

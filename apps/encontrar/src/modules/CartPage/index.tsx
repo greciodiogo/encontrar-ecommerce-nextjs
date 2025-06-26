@@ -19,7 +19,7 @@ export const CartPage = () => {
   const productCart = useAppSelector((state: RootState) => state.products.cart);
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
-  const { isAuthenticated, isClient } = useAuth();
+  const { isAuthenticated, isClient, isLoading } = useAuth();
   const { t } = useTranslation('cart');
 
   const router = useRouter();
@@ -31,12 +31,19 @@ export const CartPage = () => {
   };
 
   const handleGoToCheckout = () => {
+    if (isLoading) {
+      return;
+    }
     if (!isAuthenticated) {
       setShowAuth(true);
     } else {
       void router.push('/checkout');
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (productCart.length < 1) {
     return <EmptyCart />;

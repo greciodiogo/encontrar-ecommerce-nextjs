@@ -5,6 +5,7 @@ import { CategoriesDTO, PaymentMethodList, ProductDTO } from './product';
 export type AuthContextType = {
   isClient: boolean;
   isAuthenticated: boolean;
+  isLoading: boolean;
   selectedPrice: PaymentMethodList | null;
   setSelectedPrice: React.Dispatch<React.SetStateAction<PaymentMethodList | null>>;
   user: DecodedPayload | null;
