@@ -6,7 +6,8 @@
     "phone_number": "Número de Telemóvel",
     "country": "País",
     "city": "Cidade",
-    "municipality": "Município"
+    "municipality": "Município",
+    "district": "Distrito"
   },
   "success": {
     "title": "O seu pedido foi realizado com sucesso",

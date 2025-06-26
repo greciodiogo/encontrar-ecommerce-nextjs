@@ -7,10 +7,11 @@ import { ControlledTextField } from 'hooks/useFormHandler';
 import { useAuth } from 'hooks/useAuth';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { Address, RootState } from 'types/product';
-import { getAddresses } from 'actions/products';
+import { getAddresses, setAddress } from 'actions/products';
+import { useFormContext } from 'react-hook-form';
 
 // Define os campos do formulário
-type AddressFormData = {
+export type AddressFormData = {
   name: string;
   email: string;
   pais: string;
@@ -32,6 +33,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
   const dispatch = useAppDispatch();
   const addresses = useAppSelector((state: RootState) => state.products.addresses);
   const [selectedMunicipio, setSelectedMunicipio] = useState<Address | null>(null);
+  const { watch } = useFormContext<AddressFormData>();
+  const values = watch();
 
   const municipioValue = control._getWatch('municipio');
 
@@ -77,6 +80,20 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
       }
     }
   }, [setValue, isAuthenticated, user]);
+
+  // Real-time address saving
+  React.useEffect(() => {
+    const addressData = {
+      name: values.name || '',
+      email: values.email || '',
+      pais: values.pais || '',
+      cidade: values.cidade || '',
+      telefone: values.telefone || '',
+      municipio: values.municipio || '',
+      distrito: values.distrito || '',
+    };
+    dispatch(setAddress(addressData));
+  }, [values, dispatch]);
 
   return (
     <div className="row mt-4">

@@ -11,9 +11,7 @@ export const PaymentStep = () => {
 
   const setPayment = (method: PaymentMethodList) => {
     setSelectedPrice(method);
-    // dispatch(
-    //   setPaymentMethod(method.id),
-    // );
+    dispatch(setPaymentMethod(method.id));
   };
 
   useEffect(() => {

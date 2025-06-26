@@ -4,7 +4,7 @@ import { Box, Stepper, Step, StepLabel } from '@mui/material';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
 
 import { setAddress, setPaymentMethod, setOrder } from 'actions/products';
@@ -20,6 +20,7 @@ import { useAppDispatch } from '../../hooks';
 import { AddressForm } from './AddressForm';
 import { PaymentStep } from './PaymentStep';
 import { ReviewStep } from './Review';
+import type { AddressFormData } from './AddressForm';
 
 export const CheckoutPage = () => {
   const { t } = useTranslation('checkout');
@@ -32,6 +33,10 @@ export const CheckoutPage = () => {
 
   const steps = [t('steps.address'), t('steps.payment'), t('steps.review')];
 
+  const methods = useForm<AddressFormData>({
+    resolver: yupResolver(validationSchema.step_user),
+    mode: 'all',
+  });
   const {
     control,
     handleSubmit,
@@ -39,10 +44,7 @@ export const CheckoutPage = () => {
     setValue,
     getValues,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema.step_user),
-    mode: 'all',
-  });
+  } = methods;
 
   const saveOrder = () => {
     dispatch(
@@ -91,9 +93,19 @@ export const CheckoutPage = () => {
   };
 
   const handleFormSubmit = () => {
-    const checkoutData = getValues();
+    const data = getValues();
+    // Ensure all fields are present and empty fields are sent as ""
+    const addressData = {
+      name: data.name || '',
+      email: data.email || '',
+      pais: data.pais || '',
+      cidade: data.cidade || '',
+      telefone: data.telefone || '',
+      municipio: data.municipio || '',
+      distrito: data.distrito || '',
+    };
     try {
-      dispatch(setAddress(checkoutData));
+      dispatch(setAddress(addressData));
     } catch (err) {
       console.error('Erro ao processar o formulário:', err);
     }
@@ -104,40 +116,42 @@ export const CheckoutPage = () => {
       <div className="checkoutPage" id="checkout-container">
         <div className="checkoutPage__container">
           <div ref={formRef}>
-            <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
-              <div className="modal-body">
-                <Stepper activeStep={activeStep} alternativeLabel>
-                  {steps.map((label) => (
-                    <Step key={label}>
-                      <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
+            <FormProvider {...methods}>
+              <form onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
+                <div className="modal-body">
+                  <Stepper activeStep={activeStep} alternativeLabel>
+                    {steps.map((label) => (
+                      <Step key={label}>
+                        <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
 
-                <div className="form__container">
-                  <div className="content">
-                    <h4>{t(`titles.step${String(activeStep)}`)}</h4>
-                    <p>{t(`descriptions.step${String(activeStep)}`)}</p>
-                  </div>
-                  <Box sx={{ mt: 2, mb: 1 }}>
-                    {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
-                    {activeStep === 1 && <PaymentStep />}
-                    {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
-                  </Box>
-                  {activeStep !== steps.length - 1 && (
-                    <div className="col-md-12">
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button onClick={handleNextStep} type="button" className="btn btn-primary">
-                          <i className="fa fa-arrow-left"></i>{' '}
-                          {activeStep === steps.length - 1 ? t('finish') : t('next')}
-                        </button>
-                        <ToastContainer {...toastProps} />
-                      </div>
+                  <div className="form__container">
+                    <div className="content">
+                      <h4>{t(`titles.step${String(activeStep)}`)}</h4>
+                      <p>{t(`descriptions.step${String(activeStep)}`)}</p>
                     </div>
-                  )}
+                    <Box sx={{ mt: 2, mb: 1 }}>
+                      {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
+                      {activeStep === 1 && <PaymentStep />}
+                      {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
+                    </Box>
+                    {activeStep !== steps.length - 1 && (
+                      <div className="col-md-12">
+                        <div className="btn-group" role="group" aria-label="Basic example">
+                          <button onClick={handleNextStep} type="button" className="btn btn-primary">
+                            <i className="fa fa-arrow-left"></i>{' '}
+                            {activeStep === steps.length - 1 ? t('finish') : t('next')}
+                          </button>
+                          <ToastContainer {...toastProps} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </FormProvider>
           </div>
         </div>
       </div>
