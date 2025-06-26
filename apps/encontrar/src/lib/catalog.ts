@@ -68,6 +68,16 @@ export class CatalogService {
     const queryString = buildQueryString(params);
     return await this.fetchCategories(queryString);
   }
+
+  async fetchOrderHistory(queryString: string) {
+    const response = await ApiService.get(`/orders/by-email?${queryString}`);
+    return response.data;
+  }
+
+  async getOrderHistory(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchCategories(queryString);
+  }
   async fetchPaymentMethods(queryString: string) {
     const response = await ApiService.get(`/payment-methods`);
     return response.data;
