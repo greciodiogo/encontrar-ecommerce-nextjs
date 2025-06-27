@@ -23,11 +23,13 @@ export const CategoriesTree = () => {
   // Criação da árvore (equivalente a createTree)
   const buildTree = (categories: CategoriesDTO[]): CategoriesDTO[] => {
     const map: Record<number, CategoriesDTO> = {};
-    categories.forEach((cat) => {
+    const sortedCategories = [...categories].sort((a, b) => a.name.localeCompare(b.name));
+
+    sortedCategories.forEach((cat) => {
       map[cat.id] = { ...cat, childCategories: [] };
     });
     const tree: CategoriesDTO[] = [];
-    categories.forEach((cat) => {
+    sortedCategories.forEach((cat) => {
       if (cat.parentCategory?.id) {
         map[cat.parentCategory.id]?.childCategories.push(map[cat.id]);
       } else {
