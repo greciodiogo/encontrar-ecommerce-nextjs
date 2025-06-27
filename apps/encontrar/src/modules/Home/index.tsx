@@ -65,25 +65,25 @@ export const Homepage = () => {
       <Categories />
       <PromoCarousel />
       <Products />
-      <WhyUs />
       {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
       <CheapestProducts products={trendingProducts} bannerText="Trending Products" />
-      <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_food_deals')} />
-      {/* <div className="productsPage noBorder">
+      {/* <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_food_deals')} /> */}
+      <div className="productsPage noBorder">
         <div className="productsPage__container">
           <PromotionBanner />
         </div>
-      </div> */}
-      {/* <PromotionProducts
+      </div>
+      <PromotionProducts
         products={productsList}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
-      /> */}
+      />
       {/* <OtherProducts
         products={filteredProducts}
         bannerText={t('cheapest_products.other_products')}
         hasButtons={false}
-      /> */}
+        /> */}
+      <WhyUs />
       <div className="about_policy">
         <div className="about_policy_container">
           <ContactSupport />{' '}

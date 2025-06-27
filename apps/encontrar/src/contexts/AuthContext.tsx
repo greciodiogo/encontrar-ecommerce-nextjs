@@ -14,6 +14,14 @@ type CookiesProps = {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function persistUser(user: DecodedPayload | null) {
+  if (user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  } else {
+    localStorage.removeItem('user');
+  }
+}
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState<PaymentMethodList | null>(null);
@@ -24,6 +32,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setIsClient(true);
+    // Restore user from localStorage if present
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setUser(parsed);
+        setIsAuthenticated(true);
+      } catch {}
+    }
   }, []);
 
   const fetchUser = async () => {
@@ -44,10 +61,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       };
       setUser(data);
       setIsAuthenticated(true);
+      persistUser(data);
     } catch (error) {
       console.warn('Usuário não autenticado:', error);
       setUser(null);
       setIsAuthenticated(false);
+      persistUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -105,6 +124,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     setUser(token);
     setIsAuthenticated(true);
+    persistUser(token);
   };
 
   const loginFacebook = (profile: any) => {
@@ -121,6 +141,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     setUser(token);
     setIsAuthenticated(true);
+    persistUser(token);
   };
 
   const login = async (data: { email: string; password: string }): Promise<boolean> => {
@@ -143,10 +164,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setUser(userInfo);
       setIsAuthenticated(true);
+      persistUser(userInfo);
 
       return true;
     } catch (error) {
       console.error('Login error:', error);
+      setUser(null);
+      setIsAuthenticated(false);
+      persistUser(null);
       return false;
     }
   };
@@ -173,10 +198,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setUser(userInfo);
       setIsAuthenticated(true);
+      persistUser(userInfo);
 
       return true;
     } catch (error) {
       console.error('Signup error:', error);
+      setUser(null);
+      setIsAuthenticated(false);
+      persistUser(null);
       return false;
     }
   };
@@ -192,6 +221,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Clear local state
     setUser(null);
     setIsAuthenticated(false);
+    persistUser(null);
   };
 
   return (
