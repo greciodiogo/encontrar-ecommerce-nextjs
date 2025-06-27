@@ -25,6 +25,7 @@ export const validationSchema = {
     pais: yup.string().required('O País é obrigatório'),
     cidade: yup.string().required('A cidade é obrigatória'),
     municipio: yup.string().required('O Municipio é obrigatório'),
+    distrito: yup.string(),
     telefone: yup
       .string()
       .matches(/^\d{9,10}$/, 'O telefone deve conter 9 dígitos')

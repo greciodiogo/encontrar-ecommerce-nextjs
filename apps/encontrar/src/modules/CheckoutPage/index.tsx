@@ -133,7 +133,7 @@ export const CheckoutPage = () => {
                       <p>{t(`descriptions.step${String(activeStep)}`)}</p>
                     </div>
                     <Box sx={{ mt: 2, mb: 1 }}>
-                      {activeStep === 0 && <AddressForm setValue={setValue} errors={errors} control={control} />}
+                      {activeStep === 0 && <AddressForm />}
                       {activeStep === 1 && <PaymentStep />}
                       {activeStep === 2 && <ReviewStep handleNextStep={handleNextStep} />}
                     </Box>

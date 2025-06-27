@@ -78,6 +78,8 @@ export const ProductDetailPage = () => {
               <h4>Trending Products</h4>
             </div>
           </div>
+
+          <ReviewsInfo setIsOpen={setIsOpen} />
           <div className="" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', width: '100%' }}>
             <Swiper
               modules={[Autoplay]}

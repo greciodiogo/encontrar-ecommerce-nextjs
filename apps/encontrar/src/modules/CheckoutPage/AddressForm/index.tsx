@@ -1,14 +1,13 @@
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
-import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, useFormContext, UseFormSetValue } from 'react-hook-form';
 
-import { ControlledSelectField } from 'hooks/ControlledSelectField';
-import { ControlledTextField } from 'hooks/useFormHandler';
-import { useAuth } from 'hooks/useAuth';
-import { useAppSelector, useAppDispatch } from 'hooks';
-import { Address, RootState } from 'types/product';
 import { getAddresses, setAddress } from 'actions/products';
-import { useFormContext } from 'react-hook-form';
+import { ControlledSelectField } from 'hooks/ControlledSelectField';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAuth } from 'hooks/useAuth';
+import { ControlledTextField } from 'hooks/useFormHandler';
+import { Address, RootState } from 'types/product';
 
 // Define os campos do formulário
 export type AddressFormData = {
@@ -18,25 +17,30 @@ export type AddressFormData = {
   cidade: string;
   telefone: string;
   municipio: string;
-  distrito: string;
+  distrito?: string;
 };
 
 type AddressFormProps = {
-  control: Control<AddressFormData>;
-  errors: FieldErrors<AddressFormData>;
-  setValue: UseFormSetValue<AddressFormData>;
+  control?: Control<AddressFormData>;
+  errors?: FieldErrors<AddressFormData>;
+  setValue?: UseFormSetValue<AddressFormData>;
 };
 
-export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setValue }) => {
+export const AddressForm: React.FC<AddressFormProps> = (props) => {
   const { t } = useTranslation('checkout');
+  const context = useFormContext<AddressFormData>();
   const { user, isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const addresses = useAppSelector((state: RootState) => state.products.addresses);
   const [selectedMunicipio, setSelectedMunicipio] = useState<Address | null>(null);
-  const { watch } = useFormContext<AddressFormData>();
+
+  const control = props.control ?? context.control;
+  const errors = props.errors ?? context.formState.errors;
+  const setValue = props.setValue ?? context.setValue;
+  const watch = context.watch;
   const values = watch();
 
-  const municipioValue = control._getWatch('municipio');
+  const municipioValue = watch('municipio');
 
   // Filter for top-level addresses (municipalities) where parentAddress is null
   const municipioOptions = addresses
@@ -60,39 +64,45 @@ export const AddressForm: React.FC<AddressFormProps> = ({ control, errors, setVa
     if (municipioValue && addresses) {
       const selected = addresses.find((address) => address.name === municipioValue);
       setSelectedMunicipio(selected || null);
-      setValue('distrito', ''); // Reset district when municipality changes
+      if (setValue) {
+        setValue('distrito', ''); // Reset district when municipality changes
+      }
     } else {
       setSelectedMunicipio(null);
     }
   }, [municipioValue, addresses, setValue]);
 
   useEffect(() => {
-    setValue('pais', 'Angola');
-    setValue('cidade', 'Luanda');
+    if (setValue) {
+      setValue('pais', 'Angola');
+      setValue('cidade', 'Luanda');
 
-    // Pre-fill name and email if user is authenticated
-    if (isAuthenticated && user) {
-      if (user.name) {
-        setValue('name', user.name);
-      }
-      if (user.email) {
-        setValue('email', user.email);
+      // Pre-fill name and email if user is authenticated
+      if (isAuthenticated && user) {
+        if (user.name) {
+          setValue('name', user.name);
+        }
+        if (user.email) {
+          setValue('email', user.email);
+        }
       }
     }
   }, [setValue, isAuthenticated, user]);
 
   // Real-time address saving
   React.useEffect(() => {
-    const addressData = {
-      name: values.name || '',
-      email: values.email || '',
-      pais: values.pais || '',
-      cidade: values.cidade || '',
-      telefone: values.telefone || '',
-      municipio: values.municipio || '',
-      distrito: values.distrito || '',
-    };
-    dispatch(setAddress(addressData));
+    if (values) {
+      const addressData = {
+        name: values.name || '',
+        email: values.email || '',
+        pais: values.pais || '',
+        cidade: values.cidade || '',
+        telefone: values.telefone || '',
+        municipio: values.municipio || '',
+        distrito: values.distrito || '',
+      };
+      dispatch(setAddress(addressData));
+    }
   }, [values, dispatch]);
 
   return (
