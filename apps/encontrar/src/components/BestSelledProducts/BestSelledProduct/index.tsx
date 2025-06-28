@@ -1,10 +1,11 @@
 import StarIcon from '@mui/icons-material/Star';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LuShoppingCart } from 'react-icons/lu';
 
 import { ProductImage } from 'components/PhotoView';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { fetchProductRatings } from 'actions/products';
 import { FnService } from 'shared/utils/FnService';
 import { ProductTypeProps, RootState } from 'types/product';
 
@@ -17,10 +18,26 @@ export const BestSelledProduct = ({
   hasDescription = false,
 }: ProductTypeProps) => {
   const { t } = useTranslation('common'); // Certifique-se de que o namespace está correto
+  const dispatch = useAppDispatch();
   const productCart = useAppSelector((state: RootState) => state.products.cart);
+  const ratings = useAppSelector((state: RootState) =>
+    state.products.ratings && product.id ? state.products.ratings[product.id] : [],
+  );
+
   const { id, name, price, promotional_price, stock = 1, description, is_promotion } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
+
+  useEffect(() => {
+    if (typeof id === 'number' && id > 0) {
+      dispatch(fetchProductRatings(id));
+    }
+  }, [id, dispatch]);
+
+  const averageRating =
+    (ratings || []).length > 0
+      ? Math.round((ratings || []).reduce((sum, review) => sum + review.rating, 0) / (ratings || []).length)
+      : 5; // Default to 5 stars if no ratings
 
   const handleAddToCartClick = (event: React.MouseEvent<HTMLAnchorElement>, id = 0) => {
     event.preventDefault();
@@ -61,9 +78,9 @@ export const BestSelledProduct = ({
       <div className="content">
         {hasStars && (
           <div className="star_container">
-            {[1, 2, 3, 4].map((__, index) => (
-              <i key={index}>
-                <StarIcon fontSize="small" htmlColor="#EBC80C" />
+            {[1, 2, 3, 4, 5].map((star) => (
+              <i key={star}>
+                <StarIcon fontSize="small" htmlColor={star <= averageRating ? '#EBC80C' : '#ccc'} />
               </i>
             ))}
           </div>
