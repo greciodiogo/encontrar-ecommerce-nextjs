@@ -7,39 +7,27 @@ import React from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
-import { useProductContext } from 'hooks/useProductContext';
 import { ProductDTO } from 'types/product';
-
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from 'hooks';
 
 export const PromotionProducts = ({
-  products,
+  promotionProducts,
   hasButtons = true,
 }: {
   bannerText?: string;
   hasButtons?: boolean;
-  products: Array<ProductDTO>;
+  promotionProducts: ProductDTO[];
 }) => {
   const dispatch = useAppDispatch();
-  const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
-  const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
-
+  const { t } = useTranslation('home');
   const router = useRouter();
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
-    //
-  };
-
-  const goToCategories = (categorySlug: string) => {
-    setSelectedCategories([]);
-    toggleSelection(selectedCategories, setSelectedCategories, categorySlug);
-    // void router.push(`/products`);
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {
     dispatch(loadCurrentItem(productDTO));
-    // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
     void router.push('/preview-product');
   };
 
@@ -51,17 +39,16 @@ export const PromotionProducts = ({
             <h2>Promoções</h2>
             <p>Aproveita +10% desconto em talão nas tuas categorias favoritas!</p>
           </div>
-          <button className="more_categories" onClick={() => goToCategories('Promoções')}>
+          <button className="more_categories" onClick={() => router.push('/products')}>
             {t('products.search_products')}
-
             <i>
               <EastIcon fontSize="small" fill="#BD7B2D" />
             </i>
           </button>
         </div>
-        {products && products.length > 0 ? (
+        {promotionProducts && promotionProducts.length > 0 ? (
           <ul className="wrapper">
-            {products
+            {promotionProducts
               .map((product, itemIndex) => (
                 <BestSelledProduct
                   product={product}
@@ -75,7 +62,7 @@ export const PromotionProducts = ({
               .slice(0, 10)}
           </ul>
         ) : (
-          <p>Carregando produtos...</p> // ou um spinner de loading
+          <p>Carregando produtos...</p>
         )}
       </div>
     </div>

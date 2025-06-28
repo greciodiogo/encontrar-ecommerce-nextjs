@@ -85,7 +85,7 @@ export const ProductDetailPage = () => {
               spaceBetween={10}
               slidesPerView={'auto'}
               loop
-              speed={1000}
+              speed={5000}
               autoplay={{
                 delay: 0,
                 disableOnInteraction: false,

@@ -1,6 +1,14 @@
 import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// Import Swiper components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { ProductDTO } from 'types/product';
@@ -21,6 +29,22 @@ export const BestSelledProducts = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  // State to track screen width
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check screen width on mount and resize
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsMobile(window.innerWidth <= 650);
+    };
+
+    checkScreenWidth();
+    window.addEventListener('resize', checkScreenWidth);
+
+    return () => window.removeEventListener('resize', checkScreenWidth);
+  }, []);
+
   const handlepreviewProduct = (productDTO: ProductDTO) => {
     dispatch(loadCurrentItem(productDTO));
     // router.push('/preview-product').catch((err) => console.error('Erro ao redirecionar:', err));
@@ -49,20 +73,43 @@ export const BestSelledProducts = ({
             </i>
           </button>
         </div>
-        <div className="wrapper">
-          <div className="wrapper_list bestselled">
-            <BestSelledProduct
-              product={bestSelledProduct.data}
-              handleAddToCart={handleAddToCart}
-              handlepreviewProduct={handlepreviewProduct}
-            />
-            <ul className="subcategories bestselled">
-              {products.map((item, itemIndex: number) => (
-                <Product product={item} key={itemIndex} handlepreviewProduct={handlepreviewProduct} />
-              ))}
-            </ul>
+
+        {isMobile ? (
+          // Swiper for mobile devices (≤650px)
+          <Swiper
+            modules={[Autoplay, Navigation, Pagination]}
+            spaceBetween={0}
+            slidesPerView={2.5}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className="trending-swiper"
+          >
+            {products.map((item, itemIndex: number) => (
+              <SwiperSlide key={itemIndex}>
+                <Product product={item} handlepreviewProduct={handlepreviewProduct} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          // Regular layout for larger devices (>650px)
+          <div className="wrapper">
+            <div className="wrapper_list bestselled">
+              <BestSelledProduct
+                product={bestSelledProduct.data}
+                handleAddToCart={handleAddToCart}
+                handlepreviewProduct={handlepreviewProduct}
+              />
+              <ul className="subcategories bestselled">
+                {products.map((item, itemIndex: number) => (
+                  <Product product={item} key={itemIndex} handlepreviewProduct={handlepreviewProduct} />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

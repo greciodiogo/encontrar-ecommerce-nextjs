@@ -4,8 +4,16 @@ import EastIcon from '@mui/icons-material/East';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from 'hooks/useAuth';
+// Import Swiper components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
@@ -20,8 +28,29 @@ export const Products = () => {
   const router = useRouter();
   const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
 
+  // State to track screen width
+  const [isMobile, setIsMobile] = useState(false);
+
   const promotionsCategory = categoriesList.find((item) => item.slug === 'promotions');
   const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
+
+  // Filter and sort categories
+  const filteredCategories = [...(otherCategories || [])]
+    .filter((category) => allowedSlugs.includes(category.slug))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 7);
+
+  // Check screen width on mount and resize
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsMobile(window.innerWidth <= 650);
+    };
+
+    checkScreenWidth();
+    window.addEventListener('resize', checkScreenWidth);
+
+    return () => window.removeEventListener('resize', checkScreenWidth);
+  }, []);
 
   const goToCategories = (category: CategoriesDTO) => {
     toggleSelection(selectedCategories, setSelectedCategories, category);
@@ -35,6 +64,7 @@ export const Products = () => {
   if (!isClient) {
     return null; // Ou retornar algo simples para renderizar enquanto o componente carrega
   }
+
   return (
     <div className="products simple">
       <div className="products_container">
@@ -47,20 +77,42 @@ export const Products = () => {
             </i>
           </button>
         </div>
-        <div className="wrap_item">
-          {
-            [...(otherCategories || [])]
-              .filter((category) => allowedSlugs.includes(category.slug)) // Filtra pelas slugs desejadas
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((category, index) => {
-                const staticCategory = new_categories.find((c) => c.slug === category.slug);
-                const image = staticCategory?.image || 'default.png';
 
-                return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
-              })
-              .slice(0, 7) // Ajuste o slice se quiser limitar a quantidade
-          }
-        </div>
+        {isMobile ? (
+          // Swiper for mobile devices (≤650px)
+          <Swiper
+            modules={[Autoplay, Navigation, Pagination]}
+            spaceBetween={0}
+            slidesPerView={2.5}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className="products-swiper"
+          >
+            {filteredCategories.map((category, index) => {
+              const staticCategory = new_categories.find((c) => c.slug === category.slug);
+              const image = staticCategory?.image || 'default.png';
+
+              return (
+                <SwiperSlide key={index}>
+                  <CategoryItem category={{ ...category, image }} goToCategories={goToCategories} />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        ) : (
+          // Regular flex layout for larger devices (>650px)
+          <div className="wrap_item">
+            {filteredCategories.map((category, index) => {
+              const staticCategory = new_categories.find((c) => c.slug === category.slug);
+              const image = staticCategory?.image || 'default.png';
+
+              return <CategoryItem key={index} category={{ ...category, image }} goToCategories={goToCategories} />;
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -25,6 +25,7 @@ export const Homepage = () => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
   const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
+  const [promotionProducts, setPromotionProducts] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -60,29 +61,45 @@ export const Homepage = () => {
     }
   }, [categoriesList]);
 
+  useEffect(() => {
+    const fetchPromotionProducts = async (categoryId: number) => {
+      try {
+        const res = await fetch(`${BASE_URL}/categories/${categoryId}/products`);
+        if (res.ok) {
+          const data = await res.json();
+          setPromotionProducts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching promotion products:', error);
+      }
+    };
+
+    if (categoriesList.length > 0) {
+      const promotionCategory = categoriesList.find((category) => category.name === 'Promotions');
+      if (promotionCategory) {
+        void fetchPromotionProducts(promotionCategory.id);
+      }
+    }
+  }, [categoriesList]);
+
   return (
     <Container useStyle={false}>
       <Categories />
       <PromoCarousel />
       <Products />
-      {/* <BestSelledProducts bestSelledProduct={bestSelledProduct} products={props.products} /> */}
-      <CheapestProducts products={trendingProducts} bannerText="Trending Products" />
-      {/* <CheapestProducts products={productsList} bannerText={t('cheapest_products.best_food_deals')} /> */}
-      <div className="productsPage noBorder">
-        <div className="productsPage__container">
-          <PromotionBanner />
-        </div>
-      </div>
-      <PromotionProducts
-        products={productsList}
-        bannerText={t('cheapest_products.other_products')}
-        hasButtons={false}
-      />
-      {/* <OtherProducts
-        products={filteredProducts}
-        bannerText={t('cheapest_products.other_products')}
-        hasButtons={false}
-        /> */}
+      {trendingProducts && trendingProducts.length > 0 && (
+        <CheapestProducts products={trendingProducts} bannerText="Trending Products" />
+      )}
+      {promotionProducts && promotionProducts.length > 0 && (
+        <>
+          <div className="productsPage noBorder">
+            <div className="productsPage__container">
+              <PromotionBanner />
+            </div>
+          </div>
+          <PromotionProducts promotionProducts={promotionProducts} hasButtons={false} />
+        </>
+      )}
       <WhyUs />
       <div className="about_policy">
         <div className="about_policy_container">
