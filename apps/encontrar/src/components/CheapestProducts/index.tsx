@@ -88,6 +88,7 @@ export const CheapestProducts = ({
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
+                reverseDirection: true,
               }}
               loop={true}
               className="cheapest-swiper"
