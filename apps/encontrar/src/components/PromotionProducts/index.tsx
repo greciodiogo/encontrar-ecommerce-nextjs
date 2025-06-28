@@ -3,7 +3,14 @@ import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/router';
 // import useTranslation from 'next-translate/useTranslation';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// Import Swiper components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
@@ -22,6 +29,31 @@ export const PromotionProducts = ({
   const { t } = useTranslation('home');
   const router = useRouter();
 
+  // State to track screen width
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check screen width on mount and resize
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      const newIsMobile = window.innerWidth <= 650;
+      setIsMobile(newIsMobile);
+    };
+
+    checkScreenWidth();
+    window.addEventListener('resize', checkScreenWidth);
+
+    return () => window.removeEventListener('resize', checkScreenWidth);
+  }, []);
+
+  // Debug logging
+  useEffect(() => {
+    console.log('PromotionProducts render:', {
+      isMobile,
+      promotionProductsLength: promotionProducts?.length,
+      hasProducts: promotionProducts && promotionProducts.length > 0,
+    });
+  }, [isMobile, promotionProducts]);
+
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
   };
@@ -29,6 +61,28 @@ export const PromotionProducts = ({
   const handlepreviewProduct = (productDTO: ProductDTO) => {
     dispatch(loadCurrentItem(productDTO));
     void router.push('/preview-product');
+  };
+
+  // Swiper configuration
+  const swiperConfig = {
+    modules: [Autoplay],
+    spaceBetween: 10,
+    slidesPerView: 2.5,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    loop: true,
+    className: 'promotion-swiper',
+    onSwiper: (swiper: any) => {
+      console.log('Promotion Swiper initialized:', swiper);
+    },
+    onSlideChange: () => {
+      console.log('Promotion slide changed');
+    },
+    onError: (error: any) => {
+      console.error('Promotion Swiper error:', error);
+    },
   };
 
   return (
@@ -46,21 +100,42 @@ export const PromotionProducts = ({
             </i>
           </button>
         </div>
+
         {promotionProducts && promotionProducts.length > 0 ? (
-          <ul className="wrapper">
-            {promotionProducts
-              .map((product, itemIndex) => (
-                <BestSelledProduct
-                  product={product}
-                  hasStars={false}
-                  hasButtons={hasButtons}
-                  handleAddToCart={handleAddToCart}
-                  handlepreviewProduct={handlepreviewProduct}
-                  key={itemIndex}
-                />
-              ))
-              .slice(0, 10)}
-          </ul>
+          isMobile ? (
+            // Swiper for mobile devices (≤650px)
+            <div style={{ width: '100%', overflow: 'hidden' }}>
+              <Swiper {...swiperConfig}>
+                {promotionProducts.slice(0, 10).map((product, itemIndex) => (
+                  <SwiperSlide key={itemIndex}>
+                    <BestSelledProduct
+                      product={product}
+                      hasStars={false}
+                      hasButtons={hasButtons}
+                      handleAddToCart={handleAddToCart}
+                      handlepreviewProduct={handlepreviewProduct}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            // Regular layout for larger devices (>650px)
+            <ul className="wrapper">
+              {promotionProducts
+                .map((product, itemIndex) => (
+                  <BestSelledProduct
+                    product={product}
+                    hasStars={false}
+                    hasButtons={hasButtons}
+                    handleAddToCart={handleAddToCart}
+                    handlepreviewProduct={handlepreviewProduct}
+                    key={itemIndex}
+                  />
+                ))
+                .slice(0, 10)}
+            </ul>
+          )
         ) : (
           <p>Carregando produtos...</p>
         )}

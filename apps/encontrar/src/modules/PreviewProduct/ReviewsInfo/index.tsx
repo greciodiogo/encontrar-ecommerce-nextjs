@@ -37,8 +37,6 @@ export const ReviewsInfo = ({ setIsOpen, productId }: ReviewsInfoProps) => {
       <p>
         {t('reviewsForItem')} <span>{ratings.length}</span>
       </p>
-      <button onClick={handleClick}>{t('openReview')}</button>
-
       <div className="ratings-list">
         {ratings.length === 0 && <p>No reviews yet.</p>}
         {ratings.map((review) => (
@@ -58,6 +56,9 @@ export const ReviewsInfo = ({ setIsOpen, productId }: ReviewsInfoProps) => {
           </div>
         ))}
       </div>
+      <button className="avaliar-btn" onClick={handleClick}>
+        {t('openReview')}
+      </button>
     </div>
   );
 };

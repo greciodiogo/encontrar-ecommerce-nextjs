@@ -82,10 +82,10 @@ export const Products = () => {
           // Swiper for mobile devices (≤650px)
           <Swiper
             modules={[Autoplay, Navigation, Pagination]}
-            spaceBetween={0}
-            slidesPerView={2.5}
+            spaceBetween={10}
+            slidesPerView={3}
             autoplay={{
-              delay: 2000,
+              delay: 2500,
               disableOnInteraction: false,
             }}
             loop={true}
