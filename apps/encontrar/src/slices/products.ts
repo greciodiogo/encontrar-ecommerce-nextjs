@@ -175,6 +175,19 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       return newState;
     }
 
+    case 'SET_PRODUCT_RATINGS': {
+      const { productId, ratings } = action.payload;
+      const newState = {
+        ...state,
+        ratings: {
+          ...(state.ratings || {}),
+          [productId]: ratings,
+        },
+      };
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
     default:
       return state;
   }

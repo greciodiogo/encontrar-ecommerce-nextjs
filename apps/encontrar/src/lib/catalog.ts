@@ -109,4 +109,14 @@ export class CatalogService {
     return data;
     // return token;
   }
+
+  async getProductRatings(productId: number) {
+    const response = await ApiService.get(`/products/${productId}/ratings`);
+    return response.data;
+  }
+
+  async postProductRating(productId: number, data: { rating: number; comment: string }) {
+    const response = await ApiService.post(`/products/${productId}/ratings`, data);
+    return response.data;
+  }
 }

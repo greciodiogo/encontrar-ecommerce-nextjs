@@ -147,3 +147,22 @@ export const clearCart = () => (dispatch: Dispatch<CartAction>) => {
     console.error("Can't Clear Cart", error);
   }
 };
+
+export const fetchProductRatings = (productId: number) => async (dispatch: Dispatch<CartAction>) => {
+  try {
+    const ratings = await catalog.getProductRatings(productId);
+    dispatch({ type: 'SET_PRODUCT_RATINGS', payload: { productId, ratings } });
+  } catch (error) {
+    console.error("Can't fetch product ratings", error);
+  }
+};
+
+export const postProductRating =
+  (productId: number, data: { rating: number; comment: string }) => async (dispatch: Dispatch<CartAction>) => {
+    try {
+      await catalog.postProductRating(productId, data);
+      dispatch(fetchProductRatings(productId));
+    } catch (error) {
+      console.error("Can't post product rating", error);
+    }
+  };

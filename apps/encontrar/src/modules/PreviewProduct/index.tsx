@@ -25,11 +25,9 @@ export const ProductDetailPage = () => {
   // const product = props.product;
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const product = useAppSelector((state: RootState) => state.products.currentItem);
+  const currentItem = useAppSelector((state: RootState) => state.products.currentItem);
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
-
-  const products = [{ ...product }];
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
@@ -73,13 +71,14 @@ export const ProductDetailPage = () => {
             <Details />
           </div>
           {/* <CheckoutInfo /> */}
+          {currentItem?.id && <ReviewsInfo setIsOpen={setIsOpen} productId={currentItem.id as number} />}
+
           <div className="products_container">
             <div className="products_container_top">
               <h4>Trending Products</h4>
             </div>
           </div>
 
-          <ReviewsInfo setIsOpen={setIsOpen} />
           <div className="" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', width: '100%' }}>
             <Swiper
               modules={[Autoplay]}
@@ -110,7 +109,7 @@ export const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-      <ReviewForm products={products} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {currentItem?.id && <ReviewForm productId={currentItem.id} isOpen={isOpen} onClose={() => setIsOpen(false)} />}
     </Container>
   );
 };

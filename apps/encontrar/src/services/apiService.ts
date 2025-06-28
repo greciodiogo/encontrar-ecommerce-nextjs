@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { formatErrors } from 'utils/formatErrors';
-import { getToken } from 'utils/getToken';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
@@ -13,29 +12,6 @@ const api = axios.create({
     Accept: 'application/json',
   },
 });
-
-api.interceptors.request.use(
-  async (config) => {
-    try {
-      const token = await getToken();
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } catch (error) {
-      // Token not available or invalid, continue without auth header
-      console.warn('No valid token available for request');
-    }
-
-    return config;
-  },
-  (error) => {
-    if (error instanceof AxiosError || error instanceof Error) {
-      formatErrors(error);
-      return Promise.reject(error);
-    }
-    return Promise.reject(new Error('Erro desconhecido na requisição.'));
-  },
-);
 
 api.interceptors.response.use(
   (response) => {

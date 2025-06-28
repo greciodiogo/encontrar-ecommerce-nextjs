@@ -103,6 +103,7 @@ export type ProductState = {
   address: CheckoutDTO | null;
   paymentMethod: number | null;
   order: OrderType | null;
+  ratings?: { [productId: number]: ProductRating[] };
 };
 
 export type RootState = {
@@ -117,3 +118,16 @@ export type OrderType = {
   // address: RegisterAddressDTO | null; // Novo campo para endereço
   // paymentMethod: RegisterPaymentMethodDTO | null;
 };
+
+export interface ProductRating {
+  id: number;
+  rating: number;
+  comment: string;
+  user: { name: string };
+  created: string;
+}
+
+export interface ProductRatingDto {
+  rating: number;
+  comment: string;
+}

@@ -12,7 +12,7 @@ import {
   GetAllPaymentMethods,
   GetAllAddresses,
 } from 'constants/products';
-import { Address, CategoriesDTO, OrderType, PaymentMethodList, ProductDTO } from 'types/product';
+import { Address, CategoriesDTO, OrderType, PaymentMethodList, ProductDTO, ProductRating } from 'types/product';
 
 import { RegisterAddressDTO } from './checkout';
 
@@ -85,6 +85,11 @@ export type ClearCartAction = {
   type: typeof ClearCart;
 };
 
+export type SetProductRatingsAction = {
+  type: 'SET_PRODUCT_RATINGS';
+  payload: { productId: number; ratings: ProductRating[] };
+};
+
 export type ProductAction =
   | GetAllProductsAction
   | GetAllCategoriesAction
@@ -97,4 +102,5 @@ export type ProductAction =
   | LoadCurrentItemAction
   | SetAddressAction
   | SetPaymentMethodAction
-  | SetOrderAction;
+  | SetOrderAction
+  | SetProductRatingsAction;
