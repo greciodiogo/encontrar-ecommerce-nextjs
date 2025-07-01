@@ -11,6 +11,7 @@ import {
   ClearCart,
   GetAllCategories,
   GetAllAddresses,
+  SetShippingCost,
 } from 'constants/products';
 // import { products } from 'fixture/ecommerceData';
 import { ProductState } from 'types/product';
@@ -30,6 +31,8 @@ const defaultState: ProductState = {
   address: null,
   paymentMethod: null,
   order: null,
+  shippingCost: undefined,
+  shippingAddressId: undefined,
 };
 
 const saveStateToLocalStorage = (state: ProductState) => {
@@ -184,6 +187,12 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
           [productId]: ratings,
         },
       };
+      saveStateToLocalStorage(newState);
+      return newState;
+    }
+
+    case SetShippingCost: {
+      const newState = { ...state, shippingCost: action.payload.price, shippingAddressId: action.payload.addressId };
       saveStateToLocalStorage(newState);
       return newState;
     }

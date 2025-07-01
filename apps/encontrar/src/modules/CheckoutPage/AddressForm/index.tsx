@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { ControlledTextField } from 'hooks/useFormHandler';
 import { Address, RootState } from 'types/product';
+import { SetShippingCost } from 'constants/products';
 
 // Define os campos do formulário
 export type AddressFormData = {
@@ -26,6 +27,7 @@ type AddressFormProps = {
   setValue?: UseFormSetValue<AddressFormData>;
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 export const AddressForm: React.FC<AddressFormProps> = (props) => {
   const { t } = useTranslation('checkout');
   const context = useFormContext<AddressFormData>();
@@ -52,7 +54,9 @@ export const AddressForm: React.FC<AddressFormProps> = (props) => {
     selectedMunicipio && addresses
       ? addresses
           .filter((address) => address.parentAddress?.id === selectedMunicipio.id)
-          .map((distrito) => distrito.name)
+          .map((distrito) => {
+            return { id: distrito.id, name: distrito.name };
+          })
       : [];
 
   useEffect(() => {
@@ -104,6 +108,40 @@ export const AddressForm: React.FC<AddressFormProps> = (props) => {
       dispatch(setAddress(addressData));
     }
   }, [values, dispatch]);
+
+  // Fetch shipping cost when municipio or distrito changes
+  useEffect(() => {
+    const fetchShippingCost = async () => {
+      let idToUse: number | undefined;
+      if (selectedMunicipio) {
+        // Try to get distrito id from addresses
+        const distritoValue = values.distrito;
+        let distritoId: number | undefined;
+        if (distritoValue && addresses) {
+          const distritoObj = addresses.find(
+            (a) => a.name === distritoValue && a.parentAddress?.id === selectedMunicipio.id,
+          );
+          if (distritoObj) {
+            distritoId = distritoObj.id;
+          }
+        }
+        idToUse = distritoId || selectedMunicipio.id;
+      }
+      if (!idToUse) return;
+      try {
+        const res = await fetch(`${BASE_URL}/address/${idToUse}`);
+        if (!res.ok) throw new Error('Failed to fetch shipping cost');
+        const data = await res.json();
+        console.log('Fetched shipping price:', data.price, 'for addressId:', idToUse);
+        if (typeof data.price === 'number') {
+          dispatch({ type: SetShippingCost, payload: { price: data.price, addressId: idToUse } });
+        }
+      } catch (e) {
+        // Optionally handle error
+      }
+    };
+    fetchShippingCost();
+  }, [selectedMunicipio, values.distrito, addresses, dispatch]);
 
   return (
     <div className="row mt-4">
@@ -164,7 +202,7 @@ export const AddressForm: React.FC<AddressFormProps> = (props) => {
           className="checkout_input col-md-8"
           label={t('form.district')}
           name="distrito"
-          options={distritoOptions}
+          options={distritoOptions.map((d) => d.name)}
         />
       )}
     </div>

@@ -11,6 +11,7 @@ import {
   GetAllCategories,
   GetAllPaymentMethods,
   GetAllAddresses,
+  SetShippingCost,
 } from 'constants/products';
 import { Address, CategoriesDTO, OrderType, PaymentMethodList, ProductDTO, ProductRating } from 'types/product';
 
@@ -90,6 +91,11 @@ export type SetProductRatingsAction = {
   payload: { productId: number; ratings: ProductRating[] };
 };
 
+export type SetShippingCostAction = {
+  type: typeof SetShippingCost;
+  payload: { price: number; addressId: number };
+};
+
 export type ProductAction =
   | GetAllProductsAction
   | GetAllCategoriesAction
@@ -103,4 +109,5 @@ export type ProductAction =
   | SetAddressAction
   | SetPaymentMethodAction
   | SetOrderAction
-  | SetProductRatingsAction;
+  | SetProductRatingsAction
+  | SetShippingCostAction;

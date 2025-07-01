@@ -10,3 +10,4 @@ export const ClearCart = 'ClearCart';
 export const SetAddress = 'SetAddress';
 export const SetPaymentMethod = 'SetPaymentMethod';
 export const SetOrder = 'SetOrder';
+export const SetShippingCost = 'SetShippingCost';

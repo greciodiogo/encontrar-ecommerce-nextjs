@@ -29,7 +29,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const paymentMethod = selectedPrice?.name;
   const shippingMethod = 'Transporte - Motociclo';
   const discount = 0;
-  const shippingCost = 2000;
+  const shippingCost = repo.shippingCost ?? 2000;
   const serviceCost = 150;
 
   const onCancel = () => {

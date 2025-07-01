@@ -104,6 +104,8 @@ export type ProductState = {
   paymentMethod: number | null;
   order: OrderType | null;
   ratings?: { [productId: number]: ProductRating[] };
+  shippingCost?: number;
+  shippingAddressId?: number;
 };
 
 export type RootState = {
