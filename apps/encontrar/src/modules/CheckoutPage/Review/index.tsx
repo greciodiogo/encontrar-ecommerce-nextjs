@@ -72,7 +72,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
         contactPhone: '+244' + repo.address?.telefone,
         delivery: {
           methodId: 1,
-          address: repo.address?.municipio,
+          address: repo.address?.municipio + ', ' + repo.address?.distrito,
           city: repo.address?.cidade,
           country: 'AO',
           postalCode: '0000',

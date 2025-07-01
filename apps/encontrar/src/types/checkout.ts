@@ -23,5 +23,6 @@ export type CheckoutDTO = {
   pais?: string;
   cidade?: string;
   municipio?: string;
+  distrito?: string;
   paymentMethod?: string;
 };

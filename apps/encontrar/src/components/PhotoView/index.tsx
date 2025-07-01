@@ -21,7 +21,7 @@ export const ProductImage = ({ product, photoItem }: { product: ProductDTO; phot
 
   // Construção segura da URL
   const photoUrl = selectedPhoto
-    ? `${BASE_URL}/products/${String(id)}/photos/${String(selectedPhoto.id)}?thumbnail=true`
+    ? `${BASE_URL}/products/${String(id)}/photos/${String(selectedPhoto.id)}`
     : '/assets_ecommerce/products/sem-foto.webp';
 
   return (
