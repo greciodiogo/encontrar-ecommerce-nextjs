@@ -57,7 +57,6 @@ export const ProductDetail = () => {
     if (newQty < 1) return;
 
     if (newQty > stock) {
-      console.log('Quantidade indisponível em estoque.');
       alert('Quantidade indisponível em estoque.');
       return;
     }

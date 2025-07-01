@@ -29,7 +29,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
   const paymentMethod = selectedPrice?.name;
   const shippingMethod = 'Transporte - Motociclo';
   const discount = 0;
-  const shippingCost = repo.shippingCost ?? 2000;
+  const shippingCost = typeof repo.shippingCost === 'number' ? repo.shippingCost : 2000;
   const serviceCost = 150;
 
   const onCancel = () => {
@@ -50,7 +50,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
     }, 0);
 
     setSubtotal(total_);
-    setATotal(total_ + serviceCost + discount + shippingCost);
+    setATotal(Number(total_) + Number(serviceCost) + Number(discount) + Number(shippingCost));
   }, [cartItems, serviceCost, discount, shippingCost]); // Inclui dependências corretamente
 
   const onFinish = async () => {
@@ -76,6 +76,7 @@ export const ReviewStep = ({ handleNextStep }: { handleNextStep: () => void }) =
           city: repo.address?.cidade,
           country: 'AO',
           postalCode: '0000',
+          addressId: repo.shippingAddressId,
         },
         fullName: repo.address?.name,
         items: itemsList,

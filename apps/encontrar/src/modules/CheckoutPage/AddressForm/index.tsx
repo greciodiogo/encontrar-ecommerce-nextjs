@@ -132,7 +132,6 @@ export const AddressForm: React.FC<AddressFormProps> = (props) => {
         const res = await fetch(`${BASE_URL}/address/${idToUse}`);
         if (!res.ok) throw new Error('Failed to fetch shipping cost');
         const data = await res.json();
-        console.log('Fetched shipping price:', data.price, 'for addressId:', idToUse);
         if (typeof data.price === 'number') {
           dispatch({ type: SetShippingCost, payload: { price: data.price, addressId: idToUse } });
         }
