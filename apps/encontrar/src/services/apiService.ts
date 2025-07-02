@@ -19,10 +19,12 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Don't redirect for /users/me endpoint as it's used to check authentication status
-      const isAuthCheckEndpoint = error.config?.url?.includes('/users/me');
+      // Don't redirect for /users/me, /auth/login, /auth/send-verification-code, or /auth/register endpoints
+      const shouldNotRedirect = ['/users/me', '/auth/login', '/auth/send-verification-code', '/auth/register'].some(
+        (endpoint) => error.config?.url?.includes(endpoint),
+      );
 
-      if (!isAuthCheckEndpoint && typeof window !== 'undefined') {
+      if (!shouldNotRedirect && typeof window !== 'undefined') {
         localStorage.removeItem('accessToken');
         // Redirect to login page
         window.location.href = '/auth';
