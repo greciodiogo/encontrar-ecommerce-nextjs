@@ -88,13 +88,37 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
       // Armazena os dados e envia o código de verificação
       setPendingSignupData(data);
       try {
-        await authService.sendCode({ email: data.email });
+        await toast.promise(
+          authService.sendCode({ email: data.email }),
+          {
+            pending: String(common.t('AUTHENTICATION_PENDING.title')),
+            success: String(common.t('AUTHENTICATION_CODE_SENT.title')),
+            error: {
+              render({ data: error }) {
+                const err = error as any;
+                console.log('sendCode error:', err?.response?.data, err?.message, err);
+                const errorMessage = err?.response?.data?.message || err?.message || '';
+                if (
+                  errorMessage.includes('already exists') ||
+                  errorMessage.includes('já existe') ||
+                  errorMessage.includes('user exists') ||
+                  errorMessage.includes('Usuário já existe') ||
+                  errorMessage.includes('conflict on email')
+                ) {
+                  return 'Já existe um usuário com esse email';
+                }
+                return String(common.t('AUTHENTICATION_EMAIL_INVALID.title'));
+              },
+            },
+          },
+          {
+            position: 'top-right',
+            autoClose: 3000,
+          },
+        );
         setShowAuth(true);
       } catch (error) {
-        toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
-          position: 'top-right',
-          autoClose: 3000,
-        });
+        // No need for additional toast here, handled by toast.promise
       }
     } else {
       // Processo de login direto

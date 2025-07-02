@@ -65,7 +65,7 @@ export const AuthPage: React.FC = () => {
         await authService.sendCode({ email: data.email });
         setShowAuth(true);
       } catch (error) {
-        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+        toast.error(common.t('AUTHENTICATION_EMAIL_INVALID.title'), {
           position: 'top-right',
           autoClose: 3000,
         });
@@ -130,7 +130,7 @@ export const AuthPage: React.FC = () => {
         setPendingSignupData(null);
         void router.push('/');
       } else {
-        toast.error(common.t('AUTHENTICATION_INVALID.title'), {
+        toast.error(common.t('AUTHENTICATION_EMAIL_INVALID.title'), {
           position: 'top-right',
           autoClose: 3000,
         });
