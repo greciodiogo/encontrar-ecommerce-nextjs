@@ -23,6 +23,10 @@
     "title": "Credenciais inválidas!",
     "message": ""
   },
+  "AUTHENTICATION_EMAIL_INVALID": {
+    "title": "Já existe um usuário com esse email!",
+    "message": ""
+  },
   "AUTHENTICATION_SUCCESS": {
     "title": "Login realizado com sucesso! 🎉",
     "message": ""

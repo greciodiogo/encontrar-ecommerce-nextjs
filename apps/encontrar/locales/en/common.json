@@ -23,6 +23,10 @@
     "title": "Invalid credentials!",
     "message": ""
   },
+  "AUTHENTICATION_EMAIL_INVALID": {
+    "title": "Email already being used by other user!",
+    "message": ""
+  },
   "AUTHENTICATION_SUCCESS": {
     "title": "Login successful! 🎉",
     "message": ""

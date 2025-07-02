@@ -168,29 +168,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signup = async (data: { firstName: string; email: string; password: string }): Promise<boolean> => {
     try {
-      const response = await authService.signup({
+      await authService.signup({
         firstName: data.firstName,
         lastName: '',
         email: data.email,
         password: data.password,
       });
 
-      // The server sets the token as an HTTP-only cookie automatically
-      // We just need to fetch the user details to update the state
-      const userData = await authService.getLoggedUser();
-      const userInfo: DecodedPayload = {
-        id: userData.id,
-        email: userData.email,
-        name: `${userData.firstName ?? ''} ${userData.lastName ?? ''}`.trim(),
-        role: userData.role,
-        registered: userData.registered,
-      };
-
-      setUser(userInfo);
-      setIsAuthenticated(true);
-      persistUser(userInfo);
-
-      return true;
+      // Explicitly log in the user after successful signup
+      const loginSuccess = await login({ email: data.email, password: data.password });
+      return loginSuccess;
     } catch (error) {
       console.error('Signup error:', error);
       setUser(null);
