@@ -40,14 +40,13 @@ export const CartResume = ({
           <li className="priceTitle">{t('cart_resume.subtotal')}</li>
           <li>{fnService.numberFormat(total)}kz</li>
         </ul>
-        <ul>
+        {/* <ul>
           <li className="priceTitle">{t('cart_resume.serviceFee')}</li>
-          {/* <li>{fnService.numberFormat(service_fee )}kz</li> */}
-        </ul>
-        <ul>
+        </ul> */}
+        {/* <ul>
           <li className="priceTitle">{t('cart_resume.delivery')}</li>
           <li>{fnService.numberFormat(DELIVERY_COST)}kz</li>
-        </ul>
+        </ul> */}
       </div>
       <div className="price">
         <ul>

@@ -12,6 +12,7 @@ type CookiesProps = {
   accessToken?: string;
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function persistUser(user: DecodedPayload | null) {
@@ -96,35 +97,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const loginGoogle = (idToken: string) => {
-    const base64Url = idToken.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-
-    // Decodifica o JWT com suporte para UTF-8
-    const decodedString = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map((ch) => `%${ch.charCodeAt(0).toString(16).padStart(2, '0')}`)
-        .join(''),
-    );
-
-    const decodedPayload: unknown = JSON.parse(decodedString);
-
-    if (!isDecodedPayload(decodedPayload)) {
-      throw new Error('Token inválido ou inesperado.');
+  const loginGoogle = async (idToken: string) => {
+    try {
+      // Send the token to your backend
+      const res = await fetch(`${BASE_URL}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+        credentials: 'include', // important for cookies
+      });
+      if (!res.ok) throw new Error('Google login failed');
+      // Now fetch the user info from backend
+      await fetchUser();
+    } catch (error) {
+      setUser(null);
+      setIsAuthenticated(false);
+      persistUser(null);
+      throw error;
     }
-
-    const token = {
-      ...decodedPayload,
-    };
-
-    setCookie(null, 'accessToken', JSON.stringify(token), {
-      maxAge: 60 * 60 * 1, // 1 hora
-    });
-
-    setUser(token);
-    setIsAuthenticated(true);
-    persistUser(token);
   };
 
   const loginFacebook = (profile: any) => {
