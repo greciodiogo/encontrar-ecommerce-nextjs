@@ -36,7 +36,7 @@
   width: 70px;
   height: 70px;
   object-fit: cover;
-  margin: 0 5px;
+  /* margin: 0 5px; */
   cursor: pointer;
   border-radius: 5px;
   border: 2px solid transparent;
