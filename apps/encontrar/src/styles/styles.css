@@ -3805,6 +3805,11 @@ button > i {
   margin-top: 20px;
 }
 
+.pagination__container .Mui-selected {
+  background-color: #bd7b2d !important;
+  color: white !important;
+}
+
 /* ###################################################### */
 
 .contact-form {

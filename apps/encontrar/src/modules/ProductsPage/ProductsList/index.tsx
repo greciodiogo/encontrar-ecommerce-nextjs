@@ -1,4 +1,3 @@
-import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -10,14 +9,22 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { FnService } from 'shared/utils/FnService';
 import { ProductDTO } from 'types/product';
 import { RootState } from 'types/product';
+import { Pagination, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
 
 export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
-  const { filteredProducts, currentPage, itemsPerPage, totalPages, setCurrentPage, selectedCategories } =
-    useProductContext();
+  const {
+    filteredProducts,
+    selectedCategories,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+    setCurrentPage,
+    setItemsPerPage,
+  } = useProductContext();
   const productsList = useAppSelector((state: RootState) => state.products.products);
 
-  const displayedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  const productsToDisplay = products || displayedProducts;
+  const productsToDisplay = products || filteredProducts;
+  const paginatedProducts = productsToDisplay.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const fnService = new FnService();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -29,6 +36,15 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
   const handlepreviewProduct = (productDTO: ProductDTO) => {
     dispatch(loadCurrentItem(productDTO));
     void router.push('/preview-product');
+  };
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (event: SelectChangeEvent<string>) => {
+    setItemsPerPage(Number(event.target.value));
+    setCurrentPage(1);
   };
 
   if (products) {
@@ -49,11 +65,13 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
   }
 
   if (selectedCategories.length < 1 && productsList.length > 0) {
+    const paginatedAllProducts = productsList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const totalAllPages = Math.max(1, Math.ceil(productsList.length / itemsPerPage));
     return (
       <div className="productsList">
         <ProductsPageHeader totalProducts={fnService.formatarQuantidade(productsList.length)} />
         <div className="wrapper bestselled">
-          {productsList.map((item, itemIndex) => (
+          {paginatedAllProducts.map((item, itemIndex) => (
             <BestSelledProduct
               product={item}
               key={itemIndex}
@@ -62,7 +80,9 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
             />
           ))}
         </div>
-        <ProductsPagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <div className="pagination__container">
+          <Pagination count={totalAllPages} page={currentPage} onChange={handlePageChange} color="primary" />
+        </div>
       </div>
     );
   }
@@ -72,11 +92,11 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
       <div className="productsList">
         <ProductsPageHeader totalProducts={fnService.formatarQuantidade(productsToDisplay.length)} />
         <>
-          {productsToDisplay.length <= 0 ? (
+          {paginatedProducts.length <= 0 ? (
             <NotFound />
           ) : (
             <div className="wrapper bestselled">
-              {productsToDisplay.map((item, itemIndex) => (
+              {paginatedProducts.map((item, itemIndex) => (
                 <BestSelledProduct
                   product={item}
                   key={itemIndex}
@@ -88,7 +108,9 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
           )}
         </>
         {productsToDisplay.length > 0 && (
-          <ProductsPagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
+            <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
+          </div>
         )}
       </div>
     </>
@@ -114,27 +136,6 @@ const ProductsPageHeader = ({ totalProducts = '0' }) => {
         {/* {totalProducts} */}
       </h5>
       <h5>{t('mostRecommended')}</h5>
-    </div>
-  );
-};
-
-const ProductsPagination = ({
-  totalPages = 0,
-  currentPage = 0,
-  setCurrentPage,
-}: {
-  setCurrentPage(page: number): void;
-  totalPages: number;
-  currentPage: number;
-}) => {
-  return (
-    <div className="pagination__container">
-      <Pagination
-        count={totalPages}
-        page={currentPage}
-        onChange={(event, page) => setCurrentPage(page)}
-        color="primary"
-      />
     </div>
   );
 };

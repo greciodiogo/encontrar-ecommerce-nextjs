@@ -10,14 +10,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 export function ProductProvider({ children }: { children: ReactNode }) {
   const [filteredProducts, setFilteredProducts] = useState<Array<ProductDTO>>([]);
   const [selectedCategories, setSelectedCategories] = useState<Array<CategoriesDTO>>([]);
-  const [totalPages, setTotalPages] = useState(1);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(9999999);
   const [availability, setAvailability] = useState('');
   const [rating, setRating] = useState(0);
+  const [userInteracted, setUserInteracted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
-  const [userInteracted, setUserInteracted] = useState(false);
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
 
   const router = useRouter();
 
@@ -42,9 +42,6 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
       const merged = allProducts.flat();
       const unique = Array.from(new Map(merged.map((p) => [p.id, p])).values());
-
-      const totalPages_ = Math.ceil(unique.length / itemsPerPage);
-      setTotalPages(totalPages_);
       return unique;
     } catch (err) {
       console.error('Erro ao buscar produtos:', err);
@@ -77,10 +74,13 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       }
 
       setFilteredProducts(filtered);
-      setCurrentPage(1);
     };
 
     void loadProducts();
+  }, [selectedCategories, minPrice, maxPrice, availability, rating]);
+
+  useEffect(() => {
+    setCurrentPage(1);
   }, [selectedCategories, minPrice, maxPrice, availability, rating]);
 
   const toggleSelection = (
