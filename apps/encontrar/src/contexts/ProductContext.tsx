@@ -16,7 +16,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [rating, setRating] = useState(0);
   const [userInteracted, setUserInteracted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
 
   const router = useRouter();
