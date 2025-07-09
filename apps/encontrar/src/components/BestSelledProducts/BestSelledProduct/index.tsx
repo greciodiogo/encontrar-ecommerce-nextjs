@@ -14,6 +14,7 @@ export const BestSelledProduct = ({
   handleAddToCart,
   handlepreviewProduct,
   hasStars = true,
+  is_promotion = false,
   hasButtons = true,
   hasDescription = false,
 }: ProductTypeProps) => {
@@ -24,7 +25,7 @@ export const BestSelledProduct = ({
     state.products.ratings && product.id ? state.products.ratings[product.id] : [],
   );
 
-  const { id, name, price, promotional_price, stock = 1, description, is_promotion } = product;
+  const { id, name, price, promotional_price, stock = 1, description } = product;
   const isProductInCart = productCart.some((item) => item.id === id);
   const fnService = new FnService();
 
@@ -56,7 +57,8 @@ export const BestSelledProduct = ({
 
   const calculate_promotion = (price: number, promotional_price: number) => {
     const discount = ((price - promotional_price) / price) * 100;
-    return `${fnService.numberFormat(discount)}% OFF`;
+    // return `${fnService.numberFormat(discount)}% OFF`;
+    return `OFF`;
   };
 
   return (
@@ -69,7 +71,7 @@ export const BestSelledProduct = ({
           <img src={`/assets_ecommerce/svg/Heart.png`} alt="Heart" />
         </i>
       </a> */}
-      {is_promotion === true && promotional_price !== undefined && promotional_price > 0 && (
+      {is_promotion === true && (
         <i className="promotion_badget">{calculate_promotion(price ?? 0, promotional_price)}</i>
       )}
       <div className="category_picture bestselled">

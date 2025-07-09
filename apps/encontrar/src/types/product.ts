@@ -66,6 +66,7 @@ export type ProductTypeProps = {
   hasButtons?: boolean;
   hasDescription?: boolean;
   hasStars?: boolean;
+  is_promotion?: boolean;
   handleAddToCart?: (id: number) => void;
   handlepreviewProduct: (ProductDTO: ProductDTO) => void;
 };

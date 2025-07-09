@@ -127,6 +127,7 @@ export const PromotionProducts = ({
                   <BestSelledProduct
                     product={product}
                     hasStars={false}
+                    is_promotion={true}
                     hasButtons={hasButtons}
                     handleAddToCart={handleAddToCart}
                     handlepreviewProduct={handlepreviewProduct}
