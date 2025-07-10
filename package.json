@@ -52,6 +52,7 @@
     "react-slick": "^0.30.3",
     "react-toastify": "^11.0.3",
     "rollup": "^4.34.7",
+    "sass": "^1.89.2",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.2.5",
     "swr": "^2.3.0",

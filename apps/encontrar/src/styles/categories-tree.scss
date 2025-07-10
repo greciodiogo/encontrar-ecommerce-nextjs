@@ -1,0 +1,26 @@
+$tree-bg: white;
+$tree-radius: 6px;
+$tree-padding: 0 2rem;
+$tree-gap: 15px;
+$tree-top: 15px;
+$tree-z: 998;
+
+.categories > [id^='mui-tree-view-'] {
+  border-radius: $tree-radius;
+  display: flex;
+  gap: $tree-gap;
+  padding: $tree-padding !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  position: absolute;
+  // align-items: center;
+  justify-content: center;
+  top: $tree-top !important;
+  background: $tree-bg !important;
+  height: max-content !important;
+  z-index: $tree-z !important;
+}
+
+.categories > [id^='mui-tree-view-']:hover {
+  box-shadow: 0px 6px 8px rgb(0, 0, 0, 0.12) !important;
+}

@@ -8,6 +8,7 @@ import { createEmotionCache } from 'utils-mui';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+import './../styles/categories-tree.scss';
 import './../styles/styles.css';
 import './../styles/reviewForm.css';
 import './../styles/dropdown.css';
