@@ -109,7 +109,14 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
         </>
         {productsToDisplay.length > 0 && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
-            <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
+            <div className="pagination__container">
+              <Pagination
+                count={Math.max(1, Math.ceil(productsToDisplay.length / itemsPerPage))}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </div>
           </div>
         )}
       </div>
