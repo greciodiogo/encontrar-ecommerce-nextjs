@@ -1233,8 +1233,8 @@ a:visited {
 }
 
 .bestselled_product.category-item .content > P > span {
-  font-size: normal;
-  font-weight: normal;
+  font-size: 12px;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -1271,7 +1271,8 @@ a:visited {
   display: flex;
   flex-direction: column;
   flex: 1;
-  align-items: baseline;
+  /* align-items: baseline; */
+  align-items: center;
   margin-bottom: 20px;
   /* gap: 10px; */
 }
@@ -2454,20 +2455,61 @@ a:visited {
   }
 
   .productsList .wrapper {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 6px;
+    row-gap: 8px;
   }
 }
 
 @media (max-width: 670px) {
   .productsList .wrapper {
     width: 100%;
-    gap: 10px;
+    gap: 8px;
   }
 
   .productsList .wrapper .bestselled_product {
     border-radius: 4px;
     width: 100%;
-    gap: 10px;
+    gap: 6px;
+    padding: 8px;
+    min-height: auto;
+  }
+
+  .productsList .wrapper .bestselled_product .category_picture {
+    height: 80px;
+  }
+
+  .productsList .wrapper .bestselled_product .content {
+    margin-bottom: 10px;
+  }
+
+  .productsList .wrapper .bestselled_product .content .product_name {
+    font-size: 11px;
+    line-height: 1;
+    -webkit-line-clamp: 2;
+    max-height: 26px;
+  }
+
+  .productsList .wrapper .bestselled_product .content p {
+    font-size: 12px;
+  }
+
+  .productsList .wrapper .bestselled_product .content p .promo {
+    font-size: 10px;
+  }
+
+  .productsList .wrapper .bestselled_product .star_container {
+    gap: 1px;
+    margin: 2px 0;
+  }
+
+  .productsList .wrapper .bestselled_product .star_container i {
+    font-size: 10px;
+  }
+
+  .productsList .wrapper .bestselled_product .btn {
+    font-size: 10px;
+    padding: 4px 6px;
   }
 
   .productsList {
@@ -4072,8 +4114,26 @@ button > i {
 @media (max-width: 530px) {
   .productsPage .wrapper.bestselled {
     padding: 1rem;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     align-items: flex-start;
+  }
+
+  .category-item {
+    padding: 2px !important;
+    background: transparent;
+  }
+
+  .productsList .wrapper .bestselled_product .category_picture {
+    height: 80px !important;
+  }
+
+  .category_picture {
+    width: unset !important;
+  }
+
+  .category-item .btn {
+    font-size: 10px !important;
+    border-radius: 6px;
   }
 }
 
@@ -4087,7 +4147,7 @@ button > i {
   }
 
   .category-item .btn {
-    font-size: 11px !important;
+    font-size: 10px !important;
   }
 }
 
