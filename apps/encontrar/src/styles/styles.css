@@ -314,7 +314,7 @@ a:visited {
 
 @media (max-width: 750px) {
   .searchInput__mobile {
-    padding: 0rem 2rem 2rem;
+    padding: 0rem 2rem 1rem;
     width: 100%;
   }
 
@@ -4923,4 +4923,85 @@ button > i {
 .cheapest-swiper .swiper-button-prev,
 .cheapest-swiper .swiper-pagination {
   display: none;
+}
+
+@media (max-width: 750px) {
+  .mobile-categories-bar {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+    padding: 8px 0 4px 10px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    /* position: sticky; */
+    /* top: 106px; */
+    z-index: 1001;
+  }
+  .mobile-categories-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-categories-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 18px;
+    border: 1px solid #eee;
+    background: #fff;
+    color: #222;
+    font-weight: 500;
+    padding: 4px 10px;
+    cursor: pointer;
+    min-width: unset;
+    font-size: 12px;
+    outline: none;
+    transition:
+      background 0.15s,
+      color 0.15s,
+      border 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    /* max-width: 120px; */
+  }
+  .mobile-categories-pill.selected,
+  .mobile-categories-pill:active {
+    background: #ffeaea;
+    color: #e74c3c;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 2px 8px #f8d7da;
+  }
+  .mobile-categories-img-wrapper {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .mobile-categories-img-wrapper img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+  }
+  .mobile-categories-label {
+    font-size: 12px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
+    display: inline;
+  }
+}
+
+@media (min-width: 751px) {
+  .mobile-categories-bar {
+    display: none !important;
+  }
 }

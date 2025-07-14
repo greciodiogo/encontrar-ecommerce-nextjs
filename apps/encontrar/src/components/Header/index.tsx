@@ -16,6 +16,7 @@ import { showToast } from 'shared/hooks/showToast';
 import { RootState } from 'types/product';
 
 import styles from '../../styles/menu.module.css'; // Estilo separado em um arquivo CSS
+import { MobileCategoriesBar } from 'components/MobileCategoriesBar';
 
 export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }) => {
   const { t, lang } = useTranslation('home'); // Certifique-se de que o namespace está correto
@@ -251,6 +252,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
           </div>
         )}
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <MobileCategoriesBar />
       </div>
     </>
   );
