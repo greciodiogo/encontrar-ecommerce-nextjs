@@ -4940,7 +4940,7 @@ button > i {
     width: 100%;
     /* position: sticky; */
     /* top: 106px; */
-    z-index: 1001;
+    z-index: 99999;
   }
   .mobile-categories-bar::-webkit-scrollbar {
     display: none;
