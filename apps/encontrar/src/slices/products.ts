@@ -33,6 +33,7 @@ const defaultState: ProductState = {
   order: null,
   shippingCost: undefined,
   shippingAddressId: undefined,
+  total: 0,
 };
 
 const saveStateToLocalStorage = (state: ProductState) => {
@@ -62,15 +63,37 @@ const INITIALSTATE: ProductState = loadStateFromLocalStorage();
 function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductAction): ProductState {
   switch (action.type) {
     case GetAllProducts: {
-      const productsFromServer = action.payload?.products ?? [];
+      const payload = action.payload as {
+        products: any[];
+        total?: number;
+        page?: number;
+        limit?: number;
+        totalPages?: number;
+      };
+      const productsFromServer = payload?.products ?? [];
+      const totalFromServer = payload?.total;
+      const pageFromServer = payload?.page;
+      const limitFromServer = payload?.limit;
+      const totalPagesFromServer = payload?.totalPages;
 
       // Verifica se há itens no carrinho que não existem mais no servidor
       const filteredCart = state.cart.filter((cartItem) => productsFromServer.some((prod) => prod.id === cartItem.id));
 
-      const newState = {
+      const newState: ProductState = {
         ...state,
         products: productsFromServer,
+        productsPage: {
+          data: productsFromServer,
+          total: totalFromServer ?? productsFromServer.length,
+          page: pageFromServer ?? 1,
+          limit: limitFromServer ?? productsFromServer.length,
+          totalPages: totalPagesFromServer ?? 1,
+        },
         cart: filteredCart, // limpa os itens inválidos
+        total: totalFromServer !== undefined ? totalFromServer : productsFromServer.length,
+        page: pageFromServer,
+        limit: limitFromServer,
+        totalPages: totalPagesFromServer,
       };
 
       saveStateToLocalStorage(newState);

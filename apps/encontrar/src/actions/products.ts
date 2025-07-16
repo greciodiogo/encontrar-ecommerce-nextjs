@@ -23,21 +23,34 @@ type CartAction = {
 };
 const catalog = new CatalogService();
 
-export const fetchAllProducts = () => async (dispatch: Dispatch<CartAction>) => {
-  try {
-    const params = new URLSearchParams({
-      page: String(0), // Conversão para string
-      perPage: String(6),
-    });
+export const fetchAllProducts =
+  (filters: Record<string, any> = {}) =>
+  async (dispatch: Dispatch<CartAction>) => {
+    try {
+      const params = new URLSearchParams();
+      // Add all filters to params
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.set(key, String(value));
+        }
+      });
 
-    const productsResponse = await catalog.getProducts(params);
-    const products_ = productsResponse as Array<ProductDTO>;
+      const productsResponse = (await catalog.getProductsPaginated(params)) as any;
+      const paginated = productsResponse.data; // Axios wraps the real data here
+      const products_ = paginated.data || [];
+      const total_ = paginated.total || products_.length;
+      const page_ = paginated.page;
+      const limit_ = paginated.limit;
+      const totalPages_ = paginated.totalPages;
 
-    dispatch({ type: GetAllProducts, payload: { products: products_ } });
-  } catch (error) {
-    console.error("Can't add to Cart", error);
-  }
-};
+      dispatch({
+        type: GetAllProducts,
+        payload: { products: products_, total: total_, page: page_, limit: limit_, totalPages: totalPages_ },
+      });
+    } catch (error) {
+      console.error("Can't add to Cart", error);
+    }
+  };
 
 export const fetchAllCategories = () => async (dispatch: Dispatch<CartAction>) => {
   try {

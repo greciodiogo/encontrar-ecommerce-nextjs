@@ -94,8 +94,21 @@ export interface Address {
   childAddresses: Array<Address>;
 }
 
+// Represents a single product (already defined as ProductDTO)
+// export type ProductDTO = { ... }
+
+// Represents the paginated response from the backend
+export type PaginatedProducts = {
+  data: ProductDTO[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+};
+
 export type ProductState = {
-  products: Array<ProductDTO>;
+  products: Array<ProductDTO>; // Flat array for legacy/simple access
+  productsPage?: PaginatedProducts; // Full paginated response
   categories: Array<CategoriesDTO>;
   cart: Array<ProductDTO>;
   currentItem: ProductDTO | Record<string, unknown>;
@@ -107,6 +120,10 @@ export type ProductState = {
   ratings?: { [productId: number]: ProductRating[] };
   shippingCost?: number;
   shippingAddressId?: number;
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
 };
 
 export type RootState = {

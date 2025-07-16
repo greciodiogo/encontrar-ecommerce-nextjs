@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { addToCart, loadCurrentItem } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
@@ -10,21 +10,16 @@ import { FnService } from 'shared/utils/FnService';
 import { ProductDTO } from 'types/product';
 import { RootState } from 'types/product';
 import { Pagination, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+import { fetchAllProducts } from 'actions/products';
 
-export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
-  const {
-    filteredProducts,
-    selectedCategories,
-    currentPage,
-    itemsPerPage,
-    totalPages,
-    setCurrentPage,
-    setItemsPerPage,
-  } = useProductContext();
-  const productsList = useAppSelector((state: RootState) => state.products.products);
+export const ProductsList = () => {
+  const { currentPage, itemsPerPage, setCurrentPage, setItemsPerPage } = useProductContext();
+  const productsPage = useAppSelector((state: RootState) => state.products.productsPage);
+  const productsList = productsPage?.data || [];
+  const totalProducts = productsPage?.total || 0;
+  // Assume total count is available in Redux, fallback to productsList.length
+  // const totalProducts = useAppSelector((state: RootState) => state.products.total) || productsList.data.;
 
-  const productsToDisplay = products || filteredProducts;
-  const paginatedProducts = productsToDisplay.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const fnService = new FnService();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -47,80 +42,34 @@ export const ProductsList = ({ products }: { products?: ProductDTO[] }) => {
     setCurrentPage(1);
   };
 
-  if (products) {
-    return (
-      <div className="productsList">
-        <div className="wrapper bestselled">
-          {products.map((item, itemIndex) => (
-            <BestSelledProduct
-              product={item}
-              key={itemIndex}
-              handleAddToCart={handleAddToCart}
-              handlepreviewProduct={handlepreviewProduct}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  // Fetch products when currentPage or itemsPerPage changes
+  useEffect(() => {
+    dispatch(fetchAllProducts({ page: currentPage, limit: itemsPerPage }));
+  }, [dispatch, currentPage, itemsPerPage]);
 
-  if (selectedCategories.length < 1 && productsList.length > 0) {
-    const paginatedAllProducts = productsList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-    const totalAllPages = Math.max(1, Math.ceil(productsList.length / itemsPerPage));
-    return (
-      <div className="productsList">
-        <ProductsPageHeader totalProducts={fnService.formatarQuantidade(productsList.length)} />
-        <div className="wrapper bestselled">
-          {paginatedAllProducts.map((item, itemIndex) => (
-            <BestSelledProduct
-              product={item}
-              key={itemIndex}
-              handleAddToCart={handleAddToCart}
-              handlepreviewProduct={handlepreviewProduct}
-            />
-          ))}
-        </div>
-        <div className="pagination__container">
-          <Pagination count={totalAllPages} page={currentPage} onChange={handlePageChange} color="primary" />
-        </div>
-      </div>
-    );
-  }
+  const totalPages = productsPage?.totalPages || Math.max(1, Math.ceil(totalProducts / itemsPerPage));
 
   return (
-    <>
-      <div className="productsList">
-        <ProductsPageHeader totalProducts={fnService.formatarQuantidade(productsToDisplay.length)} />
-        <>
-          {paginatedProducts.length <= 0 ? (
-            <NotFound />
-          ) : (
-            <div className="wrapper bestselled">
-              {paginatedProducts.map((item, itemIndex) => (
-                <BestSelledProduct
-                  product={item}
-                  key={itemIndex}
-                  handleAddToCart={handleAddToCart}
-                  handlepreviewProduct={handlepreviewProduct}
-                />
-              ))}
-            </div>
-          )}
-        </>
-        {productsToDisplay.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
-            <div className="pagination__container">
-              <Pagination
-                count={Math.max(1, Math.ceil(productsToDisplay.length / itemsPerPage))}
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary"
-              />
-            </div>
-          </div>
+    <div className="productsList">
+      <ProductsPageHeader totalProducts={totalProducts} />
+      <div className="wrapper bestselled">
+        {productsList.length === 0 ? (
+          <NotFound />
+        ) : (
+          productsList.map((item, itemIndex) => (
+            <BestSelledProduct
+              product={item}
+              key={itemIndex}
+              handleAddToCart={handleAddToCart}
+              handlepreviewProduct={handlepreviewProduct}
+            />
+          ))
         )}
       </div>
-    </>
+      <div className="pagination__container">
+        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
+      </div>
+    </div>
   );
 };
 
@@ -134,7 +83,7 @@ const NotFound = () => {
   );
 };
 
-const ProductsPageHeader = ({ totalProducts = '0' }) => {
+const ProductsPageHeader = ({ totalProducts }: { totalProducts: number }) => {
   const { t } = useTranslation('common');
   return (
     <div className="productsPage__top">

@@ -19,6 +19,16 @@ export class CatalogService {
     return await this.fetchProducts(queryString);
   }
 
+  async fetchProductsPaginated(queryString: string) {
+    const response = await ApiService.get(`/products/paginated?${queryString}`);
+    return response;
+  }
+
+  async getProductsPaginated(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    return await this.fetchProductsPaginated(queryString);
+  }
+
   async fetchOtherProducts(queryString: string) {
     const response = await ApiService.get(`/products/list/others?limit=10?${queryString}`);
     return response.data;

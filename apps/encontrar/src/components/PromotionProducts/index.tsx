@@ -47,11 +47,11 @@ export const PromotionProducts = ({
 
   // Debug logging
   useEffect(() => {
-    console.log('PromotionProducts render:', {
-      isMobile,
-      promotionProductsLength: promotionProducts?.length,
-      hasProducts: promotionProducts && promotionProducts.length > 0,
-    });
+    // console.log('PromotionProducts render:', {
+    //   isMobile,
+    //   promotionProductsLength: promotionProducts?.length,
+    //   hasProducts: promotionProducts && promotionProducts.length > 0,
+    // });
   }, [isMobile, promotionProducts]);
 
   const handleAddToCart = (id: number) => {
@@ -75,13 +75,13 @@ export const PromotionProducts = ({
     loop: true,
     className: 'promotion-swiper',
     onSwiper: (swiper: any) => {
-      console.log('Promotion Swiper initialized:', swiper);
+      // console.log('Promotion Swiper initialized:', swiper);
     },
     onSlideChange: () => {
-      console.log('Promotion slide changed');
+      // console.log('Promotion slide changed');
     },
     onError: (error: any) => {
-      console.error('Promotion Swiper error:', error);
+      // console.error('Promotion Swiper error:', error);
     },
   };
 

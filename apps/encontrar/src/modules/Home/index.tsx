@@ -2,16 +2,13 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
 import { fetchAllCategories, fetchAllProducts } from 'actions/products';
-import { Categories, CheapestProducts, OtherProducts, Products, PromotionBanner, WhyUs } from 'components';
+import { Categories, CheapestProducts, Products, PromotionBanner, WhyUs } from 'components';
 import { Container } from 'components/Container';
 import { PromoCarousel } from 'components/PromoBanner';
 import { PromotionProducts } from 'components/PromotionProducts';
-import { products } from 'fixture/ecommerceData';
 import { useAppSelector } from 'hooks';
 import { ContactSupport } from 'modules/AboutPage/ContactSupport';
-import { CategoriesDTO, ProductDTO, RootState } from 'types/product';
-// import { ProductDTO } from 'types/product';
-
+import { ProductDTO, RootState } from 'types/product';
 import { useProductContext } from 'hooks/useProductContext';
 
 import { useAppDispatch } from '../../hooks';
@@ -20,8 +17,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
 export const Homepage = () => {
   const { t } = useTranslation('home'); // Certifique-se de que o namespace está correto
-  // const [productsList, setProductsList] = useState<Array<ProductDTO>>([]);
-  const productsList = useAppSelector((state: RootState) => state.products.products);
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
   const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
