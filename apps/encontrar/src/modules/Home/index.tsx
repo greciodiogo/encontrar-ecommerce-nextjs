@@ -88,7 +88,7 @@ export const Homepage = () => {
       <PromoCarousel />
       <Products />
       {trendingProducts && trendingProducts.length > 0 && (
-        <CheapestProducts products={trendingProducts} bannerText="Trending Products" />
+        <CheapestProducts products={trendingProducts} bannerText={t('products.trending_products')} />
       )}
       {promotionProducts && promotionProducts.length > 0 && (
         <>
