@@ -129,4 +129,10 @@ export class CatalogService {
     const response = await ApiService.post(`/products/${productId}/ratings`, data);
     return response.data;
   }
+
+  async fetchCategoryProductsPaginated(categoryId: number, queryString: string | URLSearchParams) {
+    const qs = typeof queryString === 'string' ? queryString : queryString.toString();
+    const response = await ApiService.get(`/categories/${categoryId}/products/paginated?${qs}`);
+    return response;
+  }
 }

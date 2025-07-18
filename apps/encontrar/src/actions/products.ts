@@ -179,3 +179,29 @@ export const postProductRating =
       console.error("Can't post product rating", error);
     }
   };
+
+export const fetchCategoryProductsPaginated =
+  (categoryId: number, filters: Record<string, any> = {}) =>
+  async (dispatch: Dispatch<CartAction>) => {
+    try {
+      const params = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.set(key, String(value));
+        }
+      });
+      const productsResponse = (await catalog.fetchCategoryProductsPaginated(categoryId, params)) as any;
+      const paginated = productsResponse.data;
+      const products_ = paginated.data || [];
+      const total_ = paginated.total || products_.length;
+      const page_ = paginated.page;
+      const limit_ = paginated.limit;
+      const totalPages_ = paginated.totalPages;
+      dispatch({
+        type: GetAllProducts,
+        payload: { products: products_, total: total_, page: page_, limit: limit_, totalPages: totalPages_ },
+      });
+    } catch (error) {
+      console.error("Can't fetch category products", error);
+    }
+  };
