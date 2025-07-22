@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 
 import { ProductDetail as Details, ShowProductBanner } from 'components';
@@ -21,6 +22,7 @@ import { useRouter } from 'next/router';
 const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
 export const ProductDetailPage = () => {
+  const { t } = useTranslation('home'); 
   const [isOpen, setIsOpen] = useState(false);
   // const product = props.product;
   const dispatch = useAppDispatch();
@@ -75,7 +77,7 @@ export const ProductDetailPage = () => {
 
           <div className="products_container">
             <div className="products_container_top">
-              <h4>Trending Products</h4>
+              <h4>{t('products.trending_products')}</h4>
             </div>
           </div>
 

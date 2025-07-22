@@ -51,13 +51,13 @@ export const CartResume = ({
       <div className="price">
         <ul>
           <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
-          <li>{fnService.numberFormat(total + DELIVERY_COST)}kz</li>
+          <li>{fnService.numberFormat(total)}kz</li>
         </ul>
       </div>
       <div className="price">
         <ul>
           <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
-          <li>{fnService.numberFormat(total + DELIVERY_COST)}kz</li>
+          <li>{fnService.numberFormat(total)}kz</li>
         </ul>
       </div>
       <div className="price">
