@@ -60,7 +60,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
-  const isProductsRoute = router.pathname.startsWith('/products');
+  // const isProductsRoute = router.pathname.startsWith('/products');
+  const isProductsRoute = null;
   const isAboutRoute = router.pathname.startsWith('/about');
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
   const isHomeRoute = router.pathname === '/';

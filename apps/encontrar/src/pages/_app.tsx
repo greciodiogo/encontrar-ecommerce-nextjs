@@ -2,7 +2,7 @@ import { CacheProvider } from '@emotion/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useEffect, useState, useContext } from 'react';
 import { Provider } from 'react-redux';
 import { createEmotionCache } from 'utils-mui';
 
@@ -22,10 +22,47 @@ import { Banner, Footer, Header } from 'components';
 import { ProductProvider } from 'contexts/ProductContext';
 import { store } from 'slices/store';
 import { AuthProvider } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 import ChatBot from 'components/Whatsapp';
 import { Loading } from 'components/Loading';
 
 const clientSideEmotionCache = createEmotionCache();
+
+// Simple client-side auth guard using AuthContext
+const AuthGuard = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+  const auth = useContext(AuthContext);
+
+  const isAuthRoute = router.pathname === '/auth';
+  const isLoading = auth?.isLoading ?? true;
+  const isAuthenticated = auth?.isAuthenticated ?? false;
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!isAuthenticated && !isAuthRoute) {
+      void router.replace('/auth');
+    } else if (isAuthenticated && isAuthRoute) {
+      void router.replace('/');
+    }
+  }, [isAuthenticated, isLoading, isAuthRoute, router]);
+
+  // Optionally show a loader while checking auth
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // Prevent rendering protected content while redirecting
+  if (!isAuthenticated && !isAuthRoute) {
+    return null;
+  }
+
+  if (isAuthenticated && isAuthRoute) {
+    return null;
+  }
+
+  return <>{children}</>;
+};
 
 type NextPageWithLayout = {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -74,7 +111,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
                 {loading && <Loading />}
 
-                {page}
+                <AuthGuard>{page}</AuthGuard>
                 <Footer />
               </CacheProvider>
             </GoogleOAuthProvider>

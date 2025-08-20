@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { parseCookies, setCookie } from 'nookies';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import { createContext, ReactNode, useState, useEffect } from 'react';
 
 import { AuthService } from 'lib/login';
@@ -18,8 +18,14 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 function persistUser(user: DecodedPayload | null) {
   if (user) {
     localStorage.setItem('user', JSON.stringify(user));
+    try {
+      setCookie(null, 'isAuthenticated', 'true', { maxAge: 60 * 60 * 24 * 7, path: '/' });
+    } catch {}
   } else {
     localStorage.removeItem('user');
+    try {
+      destroyCookie(null, 'isAuthenticated', { path: '/' });
+    } catch {}
   }
 }
 
@@ -40,6 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const parsed = JSON.parse(stored);
         setUser(parsed);
         setIsAuthenticated(true);
+        persistUser(parsed);
       } catch {}
     }
   }, []);
@@ -128,10 +135,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
     setCookie(null, 'accessToken', JSON.stringify(token), {
       maxAge: 60 * 60 * 1, // 1 hour
+      path: '/',
     });
     setUser(token);
     setIsAuthenticated(true);
-    persistUser(token);
+    persistUser(token as unknown as DecodedPayload);
   };
 
   const login = async (data: { email: string; password: string }): Promise<boolean> => {
