@@ -15,8 +15,8 @@ export const PromotionBanner = () => {
           </div>
           <div className="promotion__desc">
             {/* <h3>Promoções</h3> */}
-            <h3>Brevemente</h3>
-            <p>Promoção vai de 01 de a 30 de Julho</p>
+            <h3>A Decorrer</h3>
+            <p>Promoção vai de 01 de a 30 de Agosto</p>
           </div>
         </div>
       </div>
