@@ -1,11 +1,14 @@
 // import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // import { PromotionBanner } from 'components';
 import { Container } from 'components/Container';
 import { PromotionBanner } from 'components/PromotionBanner';
 import { useProductContext } from 'hooks/useProductContext';
+import { useAppSelector } from 'hooks';
+import { RootState } from 'types/product';
 
 import { FilterComponent } from './FilterComponent';
 import { ProductsList } from './ProductsList';
@@ -14,7 +17,8 @@ export const ProductsPage = () => {
   const { t } = useTranslation('common');
   const [showFilter, setShowFilter] = useState(false);
   const { selectedCategories, setSelectedCategories } = useProductContext();
-  // const router = useRouter();
+  const router = useRouter();
+  const categoriesList = useAppSelector((state: RootState) => state.products.categories);
 
   const handleShowFilterPainel = () => {
     setShowFilter(true);
@@ -44,8 +48,17 @@ export const ProductsPage = () => {
   }, [showFilter]);
 
   useEffect(() => {
-    // setSelectedCategories([]);
-  }, []);
+    // Sync selected categories from query param if present
+    if (!router.isReady) return;
+    const categoriesParam = router.query.categories as string | undefined;
+    if (categoriesParam && categoriesList.length > 0) {
+      const names = categoriesParam.split(',').map((s) => s.trim().toLowerCase());
+      const matched = categoriesList.filter((c) => names.includes(c.name.toLowerCase()));
+      if (matched.length > 0) {
+        setSelectedCategories(matched);
+      }
+    }
+  }, [router.isReady, router.query.categories, categoriesList]);
 
   return (
     <Container useStyle={false}>

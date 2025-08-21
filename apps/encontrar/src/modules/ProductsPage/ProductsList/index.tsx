@@ -10,10 +10,10 @@ import { FnService } from 'shared/utils/FnService';
 import { ProductDTO } from 'types/product';
 import { RootState } from 'types/product';
 import { Pagination, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
-import { fetchAllProducts } from 'actions/products';
+import { fetchAllProducts, fetchCategoryProductsPaginated } from 'actions/products';
 
 export const ProductsList = () => {
-  const { currentPage, itemsPerPage, setCurrentPage, setItemsPerPage } = useProductContext();
+  const { currentPage, itemsPerPage, setCurrentPage, setItemsPerPage, selectedCategories } = useProductContext();
   const productsPage = useAppSelector((state: RootState) => state.products.productsPage);
   const productsList = productsPage?.data || [];
   const totalProducts = productsPage?.total || 0;
@@ -42,10 +42,15 @@ export const ProductsList = () => {
     setCurrentPage(1);
   };
 
-  // Fetch products when currentPage or itemsPerPage changes
+  // Fetch products when page/size or selected category changes
   useEffect(() => {
-    dispatch(fetchAllProducts({ page: currentPage, limit: itemsPerPage }));
-  }, [dispatch, currentPage, itemsPerPage]);
+    if (selectedCategories && selectedCategories.length > 0) {
+      const categoryId = selectedCategories[0].id;
+      dispatch(fetchCategoryProductsPaginated(categoryId, { page: currentPage, limit: itemsPerPage }));
+    } else {
+      dispatch(fetchAllProducts({ page: currentPage, limit: itemsPerPage }));
+    }
+  }, [dispatch, currentPage, itemsPerPage, selectedCategories]);
 
   const totalPages = productsPage?.totalPages || Math.max(1, Math.ceil(totalProducts / itemsPerPage));
 
