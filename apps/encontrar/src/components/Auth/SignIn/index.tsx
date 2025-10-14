@@ -228,7 +228,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
                   <h4>
                     {selectedPrice?.name === 'CASH' ? t('pay_in') : t('pay_with')} {selectedPrice?.name}
                   </h4>
-                  <p>{selectedPrice?.name === 'CASH' && t('cash_payment_description')}</p>
+                  {/* <p>{selectedPrice?.name === 'CASH' && t('cash_payment_description')}</p> */}
                 </>
               )}
             </div>

@@ -25,7 +25,7 @@
     "serviceFee": "Service Fee",
     "delivery": "Delivery",
     "total_items": "Total ({{count}} items)",
-    "pay_button_cash": "Pay in cash",
-    "pay_button_other": "Pay with {{method}}"
+    "pay_button_cash": "Pay",
+    "pay_button_other": "Pay"
   }
 }

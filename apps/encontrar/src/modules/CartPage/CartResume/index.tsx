@@ -37,29 +37,16 @@ export const CartResume = ({
     <div className="box">
       <div className="price">
         <ul>
-          <li className="priceTitle">{t('cart_resume.subtotal')}</li>
-          <li>{fnService.numberFormat(total)}kz</li>
-        </ul>
-        {/* <ul>
-          <li className="priceTitle">{t('cart_resume.serviceFee')}</li>
-        </ul> */}
-        {/* <ul>
-          <li className="priceTitle">{t('cart_resume.delivery')}</li>
-          <li>{fnService.numberFormat(DELIVERY_COST)}kz</li>
-        </ul> */}
-      </div>
-      <div className="price">
-        <ul>
           <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
           <li>{fnService.numberFormat(total)}kz</li>
         </ul>
       </div>
-      <div className="price">
+      {/* <div className="price">
         <ul>
           <li>{t('cart_resume.total_items', { count: totalProduct })}</li>
           <li>{fnService.numberFormat(total)}kz</li>
         </ul>
-      </div>
+      </div> */}
       <div className="price">
         <div className="cartButtons">
           <SubmitButton title={payButtonText} onClick={handleGoToCheckout} />

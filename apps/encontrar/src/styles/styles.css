@@ -1871,6 +1871,7 @@ a:visited {
   color: #a3651b;
   text-transform: uppercase;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 @media (max-width: 1080px) {
@@ -1929,7 +1930,7 @@ a:visited {
   .cart .row .wrapper .cart-item .cart-item-btn {
     display: flex;
     gap: 20px;
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   .cart .row .wrapper .change_quantity {
@@ -1941,7 +1942,14 @@ a:visited {
   }
 
   .cart .row .wrapper .cart-item .cart-item-picture {
+    height: 128px;
+    width: 128px;
+  }
+
+  .cart .row .wrapper .cart-item .cart-item-picture img {
+    height: 100%;
     width: 100%;
+    object-fit: contain;
   }
 }
 

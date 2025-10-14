@@ -24,7 +24,7 @@
     "serviceFee": "Taxa/Serviço",
     "delivery": "Entrega",
     "total_items": "Total ({{count}} items)",
-    "pay_button_cash": "PAGAR em dinheiro",
-    "pay_button_other": "PAGAR com {{method}}"
+    "pay_button_cash": "PAGAR",
+    "pay_button_other": "PAGAR"
   }
 }
