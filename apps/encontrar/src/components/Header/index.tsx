@@ -231,9 +231,9 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
               </i>
               <span>{t('cart')}</span>
             </a>
-            <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={toggleMenu}>
+            {/* <a className="nav-item menu-item" href="#" role="button" tabIndex={0} onClick={toggleMenu}>
               {menuOpen ? <CrossIcon /> : <MenuIcon />}
-            </a>
+            </a> */}
           </nav>
         </div>
         {(isProductsRoute || isHomeRoute) && (
@@ -252,7 +252,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </div>
           </div>
         )}
-        <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        {/* <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> */}
         <MobileCategoriesBar />
       </div>
     </>
