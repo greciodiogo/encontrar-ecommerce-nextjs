@@ -40,6 +40,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [loading, setLoading] = useState(false);
 
   const isCheckoutRoute = router.pathname.startsWith('/checkout');
+  const isHomeRoute = router.pathname === '/';
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   if (!clientId) {
     throw new Error('A variável de ambiente NEXT_PUBLIC_GOOGLE_CLIENT_ID não está definida.');
@@ -68,7 +69,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           <ProductProvider>
             <GoogleOAuthProvider clientId={clientId}>
               <CacheProvider value={clientSideEmotionCache}>
-                {!isCheckoutRoute && <Banner />}
+                {!isCheckoutRoute && isHomeRoute && <Banner />}
                 <Header hideItemsHeader={isCheckoutRoute} />
                 <ChatBot />
 

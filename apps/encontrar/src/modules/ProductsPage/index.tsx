@@ -65,7 +65,7 @@ export const ProductsPage = () => {
       <div className="productsPage">
         <div className="productsPage__container">
           {/* {selectedCategories.includes('Promoções') && <PromotionBanner />} */}
-          <div className="productsPage__top">
+          {/* <div className="productsPage__top">
             <div className="productsPage__btnContainer">
               <button onClick={handleShowFilterPainel}>
                 {t('filter')} ({selectedCategories.length})
@@ -74,7 +74,7 @@ export const ProductsPage = () => {
                 {t('chooseBy')}: {t('recommended')}
               </button>
             </div>
-          </div>
+          </div> */}
           <div className="row">
             <div
               className={`menu-overlay ${showFilter ? 'activeFilter' : ''}`}
