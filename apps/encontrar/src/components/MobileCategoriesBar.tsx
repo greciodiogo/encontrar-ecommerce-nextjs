@@ -53,40 +53,74 @@ export const MobileCategoriesBar = () => {
   };
 
   return (
-    <nav className="mobile-categories-bar">
-      {pills.map((cat) => {
-        let imgSrc = '';
-        if (!cat.isAll) {
-          const staticCategory = new_categories.find((c) => c.slug === cat.slug);
-          imgSrc = staticCategory?.image
-            ? `/assets_ecommerce/svg/${staticCategory.image}`
-            : '/assets_ecommerce/svg/default.png';
-        }
-        return (
-          <button
-            key={cat.id}
-            className={`mobile-categories-pill${isSelected(cat) ? ' selected' : ''}`}
-            onClick={() => handleClick(cat)}
-            aria-label={cat.isAll ? 'All categories' : cat.name}
-            type="button"
-          >
-            {!cat.isAll && (
-              <span className="mobile-categories-img-wrapper">
-                {imgSrc && (
-                  <Image
-                    src={imgSrc}
-                    alt={cat.name}
-                    width={22}
-                    height={22}
-                    style={{ minWidth: 22, minHeight: 22, objectFit: 'contain' }}
-                  />
-                )}
-              </span>
-            )}
-            <span className="mobile-categories-label">{cat.name}</span>
-          </button>
+    <>
+      <nav className="mobile-categories-bar">
+        {pills.map((cat) => {
+          let imgSrc = '';
+          if (!cat.isAll) {
+            const staticCategory = new_categories.find((c) => c.slug === cat.slug);
+            imgSrc = staticCategory?.image
+              ? `/assets_ecommerce/svg/${staticCategory.image}`
+              : '/assets_ecommerce/svg/default.png';
+          }
+          return (
+            <button
+              key={cat.id}
+              className={`mobile-categories-pill${isSelected(cat) ? ' selected' : ''}`}
+              onClick={() => handleClick(cat)}
+              aria-label={cat.isAll ? 'All categories' : cat.name}
+              type="button"
+            >
+              {!cat.isAll && (
+                <span className="mobile-categories-img-wrapper">
+                  {imgSrc && (
+                    <Image
+                      src={imgSrc}
+                      alt={cat.name}
+                      width={22}
+                      height={22}
+                      style={{ minWidth: 22, minHeight: 22, objectFit: 'contain' }}
+                    />
+                  )}
+                </span>
+              )}
+              <span className="mobile-categories-label">{cat.name}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Subcategories wrapper (only when exactly one top-level category is selected and it has children) */}
+      {(() => {
+        const selectedTopLevel = selectedCategories.filter((c) => allowedSlugs.includes(c.slug));
+        if (selectedTopLevel.length !== 1) return null;
+
+        const parentFromStore = categories.find((c) => c.id === selectedTopLevel[0].id);
+        if (!parentFromStore) return null;
+
+        const directChildren = Array.isArray(parentFromStore.childCategories) ? parentFromStore.childCategories : [];
+        const linkedChildren = categories.filter(
+          (c) => c.parentCategory && (c.parentCategory as any).id === parentFromStore.id,
         );
-      })}
-    </nav>
+        const subcategories = directChildren.length > 0 ? directChildren : linkedChildren;
+        if (!subcategories || subcategories.length === 0) return null;
+
+        return (
+          <nav className="mobile-categories-bar" aria-label="Subcategories">
+            {subcategories.map((sub) => (
+              <button
+                key={sub.id}
+                className={`mobile-categories-pill${isSelected(sub as any) ? ' selected' : ''}`}
+                onClick={() => handleClick(sub as any)}
+                aria-label={sub.name}
+                type="button"
+              >
+                <span className="mobile-categories-label">{sub.name}</span>
+              </button>
+            ))}
+          </nav>
+        );
+      })()}
+    </>
   );
 };

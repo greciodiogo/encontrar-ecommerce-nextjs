@@ -96,7 +96,7 @@ const ProductsPageHeader = ({ totalProducts }: { totalProducts: number }) => {
         {t('totalProducts')}
         {/* {totalProducts} */}
       </h5>
-      <h5>{t('mostRecommended')}</h5>
+      {/* <h5>{t('mostRecommended')}</h5> */}
     </div>
   );
 };

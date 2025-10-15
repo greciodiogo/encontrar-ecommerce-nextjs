@@ -3951,8 +3951,8 @@ button > i {
 }
 
 .product-description {
-  margin-bottom: 10px;
-  margin-top: 5px;
+  /* margin-bottom: 10px; */
+  /* margin-top: 5px; */
 }
 
 .products.simple .category-item:hover .category_picture {
