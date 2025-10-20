@@ -47,7 +47,7 @@
     },
     "easy_payments": {
       "name": "Facilidade de Pagamentos",
-      "description": "Opções de pagamento como Fasmapay, Express e Cash."
+      "description": "Opções de pagamento como Express e Cash."
     },
     "returns": {
       "name": "Devolução",

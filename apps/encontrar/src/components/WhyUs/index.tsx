@@ -19,7 +19,7 @@ export const WhyUs = () => {
     {
       icon: 'Icons - Payment.png',
       name: 'Facilidade de Pagamentos',
-      description: 'Opções de pagamentos como Fasmapay, Express e Cash',
+      description: 'Opções de pagamentos como Express e Cash',
       slug: 'easy_payments',
     },
     {

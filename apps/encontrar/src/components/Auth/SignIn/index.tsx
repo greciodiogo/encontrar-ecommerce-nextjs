@@ -62,7 +62,7 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
 
   const { login, loginGoogle, loginFacebook, signup, selectedPrice } = useAuth();
 
-  const paymentMethods = ['fasmapay', 'multicaixa', 'CASH'];
+  const paymentMethods = ['multicaixa', 'CASH'];
   const availableMethods = paymentMethods.filter((method) => method !== selectedPrice?.name);
 
   const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {

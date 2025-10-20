@@ -20,7 +20,7 @@ export const Footer = () => {
           <div className="col col-2">
             <h4>{t('footer.payment_methods')}</h4>
             <div className="payment_methods">
-              {['fasmapay', 'multicaixa', 'CASH'].map((img) => (
+              {['multicaixa', 'CASH'].map((img) => (
                 <i className={`payment_icon ${img}`} key={img}>
                   <img src={`/assets_ecommerce/payments_methods/${img}.png`} alt={img} />
                 </i>
