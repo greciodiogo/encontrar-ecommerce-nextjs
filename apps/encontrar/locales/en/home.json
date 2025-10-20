@@ -47,7 +47,7 @@
     },
     "easy_payments": {
       "name": "Easy Payments",
-      "description": "Payment options like Fasmapay, Express, and Cash."
+      "description": "Payment options like Express, and Cash."
     },
     "returns": {
       "name": "Returns",

@@ -44,6 +44,18 @@ export const MobileCategoriesBar = () => {
     }
   };
 
+  const handleSubcategoryClick = (subcat: CategoriesDTO) => {
+    // Para subcategorias, apenas remove a subcategoria clicada sem afetar outras seleções
+    const alreadySelected = selectedCategories.some((c) => c.id === subcat.id);
+
+    if (alreadySelected) {
+      setSelectedCategories(selectedCategories.filter((c) => c.id !== subcat.id));
+    } else {
+      // Se não está selecionada, adiciona à lista mantendo as outras
+      setSelectedCategories([...selectedCategories, subcat]);
+    }
+  };
+
   // Determine selected state for pills
   const isSelected = (cat: CategoriesDTO & { isAll?: boolean }) => {
     if (cat.isAll) {
@@ -111,7 +123,7 @@ export const MobileCategoriesBar = () => {
               <button
                 key={sub.id}
                 className={`mobile-categories-pill${isSelected(sub as any) ? ' selected' : ''}`}
-                onClick={() => handleClick(sub as any)}
+                onClick={() => handleSubcategoryClick(sub as any)}
                 aria-label={sub.name}
                 type="button"
               >
