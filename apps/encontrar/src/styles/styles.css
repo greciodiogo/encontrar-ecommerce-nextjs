@@ -4948,7 +4948,7 @@ button > i {
     width: 100%;
     /* position: sticky; */
     /* top: 106px; */
-    z-index: 99999;
+    z-index: 98;
   }
   .mobile-categories-bar::-webkit-scrollbar {
     display: none;
