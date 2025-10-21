@@ -76,9 +76,8 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       const limitFromServer = payload?.limit;
       const totalPagesFromServer = payload?.totalPages;
 
-      // Verifica se há itens no carrinho que não existem mais no servidor
-      const filteredCart = state.cart.filter((cartItem) => productsFromServer.some((prod) => prod.id === cartItem.id));
-
+      // Preserve the cart - don't filter it based on paginated results
+      // The cart items may be from any page, not just the current page
       const newState: ProductState = {
         ...state,
         products: productsFromServer,
@@ -89,7 +88,7 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
           limit: limitFromServer ?? productsFromServer.length,
           totalPages: totalPagesFromServer ?? 1,
         },
-        cart: filteredCart, // limpa os itens inválidos
+        cart: state.cart, // Preserve existing cart items
         total: totalFromServer !== undefined ? totalFromServer : productsFromServer.length,
         page: pageFromServer,
         limit: limitFromServer,
