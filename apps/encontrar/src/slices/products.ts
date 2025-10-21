@@ -133,12 +133,16 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
     }
 
     case AddToCart: {
-      // Cat the items data from the products array
+      // Get the item data from the products array or use the provided product
+      const item = action.payload.product || state.products.find((prod) => prod.id === action.payload.id);
 
-      const item = state.products.find((prod) => prod.id === action.payload.id);
+      // If no item found at all, return state without changes
+      if (!item) {
+        console.warn(`Product with id ${action.payload.id} not found`);
+        return state;
+      }
 
       // check if the item is already in the cart
-
       const inCart = state.cart.find((item) => item.id === action.payload.id);
 
       const updatedCart = inCart

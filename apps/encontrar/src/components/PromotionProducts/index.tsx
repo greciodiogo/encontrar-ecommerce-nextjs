@@ -55,7 +55,14 @@ export const PromotionProducts = ({
   }, [isMobile, promotionProducts]);
 
   const handleAddToCart = (id: number) => {
-    dispatch(addToCart(id));
+    // Find the product in the promotionProducts array
+    const product = promotionProducts.find((p) => p.id === id);
+    if (product) {
+      dispatch(addToCart(id, 1, product));
+    } else {
+      // Fallback to old behavior if product not found in local state
+      dispatch(addToCart(id));
+    }
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {

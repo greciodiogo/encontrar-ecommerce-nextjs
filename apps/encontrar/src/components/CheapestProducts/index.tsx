@@ -49,8 +49,14 @@ export const CheapestProducts = ({
   }, []);
 
   const handleAddToCart = (id: number) => {
-    dispatch(addToCart(id));
-    //
+    // Find the product in the products array
+    const product = products.find((p) => p.id === id);
+    if (product) {
+      dispatch(addToCart(id, 1, product));
+    } else {
+      // Fallback to old behavior if product not found in local state
+      dispatch(addToCart(id));
+    }
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {

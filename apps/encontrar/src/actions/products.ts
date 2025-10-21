@@ -95,10 +95,10 @@ export const getAddresses = () => async (dispatch: Dispatch<CartAction>) => {
 };
 
 export const addToCart =
-  (id: number, qty = 1) =>
+  (id: number, qty = 1, product?: ProductDTO) =>
   (dispatch: Dispatch<CartAction>) => {
     try {
-      dispatch({ type: AddToCart, payload: { id, qty } });
+      dispatch({ type: AddToCart, payload: { id, qty, product } });
     } catch (error) {
       console.error("Can't add to Cart", error);
     }

@@ -44,6 +44,7 @@ export type AddToCartAction = {
   payload: {
     id: number;
     qty: number;
+    product?: ProductDTO;
   };
 };
 

@@ -22,7 +22,7 @@ import { useRouter } from 'next/router';
 const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
 export const ProductDetailPage = () => {
-  const { t } = useTranslation('home'); 
+  const { t } = useTranslation('home');
   const [isOpen, setIsOpen] = useState(false);
   // const product = props.product;
   const dispatch = useAppDispatch();
@@ -32,8 +32,14 @@ export const ProductDetailPage = () => {
   const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
 
   const handleAddToCart = (id: number) => {
-    dispatch(addToCart(id));
-    //
+    // Find the product in the trendingProducts array
+    const product = trendingProducts.find((p) => p.id === id);
+    if (product) {
+      dispatch(addToCart(id, 1, product));
+    } else {
+      // Fallback to old behavior if product not found in local state
+      dispatch(addToCart(id));
+    }
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {
