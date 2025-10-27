@@ -3,9 +3,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import { addToCart, loadCurrentItem } from 'actions/products';
 import { ProductDTO } from 'types/product';
 import { Container } from 'components/Container';
-import { ProductsList } from 'modules/ProductsPage/ProductsList';
+import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
+import { useAppDispatch } from 'hooks';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_PATH;
 
@@ -13,9 +15,20 @@ export const SearchPage = () => {
   const router = useRouter();
   const { query } = router;
   const searchTerm = query.q;
+  const dispatch = useAppDispatch();
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const handleAddToCart = (id: number) => {
+    const product = products.find((p) => p.id === id);
+    dispatch(addToCart(id, 1, product));
+  };
+
+  const handlepreviewProduct = (product: ProductDTO) => {
+    dispatch(loadCurrentItem(product));
+    void router.push('/preview-product');
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -52,7 +65,20 @@ export const SearchPage = () => {
           ) : (
             <>
               <h2>Search Results for: "{searchTerm}"</h2>
-              {products.length > 0 ? <ProductsList products={products} /> : <p>No products found.</p>}
+              {products.length > 0 ? (
+                <div className="wrapper bestselled">
+                  {products.map((item, itemIndex) => (
+                    <BestSelledProduct
+                      product={item}
+                      key={itemIndex}
+                      handleAddToCart={handleAddToCart}
+                      handlepreviewProduct={handlepreviewProduct}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p>No products found.</p>
+              )}
             </>
           )}
         </div>
