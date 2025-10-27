@@ -24,6 +24,7 @@ type AuthProps = {
   showAuthPainel?: boolean;
   closeAuth: () => void;
   isSignIn?: boolean;
+  redirectToCheckout?: boolean;
 };
 
 type CredentialResponse = {
@@ -39,7 +40,7 @@ type FormValues = {
 
 const INITIALSTATE = { email: '' };
 
-export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
+export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectToCheckout = false }) => {
   const { t } = useTranslation('auth');
   const [isSignup, setIsSignup] = useState<boolean>(false); // Começa com login
   const common = useTranslation('common');
@@ -139,7 +140,8 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
             position: 'top-right',
             autoClose: 1000,
           });
-          void router.push('/');
+          const redirectPath = redirectToCheckout ? '/checkout' : '/';
+          void router.push(redirectPath);
         } else {
           toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
             position: 'top-right',
@@ -159,7 +161,8 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
 
     try {
       loginGoogle(credentialResponse.credential);
-      void router.push('/');
+      const redirectPath = redirectToCheckout ? '/checkout' : '/';
+      void router.push(redirectPath);
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -196,7 +199,8 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth }) => {
         });
         setShowAuth(false);
         setPendingSignupData(null);
-        void router.push('/');
+        const redirectPath = redirectToCheckout ? '/checkout' : '/';
+        void router.push(redirectPath);
       } else {
         toast.error(String(common.t('AUTHENTICATION_INVALID.title')), {
           position: 'top-right',

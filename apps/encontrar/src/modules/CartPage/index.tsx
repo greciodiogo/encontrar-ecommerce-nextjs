@@ -25,6 +25,7 @@ export const CartPage = () => {
   const router = useRouter();
 
   const [showAuth, setShowAuth] = useState(false);
+  const [redirectToCheckout, setRedirectToCheckout] = useState(false);
 
   const onCloseSignInForm = () => {
     setShowAuth(false);
@@ -35,6 +36,7 @@ export const CartPage = () => {
       return;
     }
     if (!isAuthenticated) {
+      setRedirectToCheckout(true);
       setShowAuth(true);
     } else {
       void router.push('/checkout');
@@ -73,7 +75,7 @@ export const CartPage = () => {
           </div>
         </div>
       </div>
-      <Auth showAuthPainel={showAuth} closeAuth={onCloseSignInForm} />
+      <Auth showAuthPainel={showAuth} closeAuth={onCloseSignInForm} redirectToCheckout={redirectToCheckout} />
       {/* <CheapestProducts /> */}
     </Container>
   );
