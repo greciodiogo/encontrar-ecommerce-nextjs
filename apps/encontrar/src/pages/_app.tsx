@@ -69,7 +69,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           <ProductProvider>
             <GoogleOAuthProvider clientId={clientId}>
               <CacheProvider value={clientSideEmotionCache}>
-                {!isCheckoutRoute && isHomeRoute && <Banner />}
+                {/* {!isCheckoutRoute && isHomeRoute && <Banner />} */}
                 <Header hideItemsHeader={isCheckoutRoute} />
                 <ChatBot />
 
