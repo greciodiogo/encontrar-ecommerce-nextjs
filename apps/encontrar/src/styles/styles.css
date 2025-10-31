@@ -1479,6 +1479,15 @@ a:visited {
   }
 }
 
+@media (max-width: 550px) {
+  .footer .wrapper_right .row-1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
 /* footer section ends here */
 
 *::-webkit-scrollbar {

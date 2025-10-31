@@ -56,7 +56,12 @@ export const Footer = () => {
                       {category.data.map((item, itemIndex) => (
                         <li className="category-item" key={itemIndex}>
                           <Link href={item.href} target={item.href && 'blank'}>
-                            {t(`footer.${item.slug}`)}
+                            {}
+                            {category.slug == 'social_networks' ? (
+                              <img src={`/assets_ecommerce/svg/${item.imgUrl}.png`} alt="" />
+                            ) : (
+                              t(`footer.${item.slug}`)
+                            )}
                           </Link>
                         </li>
                       ))}
