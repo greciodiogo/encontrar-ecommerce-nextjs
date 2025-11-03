@@ -11,6 +11,7 @@ import styles from 'styles/home/filter.module.css';
 import { FilterPrice } from '../FilterPrice';
 import { CategoriesDTO, RootState } from 'types/product';
 import { useAppSelector } from 'hooks';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
   const { t } = useTranslation('home');
@@ -60,28 +61,26 @@ export const Filter = ({ onCloseFilter }: { onCloseFilter: () => void }) => {
 
   // Render the tree recursively
   const renderTree = (nodes: CategoriesDTO[]) => {
-    return nodes
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map((node) => (
-        <TreeItem
-          key={node.id}
-          itemId={node.id.toString()}
-          label={
-            <span style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-              <input
-                type="checkbox"
-                checked={selectedCategories.some((cat) => cat.id === node.id)}
-                onChange={() => toggleSelection(selectedCategories, setSelectedCategories, node)}
-                className={styles.checkbox}
-                style={{ marginRight: 8 }}
-              />
-              <span className={styles.brandName}>{node.name}</span>
-            </span>
-          }
-        >
-          {node.childCategories && node.childCategories.length > 0 && renderTree(node.childCategories)}
-        </TreeItem>
-      ));
+    return sortCategoriesWithDrinkFoodsLast(nodes).map((node) => (
+      <TreeItem
+        key={node.id}
+        itemId={node.id.toString()}
+        label={
+          <span style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+            <input
+              type="checkbox"
+              checked={selectedCategories.some((cat) => cat.id === node.id)}
+              onChange={() => toggleSelection(selectedCategories, setSelectedCategories, node)}
+              className={styles.checkbox}
+              style={{ marginRight: 8 }}
+            />
+            <span className={styles.brandName}>{node.name}</span>
+          </span>
+        }
+      >
+        {node.childCategories && node.childCategories.length > 0 && renderTree(node.childCategories)}
+      </TreeItem>
+    ));
   };
 
   return (

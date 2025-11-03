@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import { useRouter } from 'next/router';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const MobileCategoriesBar = () => {
   const categories = useAppSelector((state: RootState) => state.products.categories);
@@ -24,10 +25,10 @@ export const MobileCategoriesBar = () => {
 
   if (!isMobile || !categories.length) return null;
 
-  // Filter and sort categories
-  const filteredCategories = [...categories]
-    .filter((category) => allowedSlugs.includes(category.slug))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  // Filter and sort categories with drink_foods last
+  const filteredCategories = sortCategoriesWithDrinkFoodsLast(
+    categories.filter((category) => allowedSlugs.includes(category.slug)),
+  );
 
   // Optionally add an 'All' pill at the start
   const pills: (CategoriesDTO & { isAll?: boolean })[] = [

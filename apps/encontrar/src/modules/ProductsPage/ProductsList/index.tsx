@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { ProductDTO, CategoriesDTO, PaginatedProducts } from 'types/product';
 import { RootState } from 'types/product';
 import { Pagination, Box, Typography, Divider } from '@mui/material';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const ProductsList = () => {
   const { itemsPerPage } = useProductContext();
@@ -61,9 +62,11 @@ export const ProductsList = () => {
     );
   }
 
+  const sortedCategories = sortCategoriesWithDrinkFoodsLast(categories);
+
   return (
     <div className="productsList">
-      {categories.map((category, index) => (
+      {sortedCategories.map((category, index) => (
         <CategorySection
           key={category.id}
           category={category}

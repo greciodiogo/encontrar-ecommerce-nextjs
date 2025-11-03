@@ -58,7 +58,7 @@ export const Footer = () => {
                           <Link href={item.href} target={item.href && 'blank'}>
                             {}
                             {category.slug == 'social_networks' ? (
-                              <img src={`/assets_ecommerce/svg/${item.imgUrl}.png`} alt="" />
+                              <img src={`/assets_ecommerce/svg/${item.imgUrl}`} alt="" />
                             ) : (
                               t(`footer.${item.slug}`)
                             )}

@@ -19,6 +19,7 @@ import { new_categories } from 'fixture/ecommerceData';
 import { useProductContext } from 'hooks/useProductContext';
 import { CategoriesDTO, RootState } from 'types/product';
 import { useAppSelector } from 'hooks';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const Products = () => {
   const { t } = useTranslation('home'); // Certifique-se de que está no namespace correto
@@ -34,11 +35,10 @@ export const Products = () => {
   const promotionsCategory = categoriesList.find((item) => item.slug === 'promotions');
   const otherCategories = categoriesList.filter((item) => item.slug !== 'promotions');
 
-  // Filter and sort categories
-  const filteredCategories = [...(otherCategories || [])]
-    .filter((category) => allowedSlugs.includes(category.slug))
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .slice(0, 7);
+  // Filter and sort categories with drink_foods last
+  const filteredCategories = sortCategoriesWithDrinkFoodsLast(
+    otherCategories.filter((category) => allowedSlugs.includes(category.slug)),
+  ).slice(0, 7);
 
   // Check screen width on mount and resize
   useEffect(() => {

@@ -7,6 +7,7 @@ import { CrossIcon } from 'components/icon/CrossIcon';
 import { useProductContext } from 'hooks/useProductContext';
 import { useAppSelector } from 'hooks';
 import { CategoriesDTO, RootState } from 'types/product';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const MobileMenu = ({
   menuOpen,
@@ -22,11 +23,12 @@ export const MobileMenu = ({
 
   const buildTree = (categories: CategoriesDTO[]): CategoriesDTO[] => {
     const map: Record<number, CategoriesDTO> = {};
-    categories.forEach((cat) => {
+    const sortedCategories = sortCategoriesWithDrinkFoodsLast(categories);
+    sortedCategories.forEach((cat) => {
       map[cat.id] = { ...cat, childCategories: [] };
     });
     const tree: CategoriesDTO[] = [];
-    categories.forEach((cat) => {
+    sortedCategories.forEach((cat) => {
       if (cat.parentCategory?.id) {
         map[cat.parentCategory.id]?.childCategories.push(map[cat.id]);
       } else {

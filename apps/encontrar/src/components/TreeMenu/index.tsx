@@ -8,6 +8,7 @@ import { useProductContext } from 'hooks/useProductContext';
 import { CategoriesDTO, RootState } from 'types/product';
 import { RichTreeView } from '@mui/x-tree-view';
 import { ChevronRight, ExpandMore } from '@mui/icons-material';
+import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const CategoriesTree = () => {
   const categoriesList = useAppSelector((state: RootState) => state.products.categories);
@@ -23,7 +24,7 @@ export const CategoriesTree = () => {
   // Criação da árvore (equivalente a createTree)
   const buildTree = (categories: CategoriesDTO[]): CategoriesDTO[] => {
     const map: Record<number, CategoriesDTO> = {};
-    const sortedCategories = [...categories].sort((a, b) => a.name.localeCompare(b.name));
+    const sortedCategories = sortCategoriesWithDrinkFoodsLast(categories);
 
     sortedCategories.forEach((cat) => {
       map[cat.id] = { ...cat, childCategories: [] };

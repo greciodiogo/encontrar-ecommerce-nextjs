@@ -1433,6 +1433,7 @@ a:visited {
 .footer .category-item img {
   width: 28px;
   height: 28px;
+  object-fit: contain;
 }
 
 .footer .category-item a:hover {
