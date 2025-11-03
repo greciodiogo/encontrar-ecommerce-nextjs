@@ -2,6 +2,7 @@ export const GetAllProducts = 'GetAllProducts';
 export const GetAllPaymentMethods = 'GetAllPaymentMethods';
 export const GetAllCategories = 'GetAllCategories';
 export const GetAllAddresses = 'GetAllAddresses';
+export const GetCategoriesWithProducts = 'GetCategoriesWithProducts';
 export const AddToCart = 'ADD_TO_CART';
 export const AdjustQty = 'ADJUST_QTY';
 export const RemoveFromCart = 'REMOVE_FROM_CART';

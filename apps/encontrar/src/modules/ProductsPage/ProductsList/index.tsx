@@ -1,28 +1,21 @@
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { addToCart, loadCurrentItem } from 'actions/products';
+import { addToCart, loadCurrentItem, fetchAllCategories } from 'actions/products';
 import { BestSelledProduct } from 'components/BestSelledProducts/BestSelledProduct';
 import { useProductContext } from 'hooks/useProductContext';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FnService } from 'shared/utils/FnService';
-import { ProductDTO } from 'types/product';
+import { ProductDTO, CategoriesDTO, PaginatedProducts } from 'types/product';
 import { RootState } from 'types/product';
-import { Pagination, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
-import { fetchAllProducts, fetchCategoryProductsPaginated } from 'actions/products';
+import { Pagination, Box, Typography, Divider } from '@mui/material';
 
 export const ProductsList = () => {
-  const { currentPage, itemsPerPage, setCurrentPage, setItemsPerPage, selectedCategories } = useProductContext();
-  const productsPage = useAppSelector((state: RootState) => state.products.productsPage);
-  const productsList = productsPage?.data || [];
-  const totalProducts = productsPage?.total || 0;
-  // Assume total count is available in Redux, fallback to productsList.length
-  // const totalProducts = useAppSelector((state: RootState) => state.products.total) || productsList.data.;
-
-  const fnService = new FnService();
+  const { itemsPerPage } = useProductContext();
+  const categories = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleAddToCart = (id: number) => {
     dispatch(addToCart(id));
@@ -33,48 +26,170 @@ export const ProductsList = () => {
     void router.push('/preview-product');
   };
 
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (event: SelectChangeEvent<string>) => {
-    setItemsPerPage(Number(event.target.value));
-    setCurrentPage(1);
-  };
-
-  // Fetch products when page/size or selected category changes
+  // Fetch all categories on mount
   useEffect(() => {
-    if (selectedCategories && selectedCategories.length > 0) {
-      const categoryId = selectedCategories[0].id;
-      dispatch(fetchCategoryProductsPaginated(categoryId, { page: currentPage, limit: itemsPerPage }));
-    } else {
-      dispatch(fetchAllProducts({ page: currentPage, limit: itemsPerPage }));
-    }
-  }, [dispatch, currentPage, itemsPerPage, selectedCategories]);
+    dispatch(fetchAllCategories());
+  }, [dispatch]);
 
-  const totalPages = productsPage?.totalPages || Math.max(1, Math.ceil(totalProducts / itemsPerPage));
+  // Wait for categories to load
+  useEffect(() => {
+    if (categories.length > 0) {
+      setIsLoading(false);
+    }
+  }, [categories]);
+
+  const handleCategoryPageChange = (categoryId: number, page: number) => {
+    // This is handled by CategorySection internally
+    console.log(`Category ${categoryId} changed to page ${page}`);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="productsList">
+        <Box sx={{ p: 4, textAlign: 'center' }}>
+          <Typography>Carregando categorias...</Typography>
+        </Box>
+      </div>
+    );
+  }
+
+  if (categories.length === 0) {
+    return (
+      <div className="productsList">
+        <NotFound />
+      </div>
+    );
+  }
 
   return (
     <div className="productsList">
-      <ProductsPageHeader totalProducts={totalProducts} />
-      <div className="wrapper bestselled">
-        {productsList.length === 0 ? (
-          <NotFound />
-        ) : (
-          productsList.map((item, itemIndex) => (
-            <BestSelledProduct
-              product={item}
-              key={itemIndex}
-              handleAddToCart={handleAddToCart}
-              handlepreviewProduct={handlepreviewProduct}
-            />
-          ))
-        )}
-      </div>
-      <div className="pagination__container">
-        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
-      </div>
+      {categories.map((category, index) => (
+        <CategorySection
+          key={category.id}
+          category={category}
+          itemsPerPage={itemsPerPage}
+          handleAddToCart={handleAddToCart}
+          handlepreviewProduct={handlepreviewProduct}
+          onPageChange={handleCategoryPageChange}
+          isLast={index === categories.length - 1}
+        />
+      ))}
     </div>
+  );
+};
+
+type CategorySectionProps = {
+  category: CategoriesDTO;
+  itemsPerPage: number;
+  handleAddToCart: (id: number) => void;
+  handlepreviewProduct: (product: ProductDTO) => void;
+  onPageChange: (categoryId: number, page: number) => void;
+  isLast: boolean;
+};
+
+const CategorySection = ({
+  category,
+  itemsPerPage,
+  handleAddToCart,
+  handlepreviewProduct,
+  onPageChange,
+  isLast,
+}: CategorySectionProps) => {
+  const { t } = useTranslation('common');
+  const dispatch = useAppDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsData, setProductsData] = useState<PaginatedProducts | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch products for this category
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_PATH}/categories/${category.id}/products/paginated?page=${currentPage}&limit=${itemsPerPage}`,
+        );
+        const data = await response.json();
+        setProductsData(data);
+      } catch (error) {
+        console.error(`Error fetching products for category ${category.name}:`, error);
+        setProductsData(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void fetchProducts();
+  }, [category.id, currentPage, itemsPerPage, category.name]);
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+    onPageChange(category.id, page);
+  };
+
+  const products = productsData?.data || [];
+  const totalPages = productsData?.totalPages || 1;
+  const totalProducts = productsData?.total || 0;
+
+  if (isLoading) {
+    return (
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h5" sx={{ mb: 2, ml: 2, fontWeight: 'bold' }}>
+          {category.name}
+        </Typography>
+        <Box sx={{ p: 2, textAlign: 'center' }}>
+          <Typography>Carregando produtos...</Typography>
+        </Box>
+        {!isLast && <Divider sx={{ mt: 4 }} />}
+      </Box>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <></>
+      // <Box sx={{ mb: 4 }}>
+      //   <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold' }}>
+      //     {category.name}
+      //   </Typography>
+      //   <Box sx={{ p: 2, textAlign: 'center' }}>
+      //     <Typography color="text.secondary">Nenhum produto disponível nesta categoria</Typography>
+      //   </Box>
+      //   {!isLast && <Divider sx={{ mt: 4 }} />}
+      // </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h5" sx={{ ml: 3, fontWeight: 'bold' }}>
+          {category.name}
+        </Typography>
+        <Typography color="text.secondary">
+          {totalProducts} {totalProducts === 1 ? 'produto' : 'produtos'}
+        </Typography>
+      </Box>
+
+      <div className="wrapper bestselled">
+        {products.map((item, itemIndex) => (
+          <BestSelledProduct
+            product={item}
+            key={`${category.id}-${item.id}-${itemIndex}`}
+            handleAddToCart={handleAddToCart}
+            handlepreviewProduct={handlepreviewProduct}
+          />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+          <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
+        </Box>
+      )}
+
+      {!isLast && <Divider sx={{ mt: 4 }} />}
+    </Box>
   );
 };
 
@@ -84,19 +199,6 @@ const NotFound = () => {
     <div className="notFound">
       <h3>{t('noProducts')}</h3>
       <p>{t('noResults')}</p>
-    </div>
-  );
-};
-
-const ProductsPageHeader = ({ totalProducts }: { totalProducts: number }) => {
-  const { t } = useTranslation('common');
-  return (
-    <div className="productsPage__top">
-      <h5>
-        {t('totalProducts')}
-        {/* {totalProducts} */}
-      </h5>
-      {/* <h5>{t('mostRecommended')}</h5> */}
     </div>
   );
 };

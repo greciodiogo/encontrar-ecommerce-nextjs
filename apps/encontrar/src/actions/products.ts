@@ -205,3 +205,24 @@ export const fetchCategoryProductsPaginated =
       console.error("Can't fetch category products", error);
     }
   };
+
+export const fetchAllCategoriesWithProducts =
+  (filters: Record<string, any> = {}) =>
+  async (dispatch: Dispatch<CartAction>) => {
+    try {
+      const params = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.set(key, String(value));
+        }
+      });
+      const response = (await catalog.fetchAllCategoriesWithProducts(params)) as any;
+      const categoriesWithProducts = response.data || [];
+      dispatch({
+        type: 'GetCategoriesWithProducts',
+        payload: { categoriesWithProducts },
+      });
+    } catch (error) {
+      console.error("Can't fetch categories with products", error);
+    }
+  };

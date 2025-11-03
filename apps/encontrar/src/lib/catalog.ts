@@ -135,4 +135,10 @@ export class CatalogService {
     const response = await ApiService.get(`/categories/${categoryId}/products/paginated?${qs}`);
     return response;
   }
+
+  async fetchAllCategoriesWithProducts(params: URLSearchParams) {
+    const queryString = buildQueryString(params);
+    const response = await ApiService.get(`/categories/with-products?${queryString}`);
+    return response;
+  }
 }
