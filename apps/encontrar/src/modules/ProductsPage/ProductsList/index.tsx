@@ -12,7 +12,7 @@ import { Pagination, Box, Typography, Divider } from '@mui/material';
 import { sortCategoriesWithDrinkFoodsLast } from 'utils/categorySort';
 
 export const ProductsList = () => {
-  const { itemsPerPage } = useProductContext();
+  const { itemsPerPage, selectedCategories } = useProductContext();
   const categories = useAppSelector((state: RootState) => state.products.categories);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -62,10 +62,52 @@ export const ProductsList = () => {
     );
   }
 
-  const sortedCategories = sortCategoriesWithDrinkFoodsLast(categories);
+  // Determine which categories to display
+  let categoriesToDisplay: CategoriesDTO[] = [];
+
+  if (selectedCategories.length > 0) {
+    // If a category is selected, show its subcategories
+    const selectedCategory = selectedCategories[0];
+    const categoryFromStore = categories.find((c) => c.id === selectedCategory.id);
+
+    if (categoryFromStore) {
+      // Get direct children from the category object
+      const directChildren = categoryFromStore.childCategories || [];
+
+      // Also find children by checking parentCategory relationship
+      const linkedChildren = categories.filter((c) => c.parentCategory && c.parentCategory.id === categoryFromStore.id);
+
+      // Combine both sources and remove duplicates
+      const allChildren = [...directChildren, ...linkedChildren];
+      const uniqueChildren = Array.from(new Map(allChildren.map((c) => [c.id, c])).values());
+
+      if (uniqueChildren.length > 0) {
+        // Show subcategories
+        categoriesToDisplay = uniqueChildren;
+      } else {
+        // No subcategories, show the selected category itself
+        categoriesToDisplay = [categoryFromStore];
+      }
+    }
+  } else {
+    // No category selected, show top-level categories (categories without parent)
+    categoriesToDisplay = categories.filter((c) => !c.parentCategory || !c.parentCategory.id);
+  }
+
+  const sortedCategories = sortCategoriesWithDrinkFoodsLast(categoriesToDisplay);
 
   return (
     <div className="productsList">
+      {selectedCategories.length > 0 && categoriesToDisplay.length > 1 && (
+        <Box sx={{ mb: 3, p: 2, bgcolor: '#f5f5f5', borderRadius: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            {selectedCategories[0].name}
+          </Typography>
+          <Typography color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+            Exibindo subcategorias
+          </Typography>
+        </Box>
+      )}
       {sortedCategories.map((category, index) => (
         <CategorySection
           key={category.id}
@@ -74,7 +116,7 @@ export const ProductsList = () => {
           handleAddToCart={handleAddToCart}
           handlepreviewProduct={handlepreviewProduct}
           onPageChange={handleCategoryPageChange}
-          isLast={index === categories.length - 1}
+          isLast={index === sortedCategories.length - 1}
         />
       ))}
     </div>
