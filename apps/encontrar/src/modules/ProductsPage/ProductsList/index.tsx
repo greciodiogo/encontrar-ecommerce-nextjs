@@ -18,8 +18,8 @@ export const ProductsList = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleAddToCart = (id: number) => {
-    dispatch(addToCart(id));
+  const handleAddToCart = (id: number, product?: ProductDTO) => {
+    dispatch(addToCart(id, 1, product));
   };
 
   const handlepreviewProduct = (productDTO: ProductDTO) => {
@@ -126,7 +126,7 @@ export const ProductsList = () => {
 type CategorySectionProps = {
   category: CategoriesDTO;
   itemsPerPage: number;
-  handleAddToCart: (id: number) => void;
+  handleAddToCart: (id: number, product?: ProductDTO) => void;
   handlepreviewProduct: (product: ProductDTO) => void;
   onPageChange: (categoryId: number, page: number) => void;
   isLast: boolean;

@@ -52,7 +52,7 @@ export const BestSelledProduct = ({
       return;
     }
 
-    handleAddToCart?.(id);
+    handleAddToCart?.(id, product);
   };
 
   const calculate_promotion = (price: number, promotional_price: number) => {
@@ -72,7 +72,7 @@ export const BestSelledProduct = ({
         </i>
       </a> */}
       {is_promotion === true && (
-        <i className="promotion_badget">{calculate_promotion(price ?? 0, promotional_price)}</i>
+        <i className="promotion_badget">{calculate_promotion(price ?? 0, promotional_price ?? 0)}</i>
       )}
       <div className="category_picture bestselled">
         <ProductImage product={product} />
