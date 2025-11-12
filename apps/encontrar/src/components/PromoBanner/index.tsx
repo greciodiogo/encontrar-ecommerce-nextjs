@@ -50,7 +50,7 @@ export const PromoCarousel = () => {
           <button className="slide-img" onClick={redirectToProducts}>
             <Image
               src={`/assets_ecommerce/${t('banner.banner_4')}`}
-              alt="Promoção"
+              alt={`${t('banner.banner_4')}`}
               width={1100}
               height={426}
               objectFit="cover"
@@ -61,7 +61,7 @@ export const PromoCarousel = () => {
           <button className="slide-mobile-img" onClick={redirectToProducts}>
             <Image
               src={`/assets_ecommerce/${t('banner.banner_mb_4')}`}
-              alt="Promoção"
+              alt={`${t('banner.banner_4')}`}
               width={650}
               height={302}
               objectFit="contain"
