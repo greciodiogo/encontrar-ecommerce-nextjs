@@ -60,10 +60,8 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
   // Verifica se a rota atual começa com "control-panel/"
   const isControlPanelRoute = router.pathname.startsWith('/control-panel');
   const isCartRoute = router.pathname.startsWith('/cart');
-  const isCheckoutRoute = router.pathname.startsWith('/checkout');
-  const isSearchRoute = router.pathname.startsWith('/search');
-  const isProductsRoute = router.pathname.startsWith('/products');
-  // const isProductsRoute = null;
+  // const isProductsRoute = router.pathname.startsWith('/products');
+  const isProductsRoute = null;
   const isAboutRoute = router.pathname.startsWith('/about');
   const isPrivacyPolicyRoute = router.pathname.startsWith('/privacy-policy');
   const isHomeRoute = router.pathname === '/';
@@ -238,7 +236,7 @@ export const Header = ({ hideItemsHeader = false }: { hideItemsHeader: boolean }
             </a> */}
           </nav>
         </div>
-        {(isSearchRoute || isHomeRoute || isProductsRoute) && (
+        {(isProductsRoute || isHomeRoute) && (
           <div className="searchInput__mobile">
             <div className="search_container">
               <input
