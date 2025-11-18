@@ -46,14 +46,17 @@ export const MobileCategoriesBar = () => {
   };
 
   const handleSubcategoryClick = (subcat: CategoriesDTO) => {
-    // Para subcategorias, apenas remove a subcategoria clicada sem afetar outras seleções
+    // Se a subcategoria já está selecionada, desseleciona
     const alreadySelected = selectedCategories.some((c) => c.id === subcat.id);
 
     if (alreadySelected) {
-      setSelectedCategories(selectedCategories.filter((c) => c.id !== subcat.id));
+      // Remove a subcategoria mas mantém a categoria pai
+      const parentCategory = selectedCategories.find((c) => allowedSlugs.includes(c.slug));
+      setSelectedCategories(parentCategory ? [parentCategory] : []);
     } else {
-      // Se não está selecionada, adiciona à lista mantendo as outras
-      setSelectedCategories([...selectedCategories, subcat]);
+      // Se não está selecionada, substitui qualquer subcategoria anterior por essa
+      const parentCategory = selectedCategories.find((c) => allowedSlugs.includes(c.slug));
+      setSelectedCategories(parentCategory ? [parentCategory, subcat] : [subcat]);
     }
   };
 
