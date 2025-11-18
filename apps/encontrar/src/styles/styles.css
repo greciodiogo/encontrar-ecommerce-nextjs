@@ -4110,10 +4110,6 @@ button > i {
   width: 100%;
 }
 
-.productsPage .wrapper.bestselled {
-  grid-template-columns: repeat(4, 1fr);
-}
-
 @media (max-width: 1036px) {
   .productsPage .wrapper.bestselled {
     grid-template-columns: repeat(3, 1fr);
@@ -4166,6 +4162,13 @@ button > i {
 
   .category-item .btn {
     font-size: 10px !important;
+  }
+}
+
+@media (min-width: 1036px) {
+  .productsPage .wrapper.bestselled {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
