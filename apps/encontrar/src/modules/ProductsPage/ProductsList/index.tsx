@@ -66,27 +66,43 @@ export const ProductsList = () => {
   let categoriesToDisplay: CategoriesDTO[] = [];
 
   if (selectedCategories.length > 0) {
-    // If a category is selected, show its subcategories
-    const selectedCategory = selectedCategories[0];
-    const categoryFromStore = categories.find((c) => c.id === selectedCategory.id);
+    // Check if any selected category is a subcategory (has a parent)
+    const hasSubcategoriesSelected = selectedCategories.some((c) => {
+      const catFromStore = categories.find((cat) => cat.id === c.id);
+      return catFromStore && catFromStore.parentCategory && catFromStore.parentCategory.id;
+    });
 
-    if (categoryFromStore) {
-      // Get direct children from the category object
-      const directChildren = categoryFromStore.childCategories || [];
+    if (hasSubcategoriesSelected) {
+      // If subcategories are selected, show only those subcategories
+      categoriesToDisplay = selectedCategories.filter((c) => {
+        const catFromStore = categories.find((cat) => cat.id === c.id);
+        return catFromStore && catFromStore.parentCategory && catFromStore.parentCategory.id;
+      });
+    } else {
+      // If only top-level categories are selected, show their subcategories
+      const selectedCategory = selectedCategories[0];
+      const categoryFromStore = categories.find((c) => c.id === selectedCategory.id);
 
-      // Also find children by checking parentCategory relationship
-      const linkedChildren = categories.filter((c) => c.parentCategory && c.parentCategory.id === categoryFromStore.id);
+      if (categoryFromStore) {
+        // Get direct children from the category object
+        const directChildren = categoryFromStore.childCategories || [];
 
-      // Combine both sources and remove duplicates
-      const allChildren = [...directChildren, ...linkedChildren];
-      const uniqueChildren = Array.from(new Map(allChildren.map((c) => [c.id, c])).values());
+        // Also find children by checking parentCategory relationship
+        const linkedChildren = categories.filter(
+          (c) => c.parentCategory && c.parentCategory.id === categoryFromStore.id,
+        );
 
-      if (uniqueChildren.length > 0) {
-        // Show subcategories
-        categoriesToDisplay = uniqueChildren;
-      } else {
-        // No subcategories, show the selected category itself
-        categoriesToDisplay = [categoryFromStore];
+        // Combine both sources and remove duplicates
+        const allChildren = [...directChildren, ...linkedChildren];
+        const uniqueChildren = Array.from(new Map(allChildren.map((c) => [c.id, c])).values());
+
+        if (uniqueChildren.length > 0) {
+          // Show subcategories
+          categoriesToDisplay = uniqueChildren;
+        } else {
+          // No subcategories, show the selected category itself
+          categoriesToDisplay = [categoryFromStore];
+        }
       }
     }
   } else {
