@@ -4128,13 +4128,17 @@ button > i {
 @media (max-width: 530px) {
   .productsPage .wrapper.bestselled {
     padding: 1rem;
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: flex-start;
+    /* grid-gap: 10px; */
+    column-gap: 10px;
   }
 
   .category-item {
     padding: 2px !important;
     background: transparent;
+    width: unset;
   }
 
   .productsList .wrapper .bestselled_product .category_picture {
