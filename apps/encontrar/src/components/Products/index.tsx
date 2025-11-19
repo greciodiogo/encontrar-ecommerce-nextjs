@@ -27,7 +27,15 @@ export const Products = () => {
   const { isClient } = useAuth();
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
-  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
+  const allowedSlugs = [
+    'drink_foods',
+    'electronics',
+    'stationery',
+    'home_items',
+    'personal_care',
+    'various',
+    'fashion_clothing',
+  ];
 
   // State to track screen width
   const [isMobile, setIsMobile] = useState(false);

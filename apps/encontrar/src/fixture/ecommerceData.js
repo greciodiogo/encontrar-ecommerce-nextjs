@@ -9,6 +9,15 @@ export const new_categories = [
     image: `bebidas.png`,
   },
   {
+    id: 20,
+    groups: [],
+    childCategories: null,
+    slug: 'fashion_clothing',
+    parentCategory: [],
+    name: 'Moda & vestuário',
+    image: `fashion_clothing.png`,
+  },
+  {
     id: 2,
     groups: [],
     childCategories: null,

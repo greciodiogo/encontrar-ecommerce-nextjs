@@ -14,7 +14,15 @@ export const MobileCategoriesBar = () => {
   const router = useRouter();
 
   // Use the same allowedSlugs as Products component
-  const allowedSlugs = ['drink_foods', 'electronics', 'stationery', 'home_items', 'personal_care', 'various'];
+  const allowedSlugs = [
+    'drink_foods',
+    'electronics',
+    'stationery',
+    'home_items',
+    'personal_care',
+    'various',
+    'fashion_clothing',
+  ];
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 750);
