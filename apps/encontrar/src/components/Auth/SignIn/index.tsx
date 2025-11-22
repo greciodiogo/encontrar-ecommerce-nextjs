@@ -216,26 +216,19 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectT
     <>
       <div className={`${styles.auth} ${showAuthPainel ? styles.active : ''}`}>
         <div className={styles.authContainer}>
+          <div className={styles.top}>
+            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
+              {t('sign_in')}
+            </button>
+            <button className={isSignup ? styles.active : ''} onClick={() => setIsSignup(true)}>
+              {t('sign_up')}
+            </button>
+            <button className={styles.btnClose} onClick={closeAuth}>
+              <FaTimes />
+            </button>
+          </div>
+
           <div className={styles.main}>
-            <div className={styles.top}>
-              <button className={`${styles.btn} ${styles.outlinedBtn}`} onClick={handleClickKeepAsGuess}>
-                {t('continue_as_guest')}
-                <span></span>
-              </button>
-              <button className={styles.btnClose} onClick={closeAuth}>
-                <FaTimes />
-              </button>
-            </div>
-            <div className={styles.authInfo}>
-              {selectedPrice?.name && (
-                <>
-                  <h4>
-                    {selectedPrice?.name === 'CASH' ? t('pay_in') : t('pay_with')} {selectedPrice?.name}
-                  </h4>
-                  {/* <p>{selectedPrice?.name === 'CASH' && t('cash_payment_description')}</p> */}
-                </>
-              )}
-            </div>
             <ToastContainer {...toastProps} />
             <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
               {isSignup && (
@@ -325,14 +318,16 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectT
               >
                 Login Com Facebook
               </FacebookLogin>
-              {/* <button className={`${styles.btn} ${styles.outlinedBtn}`}>
-                <i>
-                  <img src={`/assets_ecommerce/svg/Apple.png`} alt="apple" />
-                </i>
-                {t('login_with_apple')}
-                <span></span>
-              </button> */}
             </form>
+
+            {!isSignup && (
+              <div className={styles.guestSection}>
+                <span className={styles.divider}></span>
+                <button className={`${styles.btn} ${styles.guestBtn}`} onClick={handleClickKeepAsGuess}>
+                  {t('continue_as_guest')}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
