@@ -228,14 +228,17 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectT
             </button>
           </div>
 
-          {!isSignup && (
-            <div className={styles.guestSection}>
-              <span className={styles.divider}></span>
-              <button className={`${styles.btn} ${styles.guestBtn}`} onClick={handleClickKeepAsGuess}>
-                {t('continue_as_guest')}
-              </button>
-            </div>
-          )}
+          <div style={{ padding: '20px 40px', width: '100%' }}>
+            {!isSignup && (
+              <div className={styles.guestSection}>
+                <span className={styles.divider}></span>
+                <button className={`${styles.btn} ${styles.guestBtn}`} onClick={handleClickKeepAsGuess}>
+                  {t('continue_as_guest')}
+                </button>
+              </div>
+            )}
+          </div>
+
           <div className={styles.main}>
             <ToastContainer {...toastProps} />
 
