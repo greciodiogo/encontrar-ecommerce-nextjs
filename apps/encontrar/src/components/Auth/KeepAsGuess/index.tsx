@@ -38,7 +38,7 @@ const INITIALSTATE = { firstName: '', email: '', password: '', confirmPassword: 
 export const AuthPage: React.FC = () => {
   const { t } = useTranslation('auth');
   const common = useTranslation('common');
-  const [isSignup, setIsSignup] = useState<boolean>(false); // Começa com login
+  const [isSignup, setIsSignup] = useState<boolean>(true); // Começa com login
   const router = useRouter();
   const { login, loginGoogle, signup, loginFacebook } = useAuth();
   const authService = new AuthService();
@@ -164,11 +164,11 @@ export const AuthPage: React.FC = () => {
       <div className={styles.authPage} id="verify-email">
         <div className={styles.authContainer}>
           <div className={styles.top}>
-            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
-              {t('sign_in')}
-            </button>
             <button className={isSignup ? styles.active : ''} onClick={() => setIsSignup(true)}>
               {t('sign_up')}
+            </button>
+            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
+              {t('sign_in')}
             </button>
           </div>
 

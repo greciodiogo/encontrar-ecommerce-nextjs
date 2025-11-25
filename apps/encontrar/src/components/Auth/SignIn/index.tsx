@@ -42,7 +42,7 @@ const INITIALSTATE = { email: '' };
 
 export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectToCheckout = false }) => {
   const { t } = useTranslation('auth');
-  const [isSignup, setIsSignup] = useState<boolean>(false); // Começa com login
+  const [isSignup, setIsSignup] = useState<boolean>(true); // Começa com login
   const common = useTranslation('common');
   const authService = new AuthService();
   const [showAuth, setShowAuth] = useState(false);
@@ -217,19 +217,28 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectT
       <div className={`${styles.auth} ${showAuthPainel ? styles.active : ''}`}>
         <div className={styles.authContainer}>
           <div className={styles.top}>
-            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
-              {t('sign_in')}
-            </button>
             <button className={isSignup ? styles.active : ''} onClick={() => setIsSignup(true)}>
               {t('sign_up')}
+            </button>
+            <button className={!isSignup ? styles.active : ''} onClick={() => setIsSignup(false)}>
+              {t('sign_in')}
             </button>
             <button className={styles.btnClose} onClick={closeAuth}>
               <FaTimes />
             </button>
           </div>
 
+          {!isSignup && (
+            <div className={styles.guestSection}>
+              <span className={styles.divider}></span>
+              <button className={`${styles.btn} ${styles.guestBtn}`} onClick={handleClickKeepAsGuess}>
+                {t('continue_as_guest')}
+              </button>
+            </div>
+          )}
           <div className={styles.main}>
             <ToastContainer {...toastProps} />
+
             <form className={styles.authForm} onSubmit={(event) => void handleSubmit(handleFormSubmit)(event)}>
               {isSignup && (
                 <>
@@ -319,15 +328,6 @@ export const Auth: React.FC<AuthProps> = ({ showAuthPainel, closeAuth, redirectT
                 Login Com Facebook
               </FacebookLogin>
             </form>
-
-            {!isSignup && (
-              <div className={styles.guestSection}>
-                <span className={styles.divider}></span>
-                <button className={`${styles.btn} ${styles.guestBtn}`} onClick={handleClickKeepAsGuess}>
-                  {t('continue_as_guest')}
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </div>
