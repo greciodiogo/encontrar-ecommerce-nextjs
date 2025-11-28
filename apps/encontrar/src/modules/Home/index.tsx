@@ -21,6 +21,7 @@ export const Homepage = () => {
   const dispatch = useAppDispatch();
   const [trendingProducts, setTrendingProducts] = useState<ProductDTO[]>([]);
   const [promotionProducts, setPromotionProducts] = useState<ProductDTO[]>([]);
+  const [blackFridayProducts, setBlackFridayProducts] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -77,11 +78,35 @@ export const Homepage = () => {
     }
   }, [categoriesList]);
 
+  useEffect(() => {
+    const fetchBlackFridayProducts = async (categoryId: number) => {
+      try {
+        const res = await fetch(`${BASE_URL}/categories/${categoryId}/products`);
+        if (res.ok) {
+          const data = await res.json();
+          setBlackFridayProducts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching black friday products:', error);
+      }
+    };
+
+    if (categoriesList.length > 0) {
+      const blackFridayCategory = categoriesList.find((category) => category.name === 'Black Friday');
+      if (blackFridayCategory) {
+        void fetchBlackFridayProducts(blackFridayCategory.id);
+      }
+    }
+  }, [categoriesList]);
+
   return (
     <Container useStyle={false}>
       <Categories />
       <PromoCarousel />
       <Products />
+      {blackFridayProducts && blackFridayProducts.length > 0 && (
+        <CheapestProducts products={blackFridayProducts} bannerText={t('products.black_friday_products')} />
+      )}
       {trendingProducts && trendingProducts.length > 0 && (
         <CheapestProducts products={trendingProducts} bannerText={t('products.trending_products')} />
       )}

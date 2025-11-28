@@ -15,6 +15,7 @@ export const MobileCategoriesBar = () => {
 
   // Use the same allowedSlugs as Products component
   const allowedSlugs = [
+    'black_friday',
     'drink_foods',
     'electronics',
     'stationery',

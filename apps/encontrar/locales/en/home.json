@@ -15,6 +15,7 @@
     "prices": "Prices"
   },
   "categories": {
+    "black_friday": "Black Friday",
     "drink_foods": "Drinks and Foods",
     "home_items": "Home Items",
     "fashion_clothing": "Fashion & Clothing",
