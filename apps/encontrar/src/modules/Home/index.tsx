@@ -105,7 +105,7 @@ export const Homepage = () => {
       <PromoCarousel />
       <Products />
       {blackFridayProducts && blackFridayProducts.length > 0 && (
-        <CheapestProducts products={blackFridayProducts} bannerText={t('products.black_friday_products')} />
+        <CheapestProducts products={blackFridayProducts} bannerText={t('products.black_friday')} />
       )}
       {trendingProducts && trendingProducts.length > 0 && (
         <CheapestProducts products={trendingProducts} bannerText={t('products.trending_products')} />
