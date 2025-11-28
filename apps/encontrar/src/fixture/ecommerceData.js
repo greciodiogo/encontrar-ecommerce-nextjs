@@ -18,6 +18,15 @@ export const new_categories = [
     image: `fashion_clothing.png`,
   },
   {
+    id: 21,
+    groups: [],
+    childCategories: null,
+    slug: 'black_friday',
+    parentCategory: [],
+    name: 'Black Friday',
+    image: `Black Friday.png`,
+  },
+  {
     id: 2,
     groups: [],
     childCategories: null,
