@@ -8,7 +8,7 @@ import { useAuth } from 'hooks/useAuth';
 import { ChangeQuantity } from 'shared/components/ChangeQuantity';
 import { SubmitButton } from 'shared/components/SubmitButton';
 import { FnService } from 'shared/utils/FnService';
-import { RootState } from 'types/product';
+import { RootState, ProductDTO } from 'types/product';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
@@ -41,22 +41,24 @@ export const ProductDetail = () => {
 
   const handleAddToCart = (id: number) => {
     const cartItem = product.cart.find((item) => item.id === id);
-    const currentQtyInCart = cartItem?.qty ?? 0;
-    const desiredQty = (qty ?? localQty) + currentQtyInCart;
+    const currentQtyInCart = Number(cartItem?.qty ?? 0);
+    const desiredQty = Number(qty ?? localQty) + currentQtyInCart;
 
-    if (desiredQty > stock) {
+    if (desiredQty > Number(stock ?? 0)) {
       alert('Quantidade indisponível em estoque.');
       return;
     }
 
-    dispatch(addToCart(id, qty ?? localQty));
+    // pass the current product object so reducer can use it even if the product list
+    // does not contain the current item
+    dispatch(addToCart(id, Number(qty ?? localQty), product.currentItem as ProductDTO));
     // setShowCheckout(true);() => handleAddToCart(product.id)
   };
 
   const handleAdjustQtyCart = (id: number, newQty: number) => {
     if (newQty < 1) return;
 
-    if (newQty > stock) {
+    if (newQty > Number(stock ?? 0)) {
       alert('Quantidade indisponível em estoque.');
       return;
     }
@@ -81,14 +83,14 @@ export const ProductDetail = () => {
       <h3>{name}</h3>
       <p>{description}</p>
       <div className="product_price">
-        {fnService.numberFormat(activePrice ?? 0)} <span>Kz</span>
+        {fnService.numberFormat(Number(activePrice ?? 0))} <span>Kz</span>
       </div>
       <div className="cart-item-btn">
         <div className="change_quantity">
-          <ChangeQuantity id={id} qty={qty ?? localQty} onAdjustQty={handleAdjustQtyCart} />
+          <ChangeQuantity id={Number(id)} qty={Number(qty ?? localQty)} onAdjustQty={handleAdjustQtyCart} />
           {product.currentItem?.id !== undefined && (
             <SubmitButton
-              onClick={() => handleAddToCart(product.currentItem?.id ?? 0)}
+              onClick={() => handleAddToCart(Number(product.currentItem?.id ?? 0))}
               title={!isProductInCart ? t('cart.add_to_cart') : t('cart.added_to_cart')}
               svg="cart-2"
               isProductInCart={isProductInCart}

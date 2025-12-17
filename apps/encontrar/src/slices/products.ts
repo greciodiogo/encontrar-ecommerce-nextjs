@@ -135,20 +135,21 @@ function ProductsReducer(state: ProductState = INITIALSTATE, action: ProductActi
       // Get the item data from the products array or use the provided product
       const item = action.payload.product || state.products.find((prod) => prod.id === action.payload.id);
 
-      // If no item found at all, return state without changes
-      if (!item) {
+      // If item is not found in products, warn but try to use provided payload product (if any)
+      if (!item && !action.payload.product) {
         console.warn(`Product with id ${action.payload.id} not found`);
         return state;
       }
 
       // check if the item is already in the cart
-      const inCart = state.cart.find((item) => item.id === action.payload.id);
+      const inCart = state.cart.find((cartItem) => cartItem.id === action.payload.id);
+      const qtyToAdd = typeof action.payload.qty === 'number' ? action.payload.qty : 1;
 
       const updatedCart = inCart
         ? state.cart.map((cartItem) =>
-            cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + 1 } : cartItem,
+            cartItem.id === action.payload.id ? { ...cartItem, qty: (cartItem.qty ?? 0) + qtyToAdd } : cartItem,
           )
-        : [...state.cart, { ...item, qty: action.payload.qty }];
+        : [...state.cart, { ...(item as any), qty: qtyToAdd }];
 
       const newState = { ...state, cart: updatedCart };
       saveStateToLocalStorage(newState);
