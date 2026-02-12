@@ -60,7 +60,7 @@ export const new_categories = [
     slug: 'flores',
     parentCategory: [],
     name: 'Flores',
-    image: `flores.webp`,
+    image: `flores.jpg`,
   },
   {
     id: 17,
