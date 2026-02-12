@@ -1,5 +1,14 @@
 export const new_categories = [
   {
+    id: 22,
+    groups: [],
+    childCategories: null,
+    slug: 'flores',
+    parentCategory: [],
+    name: 'Flores',
+    image: `flores.jpg`,
+  },
+  {
     id: 13,
     groups: [],
     childCategories: null,
@@ -52,15 +61,6 @@ export const new_categories = [
     parentCategory: [],
     name: 'Escritorio',
     image: `Escritorio.png`,
-  },
-  {
-    id: 22,
-    groups: [],
-    childCategories: null,
-    slug: 'flores',
-    parentCategory: [],
-    name: 'Flores',
-    image: `flores.jpg`,
   },
   {
     id: 17,

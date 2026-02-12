@@ -28,11 +28,11 @@ export const Products = () => {
   const { selectedCategories, setSelectedCategories, toggleSelection } = useProductContext();
   const router = useRouter();
   const allowedSlugs = [
+    'flores',
     'black_friday',
     'drink_foods',
     'electronics',
     'stationery',
-    'flores',
     'home_items',
     'personal_care',
     'various',
