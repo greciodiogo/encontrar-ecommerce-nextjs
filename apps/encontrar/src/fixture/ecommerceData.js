@@ -54,6 +54,15 @@ export const new_categories = [
     image: `Escritorio.png`,
   },
   {
+    id: 22,
+    groups: [],
+    childCategories: null,
+    slug: 'flores',
+    parentCategory: [],
+    name: 'Flores',
+    image: `flores.webp`,
+  },
+  {
     id: 17,
     groups: [],
     childCategories: null,
