@@ -19,6 +19,7 @@ export const MobileCategoriesBar = () => {
     'drink_foods',
     'electronics',
     'stationery',
+    'flores',
     'home_items',
     'personal_care',
     'various',

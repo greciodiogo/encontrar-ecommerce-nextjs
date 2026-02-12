@@ -32,6 +32,7 @@ export const Products = () => {
     'drink_foods',
     'electronics',
     'stationery',
+    'flores',
     'home_items',
     'personal_care',
     'various',
